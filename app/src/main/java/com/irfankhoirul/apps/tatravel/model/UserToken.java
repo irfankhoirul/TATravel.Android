@@ -3,8 +3,8 @@ package com.irfankhoirul.apps.tatravel.model;
 import com.irfankhoirul.apps.tatravel.core.CoreModel;
 
 /**
- * @author Irfan Khoirul Muhlishin
- * @since 11/1/2016
+ * @author  Irfan Khoirul Muhlishin - irfankhoirul@gmail.com
+ * @since   1.0
  */
 
 public class UserToken extends CoreModel {
@@ -14,6 +14,8 @@ public class UserToken extends CoreModel {
     private String status;
     private String token;
     private int totalRequest;
+    private User user;
+    private UserDevice userDevice;
 
     public long getExpiredAt() {
         return expiredAt;
@@ -61,5 +63,21 @@ public class UserToken extends CoreModel {
 
     public void setTotalRequest(int totalRequest) {
         this.totalRequest = totalRequest;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public UserDevice getUserDevice() {
+        return userDevice;
+    }
+
+    public void setUserDevice(UserDevice userDevice) {
+        this.userDevice = userDevice;
     }
 }

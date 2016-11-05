@@ -3,13 +3,14 @@ package com.irfankhoirul.apps.tatravel.model;
 import com.irfankhoirul.apps.tatravel.core.CoreModel;
 
 /**
- * @author Irfan Khoirul Muhlishin
- * @since 11/1/2016
+ * @author  Irfan Khoirul Muhlishin - irfankhoirul@gmail.com
+ * @since   1.0
  */
 
 public class Provinsi extends CoreModel {
     private int idSuperAdmin;
     private int nama;
+    private SuperAdmin superAdmin;
 
     public int getIdSuperAdmin() {
         return idSuperAdmin;
@@ -25,5 +26,13 @@ public class Provinsi extends CoreModel {
 
     public void setNama(int nama) {
         this.nama = nama;
+    }
+
+    public SuperAdmin getSuperAdmin() {
+        return superAdmin;
+    }
+
+    public void setSuperAdmin(SuperAdmin superAdmin) {
+        this.superAdmin = superAdmin;
     }
 }

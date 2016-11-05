@@ -1,8 +1,8 @@
 package com.irfankhoirul.apps.tatravel.core;
 
 /**
- * @author  Irfan Khoirul Muhlishin
- * @since   10/4/2016.
+ * @author  Irfan Khoirul Muhlishin - irfankhoirul@gmail.com
+ * @since   1.0
  */
 
 public class CoreModel {

@@ -3,14 +3,16 @@ package com.irfankhoirul.apps.tatravel.model;
 import com.irfankhoirul.apps.tatravel.core.CoreModel;
 
 /**
- * @author Irfan Khoirul Muhlishin
- * @since 11/1/2016
+ * @author  Irfan Khoirul Muhlishin - irfankhoirul@gmail.com
+ * @since   1.0
  */
 
 public class Pemesanan extends CoreModel {
     private int idUser;
     private int idJadwalPerjalanan;
     private String kodePemesanan;
+    private User user;
+    private JadwalPerjalanan jadwalPerjalanan;
 
     public int getIdUser() {
         return idUser;
@@ -34,5 +36,21 @@ public class Pemesanan extends CoreModel {
 
     public void setKodePemesanan(String kodePemesanan) {
         this.kodePemesanan = kodePemesanan;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public JadwalPerjalanan getJadwalPerjalanan() {
+        return jadwalPerjalanan;
+    }
+
+    public void setJadwalPerjalanan(JadwalPerjalanan jadwalPerjalanan) {
+        this.jadwalPerjalanan = jadwalPerjalanan;
     }
 }

@@ -3,8 +3,8 @@ package com.irfankhoirul.apps.tatravel.model;
 import com.irfankhoirul.apps.tatravel.core.CoreModel;
 
 /**
- * @author Irfan Khoirul Muhlishin
- * @since 11/1/2016
+ * @author  Irfan Khoirul Muhlishin - irfankhoirul@gmail.com
+ * @since   1.0
  */
 
 public class Notifikasi extends CoreModel {
@@ -12,6 +12,7 @@ public class Notifikasi extends CoreModel {
     private String pesan;
     private String status;
     private String tipe;
+    private UserDevice userDevice;
 
     public int getIdUserDevice() {
         return idUserDevice;
@@ -44,4 +45,13 @@ public class Notifikasi extends CoreModel {
     public void setTipe(String tipe) {
         this.tipe = tipe;
     }
+
+    public UserDevice getUserDevice() {
+        return userDevice;
+    }
+
+    public void setUserDevice(UserDevice userDevice) {
+        this.userDevice = userDevice;
+    }
+
 }

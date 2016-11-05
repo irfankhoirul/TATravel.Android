@@ -3,8 +3,8 @@ package com.irfankhoirul.apps.tatravel.model;
 import com.irfankhoirul.apps.tatravel.core.CoreModel;
 
 /**
- * @author Irfan Khoirul Muhlishin
- * @since 11/1/2016
+ * @author  Irfan Khoirul Muhlishin - irfankhoirul@gmail.com
+ * @since   1.0
  */
 
 public class UserDevice extends CoreModel {
@@ -13,6 +13,7 @@ public class UserDevice extends CoreModel {
     private String model;
     private String secretCode;
     private String FCMToken;
+    private User user;
 
     public int getIdUser() {
         return idUser;
@@ -52,5 +53,13 @@ public class UserDevice extends CoreModel {
 
     public void setFCMToken(String FCMToken) {
         this.FCMToken = FCMToken;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

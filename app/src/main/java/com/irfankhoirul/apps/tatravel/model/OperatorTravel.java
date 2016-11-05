@@ -3,8 +3,8 @@ package com.irfankhoirul.apps.tatravel.model;
 import com.irfankhoirul.apps.tatravel.core.CoreModel;
 
 /**
- * @author Irfan Khoirul Muhlishin
- * @since 11/1/2016
+ * @author  Irfan Khoirul Muhlishin - irfankhoirul@gmail.com
+ * @since   1.0
  */
 
 public class OperatorTravel extends CoreModel {
@@ -16,6 +16,8 @@ public class OperatorTravel extends CoreModel {
     private String penanggungJawab;
     private String teleponPenanggungJawab;
     private String status;
+    private SuperAdmin superAdmin;
+    private Kota kota;
 
     public int getIdSuperAdmin() {
         return idSuperAdmin;
@@ -79,5 +81,21 @@ public class OperatorTravel extends CoreModel {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public SuperAdmin getSuperAdmin() {
+        return superAdmin;
+    }
+
+    public void setSuperAdmin(SuperAdmin superAdmin) {
+        this.superAdmin = superAdmin;
+    }
+
+    public Kota getKota() {
+        return kota;
+    }
+
+    public void setKota(Kota kota) {
+        this.kota = kota;
     }
 }

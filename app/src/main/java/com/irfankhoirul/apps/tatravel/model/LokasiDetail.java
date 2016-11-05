@@ -3,8 +3,8 @@ package com.irfankhoirul.apps.tatravel.model;
 import com.irfankhoirul.apps.tatravel.core.CoreModel;
 
 /**
- * @author Irfan Khoirul Muhlishin
- * @since 11/1/2016
+ * @author  Irfan Khoirul Muhlishin - irfankhoirul@gmail.com
+ * @since   1.0
  */
 
 public class LokasiDetail extends CoreModel {
@@ -13,6 +13,8 @@ public class LokasiDetail extends CoreModel {
     private String tipe;
     private String latitude;
     private String longitude;
+    private Pemesanan pemesanan;
+    private PenumpangPerjalanan penumpangPerjalanan;
 
     public int getIdPemesan() {
         return idPemesan;
@@ -52,5 +54,21 @@ public class LokasiDetail extends CoreModel {
 
     public void setLongitude(String longitude) {
         this.longitude = longitude;
+    }
+
+    public Pemesanan getPemesanan() {
+        return pemesanan;
+    }
+
+    public void setPemesanan(Pemesanan pemesanan) {
+        this.pemesanan = pemesanan;
+    }
+
+    public PenumpangPerjalanan getPenumpangPerjalanan() {
+        return penumpangPerjalanan;
+    }
+
+    public void setPenumpangPerjalanan(PenumpangPerjalanan penumpangPerjalanan) {
+        this.penumpangPerjalanan = penumpangPerjalanan;
     }
 }

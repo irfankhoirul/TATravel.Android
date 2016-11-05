@@ -3,13 +3,14 @@ package com.irfankhoirul.apps.tatravel.model;
 import com.irfankhoirul.apps.tatravel.core.CoreModel;
 
 /**
- * @author Irfan Khoirul Muhlishin
- * @since 11/1/2016
+ * @author  Irfan Khoirul Muhlishin - irfankhoirul@gmail.com
+ * @since   1.0
  */
 
 public class Diskon extends CoreModel {
     private int idJadwalPerjalanan;
     private int persentase;
+    private JadwalPerjalanan jadwalPerjalanan;
 
     public int getIdJadwalPerjalanan() {
         return idJadwalPerjalanan;
@@ -25,5 +26,13 @@ public class Diskon extends CoreModel {
 
     public void setPersentase(int persentase) {
         this.persentase = persentase;
+    }
+
+    public JadwalPerjalanan getJadwalPerjalanan() {
+        return jadwalPerjalanan;
+    }
+
+    public void setJadwalPerjalanan(JadwalPerjalanan jadwalPerjalanan) {
+        this.jadwalPerjalanan = jadwalPerjalanan;
     }
 }

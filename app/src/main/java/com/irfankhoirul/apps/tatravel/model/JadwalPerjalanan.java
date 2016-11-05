@@ -3,8 +3,8 @@ package com.irfankhoirul.apps.tatravel.model;
 import com.irfankhoirul.apps.tatravel.core.CoreModel;
 
 /**
- * @author Irfan Khoirul Muhlishin
- * @since 11/1/2016
+ * @author  Irfan Khoirul Muhlishin - irfankhoirul@gmail.com
+ * @since   1.0
  */
 
 public class JadwalPerjalanan extends CoreModel {
@@ -21,6 +21,12 @@ public class JadwalPerjalanan extends CoreModel {
     private int jumlahKursiTersedia;
     private boolean izinkanLokasiKhusus;
     private int biayaLokasiKhusus;
+    private Admin admin;
+    private OperatorTravel operatorTravel;
+    private Lokasi lokasiPemberangkatan;
+    private Lokasi lokasiTujuan;
+    private Mobil mobil;
+    private Supir supir;
 
     public int getIdAdmin() {
         return idAdmin;
@@ -124,5 +130,53 @@ public class JadwalPerjalanan extends CoreModel {
 
     public void setBiayaLokasiKhusus(int biayaLokasiKhusus) {
         this.biayaLokasiKhusus = biayaLokasiKhusus;
+    }
+
+    public Admin getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Admin admin) {
+        this.admin = admin;
+    }
+
+    public OperatorTravel getOperatorTravel() {
+        return operatorTravel;
+    }
+
+    public void setOperatorTravel(OperatorTravel operatorTravel) {
+        this.operatorTravel = operatorTravel;
+    }
+
+    public Lokasi getLokasiPemberangkatan() {
+        return lokasiPemberangkatan;
+    }
+
+    public void setLokasiPemberangkatan(Lokasi lokasiPemberangkatan) {
+        this.lokasiPemberangkatan = lokasiPemberangkatan;
+    }
+
+    public Lokasi getLokasiTujuan() {
+        return lokasiTujuan;
+    }
+
+    public void setLokasiTujuan(Lokasi lokasiTujuan) {
+        this.lokasiTujuan = lokasiTujuan;
+    }
+
+    public Mobil getMobil() {
+        return mobil;
+    }
+
+    public void setMobil(Mobil mobil) {
+        this.mobil = mobil;
+    }
+
+    public Supir getSupir() {
+        return supir;
+    }
+
+    public void setSupir(Supir supir) {
+        this.supir = supir;
     }
 }

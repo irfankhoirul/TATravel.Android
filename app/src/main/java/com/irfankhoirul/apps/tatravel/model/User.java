@@ -3,8 +3,8 @@ package com.irfankhoirul.apps.tatravel.model;
 import com.irfankhoirul.apps.tatravel.core.CoreModel;
 
 /**
- * @author Irfan Khoirul Muhlishin
- * @since 11/1/2016
+ * @author  Irfan Khoirul Muhlishin - irfankhoirul@gmail.com
+ * @since   1.0
  */
 
 public class User extends CoreModel {
@@ -19,6 +19,8 @@ public class User extends CoreModel {
     private int idKota;
     private int idProvinsi;
     private String tipe;
+    private Kota kota;
+    private Provinsi provinsi;
 
     public String getNama() {
         return nama;
@@ -106,5 +108,21 @@ public class User extends CoreModel {
 
     public void setTipe(String tipe) {
         this.tipe = tipe;
+    }
+
+    public Kota getKota() {
+        return kota;
+    }
+
+    public void setKota(Kota kota) {
+        this.kota = kota;
+    }
+
+    public Provinsi getProvinsi() {
+        return provinsi;
+    }
+
+    public void setProvinsi(Provinsi provinsi) {
+        this.provinsi = provinsi;
     }
 }

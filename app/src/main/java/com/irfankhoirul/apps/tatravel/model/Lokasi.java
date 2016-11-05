@@ -3,8 +3,8 @@ package com.irfankhoirul.apps.tatravel.model;
 import com.irfankhoirul.apps.tatravel.core.CoreModel;
 
 /**
- * @author Irfan Khoirul Muhlishin
- * @since 11/1/2016
+ * @author  Irfan Khoirul Muhlishin - irfankhoirul@gmail.com
+ * @since   1.0
  */
 
 public class Lokasi extends CoreModel {
@@ -12,6 +12,9 @@ public class Lokasi extends CoreModel {
     private int idOperatorTravel;
     private int idKota;
     private String alamat;
+    private Admin admin;
+    private OperatorTravel operatorTravel;
+    private Kota kota;
 
     public int getIdAdmin() {
         return idAdmin;

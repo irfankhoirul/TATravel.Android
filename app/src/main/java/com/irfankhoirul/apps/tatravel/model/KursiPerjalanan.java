@@ -3,13 +3,14 @@ package com.irfankhoirul.apps.tatravel.model;
 import com.irfankhoirul.apps.tatravel.core.CoreModel;
 
 /**
- * @author Irfan Khoirul Muhlishin
- * @since 11/1/2016
+ * @author  Irfan Khoirul Muhlishin - irfankhoirul@gmail.com
+ * @since   1.0
  */
 
 public class KursiPerjalanan extends CoreModel {
     private int idKursiMobil;
     private String status;
+    private KursiMobil kursiMobil;
 
     public int getIdKursiMobil() {
         return idKursiMobil;
@@ -25,5 +26,13 @@ public class KursiPerjalanan extends CoreModel {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public KursiMobil getKursiMobil() {
+        return kursiMobil;
+    }
+
+    public void setKursiMobil(KursiMobil kursiMobil) {
+        this.kursiMobil = kursiMobil;
     }
 }

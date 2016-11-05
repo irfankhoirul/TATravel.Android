@@ -3,13 +3,14 @@ package com.irfankhoirul.apps.tatravel.model;
 import com.irfankhoirul.apps.tatravel.core.CoreModel;
 
 /**
- * @author Irfan Khoirul Muhlishin
- * @since 11/1/2016
+ * @author  Irfan Khoirul Muhlishin - irfankhoirul@gmail.com
+ * @since   1.0
  */
 
 public class Penumpang extends CoreModel {
     private int idUser;
     private String nama;
+    private User user;
 
     public int getIdUser() {
         return idUser;
@@ -25,5 +26,13 @@ public class Penumpang extends CoreModel {
 
     public void setNama(String nama) {
         this.nama = nama;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
