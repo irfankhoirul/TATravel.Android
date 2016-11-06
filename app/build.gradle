@@ -38,15 +38,18 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
 
-    //View binder
+    // View binder
     compile 'com.jakewharton:butterknife:8.4.0'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
 
-    //Image caching & loader
-    compile 'com.github.bumptech.glide:glide:3.7.0'
+    // Image caching & loader
+    compile 'com.squareup.picasso:picasso:2.5.2'
 
-    //Reactive programming
+    // Reactive programming
     compile 'io.reactivex:rxandroid:1.2.1'
-    compile 'io.reactivex:rxjava:1.2.1'
+    compile 'io.reactivex:rxjava:1.2.2'
 
+    // Slider
+    compile 'com.nineoldandroids:library:2.4.0'
+    compile 'com.daimajia.slider:library:1.1.5@aar'
 }
