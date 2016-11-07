@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -7,25 +7,37 @@
     android:orientation="vertical"
     tools:context="com.irfankhoirul.apps.tatravel.MainActivity">
 
-    <include
-        android:id="@+id/layut_toolbar"
-        layout="@layout/layout_toolbar" />
-
-    <FrameLayout
-        android:id="@+id/flMainContainer"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/vMenuBarShadow"
+        android:layout_below="@+id/layutToolbar"
+        android:layout_marginBottom="-5dp"
+        android:layout_marginTop="-5dp">
+
+        <FrameLayout
+            android:id="@+id/flMainContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </ScrollView>
+
+    <include
+        android:id="@+id/layutToolbar"
+        layout="@layout/layout_toolbar" />
 
     <View
         android:id="@+id/vMenuBarShadow"
         android:layout_width="match_parent"
         android:layout_height="5dp"
+        android:layout_above="@+id/llBottomNavigation"
         android:background="@drawable/custom_shadow_top" />
 
     <LinearLayout
+        android:id="@+id/llBottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:background="@color/light_green_300"
         android:orientation="horizontal"
         android:paddingBottom="4dp"
@@ -107,4 +119,4 @@
 
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

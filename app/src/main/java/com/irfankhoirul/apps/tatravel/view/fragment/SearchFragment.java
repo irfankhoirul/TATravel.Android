@@ -5,20 +5,26 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
+import com.irfankhoirul.apps.tatravel.MainActivity;
 import com.irfankhoirul.apps.tatravel.R;
+import com.irfankhoirul.apps.tatravel.core.CoreFragment;
+import com.irfankhoirul.apps.tatravel.util.DisplayMetricUtil;
 
 import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SearchFragment extends Fragment implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
+import static com.irfankhoirul.apps.tatravel.util.DisplayMetricUtil.getDeviceWidth;
+
+public class SearchFragment extends CoreFragment<MainActivity> implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
 
     @BindView(R.id.sliderPromotion)
     SliderLayout sliderPromotion;
@@ -33,6 +39,11 @@ public class SearchFragment extends Fragment implements BaseSliderView.OnSliderC
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         ButterKnife.bind(this, view);
+
+        int width = DisplayMetricUtil.getDeviceWidth(activity);
+        sliderPromotion.getLayoutParams().width = width;
+        sliderPromotion.getLayoutParams().height = (int) (9.0f / 16.0f * width);
+        sliderPromotion.requestLayout();
 
         HashMap<String, String> url_maps = new HashMap<>();
         url_maps.put("Hannibal", "http://static2.hypable.com/wp-content/uploads/2013/12/hannibal-season-2-release-date.jpg");
@@ -107,4 +118,6 @@ public class SearchFragment extends Fragment implements BaseSliderView.OnSliderC
         sliderPromotion.stopAutoCycle();
         super.onStop();
     }
+
+
 }
