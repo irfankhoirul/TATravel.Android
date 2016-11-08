@@ -1,11 +1,9 @@
 package com.irfankhoirul.apps.tatravel.view.fragment;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
@@ -21,8 +19,6 @@ import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static com.irfankhoirul.apps.tatravel.util.DisplayMetricUtil.getDeviceWidth;
 
 public class SearchFragment extends CoreFragment<MainActivity> implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
 
@@ -58,7 +54,7 @@ public class SearchFragment extends CoreFragment<MainActivity> implements BaseSl
 //        file_maps.put("Game of Thrones", R.drawable.game_of_thrones);
 
         for (String name : url_maps.keySet()) {
-            TextSliderView textSliderView = new TextSliderView(getActivity());
+            TextSliderView textSliderView = new TextSliderView(activity);
             // initialize a SliderLayout
             textSliderView
                     .description(name)
