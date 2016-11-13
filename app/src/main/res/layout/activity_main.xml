@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.irfankhoirul.apps.tatravel.MainActivity">
+    tools:context="com.irfankhoirul.apps.tatravel.view.activity.MainActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -38,7 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/light_green_300"
+        android:background="@color/colorNavBar"
         android:orientation="horizontal"
         android:paddingBottom="4dp"
         android:paddingTop="4dp">

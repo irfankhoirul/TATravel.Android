@@ -5,7 +5,12 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 
 /**
- * Created by Irfan Khoirul on 11/7/2016.
+ * Super class fragment setiap fragment dalam aplikasi. Digunakan untuk mengeset Activity
+ * pada saat onAttach dan meng-unset / menghilangkan reference activity pada saat onDetach
+ *
+ * @author Irfan Khoirul Muhlishin - irfankhoirul@gmail.com
+ * @since 1.0
+ * @version 1.0 (7 November 2016)
  */
 
 public class CoreFragment<T extends Activity> extends Fragment {

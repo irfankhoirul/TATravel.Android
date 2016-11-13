@@ -8,4 +8,5 @@ package com.irfankhoirul.apps.tatravel.util;
  */
 
 public class ConstantUtil {
+    public static final String BASE_API_URL = "http://192.168.8.101/api/";
 }

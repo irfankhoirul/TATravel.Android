@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
-import com.irfankhoirul.apps.tatravel.model.UserToken;
+import com.irfankhoirul.apps.tatravel.model.pojo.UserToken;
 
 /**
  * Digunakan untuk memanage User Session. Menggunakan Singleton karena token yang terdapat pada
