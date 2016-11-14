@@ -1,5 +1,7 @@
 package com.irfankhoirul.apps.tatravel.model.pojo;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.irfankhoirul.apps.tatravel.core.CoreModel;
 
 /**
@@ -10,13 +12,36 @@ import com.irfankhoirul.apps.tatravel.core.CoreModel;
  */
 
 public class Mobil extends CoreModel {
+    @SerializedName("id_admin")
+    @Expose
     private int idAdmin;
+
+    @SerializedName("id_operator_travel")
+    @Expose
     private int idOperatorTravel;
+
+    @SerializedName("produsen")
+    @Expose
     private String produsen;
+
+    @SerializedName("tipe")
+    @Expose
     private String tipe;
+
+    @SerializedName("tahun")
+    @Expose
     private String tahun;
+
+    @SerializedName("plat_nomor")
+    @Expose
     private String platNomor;
+
+    @SerializedName("status")
+    @Expose
     private String status;
+
+    @SerializedName("admin")
+    @Expose
     private Admin admin;
 
     public int getIdAdmin() {

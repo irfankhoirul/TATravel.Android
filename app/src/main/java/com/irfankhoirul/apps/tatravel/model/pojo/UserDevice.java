@@ -1,5 +1,7 @@
 package com.irfankhoirul.apps.tatravel.model.pojo;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.irfankhoirul.apps.tatravel.core.CoreModel;
 
 /**
@@ -10,11 +12,28 @@ import com.irfankhoirul.apps.tatravel.core.CoreModel;
  */
 
 public class UserDevice extends CoreModel {
+    @SerializedName("id_user")
+    @Expose
     private int idUser;
+
+    @SerializedName("produsen")
+    @Expose
     private String produsen;
+
+    @SerializedName("model")
+    @Expose
     private String model;
+
+    @SerializedName("secret_code")
+    @Expose
     private String secretCode;
+
+    @SerializedName("FCM_token")
+    @Expose
     private String FCMToken;
+
+    @SerializedName("user")
+    @Expose
     private User user;
 
     public int getIdUser() {

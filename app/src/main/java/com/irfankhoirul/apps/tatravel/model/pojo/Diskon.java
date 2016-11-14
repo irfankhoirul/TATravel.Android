@@ -1,5 +1,7 @@
 package com.irfankhoirul.apps.tatravel.model.pojo;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.irfankhoirul.apps.tatravel.core.CoreModel;
 
 /**
@@ -10,8 +12,16 @@ import com.irfankhoirul.apps.tatravel.core.CoreModel;
  */
 
 public class Diskon extends CoreModel {
+    @SerializedName("id_jadwal_perjalanan")
+    @Expose
     private int idJadwalPerjalanan;
+
+    @SerializedName("persentase")
+    @Expose
     private int persentase;
+
+    @SerializedName("jadwal_perjalanan")
+    @Expose
     private JadwalPerjalanan jadwalPerjalanan;
 
     public int getIdJadwalPerjalanan() {

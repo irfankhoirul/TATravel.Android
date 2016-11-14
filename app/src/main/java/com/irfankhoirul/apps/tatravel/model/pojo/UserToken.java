@@ -1,5 +1,7 @@
 package com.irfankhoirul.apps.tatravel.model.pojo;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.irfankhoirul.apps.tatravel.core.CoreModel;
 
 /**
@@ -10,13 +12,36 @@ import com.irfankhoirul.apps.tatravel.core.CoreModel;
  */
 
 public class UserToken extends CoreModel {
+    @SerializedName("expired_at")
+    @Expose
     private long expiredAt;
+
+    @SerializedName("id_user")
+    @Expose
     private int idUser;
+
+    @SerializedName("id_user_device")
+    @Expose
     private int idUserDevice;
+
+    @SerializedName("status")
+    @Expose
     private String status;
+
+    @SerializedName("token")
+    @Expose
     private String token;
+
+    @SerializedName("total_request")
+    @Expose
     private int totalRequest;
+
+    @SerializedName("user")
+    @Expose
     private User user;
+
+    @SerializedName("user_device")
+    @Expose
     private UserDevice userDevice;
 
     public long getExpiredAt() {

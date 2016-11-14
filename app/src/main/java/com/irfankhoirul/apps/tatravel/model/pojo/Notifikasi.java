@@ -1,5 +1,7 @@
 package com.irfankhoirul.apps.tatravel.model.pojo;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.irfankhoirul.apps.tatravel.core.CoreModel;
 
 /**
@@ -10,10 +12,24 @@ import com.irfankhoirul.apps.tatravel.core.CoreModel;
  */
 
 public class Notifikasi extends CoreModel {
+    @SerializedName("id_user_device")
+    @Expose
     private int idUserDevice;
+
+    @SerializedName("pesan")
+    @Expose
     private String pesan;
+
+    @SerializedName("status")
+    @Expose
     private String status;
+
+    @SerializedName("tipe")
+    @Expose
     private String tipe;
+
+    @SerializedName("user_device")
+    @Expose
     private UserDevice userDevice;
 
     public int getIdUserDevice() {

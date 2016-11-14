@@ -1,5 +1,7 @@
 package com.irfankhoirul.apps.tatravel.model.pojo;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.irfankhoirul.apps.tatravel.core.CoreModel;
 
 /**
@@ -10,11 +12,28 @@ import com.irfankhoirul.apps.tatravel.core.CoreModel;
  */
 
 public class Kota extends CoreModel {
+    @SerializedName("id_super_admin")
+    @Expose
     private int idSuperAdmin;
+
+    @SerializedName("id_provinsi")
+    @Expose
     private int idProvinsi;
+
+    @SerializedName("nama")
+    @Expose
     private String nama;
+
+    @SerializedName("kode")
+    @Expose
     private String kode;
+
+    @SerializedName("super_admin")
+    @Expose
     private SuperAdmin superAdmin;
+
+    @SerializedName("provinsi")
+    @Expose
     private Provinsi provinsi;
 
     public int getIdSuperAdmin() {

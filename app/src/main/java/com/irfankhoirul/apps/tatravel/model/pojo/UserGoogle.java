@@ -1,5 +1,7 @@
 package com.irfankhoirul.apps.tatravel.model.pojo;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.irfankhoirul.apps.tatravel.core.CoreModel;
 
 /**
@@ -10,10 +12,24 @@ import com.irfankhoirul.apps.tatravel.core.CoreModel;
  */
 
 public class UserGoogle extends CoreModel {
+    @SerializedName("token")
+    @Expose
     private String token;
+
+    @SerializedName("token_status")
+    @Expose
     private String tokenStatus;
+
+    @SerializedName("google_id")
+    @Expose
     private String googleId;
+
+    @SerializedName("id_user")
+    @Expose
     private int idUser;
+
+    @SerializedName("user")
+    @Expose
     private User user;
 
     public String getToken() {

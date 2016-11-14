@@ -1,5 +1,7 @@
 package com.irfankhoirul.apps.tatravel.model.pojo;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.irfankhoirul.apps.tatravel.core.CoreModel;
 
 /**
@@ -10,9 +12,20 @@ import com.irfankhoirul.apps.tatravel.core.CoreModel;
  */
 
 public class Pembayaran extends CoreModel {
+    @SerializedName("id_pembayaran")
+    @Expose
     private int idPembayaran;
+
+    @SerializedName("kode_pemesanan")
+    @Expose
     private String kodePemesanan;
+
+    @SerializedName("status")
+    @Expose
     private String status;
+
+    @SerializedName("pembayaran")
+    @Expose
     private Pembayaran pembayaran;
 
     public int getIdPembayaran() {

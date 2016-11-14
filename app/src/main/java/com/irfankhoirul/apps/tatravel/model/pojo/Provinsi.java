@@ -1,5 +1,7 @@
 package com.irfankhoirul.apps.tatravel.model.pojo;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.irfankhoirul.apps.tatravel.core.CoreModel;
 
 /**
@@ -10,8 +12,16 @@ import com.irfankhoirul.apps.tatravel.core.CoreModel;
  */
 
 public class Provinsi extends CoreModel {
+    @SerializedName("id_super_admin")
+    @Expose
     private int idSuperAdmin;
+
+    @SerializedName("nama")
+    @Expose
     private int nama;
+
+    @SerializedName("super_admin")
+    @Expose
     private SuperAdmin superAdmin;
 
     public int getIdSuperAdmin() {

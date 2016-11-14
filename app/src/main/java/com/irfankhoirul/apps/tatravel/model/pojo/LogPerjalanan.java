@@ -1,5 +1,7 @@
 package com.irfankhoirul.apps.tatravel.model.pojo;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.irfankhoirul.apps.tatravel.core.CoreModel;
 
 /**
@@ -10,9 +12,20 @@ import com.irfankhoirul.apps.tatravel.core.CoreModel;
  */
 
 public class LogPerjalanan extends CoreModel {
+    @SerializedName("id_jadwal_perjalanan")
+    @Expose
     private int idJadwalPerjalanan;
+
+    @SerializedName("latitude")
+    @Expose
     private String latitude;
+
+    @SerializedName("longitude")
+    @Expose
     private String longitude;
+
+    @SerializedName("jadwal_perjalanan")
+    @Expose
     private JadwalPerjalanan jadwalPerjalanan;
 
     public int getIdJadwalPerjalanan() {

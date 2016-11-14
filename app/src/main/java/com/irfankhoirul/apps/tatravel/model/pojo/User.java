@@ -1,5 +1,7 @@
 package com.irfankhoirul.apps.tatravel.model.pojo;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.irfankhoirul.apps.tatravel.core.CoreModel;
 
 /**
@@ -10,18 +12,56 @@ import com.irfankhoirul.apps.tatravel.core.CoreModel;
  */
 
 public class User extends CoreModel {
+    @SerializedName("nama")
+    @Expose
     private String nama;
+
+    @SerializedName("nomor_handphone")
+    @Expose
     private String nomorHandphone;
+
+    @SerializedName("email")
+    @Expose
     private String email;
+
+    @SerializedName("paddword")
+    @Expose
     private String password;
+
+    @SerializedName("salt")
+    @Expose
     private String salt;
+
+    @SerializedName("reset_token")
+    @Expose
     private String resetToken;
+
+    @SerializedName("registration_step")
+    @Expose
     private String registrationStep;
+
+    @SerializedName("alamat")
+    @Expose
     private String alamat;
+
+    @SerializedName("id_kota")
+    @Expose
     private int idKota;
+
+    @SerializedName("id_provinsi")
+    @Expose
     private int idProvinsi;
+
+    @SerializedName("tipe")
+    @Expose
     private String tipe;
+
+    @SerializedName("kota")
+    @Expose
     private Kota kota;
+
+    @SerializedName("provinsi")
+    @Expose
     private Provinsi provinsi;
 
     public String getNama() {

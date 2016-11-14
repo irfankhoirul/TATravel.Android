@@ -1,5 +1,7 @@
 package com.irfankhoirul.apps.tatravel.model.pojo;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.irfankhoirul.apps.tatravel.core.CoreModel;
 
 /**
@@ -10,8 +12,16 @@ import com.irfankhoirul.apps.tatravel.core.CoreModel;
  */
 
 public class KursiMobil extends CoreModel {
+    @SerializedName("id_mobil")
+    @Expose
     private int idMobil;
+
+    @SerializedName("nomor")
+    @Expose
     private String nomor;
+
+    @SerializedName("mobil")
+    @Expose
     private Mobil mobil;
 
     public int getIdMobil() {
