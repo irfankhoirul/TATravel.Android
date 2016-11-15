@@ -8,6 +8,6 @@ package com.irfankhoirul.apps.tatravel.model.api;
  * @since 1.0
  */
 
-public class EndPoints {
-    public static final String API_TRAVEL_SCHEDULE_SEARCH = "search";
+public class EndPointsUtils {
+    public static final String API_TRAVEL_SCHEDULE_SEARCH = "searchJadwalPerjalanan";
 }

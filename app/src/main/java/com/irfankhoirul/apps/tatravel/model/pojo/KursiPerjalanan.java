@@ -2,7 +2,7 @@ package com.irfankhoirul.apps.tatravel.model.pojo;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.irfankhoirul.apps.tatravel.core.CoreModel;
+import com.irfankhoirul.apps.tatravel.base.BaseModel;
 
 /**
  * Merupakan model dari tabel KursiPerjalanan
@@ -11,7 +11,7 @@ import com.irfankhoirul.apps.tatravel.core.CoreModel;
  * @since   1.0
  */
 
-public class KursiPerjalanan extends CoreModel {
+public class KursiPerjalanan extends BaseModel {
     @SerializedName("id_kursi_mobil")
     @Expose
     private int idKursiMobil;

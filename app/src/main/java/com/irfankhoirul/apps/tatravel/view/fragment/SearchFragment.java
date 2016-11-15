@@ -12,10 +12,11 @@ import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.irfankhoirul.apps.tatravel.R;
-import com.irfankhoirul.apps.tatravel.core.CoreFragment;
+import com.irfankhoirul.apps.tatravel.base.BaseFragment;
+import com.irfankhoirul.apps.tatravel.contract.SearchContract;
 import com.irfankhoirul.apps.tatravel.model.pojo.JadwalPerjalanan;
 import com.irfankhoirul.apps.tatravel.presenter.SearchPresenter;
-import com.irfankhoirul.apps.tatravel.util.DisplayMetricUtil;
+import com.irfankhoirul.apps.tatravel.util.DisplayMetricUtils;
 import com.irfankhoirul.apps.tatravel.view.activity.MainActivity;
 
 import java.util.HashMap;
@@ -29,7 +30,7 @@ import butterknife.ButterKnife;
  * @version 1.0 (7 November 2016)
  * @since 1.0
  */
-public class SearchFragment extends CoreFragment<MainActivity> implements SearchPresenter.IView {
+public class SearchFragment extends BaseFragment<MainActivity> implements SearchContract.View {
 
     @BindView(R.id.sliderPromotion)
     SliderLayout sliderPromotion;
@@ -48,8 +49,8 @@ public class SearchFragment extends CoreFragment<MainActivity> implements Search
 
         searchPresenter = new SearchPresenter(this);
 
-        setSliderPromo();
-        searchPresenter.search();
+        showSliderPromo();
+        searchPresenter.searchJadwalPerjalanan();
 
         return view;
     }
@@ -60,8 +61,8 @@ public class SearchFragment extends CoreFragment<MainActivity> implements Search
         super.onStop();
     }
 
-    private void setSliderPromo() {
-        int width = DisplayMetricUtil.getDeviceWidth(activity);
+    public void showSliderPromo() {
+        int width = DisplayMetricUtils.getDeviceWidth(activity);
         sliderPromotion.getLayoutParams().width = width;
         sliderPromotion.getLayoutParams().height = (int) (9.0f / 16.0f * width);
         sliderPromotion.requestLayout();

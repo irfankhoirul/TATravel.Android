@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.core;
+package com.irfankhoirul.apps.tatravel.base;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -11,7 +11,7 @@ import com.google.gson.annotations.SerializedName;
  * @since 1.0 (7 November 2016)
  */
 
-public class CoreModel {
+public class BaseModel {
     @SerializedName("id")
     @Expose
     private int id;

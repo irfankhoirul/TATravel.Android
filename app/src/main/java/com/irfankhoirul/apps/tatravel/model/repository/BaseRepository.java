@@ -5,7 +5,7 @@ import com.irfankhoirul.apps.tatravel.model.api.IEndPoint;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.irfankhoirul.apps.tatravel.util.ConstantUtil.BASE_API_URL;
+import static com.irfankhoirul.apps.tatravel.util.ConstantUtils.BASE_API_URL;
 
 /**
  * Merupakan super class dari setiap repository

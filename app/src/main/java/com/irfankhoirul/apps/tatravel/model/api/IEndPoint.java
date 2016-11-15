@@ -5,7 +5,7 @@ import com.irfankhoirul.apps.tatravel.model.pojo.JadwalPerjalanan;
 import retrofit2.Call;
 import retrofit2.http.POST;
 
-import static com.irfankhoirul.apps.tatravel.model.api.EndPoints.API_TRAVEL_SCHEDULE_SEARCH;
+import static com.irfankhoirul.apps.tatravel.model.api.EndPointsUtils.API_TRAVEL_SCHEDULE_SEARCH;
 
 /**
  * Merupakan interface yang berisi method untuk melakukan query. Digunakan oleh retrofit.

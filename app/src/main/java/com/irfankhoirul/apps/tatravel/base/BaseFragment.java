@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.core;
+package com.irfankhoirul.apps.tatravel.base;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,7 +13,7 @@ import android.support.v4.app.Fragment;
  * @version 1.0 (7 November 2016)
  */
 
-public class CoreFragment<T extends Activity> extends Fragment {
+public class BaseFragment<T extends Activity> extends Fragment {
 
     protected Activity activity;
 

@@ -2,7 +2,7 @@ package com.irfankhoirul.apps.tatravel.model.pojo;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.irfankhoirul.apps.tatravel.core.CoreModel;
+import com.irfankhoirul.apps.tatravel.base.BaseModel;
 
 /**
  * Merupakan model dari tabel UserToken
@@ -11,7 +11,7 @@ import com.irfankhoirul.apps.tatravel.core.CoreModel;
  * @since   1.0
  */
 
-public class UserToken extends CoreModel {
+public class UserToken extends BaseModel {
     @SerializedName("expired_at")
     @Expose
     private long expiredAt;

@@ -2,6 +2,7 @@ package com.irfankhoirul.apps.tatravel.presenter;
 
 import android.util.Log;
 
+import com.irfankhoirul.apps.tatravel.contract.SearchContract;
 import com.irfankhoirul.apps.tatravel.model.pojo.JadwalPerjalanan;
 import com.irfankhoirul.apps.tatravel.model.repository.IRequestResponseListener;
 import com.irfankhoirul.apps.tatravel.model.repository.JadwalPerjalananRepository;
@@ -16,15 +17,16 @@ import java.util.List;
  * @since 1.0
  */
 
-public class SearchPresenter {
+public class SearchPresenter implements SearchContract.Presenter {
 
-    IView view;
+    private final SearchContract.View view;
 
-    public SearchPresenter(IView view) {
+    public SearchPresenter(SearchContract.View view) {
         this.view = view;
     }
 
-    public void search() {
+    @Override
+    public void searchJadwalPerjalanan() {
         JadwalPerjalananRepository repository = new JadwalPerjalananRepository();
         repository.getJadwalPerjalanan(new IRequestResponseListener<List<JadwalPerjalanan>>() {
             @Override
@@ -39,14 +41,4 @@ public class SearchPresenter {
         });
     }
 
-    /**
-     * Merupakan interface yang menghubungkan SearchFragment dan SearchPresenter
-     *
-     * @author Irfan Khoirul Muhlishin - irfankhoirul@gmail.com
-     * @version 1.0 (13 November 2016)
-     * @since 1.0
-     */
-    public interface IView {
-        void showSearchResult(List<JadwalPerjalanan> jadwalPerjalanen);
-    }
 }

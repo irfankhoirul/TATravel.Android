@@ -11,7 +11,7 @@ import android.util.DisplayMetrics;
  * @version 1.0 (7 November 2016)
  */
 
-public class DisplayMetricUtil {
+public class DisplayMetricUtils {
     public static int getDeviceWidth(Activity activity) {
         DisplayMetrics displaymetrics = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);

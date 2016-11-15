@@ -2,7 +2,7 @@ package com.irfankhoirul.apps.tatravel.model.pojo;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.irfankhoirul.apps.tatravel.core.CoreModel;
+import com.irfankhoirul.apps.tatravel.base.BaseModel;
 
 /**
  * Merupakan model dari tabel Kota
@@ -11,7 +11,7 @@ import com.irfankhoirul.apps.tatravel.core.CoreModel;
  * @since   1.0
  */
 
-public class Kota extends CoreModel {
+public class Kota extends BaseModel {
     @SerializedName("id_super_admin")
     @Expose
     private int idSuperAdmin;
