@@ -42,10 +42,15 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
     }
 
     @Override
+    protected void setLabel() {
+        label = this.getClass().getSimpleName();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
 
         searchPresenter = new SearchPresenter(this);
 

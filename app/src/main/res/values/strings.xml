@@ -3,4 +3,28 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="label_verify_phone_number">Silakan masukkan kode verifikasi yang kami kirimkan ke nomor handphone anda.</string>
+    <string name="label_hint_verification_code">Kode Verifikasi</string>
+    <string name="label_button_verify">Verifikasi</string>
+    <string name="label_hint_phone_number_or_email">Nomor Handphone / Email</string>
+    <string name="label_hint_password">Password</string>
+    <string name="label_button_login">Masuk</string>
+    <string name="label_button_forget_password">Lupa Password</string>
+    <string name="label_button_resend_verification">Kirimkan kode verifikasi lagi</string>
+    <string name="label_hint_phone_number">Nomor Handphone</string>
+    <string name="label_hint_email">Email</string>
+    <string name="label_hint_confirm_password">Konfirmasi Password</string>
+    <string name="label_button_register">Daftar</string>
+    <string name="label_button_done">Selesai</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="label_switch_specific_departure">Penjemputan di lokasi khusus</string>
+    <string name="label_switch_specific_destination">Pengantaran di lokasi khusus</string>
+    <string name="label_info_specific_departure">Operator travel yang anda pilih tidak mengizinkan penjemputan di lokasi khusus</string>
+    <string name="label_info_specific_destination">Operator travel yang anda pilih tidak mengizinkan pengantaran di lokasi khusus</string>
+    <string name="label_info_specific_departure_notice">Pilih opsi ini jika anda ingin dijemput di lokasi tertentu. \n NB: \n~ Hanya operator travel tertentu.\n~ Mungkin akan dikenakan biaya tambahan</string>
+    <string name="label_info_specific_destination_notice">Pilih opsi ini jika anda ingin diantar ke lokasi tertentu. \n NB: \n~ Hanya operator travel tertentu.\n~ Mungkin akan dikenakan biaya tambahan</string>
+    <string name="label_button_set_destination">Set Lokasi Tujuan</string>
+    <string name="label_button_set_departure">Set Lokasi Pemberangkatan</string>
+    <string name="label_button_chose_seat">Pilih Kursi</string>
+
 </resources>
