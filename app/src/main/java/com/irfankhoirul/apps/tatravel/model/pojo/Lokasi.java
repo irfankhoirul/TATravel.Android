@@ -71,4 +71,17 @@ public class Lokasi extends BaseModel {
     public void setAlamat(String alamat) {
         this.alamat = alamat;
     }
+
+    @Override
+    public String toString() {
+        return "Lokasi{" +
+                "idAdmin=" + idAdmin +
+                ", idOperatorTravel=" + idOperatorTravel +
+                ", idKota=" + idKota +
+                ", alamat='" + alamat + '\'' +
+                ", admin=" + admin +
+                ", operatorTravel=" + operatorTravel +
+                ", kota=" + kota +
+                '}';
+    }
 }

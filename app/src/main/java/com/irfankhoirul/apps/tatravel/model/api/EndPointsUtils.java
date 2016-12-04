@@ -9,5 +9,6 @@ package com.irfankhoirul.apps.tatravel.model.api;
  */
 
 public class EndPointsUtils {
-    public static final String API_TRAVEL_SCHEDULE_SEARCH = "searchJadwalPerjalanan";
+    public static final String GET_SCHEDULE = "search";
+    public static final String GET_LOCATION = "location";
 }

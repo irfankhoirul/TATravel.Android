@@ -26,5 +26,10 @@
     <string name="label_button_set_destination">Set Lokasi Tujuan</string>
     <string name="label_button_set_departure">Set Lokasi Pemberangkatan</string>
     <string name="label_button_chose_seat">Pilih Kursi</string>
+    <string name="label_hint_departure">Keberangkatan</string>
+    <string name="label_hint_destination">Tujuan</string>
+    <string name="label_hint_departure_date">Tanggal Keberangkatan</string>
+    <string name="label_hint_back_date">Tanggal Kepulangan</string>
+    <string name="label_hint_passenger">Penumpang</string>
 
 </resources>

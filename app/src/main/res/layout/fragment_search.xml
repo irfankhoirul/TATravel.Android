@@ -34,12 +34,13 @@
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_call_made_black_24dp" />
 
-            <EditText
+            <AutoCompleteTextView
+                android:id="@+id/actvDeparture"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:background="@android:color/transparent"
-                android:hint="Keberangkatan" />
+                android:hint="@string/label_hint_departure" />
 
         </LinearLayout>
 
@@ -66,12 +67,13 @@
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_call_received_black_24dp" />
 
-            <EditText
+            <AutoCompleteTextView
+                android:id="@+id/actvDestination"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:background="@android:color/transparent"
-                android:hint="Tujuan" />
+                android:hint="@string/label_hint_destination" />
 
         </LinearLayout>
 
@@ -99,11 +101,12 @@
                 android:src="@drawable/ic_call_made_black_24dp" />
 
             <EditText
+                android:id="@+id/etDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:background="@android:color/transparent"
-                android:hint="Tanggal Keberangkatan" />
+                android:hint="@string/label_hint_departure_date" />
 
         </LinearLayout>
 
@@ -136,7 +139,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:background="@android:color/transparent"
-                android:hint="Tanggal Kepulangan" />
+                android:hint="@string/label_hint_back_date" />
 
         </LinearLayout>
 
@@ -161,11 +164,12 @@
                 android:src="@drawable/ic_people_black_24dp" />
 
             <EditText
+                android:id="@+id/etPassenger"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="32dp"
                 android:background="@android:color/transparent"
-                android:hint="Penumpang" />
+                android:hint="@string/label_hint_passenger" />
 
         </LinearLayout>
 

@@ -1,11 +1,15 @@
 package com.irfankhoirul.apps.tatravel.model.api;
 
 import com.irfankhoirul.apps.tatravel.model.pojo.JadwalPerjalanan;
+import com.irfankhoirul.apps.tatravel.model.pojo.Lokasi;
 
 import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 
-import static com.irfankhoirul.apps.tatravel.model.api.EndPointsUtils.API_TRAVEL_SCHEDULE_SEARCH;
+import static com.irfankhoirul.apps.tatravel.model.api.EndPointsUtils.GET_LOCATION;
+import static com.irfankhoirul.apps.tatravel.model.api.EndPointsUtils.GET_SCHEDULE;
 
 /**
  * Merupakan interface yang berisi method untuk melakukan query. Digunakan oleh retrofit.
@@ -16,6 +20,10 @@ import static com.irfankhoirul.apps.tatravel.model.api.EndPointsUtils.API_TRAVEL
  */
 
 public interface IEndPoint {
-    @POST(API_TRAVEL_SCHEDULE_SEARCH)
-    Call<DataResult<JadwalPerjalanan>> search();
+    @FormUrlEncoded
+    @POST(GET_SCHEDULE)
+    Call<DataResult<JadwalPerjalanan>> search(@Field("date") String date);
+
+    @POST(GET_LOCATION)
+    Call<DataResult<Lokasi>> getLocation();
 }

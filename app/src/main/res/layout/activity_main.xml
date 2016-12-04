@@ -10,10 +10,11 @@
     <FrameLayout
         android:id="@+id/flMainContainer"
         android:layout_width="match_parent"
-
         android:layout_height="wrap_content"
         android:layout_above="@+id/vMenuBarShadow"
-        android:layout_below="@+id/layutToolbar" />
+        android:layout_below="@+id/layutToolbar"
+        android:layout_marginBottom="-5dp"
+        android:layout_marginTop="-5dp" />
 
     <View
         android:id="@+id/vMenuBarShadow"

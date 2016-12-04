@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.irfankhoirul.apps.tatravel.contract.SearchContract;
 import com.irfankhoirul.apps.tatravel.model.pojo.JadwalPerjalanan;
+import com.irfankhoirul.apps.tatravel.model.pojo.Lokasi;
 import com.irfankhoirul.apps.tatravel.model.repository.IRequestResponseListener;
 import com.irfankhoirul.apps.tatravel.model.repository.JadwalPerjalananRepository;
 
@@ -32,6 +33,22 @@ public class SearchPresenter implements SearchContract.Presenter {
             @Override
             public void onSuccess(List<JadwalPerjalanan> data) {
                 view.showSearchResult(data);
+            }
+
+            @Override
+            public void onFailure() {
+                Log.v("Retrofit", "OnFailure");
+            }
+        });
+    }
+
+    @Override
+    public void getLocation() {
+        JadwalPerjalananRepository repository = new JadwalPerjalananRepository();
+        repository.getLocation(new IRequestResponseListener<List<Lokasi>>() {
+            @Override
+            public void onSuccess(List<Lokasi> data) {
+                view.updateLocationSpinner(data);
             }
 
             @Override

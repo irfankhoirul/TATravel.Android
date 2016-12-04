@@ -3,6 +3,7 @@ package com.irfankhoirul.apps.tatravel.contract;
 import com.irfankhoirul.apps.tatravel.base.IBasePresenter;
 import com.irfankhoirul.apps.tatravel.base.IBaseView;
 import com.irfankhoirul.apps.tatravel.model.pojo.JadwalPerjalanan;
+import com.irfankhoirul.apps.tatravel.model.pojo.Lokasi;
 
 import java.util.List;
 
@@ -20,11 +21,15 @@ public interface SearchContract {
      * @since 1.0
      */
     interface View extends IBaseView {
-        void showSearchResult(List<JadwalPerjalanan> jadwalPerjalanen);
+        void showSearchResult(List<JadwalPerjalanan> jadwalPerjalanan);
+
+        void updateLocationSpinner(List<Lokasi> lokasi);
     }
 
     interface Presenter extends IBasePresenter {
         void searchJadwalPerjalanan();
+
+        void getLocation();
     }
 
 }

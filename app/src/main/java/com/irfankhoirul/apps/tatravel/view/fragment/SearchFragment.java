@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
@@ -15,6 +17,7 @@ import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.base.BaseFragment;
 import com.irfankhoirul.apps.tatravel.contract.SearchContract;
 import com.irfankhoirul.apps.tatravel.model.pojo.JadwalPerjalanan;
+import com.irfankhoirul.apps.tatravel.model.pojo.Lokasi;
 import com.irfankhoirul.apps.tatravel.presenter.SearchPresenter;
 import com.irfankhoirul.apps.tatravel.util.DisplayMetricUtils;
 import com.irfankhoirul.apps.tatravel.view.activity.MainActivity;
@@ -34,6 +37,14 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
 
     @BindView(R.id.sliderPromotion)
     SliderLayout sliderPromotion;
+    @BindView(R.id.actvDeparture)
+    AutoCompleteTextView actvDeparture;
+    @BindView(R.id.actvDestination)
+    AutoCompleteTextView actvDestination;
+    @BindView(R.id.etDate)
+    EditText etDate;
+    @BindView(R.id.etPassenger)
+    EditText etPassenger;
 
     private SearchPresenter searchPresenter;
 
@@ -47,14 +58,14 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         unbinder = ButterKnife.bind(this, view);
 
         searchPresenter = new SearchPresenter(this);
 
         showSliderPromo();
+        searchPresenter.getLocation();
         searchPresenter.searchJadwalPerjalanan();
 
         return view;
@@ -120,13 +131,32 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
     }
 
     @Override
-    public void showSearchResult(List<JadwalPerjalanan> jadwalPerjalanen) {
-        if (jadwalPerjalanen.size() > 0) {
-            for (int i = 0; i < jadwalPerjalanen.size(); i++) {
-                Log.v("Data[" + i + "]", jadwalPerjalanen.get(i).toString());
+    public void showSearchResult(List<JadwalPerjalanan> jadwalPerjalanan) {
+        if (jadwalPerjalanan != null) {
+            if (jadwalPerjalanan.size() > 0) {
+                for (int i = 0; i < jadwalPerjalanan.size(); i++) {
+                    Log.v("DataJadwalPerjalanan[" + i + "]", jadwalPerjalanan.get(i).toString());
+                }
+            } else {
+                Log.v("DataJadwalPerjalanan", "isEmpty");
             }
         } else {
-            Log.v("Data", "isNull");
+            Log.v("DataJadwalPerjalanan", "isNull");
+        }
+    }
+
+    @Override
+    public void updateLocationSpinner(List<Lokasi> lokasi) {
+        if (lokasi != null) {
+            if (lokasi.size() > 0) {
+                for (int i = 0; i < lokasi.size(); i++) {
+                    Log.v("DataLokasi[" + i + "]", lokasi.get(i).toString());
+                }
+            } else {
+                Log.v("DataLokasi", "isEmpty");
+            }
+        } else {
+            Log.v("DataLokasi", "isNull");
         }
     }
 }
