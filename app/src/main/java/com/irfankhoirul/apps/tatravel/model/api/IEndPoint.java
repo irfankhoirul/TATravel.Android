@@ -1,15 +1,18 @@
 package com.irfankhoirul.apps.tatravel.model.api;
 
 import com.irfankhoirul.apps.tatravel.model.pojo.JadwalPerjalanan;
+import com.irfankhoirul.apps.tatravel.model.pojo.Kota;
 import com.irfankhoirul.apps.tatravel.model.pojo.Lokasi;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
+import rx.Observable;
 
-import static com.irfankhoirul.apps.tatravel.model.api.EndPointsUtils.GET_LOCATION;
-import static com.irfankhoirul.apps.tatravel.model.api.EndPointsUtils.GET_SCHEDULE;
+import static com.irfankhoirul.apps.tatravel.model.api.EndPoints.GET_CITY_OLD;
+import static com.irfankhoirul.apps.tatravel.model.api.EndPoints.GET_LOCATION_OLD;
+import static com.irfankhoirul.apps.tatravel.model.api.EndPoints.GET_SCHEDULE_OLD;
 
 /**
  * Merupakan interface yang berisi method untuk melakukan query. Digunakan oleh retrofit.
@@ -21,9 +24,18 @@ import static com.irfankhoirul.apps.tatravel.model.api.EndPointsUtils.GET_SCHEDU
 
 public interface IEndPoint {
     @FormUrlEncoded
-    @POST(GET_SCHEDULE)
+    @POST(GET_SCHEDULE_OLD)
     Call<DataResult<JadwalPerjalanan>> search(@Field("date") String date);
 
-    @POST(GET_LOCATION)
-    Call<DataResult<Lokasi>> getLocation();
+    @FormUrlEncoded
+    @POST(GET_SCHEDULE_OLD)
+    Observable<DataResult<JadwalPerjalanan>> searchRx(@Field("date") String date);
+
+    @FormUrlEncoded
+    @POST(GET_LOCATION_OLD)
+    Call<DataResult<Lokasi>> getTravelAgentLocationList(@Field("page") int page, @Field("limit") int limit, @Field("cityId") int cityId);
+
+    @FormUrlEncoded
+    @POST(GET_CITY_OLD)
+    Call<DataResult<Kota>> getCityList(@Field("page") int page, @Field("limit") int limit);
 }

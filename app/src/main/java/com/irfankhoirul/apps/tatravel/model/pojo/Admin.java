@@ -4,6 +4,8 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.irfankhoirul.apps.tatravel.base.BaseModel;
 
+import org.parceler.Parcel;
+
 /**
  * Merupakan model dari tabel Admin
  *
@@ -11,6 +13,7 @@ import com.irfankhoirul.apps.tatravel.base.BaseModel;
  * @since 1.0
  */
 
+@Parcel
 public class Admin extends BaseModel {
     @SerializedName("id_super_admin")
     @Expose
@@ -36,6 +39,8 @@ public class Admin extends BaseModel {
     @Expose
     private User user;
 
+    public Admin() {
+    }
 
     public int getIdSuperAdmin() {
         return idSuperAdmin;

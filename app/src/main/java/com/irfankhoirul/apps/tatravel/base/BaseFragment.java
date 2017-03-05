@@ -21,7 +21,6 @@ public abstract class BaseFragment<T extends Activity> extends Fragment {
     protected Activity activity;
     protected Unbinder unbinder;
 
-
     protected abstract void setLabel();
 
     public String getLabel() {
@@ -43,6 +42,9 @@ public abstract class BaseFragment<T extends Activity> extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
+        if (unbinder != null) {
+            unbinder.unbind();
+        }
     }
+
 }

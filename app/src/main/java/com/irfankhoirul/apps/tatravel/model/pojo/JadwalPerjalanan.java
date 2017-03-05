@@ -4,6 +4,8 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.irfankhoirul.apps.tatravel.base.BaseModel;
 
+import org.parceler.Parcel;
+
 /**
  * Merupakan model dari tabel JadwalPerjalanan
  *
@@ -11,6 +13,7 @@ import com.irfankhoirul.apps.tatravel.base.BaseModel;
  * @since 1.0
  */
 
+@Parcel
 public class JadwalPerjalanan extends BaseModel {
     @SerializedName("id_admin")
     @Expose
@@ -55,10 +58,6 @@ public class JadwalPerjalanan extends BaseModel {
     @SerializedName("jumlah_kursi_tersedia")
     @Expose
     private int jumlahKursiTersedia;
-
-    @SerializedName("izinkan_lokasi_khusus")
-    @Expose
-    private boolean izinkanLokasiKhusus;
 
     @SerializedName("biaya_lokasi_khusus")
     @Expose
@@ -176,14 +175,6 @@ public class JadwalPerjalanan extends BaseModel {
         this.jumlahKursiTersedia = jumlahKursiTersedia;
     }
 
-    public boolean isIzinkanLokasiKhusus() {
-        return izinkanLokasiKhusus;
-    }
-
-    public void setIzinkanLokasiKhusus(boolean izinkanLokasiKhusus) {
-        this.izinkanLokasiKhusus = izinkanLokasiKhusus;
-    }
-
     public int getBiayaLokasiKhusus() {
         return biayaLokasiKhusus;
     }
@@ -258,7 +249,6 @@ public class JadwalPerjalanan extends BaseModel {
                 ", status='" + status + '\'' +
                 ", harga=" + harga +
                 ", jumlahKursiTersedia=" + jumlahKursiTersedia +
-                ", izinkanLokasiKhusus=" + izinkanLokasiKhusus +
                 ", biayaLokasiKhusus=" + biayaLokasiKhusus +
                 ", admin=" + admin.toString() +
                 ", operatorTravel=" + operatorTravel +

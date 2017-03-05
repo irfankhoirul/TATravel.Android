@@ -4,6 +4,8 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.irfankhoirul.apps.tatravel.base.BaseModel;
 
+import org.parceler.Parcel;
+
 /**
  * Merupakan model dari tabel Kota
  *
@@ -11,6 +13,7 @@ import com.irfankhoirul.apps.tatravel.base.BaseModel;
  * @since   1.0
  */
 
+@Parcel
 public class Kota extends BaseModel {
     @SerializedName("id_super_admin")
     @Expose
@@ -82,5 +85,17 @@ public class Kota extends BaseModel {
 
     public void setProvinsi(Provinsi provinsi) {
         this.provinsi = provinsi;
+    }
+
+    @Override
+    public String toString() {
+        return "Kota{" +
+                "idSuperAdmin=" + idSuperAdmin +
+                ", idProvinsi=" + idProvinsi +
+                ", nama='" + nama + '\'' +
+                ", kode='" + kode + '\'' +
+                ", superAdmin=" + superAdmin +
+                ", provinsi=" + provinsi +
+                '}';
     }
 }

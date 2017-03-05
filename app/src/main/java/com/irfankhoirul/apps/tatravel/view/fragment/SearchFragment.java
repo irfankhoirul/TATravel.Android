@@ -1,12 +1,12 @@
 package com.irfankhoirul.apps.tatravel.view.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
+import android.widget.TextView;
 
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
@@ -15,11 +15,13 @@ import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.base.BaseFragment;
-import com.irfankhoirul.apps.tatravel.contract.SearchContract;
+import com.irfankhoirul.apps.tatravel.contract.SearchFragmentContract;
 import com.irfankhoirul.apps.tatravel.model.pojo.JadwalPerjalanan;
 import com.irfankhoirul.apps.tatravel.model.pojo.Lokasi;
-import com.irfankhoirul.apps.tatravel.presenter.SearchPresenter;
+import com.irfankhoirul.apps.tatravel.presenter.SearchFragmentPresenter;
+import com.irfankhoirul.apps.tatravel.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.util.DisplayMetricUtils;
+import com.irfankhoirul.apps.tatravel.view.activity.DepartureActivity;
 import com.irfankhoirul.apps.tatravel.view.activity.MainActivity;
 
 import java.util.HashMap;
@@ -27,26 +29,27 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * @author Irfan Khoirul Muhlishin - irfankhoirul@gmail.com
  * @version 1.0 (7 November 2016)
  * @since 1.0
  */
-public class SearchFragment extends BaseFragment<MainActivity> implements SearchContract.View {
+public class SearchFragment extends BaseFragment<MainActivity> implements SearchFragmentContract.View {
 
     @BindView(R.id.sliderPromotion)
     SliderLayout sliderPromotion;
-    @BindView(R.id.actvDeparture)
-    AutoCompleteTextView actvDeparture;
-    @BindView(R.id.actvDestination)
-    AutoCompleteTextView actvDestination;
-    @BindView(R.id.etDate)
-    EditText etDate;
-    @BindView(R.id.etPassenger)
-    EditText etPassenger;
+    @BindView(R.id.tvDeparture)
+    TextView tvDeparture;
+    @BindView(R.id.tvDestination)
+    TextView tvDestination;
+    @BindView(R.id.tvDateGo)
+    TextView tvDateGo;
+    @BindView(R.id.tvPassenger)
+    TextView tvPassenger;
 
-    private SearchPresenter searchPresenter;
+    private SearchFragmentPresenter searchPresenter;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -62,10 +65,9 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         unbinder = ButterKnife.bind(this, view);
 
-        searchPresenter = new SearchPresenter(this);
+        searchPresenter = new SearchFragmentPresenter(this);
 
-        showSliderPromo();
-        searchPresenter.getLocation();
+        searchPresenter.getPromo();
         searchPresenter.searchJadwalPerjalanan();
 
         return view;
@@ -77,10 +79,11 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
         super.onStop();
     }
 
-    public void showSliderPromo() {
+    @Override
+    public void showPromo() {
         int width = DisplayMetricUtils.getDeviceWidth(activity);
         sliderPromotion.getLayoutParams().width = width;
-        sliderPromotion.getLayoutParams().height = (int) (9.0f / 16.0f * width);
+        sliderPromotion.getLayoutParams().height = (int) (5.0f / 13.0f * width);
         sliderPromotion.requestLayout();
 
         HashMap<String, String> url_maps = new HashMap<>();
@@ -128,6 +131,7 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
 
             }
         });
+
     }
 
     @Override
@@ -157,6 +161,20 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
             }
         } else {
             Log.v("DataLokasi", "isNull");
+        }
+    }
+
+    @OnClick(R.id.tvDeparture)
+    public void actvDeparture() {
+        Intent intent = new Intent(activity, DepartureActivity.class);
+        startActivityForResult(intent, ConstantUtils.ACTIVITY_REQUEST_CODE_DEPARTURE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == ConstantUtils.ACTIVITY_REQUEST_CODE_DEPARTURE && resultCode == ConstantUtils.ACTIVITY_RESULT_CODE_DEPARTURE) {
+            tvDeparture.setText(data.getStringExtra(ConstantUtils.INTENT_SEARCH_FRAGMENT_DEPARTURE_CITY));
         }
     }
 }

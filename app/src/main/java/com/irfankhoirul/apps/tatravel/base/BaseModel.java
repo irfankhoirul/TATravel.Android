@@ -3,6 +3,8 @@ package com.irfankhoirul.apps.tatravel.base;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
 /**
  * Merupakan Super Class dari kelas model dalam aplikasi. Berisi atribut standar yaitu id,
  * createdAt, dan updatedAt
@@ -11,6 +13,7 @@ import com.google.gson.annotations.SerializedName;
  * @since 1.0 (7 November 2016)
  */
 
+@Parcel
 public class BaseModel {
     @SerializedName("id")
     @Expose

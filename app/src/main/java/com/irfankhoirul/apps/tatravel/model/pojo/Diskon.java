@@ -4,6 +4,8 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.irfankhoirul.apps.tatravel.base.BaseModel;
 
+import org.parceler.Parcel;
+
 /**
  * Merupakan model dari tabel Diskon
  *
@@ -11,14 +13,15 @@ import com.irfankhoirul.apps.tatravel.base.BaseModel;
  * @since   1.0
  */
 
+@Parcel
 public class Diskon extends BaseModel {
     @SerializedName("id_jadwal_perjalanan")
     @Expose
     private int idJadwalPerjalanan;
 
-    @SerializedName("persentase")
+    @SerializedName("nilai")
     @Expose
-    private int persentase;
+    private int nilai;
 
     @SerializedName("jadwal_perjalanan")
     @Expose
@@ -32,12 +35,12 @@ public class Diskon extends BaseModel {
         this.idJadwalPerjalanan = idJadwalPerjalanan;
     }
 
-    public int getPersentase() {
-        return persentase;
+    public int getNilai() {
+        return nilai;
     }
 
-    public void setPersentase(int persentase) {
-        this.persentase = persentase;
+    public void setNilai(int nilai) {
+        this.nilai = nilai;
     }
 
     public JadwalPerjalanan getJadwalPerjalanan() {

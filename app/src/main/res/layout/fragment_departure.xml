@@ -9,27 +9,50 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
 
-        <Spinner
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/tieCity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="false"
+                android:hint="Kota"
+                android:inputType="textCapWords" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/tieLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="false"
+                android:hint="Lokasi Keberangkatan"
+                android:inputType="textCapWords" />
+
+        </android.support.design.widget.TextInputLayout>
 
         <Switch
+            android:id="@+id/switchSpecialLocation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp"
             android:switchPadding="8dp"
             android:text="@string/label_switch_specific_departure" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="@string/label_info_specific_departure"
-            android:textColor="@color/colorSecondaryText" />
-
-        <TextView
+            android:id="@+id/tvSpecialLocationInformation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/label_info_specific_departure_notice"

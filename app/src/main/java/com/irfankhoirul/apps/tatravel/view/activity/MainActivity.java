@@ -5,6 +5,8 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -26,6 +28,9 @@ import butterknife.OnClick;
  */
 
 public class MainActivity extends FragmentActivity {
+
+    @BindView(R.id.btBack)
+    ImageButton btBack;
 
     @BindView(R.id.llSearch)
     LinearLayout llSearch;
@@ -54,6 +59,16 @@ public class MainActivity extends FragmentActivity {
     private BaseFragment currentFragment;
     private DepartureFragment departureFragment;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+        btBack.setVisibility(View.GONE);
+
+        setCurrentFragment(new SearchFragment(), false);
+    }
+
     @OnClick(R.id.llSearch)
     public void llSearch() {
         if (searchFragment != null) {
@@ -63,8 +78,8 @@ public class MainActivity extends FragmentActivity {
             setCurrentFragment(searchFragment, false);
         }
         resetIconColor();
-        ivSearch.setColorFilter(ContextCompat.getColor(this, R.color.pure_white));
-        tvSearch.setTextColor(ContextCompat.getColor(this, R.color.pure_white));
+        ivSearch.setColorFilter(ContextCompat.getColor(this, R.color.colorPrimary));
+        tvSearch.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
     }
 
     @OnClick(R.id.llOrder)
@@ -76,8 +91,8 @@ public class MainActivity extends FragmentActivity {
             setCurrentFragment(departureFragment, false);
         }
         resetIconColor();
-        ivOrder.setColorFilter(ContextCompat.getColor(this, R.color.pure_white));
-        tvOrder.setTextColor(ContextCompat.getColor(this, R.color.pure_white));
+        ivOrder.setColorFilter(ContextCompat.getColor(this, R.color.colorPrimary));
+        tvOrder.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
     }
 
     @OnClick(R.id.llProfile)
@@ -89,8 +104,8 @@ public class MainActivity extends FragmentActivity {
             setCurrentFragment(registerFragment, false);
         }
         resetIconColor();
-        ivProfile.setColorFilter(ContextCompat.getColor(this, R.color.pure_white));
-        tvProfile.setTextColor(ContextCompat.getColor(this, R.color.pure_white));
+        ivProfile.setColorFilter(ContextCompat.getColor(this, R.color.colorPrimary));
+        tvProfile.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
     }
 
     public BaseFragment getFragment() {
@@ -99,15 +114,6 @@ public class MainActivity extends FragmentActivity {
 
     public void setFragment(BaseFragment currentFragment) {
         this.currentFragment = currentFragment;
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
-
-        setCurrentFragment(new SearchFragment(), false);
     }
 
     public void setCurrentFragment(BaseFragment fragment, boolean addToBackStack) {

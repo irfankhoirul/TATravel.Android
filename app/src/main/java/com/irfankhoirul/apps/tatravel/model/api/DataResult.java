@@ -17,9 +17,14 @@ public class DataResult<T> {
     private int code;
 
     /**
-     * Pesan hasil query
+     * Pesan dalam bahasa manusiawi
      */
     private String message;
+
+    /**
+     * Pesan Teknis
+     * */
+    private String debugMessage;
 
     /**
      * Data hasil query (single)
@@ -30,6 +35,8 @@ public class DataResult<T> {
      * Data hasil query (multiple)
      */
     private List<T> datas;
+
+    private DataPage dataPageManager;
 
     public List<T> getDatas() {
         return datas;
@@ -61,5 +68,31 @@ public class DataResult<T> {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public DataPage getDataPageManager() {
+        return dataPageManager;
+    }
+
+    public void setDataPageManager(DataPage dataPageManager) {
+        this.dataPageManager = dataPageManager;
+    }
+
+    public String getDebugMessage() {
+        return debugMessage;
+    }
+
+    public void setDebugMessage(String debugMessage) {
+        this.debugMessage = debugMessage;
+    }
+
+    @Override
+    public String toString() {
+        return "DataResult{" +
+                "code=" + code +
+                ", message='" + message + '\'' +
+                ", data=" + data +
+                ", datas=" + datas +
+                '}';
     }
 }

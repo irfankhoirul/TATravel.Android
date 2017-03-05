@@ -4,6 +4,8 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.irfankhoirul.apps.tatravel.base.BaseModel;
 
+import org.parceler.Parcel;
+
 /**
  * Merupakan model dari tabel User
  *
@@ -11,6 +13,7 @@ import com.irfankhoirul.apps.tatravel.base.BaseModel;
  * @since   1.0
  */
 
+@Parcel
 public class User extends BaseModel {
     @SerializedName("nama")
     @Expose
@@ -63,6 +66,10 @@ public class User extends BaseModel {
     @SerializedName("provinsi")
     @Expose
     private Provinsi provinsi;
+
+    @SerializedName("token")
+    @Expose
+    private UserToken userToken;
 
     public String getNama() {
         return nama;
@@ -166,5 +173,13 @@ public class User extends BaseModel {
 
     public void setProvinsi(Provinsi provinsi) {
         this.provinsi = provinsi;
+    }
+
+    public UserToken getUserToken() {
+        return userToken;
+    }
+
+    public void setUserToken(UserToken userToken) {
+        this.userToken = userToken;
     }
 }

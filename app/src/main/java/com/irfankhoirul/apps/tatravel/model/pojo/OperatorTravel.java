@@ -4,6 +4,8 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.irfankhoirul.apps.tatravel.base.BaseModel;
 
+import org.parceler.Parcel;
+
 /**
  * Merupakan model dari tabel OperatorTravel
  *
@@ -11,6 +13,7 @@ import com.irfankhoirul.apps.tatravel.base.BaseModel;
  * @since   1.0
  */
 
+@Parcel
 public class OperatorTravel extends BaseModel {
     @SerializedName("id_super_admin")
     @Expose
@@ -51,6 +54,19 @@ public class OperatorTravel extends BaseModel {
     @SerializedName("kota")
     @Expose
     private Kota kota;
+
+    @SerializedName("logo")
+    @Expose
+    private String logo;
+
+    @SerializedName("izinkan_lokasi_khusus")
+    @Expose
+    private boolean izinkanLokasiKhusus;
+
+    @SerializedName("jarak_penjemputan_maksimum")
+    @Expose
+    private int jarakPenjemputanMaksimum;
+
 
     public int getIdSuperAdmin() {
         return idSuperAdmin;
@@ -130,5 +146,29 @@ public class OperatorTravel extends BaseModel {
 
     public void setKota(Kota kota) {
         this.kota = kota;
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
+
+    public boolean isIzinkanLokasiKhusus() {
+        return izinkanLokasiKhusus;
+    }
+
+    public void setIzinkanLokasiKhusus(boolean izinkanLokasiKhusus) {
+        this.izinkanLokasiKhusus = izinkanLokasiKhusus;
+    }
+
+    public int getJarakPenjemputanMaksimum() {
+        return jarakPenjemputanMaksimum;
+    }
+
+    public void setJarakPenjemputanMaksimum(int jarakPenjemputanMaksimum) {
+        this.jarakPenjemputanMaksimum = jarakPenjemputanMaksimum;
     }
 }

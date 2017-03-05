@@ -4,6 +4,8 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.irfankhoirul.apps.tatravel.base.BaseModel;
 
+import org.parceler.Parcel;
+
 /**
  * Merupakan model dari tabel Provinsi
  *
@@ -11,6 +13,7 @@ import com.irfankhoirul.apps.tatravel.base.BaseModel;
  * @since   1.0
  */
 
+@Parcel
 public class Provinsi extends BaseModel {
     @SerializedName("id_super_admin")
     @Expose
@@ -18,7 +21,7 @@ public class Provinsi extends BaseModel {
 
     @SerializedName("nama")
     @Expose
-    private int nama;
+    private String nama;
 
     @SerializedName("super_admin")
     @Expose
@@ -32,11 +35,11 @@ public class Provinsi extends BaseModel {
         this.idSuperAdmin = idSuperAdmin;
     }
 
-    public int getNama() {
+    public String getNama() {
         return nama;
     }
 
-    public void setNama(int nama) {
+    public void setNama(String nama) {
         this.nama = nama;
     }
 
@@ -46,5 +49,14 @@ public class Provinsi extends BaseModel {
 
     public void setSuperAdmin(SuperAdmin superAdmin) {
         this.superAdmin = superAdmin;
+    }
+
+    @Override
+    public String toString() {
+        return "Provinsi{" +
+                "idSuperAdmin=" + idSuperAdmin +
+                ", nama='" + nama + '\'' +
+                ", superAdmin=" + superAdmin +
+                '}';
     }
 }

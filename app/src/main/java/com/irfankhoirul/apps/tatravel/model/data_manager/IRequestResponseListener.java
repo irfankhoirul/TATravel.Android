@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.model.repository;
+package com.irfankhoirul.apps.tatravel.model.data_manager;
 
 /**
  * Merupakan interface yang berfungsi sebagai listener hasil query menggunakan retrofit

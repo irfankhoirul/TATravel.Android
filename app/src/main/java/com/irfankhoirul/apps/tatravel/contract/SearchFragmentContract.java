@@ -11,25 +11,27 @@ import java.util.List;
  * Created by Irfan Khoirul on 11/15/2016.
  */
 
-public interface SearchContract {
+public interface SearchFragmentContract {
 
     /**
-     * Merupakan interface yang menghubungkan SearchFragment dan SearchPresenter
+     * Merupakan interface yang menghubungkan SearchFragment dan SearchFragmentPresenter
      *
      * @author Irfan Khoirul Muhlishin - irfankhoirul@gmail.com
      * @version 1.0 (13 November 2016)
      * @since 1.0
      */
     interface View extends IBaseView {
+        void showPromo();
+
         void showSearchResult(List<JadwalPerjalanan> jadwalPerjalanan);
 
         void updateLocationSpinner(List<Lokasi> lokasi);
     }
 
     interface Presenter extends IBasePresenter {
-        void searchJadwalPerjalanan();
+        void getPromo();
 
-        void getLocation();
+        void searchJadwalPerjalanan();
     }
 
 }

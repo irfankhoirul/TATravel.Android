@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@color/indigo_500</color>
-    <color name="colorPrimaryDark">@color/indigo_700</color>
-    <color name="colorPrimaryLight">@color/indigo_100</color>
-    <color name="colorAccent">@color/light_blue_500</color>
-    <color name="colorNavBar">@color/grey_700</color>
+    <!--
+        <color name="colorPrimary">@color/indigo_500</color>
+        <color name="colorPrimaryDark">@color/indigo_700</color>
+        <color name="colorPrimaryLight">@color/indigo_100</color>
+        <color name="colorAccent">@color/light_blue_500</color>
+        <color name="colorNavBar">@color/grey_700</color>
+        <color name="colorPrimaryText">@color/font_black_primary</color>
+        <color name="colorSecondaryText">@color/font_black_secondary</color>
+        <color name="colorDivider">@color/grey_400</color>
+    -->
+
+    <color name="colorPrimary">#3498DB</color>
+    <color name="colorPrimaryDark">#3498DB</color>
+    <color name="colorPrimaryLight">#85C1E9</color>
+    <color name="colorAccent">#f39c12</color>
+    <color name="colorNavBar">@color/pure_white</color>
     <color name="colorPrimaryText">@color/font_black_primary</color>
     <color name="colorSecondaryText">@color/font_black_secondary</color>
     <color name="colorDivider">@color/grey_400</color>
+
 </resources>

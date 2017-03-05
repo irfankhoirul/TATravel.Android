@@ -21,8 +21,8 @@
     <string name="label_switch_specific_destination">Pengantaran di lokasi khusus</string>
     <string name="label_info_specific_departure">Operator travel yang anda pilih tidak mengizinkan penjemputan di lokasi khusus</string>
     <string name="label_info_specific_destination">Operator travel yang anda pilih tidak mengizinkan pengantaran di lokasi khusus</string>
-    <string name="label_info_specific_departure_notice">Pilih opsi ini jika anda ingin dijemput di lokasi tertentu. \n NB: \n~ Hanya operator travel tertentu.\n~ Mungkin akan dikenakan biaya tambahan</string>
-    <string name="label_info_specific_destination_notice">Pilih opsi ini jika anda ingin diantar ke lokasi tertentu. \n NB: \n~ Hanya operator travel tertentu.\n~ Mungkin akan dikenakan biaya tambahan</string>
+    <string name="label_info_specific_departure_notice">Pilih opsi ini jika anda ingin dijemput di lokasi tertentu. \nNB: \n~ Hanya operator travel tertentu.\n~ Mungkin akan dikenakan biaya tambahan</string>
+    <string name="label_info_specific_destination_notice">Pilih opsi ini jika anda ingin diantar ke lokasi tertentu. \nNB: \n~ Hanya operator travel tertentu.\n~ Mungkin akan dikenakan biaya tambahan</string>
     <string name="label_button_set_destination">Set Lokasi Tujuan</string>
     <string name="label_button_set_departure">Set Lokasi Pemberangkatan</string>
     <string name="label_button_chose_seat">Pilih Kursi</string>
