@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.util;
+package com.irfankhoirul.apps.tatravel.model.data.local;
 
 import android.app.Activity;
 import android.content.Context;

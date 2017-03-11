@@ -4,8 +4,8 @@ import android.util.Log;
 
 import com.irfankhoirul.apps.tatravel.contract.TravelLocationDialogContract;
 import com.irfankhoirul.apps.tatravel.model.api.DataPage;
-import com.irfankhoirul.apps.tatravel.model.data_manager.IRequestResponseWithPaginationListener;
-import com.irfankhoirul.apps.tatravel.model.data_manager.SearchInteractor;
+import com.irfankhoirul.apps.tatravel.model.data.remote.IRequestResponseWithPaginationListener;
+import com.irfankhoirul.apps.tatravel.model.data.remote.SearchInteractor;
 import com.irfankhoirul.apps.tatravel.model.pojo.Lokasi;
 
 import java.util.List;
@@ -29,6 +29,11 @@ public class TravelLocationDialogPresenter implements TravelLocationDialogContra
 
     public void setLoadingData(boolean loadingData) {
         this.loadingData = loadingData;
+    }
+
+    @Override
+    public void start() {
+
     }
 
     @Override
@@ -56,4 +61,5 @@ public class TravelLocationDialogPresenter implements TravelLocationDialogContra
             }
         }, page, idKota);
     }
+
 }

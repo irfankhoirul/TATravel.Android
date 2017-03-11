@@ -1,6 +1,4 @@
-package com.irfankhoirul.apps.tatravel.model.data_manager;
-
-import com.irfankhoirul.apps.tatravel.model.api.IEndPoint;
+package com.irfankhoirul.apps.tatravel.model.data.remote;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -10,7 +8,7 @@ import static com.irfankhoirul.apps.tatravel.util.ConstantUtils.BASE_API_URL;
 /**
  * Interactor merupakan bagian dari data layer yang berfungsi untuk fetching data
  * (database, cache, web service, dsb).
- * BaseRetrofitInteractor merupakan super class dari interactor yang digunakan untuk
+ * BaseRemoteDataSource merupakan super class dari interactor yang digunakan untuk
  * fetching data dari web service menggunakan library Retrofit
  *
  * @author Irfan Khoirul Muhlishin - irfankhoirul@gmail.com
@@ -18,17 +16,19 @@ import static com.irfankhoirul.apps.tatravel.util.ConstantUtils.BASE_API_URL;
  * @since 1.0
  */
 
-public class BaseRetrofitInteractor {
+public abstract class BaseRemoteDataSource<T> {
 
     protected Retrofit retrofit;
-    protected IEndPoint endPoint;
+    protected T endPoint;
 
-    protected BaseRetrofitInteractor() {
+    protected BaseRemoteDataSource() {
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_API_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        endPoint = retrofit.create(IEndPoint.class);
+        setEndPoint();
     }
+
+    public abstract void setEndPoint();
 }

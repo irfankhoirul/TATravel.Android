@@ -15,6 +15,11 @@ public class DepartureFragmentPresenter implements DepartureFragmentContract.Pre
     }
 
     @Override
+    public void start() {
+
+    }
+
+    @Override
     public void getDepartureLocationList() {
 
     }

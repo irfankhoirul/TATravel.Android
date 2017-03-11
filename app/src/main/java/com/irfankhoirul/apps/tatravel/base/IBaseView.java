@@ -8,5 +8,6 @@ package com.irfankhoirul.apps.tatravel.base;
  * @since 1.0 (7 November 2016)
  */
 
-public interface IBaseView {
+public interface IBaseView<T> {
+    void setPresenter();
 }

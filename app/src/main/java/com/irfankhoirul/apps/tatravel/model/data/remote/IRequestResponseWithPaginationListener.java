@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.model.data_manager;
+package com.irfankhoirul.apps.tatravel.model.data.remote;
 
 import com.irfankhoirul.apps.tatravel.model.api.DataPage;
 

@@ -144,6 +144,11 @@ public class DepartureFragment extends BaseFragment<MainActivity> implements
     }
 
     @Override
+    public void setPresenter() {
+
+    }
+
+    @Override
     public void onDetach() {
         super.onDetach();
         if (mGoogleApiClient != null) {
@@ -306,4 +311,5 @@ public class DepartureFragment extends BaseFragment<MainActivity> implements
             tieLocation.setText(selectedLocation.getOperatorTravel().getNama() + ", " + selectedLocation.getAlamat());
         }
     }
+
 }

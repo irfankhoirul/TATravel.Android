@@ -23,6 +23,8 @@ import static com.irfankhoirul.apps.tatravel.model.api.EndPoints.GET_SCHEDULE_OL
  */
 
 public interface IEndPoint {
+    /* OLD */
+
     @FormUrlEncoded
     @POST(GET_SCHEDULE_OLD)
     Call<DataResult<JadwalPerjalanan>> search(@Field("date") String date);

@@ -4,8 +4,8 @@ import android.util.Log;
 
 import com.irfankhoirul.apps.tatravel.contract.CityDialogContract;
 import com.irfankhoirul.apps.tatravel.model.api.DataPage;
-import com.irfankhoirul.apps.tatravel.model.data_manager.IRequestResponseWithPaginationListener;
-import com.irfankhoirul.apps.tatravel.model.data_manager.SearchInteractor;
+import com.irfankhoirul.apps.tatravel.model.data.remote.IRequestResponseWithPaginationListener;
+import com.irfankhoirul.apps.tatravel.model.data.remote.SearchInteractor;
 import com.irfankhoirul.apps.tatravel.model.pojo.Kota;
 
 import java.util.List;
@@ -29,6 +29,11 @@ public class CityDialogPresenter implements CityDialogContract.Presenter {
 
     public void setLoadingData(boolean loadingData) {
         this.loadingData = loadingData;
+    }
+
+    @Override
+    public void start() {
+
     }
 
     @Override

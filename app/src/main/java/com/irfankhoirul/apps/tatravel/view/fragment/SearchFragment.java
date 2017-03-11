@@ -74,6 +74,11 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
     }
 
     @Override
+    public void setPresenter() {
+
+    }
+
+    @Override
     public void onStop() {
         sliderPromotion.stopAutoCycle();
         super.onStop();
@@ -177,4 +182,6 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
             tvDeparture.setText(data.getStringExtra(ConstantUtils.INTENT_SEARCH_FRAGMENT_DEPARTURE_CITY));
         }
     }
+
+
 }

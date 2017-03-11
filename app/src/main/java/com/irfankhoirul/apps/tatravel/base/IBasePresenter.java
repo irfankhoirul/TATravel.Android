@@ -9,4 +9,5 @@ package com.irfankhoirul.apps.tatravel.base;
  */
 
 public interface IBasePresenter {
+    void start();
 }

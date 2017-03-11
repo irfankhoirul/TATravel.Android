@@ -27,6 +27,7 @@ public abstract class BaseFragment<T extends Activity> extends Fragment {
         return label;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

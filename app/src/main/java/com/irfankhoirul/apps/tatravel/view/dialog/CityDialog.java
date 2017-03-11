@@ -76,6 +76,11 @@ public class CityDialog extends BaseDialogFragment implements CityDialogContract
     }
 
     @Override
+    public void setPresenter() {
+
+    }
+
+    @Override
     public void onResume() {
         ViewGroup.LayoutParams params = getDialog().getWindow().getAttributes();
         params.width = LinearLayout.LayoutParams.MATCH_PARENT;

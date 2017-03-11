@@ -3,8 +3,8 @@ package com.irfankhoirul.apps.tatravel.presenter;
 import android.util.Log;
 
 import com.irfankhoirul.apps.tatravel.contract.SearchFragmentContract;
-import com.irfankhoirul.apps.tatravel.model.data_manager.IRequestResponseListener;
-import com.irfankhoirul.apps.tatravel.model.data_manager.SearchInteractor;
+import com.irfankhoirul.apps.tatravel.model.data.remote.IRequestResponseListener;
+import com.irfankhoirul.apps.tatravel.model.data.remote.SearchInteractor;
 import com.irfankhoirul.apps.tatravel.model.pojo.JadwalPerjalanan;
 
 import java.util.List;
@@ -23,6 +23,11 @@ public class SearchFragmentPresenter implements SearchFragmentContract.Presenter
 
     public SearchFragmentPresenter(SearchFragmentContract.View view) {
         this.view = view;
+    }
+
+    @Override
+    public void start() {
+
     }
 
     @Override
@@ -46,5 +51,4 @@ public class SearchFragmentPresenter implements SearchFragmentContract.Presenter
             }
         });
     }
-
 }

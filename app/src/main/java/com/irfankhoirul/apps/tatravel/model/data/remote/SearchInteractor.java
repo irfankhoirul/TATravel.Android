@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.model.data_manager;
+package com.irfankhoirul.apps.tatravel.model.data.remote;
 
 import android.util.Log;
 
@@ -22,7 +22,7 @@ import retrofit2.Response;
  * @since 1.0
  */
 
-public class SearchInteractor extends BaseRetrofitInteractor {
+public class SearchInteractor extends BaseRemoteDataSource {
 
     public void getJadwalPerjalanan(final IRequestResponseListener<List<JadwalPerjalanan>> listener) {
         Call<DataResult<JadwalPerjalanan>> call = endPoint.search("2016-12-02");
