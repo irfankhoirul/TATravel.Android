@@ -3,6 +3,7 @@ package com.irfankhoirul.apps.tatravel.model.data.remote;
 import android.util.Log;
 
 import com.irfankhoirul.apps.tatravel.model.api.DataResult;
+import com.irfankhoirul.apps.tatravel.model.api.IEndPoint;
 import com.irfankhoirul.apps.tatravel.model.pojo.JadwalPerjalanan;
 import com.irfankhoirul.apps.tatravel.model.pojo.Kota;
 import com.irfankhoirul.apps.tatravel.model.pojo.Lokasi;
@@ -24,8 +25,13 @@ import retrofit2.Response;
 
 public class SearchInteractor extends BaseRemoteDataSource {
 
+    @Override
+    public void setEndPoint() {
+        endPoint = retrofit.create(IEndPoint.class);
+    }
+
     public void getJadwalPerjalanan(final IRequestResponseListener<List<JadwalPerjalanan>> listener) {
-        Call<DataResult<JadwalPerjalanan>> call = endPoint.search("2016-12-02");
+        Call<DataResult<JadwalPerjalanan>> call = ((IEndPoint) endPoint).search("2016-12-02");
         call.enqueue(new Callback<DataResult<JadwalPerjalanan>>() {
             @Override
             public void onResponse(Call<DataResult<JadwalPerjalanan>> call, Response<DataResult<JadwalPerjalanan>> response) {
@@ -41,7 +47,7 @@ public class SearchInteractor extends BaseRemoteDataSource {
     }
 
     public void getLocation(final IRequestResponseWithPaginationListener<List<Lokasi>> listener, int page, int idKota) {
-        Call<DataResult<Lokasi>> call = endPoint.getTravelAgentLocationList(page, ConstantUtils.PAGINATION_LIMIT, idKota);
+        Call<DataResult<Lokasi>> call = ((IEndPoint) endPoint).getTravelAgentLocationList(page, ConstantUtils.PAGINATION_LIMIT, idKota);
         call.enqueue(new Callback<DataResult<Lokasi>>() {
             @Override
             public void onResponse(Call<DataResult<Lokasi>> call, Response<DataResult<Lokasi>> response) {
@@ -62,7 +68,7 @@ public class SearchInteractor extends BaseRemoteDataSource {
     }
 
     public void getCity(final IRequestResponseWithPaginationListener<List<Kota>> listener, int page) {
-        Call<DataResult<Kota>> call = endPoint.getCityList(page, ConstantUtils.PAGINATION_LIMIT);
+        Call<DataResult<Kota>> call = ((IEndPoint) endPoint).getCityList(page, ConstantUtils.PAGINATION_LIMIT);
         call.enqueue(new Callback<DataResult<Kota>>() {
             @Override
             public void onResponse(Call<DataResult<Kota>> call, Response<DataResult<Kota>> response) {

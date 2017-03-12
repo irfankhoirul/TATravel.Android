@@ -9,8 +9,8 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
-import static com.irfankhoirul.apps.tatravel.model.api.EndPoints.DO_BOOK_SEAT;
-import static com.irfankhoirul.apps.tatravel.model.api.EndPoints.LIST_SEAT;
+import static com.irfankhoirul.apps.tatravel.model.api.endpoint.EndPoints.DO_BOOK_SEAT;
+import static com.irfankhoirul.apps.tatravel.model.api.endpoint.EndPoints.LIST_SEAT;
 
 /**
  * Created by Irfan Khoirul on 3/11/2017.

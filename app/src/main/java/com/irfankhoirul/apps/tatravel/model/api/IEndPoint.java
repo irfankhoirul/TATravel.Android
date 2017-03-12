@@ -10,9 +10,9 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 import rx.Observable;
 
-import static com.irfankhoirul.apps.tatravel.model.api.EndPoints.GET_CITY_OLD;
-import static com.irfankhoirul.apps.tatravel.model.api.EndPoints.GET_LOCATION_OLD;
-import static com.irfankhoirul.apps.tatravel.model.api.EndPoints.GET_SCHEDULE_OLD;
+import static com.irfankhoirul.apps.tatravel.model.api.endpoint.EndPoints.GET_CITY_OLD;
+import static com.irfankhoirul.apps.tatravel.model.api.endpoint.EndPoints.GET_LOCATION_OLD;
+import static com.irfankhoirul.apps.tatravel.model.api.endpoint.EndPoints.GET_SCHEDULE_OLD;
 
 /**
  * Merupakan interface yang berisi method untuk melakukan query. Digunakan oleh retrofit.

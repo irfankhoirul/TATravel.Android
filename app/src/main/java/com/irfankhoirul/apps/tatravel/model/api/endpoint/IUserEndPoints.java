@@ -9,12 +9,12 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
-import static com.irfankhoirul.apps.tatravel.model.api.EndPoints.DO_LOGIN;
-import static com.irfankhoirul.apps.tatravel.model.api.EndPoints.DO_LOGIN_DRIVER;
-import static com.irfankhoirul.apps.tatravel.model.api.EndPoints.DO_REGISTER;
-import static com.irfankhoirul.apps.tatravel.model.api.EndPoints.DO_VERIFY;
-import static com.irfankhoirul.apps.tatravel.model.api.EndPoints.GET_PROFILE;
-import static com.irfankhoirul.apps.tatravel.model.api.EndPoints.UPDATE_PROFILE;
+import static com.irfankhoirul.apps.tatravel.model.api.endpoint.EndPoints.DO_LOGIN;
+import static com.irfankhoirul.apps.tatravel.model.api.endpoint.EndPoints.DO_LOGIN_DRIVER;
+import static com.irfankhoirul.apps.tatravel.model.api.endpoint.EndPoints.DO_REGISTER;
+import static com.irfankhoirul.apps.tatravel.model.api.endpoint.EndPoints.DO_VERIFY;
+import static com.irfankhoirul.apps.tatravel.model.api.endpoint.EndPoints.GET_PROFILE;
+import static com.irfankhoirul.apps.tatravel.model.api.endpoint.EndPoints.UPDATE_PROFILE;
 
 /**
  * Created by Irfan Khoirul on 3/11/2017.
