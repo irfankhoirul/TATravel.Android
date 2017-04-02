@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "886585274522",
+    "project_id": "tatravel-150810"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:886585274522:android:82b563e798bbdc14",
+        "android_client_info": {
+          "package_name": "com.irfankhoirul.apps.tatravel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "886585274522-fuq6i9imik19tkav9keug53tv3vmlq06.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "886585274522-7145eefbf16bq8ge68cl0hvc199u7e2c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.irfankhoirul.apps.tatravel",
+            "certificate_hash": "18a52c13cb03843963c9b476d89c22aa02ffe593"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-M0Jo_SaTk7nsX5vEX0dJO0O53UKoJ-g"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

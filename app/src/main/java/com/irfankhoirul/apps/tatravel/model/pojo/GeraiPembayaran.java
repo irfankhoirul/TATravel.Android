@@ -2,7 +2,6 @@ package com.irfankhoirul.apps.tatravel.model.pojo;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.irfankhoirul.apps.tatravel.base.BaseModel;
 
 import org.parceler.Parcel;
 
@@ -17,7 +16,7 @@ import org.parceler.Parcel;
 public class GeraiPembayaran extends BaseModel {
     @SerializedName("nama")
     @Expose
-    private String nama;
+    protected String nama;
 
     public String getNama() {
         return nama;

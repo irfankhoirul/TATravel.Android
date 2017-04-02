@@ -3,11 +3,10 @@ package com.irfankhoirul.apps.tatravel.presenter;
 import android.util.Log;
 
 import com.irfankhoirul.apps.tatravel.contract.SearchFragmentContract;
+import com.irfankhoirul.apps.tatravel.model.api.DataResult;
 import com.irfankhoirul.apps.tatravel.model.data.remote.IRequestResponseListener;
-import com.irfankhoirul.apps.tatravel.model.data.remote.SearchInteractor;
+import com.irfankhoirul.apps.tatravel.model.data.remote.SearchDataSource;
 import com.irfankhoirul.apps.tatravel.model.pojo.JadwalPerjalanan;
-
-import java.util.List;
 
 /**
  * Merupakan presenter dari SearchFragment
@@ -38,16 +37,16 @@ public class SearchFragmentPresenter implements SearchFragmentContract.Presenter
 
     @Override
     public void searchJadwalPerjalanan() {
-        SearchInteractor repository = new SearchInteractor();
-        repository.getJadwalPerjalanan(new IRequestResponseListener<List<JadwalPerjalanan>>() {
+        SearchDataSource repository = new SearchDataSource();
+        repository.getJadwalPerjalanan(new IRequestResponseListener<JadwalPerjalanan>() {
             @Override
-            public void onSuccess(List<JadwalPerjalanan> data) {
-                view.showSearchResult(data);
+            public void onSuccess(DataResult<JadwalPerjalanan> data) {
+                view.showSearchResult(data.getDatas());
             }
 
             @Override
-            public void onFailure() {
-                Log.v("Retrofit", "OnFailure");
+            public void onFailure(Throwable throwable) {
+                Log.e("ERROR", throwable.getMessage());
             }
         });
     }

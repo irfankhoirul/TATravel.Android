@@ -14,7 +14,6 @@ import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.irfankhoirul.apps.tatravel.R;
-import com.irfankhoirul.apps.tatravel.base.BaseFragment;
 import com.irfankhoirul.apps.tatravel.contract.SearchFragmentContract;
 import com.irfankhoirul.apps.tatravel.model.pojo.JadwalPerjalanan;
 import com.irfankhoirul.apps.tatravel.model.pojo.Lokasi;
@@ -56,12 +55,13 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
     }
 
     @Override
-    protected void setLabel() {
-        label = this.getClass().getSimpleName();
+    protected void setTitle() {
+        title = getString(R.string.app_name);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         unbinder = ButterKnife.bind(this, view);
 

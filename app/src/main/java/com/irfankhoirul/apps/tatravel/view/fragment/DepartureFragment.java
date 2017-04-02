@@ -39,7 +39,6 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.irfankhoirul.apps.tatravel.R;
-import com.irfankhoirul.apps.tatravel.base.BaseFragment;
 import com.irfankhoirul.apps.tatravel.contract.DepartureFragmentContract;
 import com.irfankhoirul.apps.tatravel.model.pojo.JadwalPerjalanan;
 import com.irfankhoirul.apps.tatravel.model.pojo.Kota;
@@ -123,12 +122,13 @@ public class DepartureFragment extends BaseFragment<MainActivity> implements
     }
 
     @Override
-    protected void setLabel() {
-        label = this.getClass().getSimpleName();
+    protected void setTitle() {
+        title = "Keberangkatan";
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
         fragmentView = inflater.inflate(R.layout.fragment_departure, container, false);
         unbinder = ButterKnife.bind(this, fragmentView);
 

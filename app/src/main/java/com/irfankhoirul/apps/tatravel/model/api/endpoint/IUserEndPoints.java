@@ -3,8 +3,10 @@ package com.irfankhoirul.apps.tatravel.model.api.endpoint;
 import com.irfankhoirul.apps.tatravel.model.api.DataResult;
 import com.irfankhoirul.apps.tatravel.model.pojo.User;
 
+import java.util.Map;
+
 import retrofit2.Call;
-import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -22,57 +24,74 @@ import static com.irfankhoirul.apps.tatravel.model.api.endpoint.EndPoints.UPDATE
 
 public interface IUserEndPoints {
 
+    /**
+     * Param :
+     *
+     * @param param - name
+     *              - phone
+     *              - email
+     *              - password
+     *              - deviceSecretId
+     */
     @FormUrlEncoded
     @POST(DO_REGISTER)
-    Call<DataResult> register(
-            @Field("name") String name,
-            @Field("phone") String phone,
-            @Field("email") String email,
-            @Field("password") String password,
-            @Field("deviceSecretId") String deviceSecretId
-    );
+    Call<DataResult> register(@FieldMap Map<String, String> param);
 
+
+    /**
+     * Param
+     * @param param
+     * - registrationCode
+     * - phone
+     * */
     @FormUrlEncoded
     @POST(DO_VERIFY)
-    Call<DataResult> verify(
-            @Field("registrationCode") String registrationCode,
-            @Field("phone") String phone
-    );
+    Call<DataResult> verify(@FieldMap Map<String, String> param);
 
+    /**
+     * Param
+     * @param param
+     * - deviceSecretId
+     * - phone
+     * - password
+     * */
     @FormUrlEncoded
     @POST(DO_LOGIN)
-    Call<DataResult<User>> login(
-            @Field("deviceSecretId") String registrationCode,
-            @Field("phone") String phone,
-            @Field("password") String password
-    );
+    Call<DataResult<User>> login(@FieldMap Map<String, String> param);
 
+    /**
+     * Param
+     * @param param
+     * - deviceSecretId
+     * - phone
+     * - password
+     * */
     @FormUrlEncoded
     @POST(DO_LOGIN_DRIVER)
-    Call<DataResult<User>> loginDriver(
-            @Field("deviceSecretId") String deviceSecretId,
-            @Field("phone") String phone,
-            @Field("password") String password
-    );
+    Call<DataResult<User>> loginDriver(@FieldMap Map<String, String> param);
 
+    /**
+     * Param
+     * @param param
+     * - token
+     * */
     @FormUrlEncoded
     @POST(GET_PROFILE)
-    Call<DataResult<User>> getProfile(
-            @Path("id") String id,
-            @Field("token") String token
-    );
+    Call<DataResult<User>> getProfile(@Path("id") String id, @FieldMap Map<String, String> param);
 
+    /**
+     * Param
+     * @param param
+     * - token
+     * - name
+     * - email
+     * - password
+     * - alamat
+     * - cityid
+     * - provinceId
+     * */
     @FormUrlEncoded
     @POST(UPDATE_PROFILE)
-    Call<DataResult<User>> updateProfile(
-            @Path("id") String id,
-            @Field("token") String token,
-            @Field("name") String name,
-            @Field("email") String email,
-            @Field("password") String password,
-            @Field("alamat") String alamat,
-            @Field("cityid") String cityid,
-            @Field("provinceId") String provinceId
-    );
+    Call<DataResult<User>> updateProfile(@Path("id") String id, @FieldMap Map<String, String> param);
 
 }

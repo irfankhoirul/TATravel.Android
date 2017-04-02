@@ -1,14 +1,10 @@
 package com.irfankhoirul.apps.tatravel.presenter;
 
-import android.util.Log;
-
 import com.irfankhoirul.apps.tatravel.contract.TravelLocationDialogContract;
-import com.irfankhoirul.apps.tatravel.model.api.DataPage;
-import com.irfankhoirul.apps.tatravel.model.data.remote.IRequestResponseWithPaginationListener;
-import com.irfankhoirul.apps.tatravel.model.data.remote.SearchInteractor;
+import com.irfankhoirul.apps.tatravel.model.api.DataResult;
+import com.irfankhoirul.apps.tatravel.model.data.remote.IRequestResponseListener;
+import com.irfankhoirul.apps.tatravel.model.data.remote.SearchDataSource;
 import com.irfankhoirul.apps.tatravel.model.pojo.Lokasi;
-
-import java.util.List;
 
 /**
  * Created by Irfan Khoirul on 12/25/2016.
@@ -38,24 +34,21 @@ public class TravelLocationDialogPresenter implements TravelLocationDialogContra
 
     @Override
     public void getTravelLocationData(int page, int idKota) {
-        Log.v("LoadingData", "START");
         view.setProgressBarVisibility(true);
         loadingData = true;
-        SearchInteractor repository = new SearchInteractor();
-        repository.getLocation(new IRequestResponseWithPaginationListener<List<Lokasi>>() {
+        SearchDataSource repository = new SearchDataSource();
+        repository.getLocation(new IRequestResponseListener<Lokasi>() {
             @Override
-            public void onSuccess(DataPage dataPageManager, List<Lokasi> data) {
-                Log.v("LoadingData", "DONE");
+            public void onSuccess(DataResult<Lokasi> data) {
                 view.setProgressBarVisibility(false);
                 loadingData = false;
                 if (data != null) {
-                    view.updateTravelLocationList(dataPageManager, data);
+                    view.updateTravelLocationList(data.getDataPageManager(), data.getDatas());
                 }
             }
 
             @Override
-            public void onFailure() {
-                Log.v("LoadingData", "FAILED");
+            public void onFailure(Throwable throwable) {
                 view.setProgressBarVisibility(false);
                 loadingData = false;
             }

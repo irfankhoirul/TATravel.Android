@@ -1,21 +1,15 @@
 package com.irfankhoirul.apps.tatravel.view.activity;
 
-import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.irfankhoirul.apps.tatravel.R;
-import com.irfankhoirul.apps.tatravel.base.BaseFragment;
+import com.irfankhoirul.apps.tatravel.model.data.local.Session;
 import com.irfankhoirul.apps.tatravel.view.fragment.DepartureFragment;
-import com.irfankhoirul.apps.tatravel.view.fragment.LoginFragment;
-import com.irfankhoirul.apps.tatravel.view.fragment.RegisterFragment;
+import com.irfankhoirul.apps.tatravel.view.fragment.LoginOrRegisterFragment;
 import com.irfankhoirul.apps.tatravel.view.fragment.SearchFragment;
 
 import butterknife.BindView;
@@ -27,10 +21,10 @@ import butterknife.OnClick;
  * @since 1.0
  */
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends BaseActivity {
 
-    @BindView(R.id.btBack)
-    ImageButton btBack;
+    @BindView(R.id.ivIcon)
+    ImageView ivIcon;
 
     @BindView(R.id.llSearch)
     LinearLayout llSearch;
@@ -54,19 +48,20 @@ public class MainActivity extends FragmentActivity {
     TextView tvProfile;
 
     private SearchFragment searchFragment;
-    private LoginFragment loginFragment;
-    private RegisterFragment registerFragment;
-    private BaseFragment currentFragment;
     private DepartureFragment departureFragment;
+    private LoginOrRegisterFragment loginOrRegisterFragment;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void initializeFragment() {
+        setCurrentFragment(new SearchFragment(), false);
+    }
+
+    @Override
+    protected void initializeView() {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         btBack.setVisibility(View.GONE);
-
-        setCurrentFragment(new SearchFragment(), false);
+        ivIcon.setVisibility(View.VISIBLE);
     }
 
     @OnClick(R.id.llSearch)
@@ -97,37 +92,21 @@ public class MainActivity extends FragmentActivity {
 
     @OnClick(R.id.llProfile)
     public void llProfile() {
-        if (registerFragment != null) {
-            setCurrentFragment(registerFragment, false);
+        if (Session.getInstance(this) != null) {
+            // Load profile
         } else {
-            this.registerFragment = new RegisterFragment();
-            setCurrentFragment(registerFragment, false);
+            // Load LoginOrRegister
+            if (loginOrRegisterFragment != null) {
+                setCurrentFragment(loginOrRegisterFragment, false);
+            } else {
+                this.loginOrRegisterFragment = new LoginOrRegisterFragment();
+                setCurrentFragment(loginOrRegisterFragment, false);
+            }
         }
+
         resetIconColor();
         ivProfile.setColorFilter(ContextCompat.getColor(this, R.color.colorPrimary));
         tvProfile.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
-    }
-
-    public BaseFragment getFragment() {
-        return currentFragment;
-    }
-
-    public void setFragment(BaseFragment currentFragment) {
-        this.currentFragment = currentFragment;
-    }
-
-    public void setCurrentFragment(BaseFragment fragment, boolean addToBackStack) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-        if (currentFragment != null && addToBackStack) {
-            fragmentTransaction.addToBackStack(currentFragment.getLabel());
-        }
-
-        fragmentTransaction.replace(R.id.flMainContainer, fragment, fragment.getLabel());
-        fragmentTransaction.commit();
-
-        this.currentFragment = fragment;
     }
 
     public void resetIconColor() {
@@ -138,4 +117,5 @@ public class MainActivity extends FragmentActivity {
         ivProfile.setColorFilter(ContextCompat.getColor(this, R.color.grey_500));
         tvProfile.setTextColor(ContextCompat.getColor(this, R.color.grey_500));
     }
+
 }

@@ -1,7 +1,6 @@
 package com.irfankhoirul.apps.tatravel.contract;
 
 import com.irfankhoirul.apps.tatravel.base.IBasePresenter;
-import com.irfankhoirul.apps.tatravel.base.IBaseView;
 import com.irfankhoirul.apps.tatravel.model.pojo.JadwalPerjalanan;
 import com.irfankhoirul.apps.tatravel.model.pojo.Lokasi;
 
@@ -13,7 +12,7 @@ import java.util.List;
 
 public interface DepartureFragmentContract {
 
-    interface View extends IBaseView {
+    interface View {
         void setProgressDialog(boolean visibility, String title, String message);
 
         void showSnackBar(int type, String message, String action, android.view.View.OnClickListener listener);

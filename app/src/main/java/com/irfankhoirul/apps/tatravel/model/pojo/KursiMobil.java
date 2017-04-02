@@ -2,7 +2,6 @@ package com.irfankhoirul.apps.tatravel.model.pojo;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.irfankhoirul.apps.tatravel.base.BaseModel;
 
 import org.parceler.Parcel;
 
@@ -17,15 +16,15 @@ import org.parceler.Parcel;
 public class KursiMobil extends BaseModel {
     @SerializedName("id_mobil")
     @Expose
-    private int idMobil;
+    protected int idMobil;
 
     @SerializedName("nomor")
     @Expose
-    private String nomor;
+    protected String nomor;
 
     @SerializedName("mobil")
     @Expose
-    private Mobil mobil;
+    protected Mobil mobil;
 
     public int getIdMobil() {
         return idMobil;

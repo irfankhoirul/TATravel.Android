@@ -13,12 +13,6 @@ import com.irfankhoirul.apps.tatravel.R;
  */
 
 public class SnackBarBuilder {
-
-    public static final int SNACKBAR_INFO = 0;
-    public static final int SNACKBAR_SUCCESS = 1;
-    public static final int SNACKBAR_WARNING = 2;
-    public static final int SNACKBAR_ERROR = 3;
-
     private View root;
     private String message;
     private String actionName;
@@ -75,19 +69,19 @@ public class SnackBarBuilder {
         TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
 
         switch (type) {
-            case SNACKBAR_INFO:
+            case ConstantUtils.STATUS_INFO:
                 textView.setTextColor(ContextCompat.getColor(context, R.color.light_blue_500));
                 break;
 
-            case SNACKBAR_SUCCESS:
+            case ConstantUtils.STATUS_SUCCESS:
                 textView.setTextColor(ContextCompat.getColor(context, R.color.light_green_500));
                 break;
 
-            case SNACKBAR_WARNING:
+            case ConstantUtils.STATUS_WARNING:
                 textView.setTextColor(ContextCompat.getColor(context, R.color.orange_500));
                 break;
 
-            case SNACKBAR_ERROR:
+            case ConstantUtils.STATUS_ERROR:
                 textView.setTextColor(ContextCompat.getColor(context, R.color.red_500));
                 break;
         }

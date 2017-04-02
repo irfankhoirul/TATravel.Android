@@ -60,7 +60,7 @@ public class Session<T> {
         if (session != null) {
             return session;
         } else {
-            throw new RuntimeException("Session has not been created! Try to initialize session first.");
+            return null;
         }
     }
 

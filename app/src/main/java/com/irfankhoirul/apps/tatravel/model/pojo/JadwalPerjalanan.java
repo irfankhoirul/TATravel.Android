@@ -2,7 +2,6 @@ package com.irfankhoirul.apps.tatravel.model.pojo;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.irfankhoirul.apps.tatravel.base.BaseModel;
 
 import org.parceler.Parcel;
 
@@ -17,75 +16,75 @@ import org.parceler.Parcel;
 public class JadwalPerjalanan extends BaseModel {
     @SerializedName("id_admin")
     @Expose
-    private int idAdmin;
+    protected int idAdmin;
 
     @SerializedName("id_operator_travel")
     @Expose
-    private int idOperatorTravel;
+    protected int idOperatorTravel;
 
     @SerializedName("id_lokasi_pemberangkatan")
     @Expose
-    private int idLokasiPemberangkatan;
+    protected int idLokasiPemberangkatan;
 
     @SerializedName("id_lokasi_tujuan")
     @Expose
-    private int idLokasiTujuan;
+    protected int idLokasiTujuan;
 
     @SerializedName("id_mobil")
     @Expose
-    private int idMobil;
+    protected int idMobil;
 
     @SerializedName("is_supir")
     @Expose
-    private int idSupir;
+    protected int idSupir;
 
     @SerializedName("waktu_keberangkatan")
     @Expose
-    private String waktuKeberangkatan;
+    protected String waktuKeberangkatan;
 
     @SerializedName("waktu_kedatangan")
     @Expose
-    private String waktuKedatangan;
+    protected String waktuKedatangan;
 
     @SerializedName("status")
     @Expose
-    private String status;
+    protected String status;
 
     @SerializedName("harga")
     @Expose
-    private int harga;
+    protected int harga;
 
     @SerializedName("jumlah_kursi_tersedia")
     @Expose
-    private int jumlahKursiTersedia;
+    protected int jumlahKursiTersedia;
 
     @SerializedName("biaya_lokasi_khusus")
     @Expose
-    private int biayaLokasiKhusus;
+    protected int biayaLokasiKhusus;
 
     @SerializedName("admin")
     @Expose
-    private Admin admin;
+    protected Admin admin;
 
     @SerializedName("operator_travel")
     @Expose
-    private OperatorTravel operatorTravel;
+    protected OperatorTravel operatorTravel;
 
     @SerializedName("lokasi_pemberangkatan")
     @Expose
-    private Lokasi lokasiPemberangkatan;
+    protected Lokasi lokasiPemberangkatan;
 
     @SerializedName("lokasi_tujuan")
     @Expose
-    private Lokasi lokasiTujuan;
+    protected Lokasi lokasiTujuan;
 
     @SerializedName("mobil")
     @Expose
-    private Mobil mobil;
+    protected Mobil mobil;
 
     @SerializedName("supir")
     @Expose
-    private Supir supir;
+    protected Supir supir;
 
     public int getIdAdmin() {
         return idAdmin;

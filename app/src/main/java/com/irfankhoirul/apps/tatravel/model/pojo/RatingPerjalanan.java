@@ -2,7 +2,6 @@ package com.irfankhoirul.apps.tatravel.model.pojo;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.irfankhoirul.apps.tatravel.base.BaseModel;
 
 import org.parceler.Parcel;
 
@@ -17,23 +16,23 @@ import org.parceler.Parcel;
 public class RatingPerjalanan extends BaseModel {
     @SerializedName("id_jadwal_perjalanan")
     @Expose
-    private int idJadwalPerjalanan;
+    protected int idJadwalPerjalanan;
 
     @SerializedName("id_user")
     @Expose
-    private int idUser;
+    protected int idUser;
 
     @SerializedName("rating")
     @Expose
-    private int rating;
+    protected int rating;
 
     @SerializedName("jadwal_perjalanan")
     @Expose
-    private JadwalPerjalanan jadwalPerjalanan;
+    protected JadwalPerjalanan jadwalPerjalanan;
 
     @SerializedName("user")
     @Expose
-    private User user;
+    protected User user;
 
     public int getIdJadwalPerjalanan() {
         return idJadwalPerjalanan;

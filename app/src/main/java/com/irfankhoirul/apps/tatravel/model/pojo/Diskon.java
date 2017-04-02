@@ -2,7 +2,6 @@ package com.irfankhoirul.apps.tatravel.model.pojo;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.irfankhoirul.apps.tatravel.base.BaseModel;
 
 import org.parceler.Parcel;
 
@@ -17,15 +16,15 @@ import org.parceler.Parcel;
 public class Diskon extends BaseModel {
     @SerializedName("id_jadwal_perjalanan")
     @Expose
-    private int idJadwalPerjalanan;
+    protected int idJadwalPerjalanan;
 
     @SerializedName("nilai")
     @Expose
-    private int nilai;
+    protected int nilai;
 
     @SerializedName("jadwal_perjalanan")
     @Expose
-    private JadwalPerjalanan jadwalPerjalanan;
+    protected JadwalPerjalanan jadwalPerjalanan;
 
     public int getIdJadwalPerjalanan() {
         return idJadwalPerjalanan;

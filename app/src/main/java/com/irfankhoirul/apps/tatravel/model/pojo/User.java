@@ -2,7 +2,6 @@ package com.irfankhoirul.apps.tatravel.model.pojo;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.irfankhoirul.apps.tatravel.base.BaseModel;
 
 import org.parceler.Parcel;
 
@@ -17,59 +16,59 @@ import org.parceler.Parcel;
 public class User extends BaseModel {
     @SerializedName("nama")
     @Expose
-    private String nama;
+    protected String nama;
 
     @SerializedName("nomor_handphone")
     @Expose
-    private String nomorHandphone;
+    protected String nomorHandphone;
 
     @SerializedName("email")
     @Expose
-    private String email;
+    protected String email;
 
     @SerializedName("paddword")
     @Expose
-    private String password;
+    protected String password;
 
     @SerializedName("salt")
     @Expose
-    private String salt;
+    protected String salt;
 
     @SerializedName("reset_token")
     @Expose
-    private String resetToken;
+    protected String resetToken;
 
     @SerializedName("registration_step")
     @Expose
-    private String registrationStep;
+    protected String registrationStep;
 
     @SerializedName("alamat")
     @Expose
-    private String alamat;
+    protected String alamat;
 
     @SerializedName("id_kota")
     @Expose
-    private int idKota;
+    protected int idKota;
 
     @SerializedName("id_provinsi")
     @Expose
-    private int idProvinsi;
+    protected int idProvinsi;
 
     @SerializedName("tipe")
     @Expose
-    private String tipe;
+    protected String tipe;
 
     @SerializedName("kota")
     @Expose
-    private Kota kota;
+    protected Kota kota;
 
     @SerializedName("provinsi")
     @Expose
-    private Provinsi provinsi;
+    protected Provinsi provinsi;
 
     @SerializedName("token")
     @Expose
-    private UserToken userToken;
+    protected UserToken userToken;
 
     public String getNama() {
         return nama;

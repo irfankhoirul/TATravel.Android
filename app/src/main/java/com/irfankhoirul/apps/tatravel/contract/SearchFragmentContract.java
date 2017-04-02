@@ -1,7 +1,6 @@
 package com.irfankhoirul.apps.tatravel.contract;
 
 import com.irfankhoirul.apps.tatravel.base.IBasePresenter;
-import com.irfankhoirul.apps.tatravel.base.IBaseView;
 import com.irfankhoirul.apps.tatravel.model.pojo.JadwalPerjalanan;
 import com.irfankhoirul.apps.tatravel.model.pojo.Lokasi;
 
@@ -20,7 +19,7 @@ public interface SearchFragmentContract {
      * @version 1.0 (13 November 2016)
      * @since 1.0
      */
-    interface View extends IBaseView {
+    interface View {
         void showPromo();
 
         void showSearchResult(List<JadwalPerjalanan> jadwalPerjalanan);

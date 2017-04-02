@@ -41,17 +41,18 @@
             android:layout_height="wrap_content"
             android:background="?android:attr/selectableItemBackground"
             android:text="@string/label_button_verify"
-            android:textAllCaps="true"
+            android:textAllCaps="false"
             android:textColor="@android:color/white" />
 
     </android.support.v7.widget.CardView>
 
     <Button
         style="@style/Base.Widget.AppCompat.Button.Borderless"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/label_button_resend_verification"
-        android:textAllCaps="false" />
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimary" />
 
 
 </LinearLayout>

@@ -2,7 +2,6 @@ package com.irfankhoirul.apps.tatravel.model.pojo;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.irfankhoirul.apps.tatravel.base.BaseModel;
 
 import org.parceler.Parcel;
 
@@ -17,31 +16,31 @@ import org.parceler.Parcel;
 public class Supir extends BaseModel {
     @SerializedName("id_admin")
     @Expose
-    private int idAdmin;
+    protected int idAdmin;
 
     @SerializedName("id_operator_travel")
     @Expose
-    private int idOperatorTravel;
+    protected int idOperatorTravel;
 
     @SerializedName("kode_registrasi")
     @Expose
-    private String kodeRegistrasi;
+    protected String kodeRegistrasi;
 
     @SerializedName("id_user")
     @Expose
-    private int idUser;
+    protected int idUser;
 
     @SerializedName("admin")
     @Expose
-    private Admin admin;
+    protected Admin admin;
 
     @SerializedName("operator_travel")
     @Expose
-    private OperatorTravel operatorTravel;
+    protected OperatorTravel operatorTravel;
 
     @SerializedName("user")
     @Expose
-    private User user;
+    protected User user;
 
     public int getIdAdmin() {
         return idAdmin;

@@ -364,8 +364,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="?android:attr/selectableItemBackground"
-                        android:text="Cari"
-                        android:textAllCaps="true"
+                        android:text="Cari Travel"
+                        android:textAllCaps="false"
                         android:textColor="@android:color/white" />
 
                 </android.support.v7.widget.CardView>

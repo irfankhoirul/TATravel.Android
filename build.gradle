@@ -2,13 +2,14 @@
 
 buildscript {
     ext.kotlin_version = '1.1.0'
-    ext.android_support_version = '25.1.1'
+    ext.android_support_version = '25.3.0'
     repositories {
         jcenter()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.0'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+        classpath 'com.google.gms:google-services:3.0.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version" //For butterknife
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -19,6 +20,9 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+    }
+    repositories {
+        mavenCentral()
     }
 }
 

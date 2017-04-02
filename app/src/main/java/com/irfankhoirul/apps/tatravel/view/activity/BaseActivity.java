@@ -1,21 +1,20 @@
 package com.irfankhoirul.apps.tatravel.view.activity;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.irfankhoirul.apps.tatravel.R;
-import com.irfankhoirul.apps.tatravel.base.BaseFragment;
+import com.irfankhoirul.apps.tatravel.view.fragment.BaseFragment;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public abstract class FragmentHolderActivity extends AppCompatActivity {
+public abstract class BaseActivity extends FragmentActivity implements BaseFragment.FragmentListener {
 
     @BindView(R.id.btBack)
     ImageButton btBack;
@@ -31,10 +30,8 @@ public abstract class FragmentHolderActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fragment_holder);
-        ButterKnife.bind(this);
-
         initializeFragment();
+        initializeView();
     }
 
     protected abstract void initializeFragment();
@@ -46,21 +43,22 @@ public abstract class FragmentHolderActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         if (currentFragment != null && addToBackStack) {
-            fragmentTransaction.addToBackStack(currentFragment.getLabel());
+            fragmentTransaction.addToBackStack(currentFragment.getTitle());
         }
 
-        fragmentTransaction.replace(R.id.flFragmentContainer, fragment, fragment.getLabel());
+        fragmentTransaction.replace(R.id.flFragmentContainer, fragment, fragment.getTitle());
         fragmentTransaction.commit();
 
         this.currentFragment = fragment;
     }
 
-    protected void setTitle(String title) {
-        tvToolbarTitle.setText(title);
-    }
-
     @OnClick(R.id.btBack)
     public void btBack() {
         onBackPressed();
+    }
+
+    @Override
+    public void setTitle(String title) {
+        tvToolbarTitle.setText(title);
     }
 }

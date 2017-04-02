@@ -2,7 +2,6 @@ package com.irfankhoirul.apps.tatravel.model.pojo;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.irfankhoirul.apps.tatravel.base.BaseModel;
 
 import org.parceler.Parcel;
 
@@ -17,15 +16,15 @@ import org.parceler.Parcel;
 public class Penumpang extends BaseModel {
     @SerializedName("id_user")
     @Expose
-    private int idUser;
+    protected int idUser;
 
     @SerializedName("nama")
     @Expose
-    private String nama;
+    protected String nama;
 
     @SerializedName("user")
     @Expose
-    private User user;
+    protected User user;
 
     public int getIdUser() {
         return idUser;

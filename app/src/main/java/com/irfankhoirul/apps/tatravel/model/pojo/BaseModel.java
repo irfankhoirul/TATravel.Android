@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.base;
+package com.irfankhoirul.apps.tatravel.model.pojo;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -17,15 +17,15 @@ import org.parceler.Parcel;
 public class BaseModel {
     @SerializedName("id")
     @Expose
-    private int id;
+    protected int id;
 
     @SerializedName("created_at")
     @Expose
-    private String createdAt;
+    protected String createdAt;
 
     @SerializedName("updated_at")
     @Expose
-    private String updatedAt;
+    protected String updatedAt;
 
     public int getId() {
         return id;

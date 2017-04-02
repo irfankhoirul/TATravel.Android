@@ -1,14 +1,10 @@
 package com.irfankhoirul.apps.tatravel.presenter;
 
-import android.util.Log;
-
 import com.irfankhoirul.apps.tatravel.contract.CityDialogContract;
-import com.irfankhoirul.apps.tatravel.model.api.DataPage;
-import com.irfankhoirul.apps.tatravel.model.data.remote.IRequestResponseWithPaginationListener;
-import com.irfankhoirul.apps.tatravel.model.data.remote.SearchInteractor;
+import com.irfankhoirul.apps.tatravel.model.api.DataResult;
+import com.irfankhoirul.apps.tatravel.model.data.remote.IRequestResponseListener;
+import com.irfankhoirul.apps.tatravel.model.data.remote.SearchDataSource;
 import com.irfankhoirul.apps.tatravel.model.pojo.Kota;
-
-import java.util.List;
 
 /**
  * Created by Irfan Khoirul on 12/25/2016.
@@ -38,24 +34,21 @@ public class CityDialogPresenter implements CityDialogContract.Presenter {
 
     @Override
     public void getCityData(int page) {
-        Log.v("LoadingData", "START");
         view.setProgressBarVisibility(true);
         loadingData = true;
-        SearchInteractor repository = new SearchInteractor();
-        repository.getCity(new IRequestResponseWithPaginationListener<List<Kota>>() {
+        SearchDataSource repository = new SearchDataSource();
+        repository.getCity(new IRequestResponseListener<Kota>() {
             @Override
-            public void onSuccess(DataPage dataPageManager, List<Kota> data) {
-                Log.v("LoadingData", "DONE");
+            public void onSuccess(DataResult<Kota> data) {
                 view.setProgressBarVisibility(false);
                 loadingData = false;
                 if (data != null) {
-                    view.updateCityList(dataPageManager, data);
+                    view.updateCityList(data.getDataPageManager(), data.getDatas());
                 }
             }
 
             @Override
-            public void onFailure() {
-                Log.v("LoadingData", "FAILED");
+            public void onFailure(Throwable throwable) {
                 view.setProgressBarVisibility(false);
                 loadingData = false;
             }

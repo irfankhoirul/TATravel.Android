@@ -2,7 +2,6 @@ package com.irfankhoirul.apps.tatravel.model.pojo;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.irfankhoirul.apps.tatravel.base.BaseModel;
 
 import org.parceler.Parcel;
 
@@ -17,15 +16,15 @@ import org.parceler.Parcel;
 public class Provinsi extends BaseModel {
     @SerializedName("id_super_admin")
     @Expose
-    private int idSuperAdmin;
+    protected int idSuperAdmin;
 
     @SerializedName("nama")
     @Expose
-    private String nama;
+    protected String nama;
 
     @SerializedName("super_admin")
     @Expose
-    private SuperAdmin superAdmin;
+    protected SuperAdmin superAdmin;
 
     public int getIdSuperAdmin() {
         return idSuperAdmin;

@@ -1,5 +1,7 @@
 package com.irfankhoirul.apps.tatravel.model.data.remote;
 
+import com.irfankhoirul.apps.tatravel.model.api.DataResult;
+
 /**
  * Merupakan interface yang berfungsi sebagai listener hasil query menggunakan retrofit
  *
@@ -9,7 +11,7 @@ package com.irfankhoirul.apps.tatravel.model.data.remote;
  */
 
 public interface IRequestResponseListener<T> {
-    void onSuccess(T data);
+    void onSuccess(DataResult<T> result);
 
-    void onFailure();
+    void onFailure(Throwable throwable);
 }

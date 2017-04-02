@@ -8,27 +8,33 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.irfankhoirul.apps.tatravel.R;
-import com.irfankhoirul.apps.tatravel.base.BaseFragment;
-import com.irfankhoirul.apps.tatravel.view.activity.MainActivity;
+import com.irfankhoirul.apps.tatravel.view.activity.LoginActivity;
 
 import butterknife.ButterKnife;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LoginFragment extends BaseFragment<MainActivity> {
+
+public class LoginFragment extends BaseFragment<LoginActivity> {
 
     public LoginFragment() {
         // Required empty public constructor
     }
 
     @Override
-    protected void setLabel() {
-        label = this.getClass().getSimpleName();
+    protected void setTitle() {
+        title = "Login";
+    }
+
+    @Override
+    protected void setPresenter() {
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         unbinder = ButterKnife.bind(this, view);
 

@@ -2,7 +2,6 @@ package com.irfankhoirul.apps.tatravel.model.pojo;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.irfankhoirul.apps.tatravel.base.BaseModel;
 
 import org.parceler.Parcel;
 
@@ -17,35 +16,35 @@ import org.parceler.Parcel;
 public class UserToken extends BaseModel {
     @SerializedName("expired_at")
     @Expose
-    private long expiredAt;
+    protected long expiredAt;
 
     @SerializedName("id_user")
     @Expose
-    private int idUser;
+    protected int idUser;
 
     @SerializedName("id_user_device")
     @Expose
-    private int idUserDevice;
+    protected int idUserDevice;
 
     @SerializedName("status")
     @Expose
-    private String status;
+    protected String status;
 
     @SerializedName("token")
     @Expose
-    private String token;
+    protected String token;
 
     @SerializedName("total_request")
     @Expose
-    private int totalRequest;
+    protected int totalRequest;
 
     @SerializedName("user")
     @Expose
-    private User user;
+    protected User user;
 
     @SerializedName("user_device")
     @Expose
-    private UserDevice userDevice;
+    protected UserDevice userDevice;
 
     public long getExpiredAt() {
         return expiredAt;

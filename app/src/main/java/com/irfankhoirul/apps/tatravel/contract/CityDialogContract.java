@@ -1,7 +1,6 @@
 package com.irfankhoirul.apps.tatravel.contract;
 
 import com.irfankhoirul.apps.tatravel.base.IBasePresenter;
-import com.irfankhoirul.apps.tatravel.base.IBaseView;
 import com.irfankhoirul.apps.tatravel.model.api.DataPage;
 import com.irfankhoirul.apps.tatravel.model.pojo.Kota;
 
@@ -12,7 +11,7 @@ import java.util.List;
  */
 
 public interface CityDialogContract {
-    interface View extends IBaseView {
+    interface View {
         void updateCityList(DataPage dataPageManager, List<Kota> data);
 
         void setProgressBarVisibility(boolean visible);

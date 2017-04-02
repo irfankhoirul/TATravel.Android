@@ -59,8 +59,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?android:attr/selectableItemBackground"
-            android:text="@string/label_button_done"
-            android:textAllCaps="true"
+            android:text="Simpan"
+            android:textAllCaps="false"
             android:textColor="@android:color/white" />
 
     </android.support.v7.widget.CardView>

@@ -2,7 +2,6 @@ package com.irfankhoirul.apps.tatravel.model.pojo;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.irfankhoirul.apps.tatravel.base.BaseModel;
 
 import org.parceler.Parcel;
 
@@ -17,23 +16,23 @@ import org.parceler.Parcel;
 public class Notifikasi extends BaseModel {
     @SerializedName("id_user_device")
     @Expose
-    private int idUserDevice;
+    protected int idUserDevice;
 
     @SerializedName("pesan")
     @Expose
-    private String pesan;
+    protected String pesan;
 
     @SerializedName("status")
     @Expose
-    private String status;
+    protected String status;
 
     @SerializedName("tipe")
     @Expose
-    private String tipe;
+    protected String tipe;
 
     @SerializedName("user_device")
     @Expose
-    private UserDevice userDevice;
+    protected UserDevice userDevice;
 
     public int getIdUserDevice() {
         return idUserDevice;

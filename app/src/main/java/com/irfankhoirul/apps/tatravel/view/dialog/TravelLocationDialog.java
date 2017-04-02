@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.irfankhoirul.apps.tatravel.R;
-import com.irfankhoirul.apps.tatravel.base.BaseDialogFragment;
 import com.irfankhoirul.apps.tatravel.contract.TravelLocationDialogContract;
 import com.irfankhoirul.apps.tatravel.model.api.DataPage;
 import com.irfankhoirul.apps.tatravel.model.pojo.Kota;
@@ -36,7 +35,7 @@ import butterknife.ButterKnife;
  * Created by Irfan Khoirul on 12/25/2016.
  */
 
-public class TravelLocationDialog extends BaseDialogFragment implements TravelLocationDialogContract.View {
+public class TravelLocationDialog extends BaseDialog implements TravelLocationDialogContract.View {
 
     @BindView(R.id.rvTravelLocation)
     RecyclerView rvTravelLocation;

@@ -2,7 +2,6 @@ package com.irfankhoirul.apps.tatravel.model.pojo;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.irfankhoirul.apps.tatravel.base.BaseModel;
 
 import org.parceler.Parcel;
 
@@ -17,31 +16,31 @@ import org.parceler.Parcel;
 public class LokasiDetail extends BaseModel {
     @SerializedName("id_pemesanan")
     @Expose
-    private int idPemesan;
+    protected int idPemesan;
 
     @SerializedName("id_penumpang_perjalanan")
     @Expose
-    private int idPenumpangPerjalanan;
+    protected int idPenumpangPerjalanan;
 
     @SerializedName("tipe")
     @Expose
-    private String tipe;
+    protected String tipe;
 
     @SerializedName("latitude")
     @Expose
-    private String latitude;
+    protected String latitude;
 
     @SerializedName("longitude")
     @Expose
-    private String longitude;
+    protected String longitude;
 
     @SerializedName("pemesanan")
     @Expose
-    private Pemesanan pemesanan;
+    protected Pemesanan pemesanan;
 
     @SerializedName("penumpang_perjalanan")
     @Expose
-    private PenumpangPerjalanan penumpangPerjalanan;
+    protected PenumpangPerjalanan penumpangPerjalanan;
 
     public int getIdPemesan() {
         return idPemesan;
