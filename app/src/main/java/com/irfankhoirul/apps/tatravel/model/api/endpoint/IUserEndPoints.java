@@ -40,56 +40,56 @@ public interface IUserEndPoints {
 
     /**
      * Param
-     * @param param
-     * - registrationCode
-     * - phone
-     * */
+     *
+     * @param param - registrationCode
+     *              - phone
+     */
     @FormUrlEncoded
     @POST(DO_VERIFY)
     Call<DataResult> verify(@FieldMap Map<String, String> param);
 
     /**
      * Param
-     * @param param
-     * - deviceSecretId
-     * - phone
-     * - password
-     * */
+     *
+     * @param param - deviceSecretId
+     *              - phone
+     *              - password
+     */
     @FormUrlEncoded
     @POST(DO_LOGIN)
     Call<DataResult<User>> login(@FieldMap Map<String, String> param);
 
     /**
      * Param
-     * @param param
-     * - deviceSecretId
-     * - phone
-     * - password
-     * */
+     *
+     * @param param - deviceSecretId
+     *              - phone
+     *              - password
+     */
     @FormUrlEncoded
     @POST(DO_LOGIN_DRIVER)
     Call<DataResult<User>> loginDriver(@FieldMap Map<String, String> param);
 
     /**
      * Param
-     * @param param
-     * - token
-     * */
+     *
+     * @param param - token
+     */
     @FormUrlEncoded
     @POST(GET_PROFILE)
     Call<DataResult<User>> getProfile(@Path("id") String id, @FieldMap Map<String, String> param);
 
     /**
      * Param
-     * @param param
-     * - token
-     * - name
-     * - email
-     * - password
-     * - alamat
-     * - cityid
-     * - provinceId
-     * */
+     *
+     * @param param - token
+     *              - name
+     *              - email
+     *              - password
+     *              - alamat
+     *              - cityid
+     *              - provinceId
+     */
     @FormUrlEncoded
     @POST(UPDATE_PROFILE)
     Call<DataResult<User>> updateProfile(@Path("id") String id, @FieldMap Map<String, String> param);

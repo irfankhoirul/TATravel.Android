@@ -3,8 +3,10 @@ package com.irfankhoirul.apps.tatravel.model.api.endpoint;
 import com.irfankhoirul.apps.tatravel.model.api.DataResult;
 import com.irfankhoirul.apps.tatravel.model.pojo.User;
 
+import java.util.Map;
+
 import retrofit2.Call;
-import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 
@@ -16,11 +18,14 @@ import static com.irfankhoirul.apps.tatravel.model.api.endpoint.EndPoints.LIST_K
 
 public interface IKotaEndPoints {
 
+    /**
+     * Param
+     *
+     * @param param - token
+     *              - page
+     */
     @FormUrlEncoded
     @POST(LIST_KOTA)
-    Call<DataResult<User>> listKota(
-            @Field("token") String token,
-            @Field("page") String page
-    );
+    Call<DataResult<User>> listKota(@FieldMap Map<String, String> param);
 
 }

@@ -2,8 +2,10 @@ package com.irfankhoirul.apps.tatravel.model.api.endpoint;
 
 import com.irfankhoirul.apps.tatravel.model.api.DataResult;
 
+import java.util.Map;
+
 import retrofit2.Call;
-import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 
@@ -15,11 +17,14 @@ import static com.irfankhoirul.apps.tatravel.model.api.endpoint.EndPoints.UPDATE
 
 public interface IUserDeviceEndPoints {
 
+    /**
+     * Param
+     *
+     * @param param - token
+     *              - FCMToken
+     */
     @FormUrlEncoded
     @POST(UPDATE_FCM_TOKEN)
-    Call<DataResult> updateFcmToken(
-            @Field("token") String token,
-            @Field("FCMToken") String FCMToken
-    );
+    Call<DataResult> updateFcmToken(@FieldMap Map<String, String> param);
 
 }
