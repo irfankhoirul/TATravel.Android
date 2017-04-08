@@ -43,10 +43,11 @@ public interface IUserEndPoints {
      *
      * @param param - registrationCode
      *              - phone
+     *              - deviceSecretId
      */
     @FormUrlEncoded
     @POST(DO_VERIFY)
-    Call<DataResult> verify(@FieldMap Map<String, String> param);
+    Call<DataResult<User>> verify(@FieldMap Map<String, String> param);
 
     /**
      * Param

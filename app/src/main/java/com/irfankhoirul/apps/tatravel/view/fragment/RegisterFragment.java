@@ -1,20 +1,26 @@
 package com.irfankhoirul.apps.tatravel.view.fragment;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.basgeekball.awesomevalidation.utility.RegexTemplate;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -31,23 +37,33 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.irfankhoirul.apps.tatravel.R;
+import com.irfankhoirul.apps.tatravel.contract.RegisterContract;
+import com.irfankhoirul.apps.tatravel.presenter.RegisterFragmentPresenter;
+import com.irfankhoirul.apps.tatravel.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.view.activity.RegisterActivity;
+import com.irfankhoirul.apps.tatravel.view.activity.VerifyActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 
+import static com.basgeekball.awesomevalidation.ValidationStyle.TEXT_INPUT_LAYOUT;
 import static com.facebook.FacebookSdk.getApplicationContext;
 import static com.irfankhoirul.apps.tatravel.util.ConstantUtils.LOGIN_GOOGLE_REQUEST;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RegisterFragment extends BaseFragment<RegisterActivity> implements GoogleApiClient.OnConnectionFailedListener {
+public class RegisterFragment extends BaseFragment<RegisterActivity> implements
+        RegisterContract.View,
+        GoogleApiClient.OnConnectionFailedListener {
 
     @BindView(R.id.rbRegisterWithPhoneNumber)
     RadioButton rbRegisterWithPhoneNumber;
@@ -61,6 +77,15 @@ public class RegisterFragment extends BaseFragment<RegisterActivity> implements 
     TextInputLayout tilEmailAddress;
     @BindView(R.id.etEmailAddress)
     EditText etEmailAddress;
+    @BindView(R.id.tilPassword)
+    TextInputLayout tilPassword;
+    @BindView(R.id.etPassword)
+    EditText etPassword;
+    @BindView(R.id.tilName)
+    TextInputLayout tilName;
+    @BindView(R.id.etName)
+    EditText etName;
+
     @BindView(R.id.cvLoginGoogle)
     CardView cvLoginGoogle;
     @BindView(R.id.cvLoginFacebook)
@@ -73,6 +98,8 @@ public class RegisterFragment extends BaseFragment<RegisterActivity> implements 
     private CallbackManager callbackManager;
     private GoogleApiClient mGoogleApiClient;
 
+    private RegisterFragmentPresenter mPresenter;
+
     public RegisterFragment() {
         // Required empty public constructor
     }
@@ -83,24 +110,57 @@ public class RegisterFragment extends BaseFragment<RegisterActivity> implements 
     }
 
     @Override
-    protected void setPresenter() {
+    public void setPresenter() {
+        mPresenter = new RegisterFragmentPresenter(this);
+    }
 
+    @Override
+    public void showStatus(int type, String message) {
+        showSnackBar(type, message, null, null);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.fragment_register, container, false);
-        unbinder = ButterKnife.bind(this, view);
+        fragmentView = inflater.inflate(R.layout.fragment_register, container, false);
+        unbinder = ButterKnife.bind(this, fragmentView);
         setupFacebook();
         setupGoogle();
 
-        return view;
+        return fragmentView;
     }
 
-    @OnClick(R.id.btLogin)
-    public void btLogin() {
+    @OnClick(R.id.btRegister)
+    public void btRegister() {
+        View view = activity.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
 
+        AwesomeValidation mAwesomeValidation = new AwesomeValidation(TEXT_INPUT_LAYOUT);
+        if (rbRegisterWithPhoneNumber.isChecked()) {
+            mAwesomeValidation.addValidation(activity, R.id.tilPhoneNumber, Patterns.PHONE, R.string.validation_phone_valid);
+            mAwesomeValidation.addValidation(activity, R.id.tilPhoneNumber, RegexTemplate.NOT_EMPTY, R.string.validation_phone_not_empty);
+        } else if (rbRegisterWithEmailAddress.isChecked()) {
+            mAwesomeValidation.addValidation(activity, R.id.tilEmailAddress, Patterns.PHONE, R.string.validation_phone_valid);
+            mAwesomeValidation.addValidation(activity, R.id.tilEmailAddress, RegexTemplate.NOT_EMPTY, R.string.validation_phone_not_empty);
+        }
+        mAwesomeValidation.addValidation(activity, R.id.tilName, RegexTemplate.NOT_EMPTY, R.string.validation_name_not_empty);
+        mAwesomeValidation.addValidation(activity, R.id.tilPassword, RegexTemplate.NOT_EMPTY, R.string.validation_password_not_empty);
+
+        if (mAwesomeValidation.validate()) {
+            Map<String, String> params = new HashMap<>();
+            params.put("name", etName.getText().toString());
+            params.put("phone", etPhoneNumber.getText().toString());
+            params.put("password", etPassword.getText().toString());
+            params.put("deviceSecretId", Settings.Secure.getString(getActivity().getContentResolver(), Settings.Secure.ANDROID_ID));
+            Log.v("Validation", "Pass");
+
+            mPresenter.register(params);
+        } else {
+            Log.v("Validation", "Failed");
+        }
     }
 
     private void setupFacebook() {
@@ -192,9 +252,12 @@ public class RegisterFragment extends BaseFragment<RegisterActivity> implements 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
-        Log.v("reqCode", String.valueOf(mGoogleApiClient));
-        if (requestCode == LOGIN_GOOGLE_REQUEST) {
+        if (requestCode == ConstantUtils.INTENT_REQUEST_REGISTER_TO_VALIDATION) {
+            if (resultCode == ConstantUtils.REQUEST_RESULT_SUCCESS) {
+                activity.setResult(ConstantUtils.REQUEST_RESULT_SUCCESS);
+                activity.finish();
+            }
+        } else if (requestCode == LOGIN_GOOGLE_REQUEST) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             handleGoogleResult(result);
         } else {
@@ -231,6 +294,13 @@ public class RegisterFragment extends BaseFragment<RegisterActivity> implements 
     public void cvLoginGoogle() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, LOGIN_GOOGLE_REQUEST);
+    }
+
+    @Override
+    public void redirectToVerification() {
+        Intent intent = new Intent(activity, VerifyActivity.class);
+        intent.putExtra("phone", etPhoneNumber.getText().toString());
+        startActivityForResult(intent, ConstantUtils.INTENT_REQUEST_REGISTER_TO_VALIDATION);
     }
 
 }

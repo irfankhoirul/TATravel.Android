@@ -9,9 +9,4 @@ public class RegisterActivity extends BaseFragmentHolderActivity {
         setCurrentFragment(new RegisterFragment(), false);
     }
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        Log.v("RequestCode", String.valueOf(requestCode));
-//    }
 }

@@ -28,7 +28,12 @@ public class LoginFragment extends BaseFragment<LoginActivity> {
     }
 
     @Override
-    protected void setPresenter() {
+    public void setPresenter() {
+
+    }
+
+    @Override
+    public void showStatus(int type, String message) {
 
     }
 

@@ -10,9 +10,9 @@ import com.google.gson.Gson;
  * Digunakan untuk memanage User Session. Menggunakan Singleton karena token yang terdapat pada
  * session digunakan pada setiap request ke server.
  *
- * @author  Irfan Khoirul Muhlishin - irfankhoirul@gmail.com
- * @since   1.0
+ * @author Irfan Khoirul Muhlishin - irfankhoirul@gmail.com
  * @version 1.0 (6 November 2016)
+ * @since 1.0
  */
 
 public class Session<T> {
@@ -31,10 +31,10 @@ public class Session<T> {
      * Menginisialisasi Session. Dipanggil pada saat user berhasil melakukan login atau pada
      * saat aplikasi pertamakali dijalankan (dipanggil dari method load).
      *
-     * @param   activity    Activity saat ini. dignakan untuk mengambil shared preference.
-     * @param   sessionData   data session
-     * @return  Object singleton Session
-     * */
+     * @param activity    Activity saat ini. dignakan untuk mengambil shared preference.
+     * @param sessionData data session
+     * @return Object singleton Session
+     */
     public static <U> Session initialize(Activity activity, U sessionData) {
         SharedPreferences sharedPref = activity.getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
@@ -48,14 +48,23 @@ public class Session<T> {
         return session;
     }
 
+    public static Session initialize(Activity activity, Class classType) {
+        SharedPreferences sharedPref = activity.getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
+        String sessionDataJson = sharedPref.getString(USER_TOKEN, null);
+
+        session = new Session(new Gson().fromJson(sessionDataJson, classType));
+
+        return session;
+    }
+
     /**
      * Mengembalikan object singleton Session jika session sudah diinisialisasi atau Runtime
      * Exception jika session belum diinisialisasi.
      *
-     * @param   activity    Activity saat ini. dignakan untuk mengambil shared preference.
-     * @return  object singleton Session jika session sudah diinisialisasi atau Runtime
+     * @param activity Activity saat ini. dignakan untuk mengambil shared preference.
+     * @return object singleton Session jika session sudah diinisialisasi atau Runtime
      * Exception jika session belum diinisialisasi.
-     * */
+     */
     public static Session getInstance(Activity activity) {
         if (session != null) {
             return session;
@@ -70,10 +79,10 @@ public class Session<T> {
     }
 
     /**
-    * Menghapus session ketika user melakukan logout.
-    *
-    * @param    activity    Activity saat ini. dignakan untuk mengambil shared preference.i
-    * */
+     * Menghapus session ketika user melakukan logout.
+     *
+     * @param activity Activity saat ini. dignakan untuk mengambil shared preference.i
+     */
     public static void destroy(Activity activity) {
         if (session != null) {
             SharedPreferences sharedPref = activity.getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);

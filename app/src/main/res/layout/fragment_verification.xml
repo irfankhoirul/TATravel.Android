@@ -15,10 +15,13 @@
         android:text="@string/label_verify_phone_number" />
 
     <android.support.design.widget.TextInputLayout
+        android:id="@+id/tilVerificationCode"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp">
 
-        <android.support.design.widget.TextInputEditText
+        <EditText
+            android:id="@+id/etVerificationCode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/label_hint_verification_code"
@@ -36,6 +39,7 @@
         app:cardUseCompatPadding="true">
 
         <Button
+            android:id="@+id/btVerify"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

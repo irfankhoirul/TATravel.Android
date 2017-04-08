@@ -68,13 +68,18 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
         searchPresenter = new SearchFragmentPresenter(this);
 
         searchPresenter.getPromo();
-        searchPresenter.searchJadwalPerjalanan();
+//        searchPresenter.searchJadwalPerjalanan();
 
         return view;
     }
 
     @Override
     public void setPresenter() {
+
+    }
+
+    @Override
+    public void showStatus(int type, String message) {
 
     }
 

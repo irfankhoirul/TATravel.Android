@@ -92,7 +92,7 @@ public class MainActivity extends BaseActivity {
 
     @OnClick(R.id.llProfile)
     public void llProfile() {
-        if (Session.getInstance(this) != null) {
+        if (Session.getInstance(this).getSessionData() != null) {
             // Load profile
         } else {
             // Load LoginOrRegister

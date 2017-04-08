@@ -149,6 +149,11 @@ public class DepartureFragment extends BaseFragment<MainActivity> implements
     }
 
     @Override
+    public void showStatus(int type, String message) {
+
+    }
+
+    @Override
     public void onDetach() {
         super.onDetach();
         if (mGoogleApiClient != null) {

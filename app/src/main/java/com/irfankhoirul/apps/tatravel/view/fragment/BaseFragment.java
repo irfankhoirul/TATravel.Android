@@ -3,13 +3,18 @@ package com.irfankhoirul.apps.tatravel.view.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.irfankhoirul.apps.tatravel.R;
+import com.irfankhoirul.apps.tatravel.base.IBaseView;
+import com.irfankhoirul.apps.tatravel.util.SnackBarBuilder;
 
 import butterknife.Unbinder;
 
@@ -22,16 +27,16 @@ import butterknife.Unbinder;
  * @since 1.0
  */
 
-public abstract class BaseFragment<T extends FragmentActivity> extends Fragment {
+public abstract class BaseFragment<T extends FragmentActivity> extends Fragment implements IBaseView {
 
     protected String title;
     protected FragmentActivity activity;
     protected Unbinder unbinder;
+    protected AlertDialog loadingDialog;
+    protected View fragmentView;
     private FragmentListener fragmentListener;
 
     protected abstract void setTitle();
-
-    protected abstract void setPresenter();
 
     public String getTitle() {
         return title;
@@ -71,6 +76,37 @@ public abstract class BaseFragment<T extends FragmentActivity> extends Fragment 
             unbinder.unbind();
         }
     }
+
+    @Override
+    public void setLoadingDialog(boolean isLoading, @Nullable String message) {
+        if (isLoading) {
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+            LayoutInflater inflater = this.getLayoutInflater(null);
+            View dialogView = inflater.inflate(R.layout.dialog_loading, null);
+            TextView tvMessage = (TextView) dialogView.findViewById(R.id.tvMessage);
+            tvMessage.setText(message);
+            dialogBuilder.setView(dialogView);
+            loadingDialog = dialogBuilder.create();
+            loadingDialog.setCancelable(false);
+            loadingDialog.show();
+        } else {
+            if (loadingDialog != null) {
+                loadingDialog.dismiss();
+            }
+        }
+    }
+
+    protected void showSnackBar(int type, String message, String action, android.view.View.OnClickListener listener) {
+        SnackBarBuilder snackBarBuilder = new SnackBarBuilder(activity);
+        snackBarBuilder.setMessage(message)
+                .setActionName(action)
+                .setLength(Snackbar.LENGTH_SHORT)
+                .setRoot(fragmentView)
+                .setType(type)
+                .setActionListener(listener)
+                .build();
+    }
+
 
     public interface FragmentListener {
         void setTitle(String title);

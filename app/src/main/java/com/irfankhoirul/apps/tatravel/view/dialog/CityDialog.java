@@ -3,6 +3,7 @@ package com.irfankhoirul.apps.tatravel.view.dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -76,6 +77,16 @@ public class CityDialog extends BaseDialog implements CityDialogContract.View {
 
     @Override
     public void setPresenter() {
+
+    }
+
+    @Override
+    public void setLoadingDialog(boolean isLoading, @Nullable String message) {
+
+    }
+
+    @Override
+    public void showStatus(int type, String message) {
 
     }
 

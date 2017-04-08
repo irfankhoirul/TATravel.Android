@@ -70,19 +70,23 @@ public class SnackBarBuilder {
 
         switch (type) {
             case ConstantUtils.STATUS_INFO:
-                textView.setTextColor(ContextCompat.getColor(context, R.color.light_blue_500));
+                sbView.setBackgroundColor(ContextCompat.getColor(sbView.getContext(), R.color.light_blue_100));
+                textView.setTextColor(ContextCompat.getColor(context, R.color.light_blue_700));
                 break;
 
             case ConstantUtils.STATUS_SUCCESS:
-                textView.setTextColor(ContextCompat.getColor(context, R.color.light_green_500));
+                sbView.setBackgroundColor(ContextCompat.getColor(sbView.getContext(), R.color.light_green_100));
+                textView.setTextColor(ContextCompat.getColor(context, R.color.light_green_700));
                 break;
 
             case ConstantUtils.STATUS_WARNING:
-                textView.setTextColor(ContextCompat.getColor(context, R.color.orange_500));
+                sbView.setBackgroundColor(ContextCompat.getColor(sbView.getContext(), R.color.orange_100));
+                textView.setTextColor(ContextCompat.getColor(context, R.color.orange_700));
                 break;
 
             case ConstantUtils.STATUS_ERROR:
-                textView.setTextColor(ContextCompat.getColor(context, R.color.red_500));
+                sbView.setBackgroundColor(ContextCompat.getColor(sbView.getContext(), R.color.red_100));
+                textView.setTextColor(ContextCompat.getColor(context, R.color.red_700));
                 break;
         }
 

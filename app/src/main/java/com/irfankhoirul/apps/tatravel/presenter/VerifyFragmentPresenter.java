@@ -1,9 +1,10 @@
 package com.irfankhoirul.apps.tatravel.presenter;
 
-import com.irfankhoirul.apps.tatravel.contract.RegisterContract;
+import com.irfankhoirul.apps.tatravel.contract.VerifyContract;
 import com.irfankhoirul.apps.tatravel.model.api.DataResult;
 import com.irfankhoirul.apps.tatravel.model.data.remote.IRequestResponseListener;
 import com.irfankhoirul.apps.tatravel.model.data.remote.UserDataSource;
+import com.irfankhoirul.apps.tatravel.model.pojo.User;
 import com.irfankhoirul.apps.tatravel.util.ConstantUtils;
 
 import java.util.Map;
@@ -12,11 +13,11 @@ import java.util.Map;
  * Created by Irfan Khoirul on 3/11/2017.
  */
 
-public class RegisterFragmentPresenter implements RegisterContract.Presenter {
+public class VerifyFragmentPresenter implements VerifyContract.Presenter {
 
-    private final RegisterContract.View view;
+    private final VerifyContract.View view;
 
-    public RegisterFragmentPresenter(RegisterContract.View view) {
+    public VerifyFragmentPresenter(VerifyContract.View view) {
         this.view = view;
     }
 
@@ -26,16 +27,16 @@ public class RegisterFragmentPresenter implements RegisterContract.Presenter {
     }
 
     @Override
-    public void register(Map<String, String> param) {
-        view.setLoadingDialog(true, "Sedang melakukan registrasi");
+    public void verify(Map<String, String> param) {
+        view.setLoadingDialog(true, "Sedang melakukan verifikasi");
         UserDataSource dataSource = new UserDataSource();
-        dataSource.registerWithPhoneNumber(new IRequestResponseListener() {
+        dataSource.verifyPhoneNumber(new IRequestResponseListener<User>() {
             @Override
-            public void onSuccess(DataResult result) {
+            public void onSuccess(DataResult<User> result) {
                 view.setLoadingDialog(false, null);
                 if (result.getCode() == ConstantUtils.REQUEST_RESULT_SUCCESS) {
                     view.showStatus(ConstantUtils.STATUS_SUCCESS, result.getMessage());
-                    view.redirectToVerification();
+                    view.redirectToProfile(result.getData());
                 } else {
                     view.showStatus(ConstantUtils.STATUS_ERROR, result.getMessage());
                 }
@@ -44,7 +45,7 @@ public class RegisterFragmentPresenter implements RegisterContract.Presenter {
             @Override
             public void onFailure(Throwable throwable) {
                 view.setLoadingDialog(false, null);
-                view.showStatus(ConstantUtils.STATUS_ERROR, "Gagal melakukan registrasi");
+                view.showStatus(ConstantUtils.STATUS_ERROR, "Gagal melakukan verifikasi");
             }
         }, param);
     }

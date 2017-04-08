@@ -8,7 +8,7 @@ package com.irfankhoirul.apps.tatravel.util;
  */
 
 public class ConstantUtils {
-    public static final String BASE_API_URL = "http://192.168.8.100/api/";
+    public static final String BASE_API_URL = "http://192.168.8.101:81/api/";
     public static final int PAGINATION_LIMIT = 10;
     public static final int INITIAL_PAGE = 1;
 
@@ -34,4 +34,8 @@ public class ConstantUtils {
 
     public static final int LOGIN_GOOGLE_REQUEST = 3000;
     public static final String INTENT_SEARCH_FRAGMENT_DEPARTURE_CITY = "departure";
+
+    public static final int INTENT_REQUEST_REGISTER_TO_VALIDATION = 4000;
+    public static final int INTENT_REQUEST_LOGIN_OR_REGISTER_TO_REGISTER = 4001;
+    public static final int INTENT_REQUEST_LOGIN_OR_REGISTER_TO_LOGIN = 4002;
 }
