@@ -124,6 +124,7 @@ public class RegisterFragment extends BaseFragment<RegisterActivity> implements
         super.onCreateView(inflater, container, savedInstanceState);
         fragmentView = inflater.inflate(R.layout.fragment_register, container, false);
         unbinder = ButterKnife.bind(this, fragmentView);
+        mPresenter.start();
         setupFacebook();
         setupGoogle();
 

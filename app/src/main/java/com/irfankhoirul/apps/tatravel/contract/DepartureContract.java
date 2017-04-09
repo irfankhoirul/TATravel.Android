@@ -11,7 +11,7 @@ import java.util.List;
  * Created by Irfan Khoirul on 12/24/2016.
  */
 
-public interface DepartureFragmentContract {
+public interface DepartureContract {
 
     interface View extends IBaseView {
         void setProgressDialog(boolean visibility, String title, String message);

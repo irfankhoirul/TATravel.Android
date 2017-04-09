@@ -1,16 +1,16 @@
 package com.irfankhoirul.apps.tatravel.presenter;
 
-import com.irfankhoirul.apps.tatravel.contract.DepartureFragmentContract;
+import com.irfankhoirul.apps.tatravel.contract.DepartureContract;
 
 /**
  * Created by Irfan Khoirul on 12/25/2016.
  */
 
-public class DepartureFragmentPresenter implements DepartureFragmentContract.Presenter {
+public class DepartureFragmentPresenter implements DepartureContract.Presenter {
 
-    private final DepartureFragmentContract.View view;
+    private final DepartureContract.View view;
 
-    public DepartureFragmentPresenter(DepartureFragmentContract.View view) {
+    public DepartureFragmentPresenter(DepartureContract.View view) {
         this.view = view;
     }
 

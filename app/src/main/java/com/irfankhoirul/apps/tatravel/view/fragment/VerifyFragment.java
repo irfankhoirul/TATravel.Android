@@ -62,6 +62,7 @@ public class VerifyFragment extends BaseFragment<VerifyActivity> implements Veri
         super.onCreateView(inflater, container, savedInstanceState);
         fragmentView = inflater.inflate(R.layout.fragment_verification, container, false);
         unbinder = ButterKnife.bind(this, fragmentView);
+        mPresenter.start();
 
         return fragmentView;
     }

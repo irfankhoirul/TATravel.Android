@@ -25,8 +25,14 @@ import butterknife.OnClick;
  */
 public class LoginOrRegisterFragment extends BaseFragment<MainActivity> {
 
+    private LoginRegisterListener listener;
+
     public LoginOrRegisterFragment() {
         // Required empty public constructor
+    }
+
+    public void setListener(LoginRegisterListener listener) {
+        this.listener = listener;
     }
 
     @Override
@@ -73,7 +79,14 @@ public class LoginOrRegisterFragment extends BaseFragment<MainActivity> {
                 Session<User> session = Session.getInstance(activity);
                 Log.v("User Nama", session.getSessionData().getNama());
                 Log.v("ChangeFragment", "Profile");
+                listener.onRegisterSuccess();
             }
         }
+    }
+
+    public interface LoginRegisterListener {
+        void onRegisterSuccess();
+
+        void onLoginSuccess();
     }
 }

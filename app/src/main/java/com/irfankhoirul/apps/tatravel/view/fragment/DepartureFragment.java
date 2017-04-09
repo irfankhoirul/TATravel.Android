@@ -39,7 +39,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.irfankhoirul.apps.tatravel.R;
-import com.irfankhoirul.apps.tatravel.contract.DepartureFragmentContract;
+import com.irfankhoirul.apps.tatravel.contract.DepartureContract;
 import com.irfankhoirul.apps.tatravel.model.pojo.JadwalPerjalanan;
 import com.irfankhoirul.apps.tatravel.model.pojo.Kota;
 import com.irfankhoirul.apps.tatravel.model.pojo.Lokasi;
@@ -66,7 +66,7 @@ public class DepartureFragment extends BaseFragment<MainActivity> implements
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener,
-        DepartureFragmentContract.View {
+        DepartureContract.View {
 
     @BindView(R.id.tieCity)
     TextInputEditText tieCity;

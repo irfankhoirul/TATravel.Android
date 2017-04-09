@@ -10,6 +10,7 @@ import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.model.data.local.Session;
 import com.irfankhoirul.apps.tatravel.view.fragment.DepartureFragment;
 import com.irfankhoirul.apps.tatravel.view.fragment.LoginOrRegisterFragment;
+import com.irfankhoirul.apps.tatravel.view.fragment.ProfileFragment;
 import com.irfankhoirul.apps.tatravel.view.fragment.SearchFragment;
 
 import butterknife.BindView;
@@ -21,7 +22,7 @@ import butterknife.OnClick;
  * @since 1.0
  */
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements LoginOrRegisterFragment.LoginRegisterListener {
 
     @BindView(R.id.ivIcon)
     ImageView ivIcon;
@@ -50,6 +51,7 @@ public class MainActivity extends BaseActivity {
     private SearchFragment searchFragment;
     private DepartureFragment departureFragment;
     private LoginOrRegisterFragment loginOrRegisterFragment;
+    private ProfileFragment profileFragment;
 
     @Override
     protected void initializeFragment() {
@@ -92,8 +94,14 @@ public class MainActivity extends BaseActivity {
 
     @OnClick(R.id.llProfile)
     public void llProfile() {
-        if (Session.getInstance(this).getSessionData() != null) {
+        if (Session.getInstance(this) != null && Session.getInstance(this).getSessionData() != null) {
             // Load profile
+            if (profileFragment != null) {
+                setCurrentFragment(profileFragment, false);
+            } else {
+                this.profileFragment = new ProfileFragment();
+                setCurrentFragment(profileFragment, false);
+            }
         } else {
             // Load LoginOrRegister
             if (loginOrRegisterFragment != null) {
@@ -118,4 +126,18 @@ public class MainActivity extends BaseActivity {
         tvProfile.setTextColor(ContextCompat.getColor(this, R.color.grey_500));
     }
 
+    @Override
+    public void onRegisterSuccess() {
+        if (profileFragment != null) {
+            setCurrentFragment(profileFragment, false);
+        } else {
+            this.profileFragment = new ProfileFragment();
+            setCurrentFragment(profileFragment, false);
+        }
+    }
+
+    @Override
+    public void onLoginSuccess() {
+
+    }
 }

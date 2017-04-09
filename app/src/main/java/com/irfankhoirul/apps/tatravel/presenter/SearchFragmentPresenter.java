@@ -2,7 +2,7 @@ package com.irfankhoirul.apps.tatravel.presenter;
 
 import android.util.Log;
 
-import com.irfankhoirul.apps.tatravel.contract.SearchFragmentContract;
+import com.irfankhoirul.apps.tatravel.contract.SearchContract;
 import com.irfankhoirul.apps.tatravel.model.api.DataResult;
 import com.irfankhoirul.apps.tatravel.model.data.remote.IRequestResponseListener;
 import com.irfankhoirul.apps.tatravel.model.data.remote.SearchDataSource;
@@ -16,11 +16,11 @@ import com.irfankhoirul.apps.tatravel.model.pojo.JadwalPerjalanan;
  * @since 1.0
  */
 
-public class SearchFragmentPresenter implements SearchFragmentContract.Presenter {
+public class SearchFragmentPresenter implements SearchContract.Presenter {
 
-    private final SearchFragmentContract.View view;
+    private final SearchContract.View view;
 
-    public SearchFragmentPresenter(SearchFragmentContract.View view) {
+    public SearchFragmentPresenter(SearchContract.View view) {
         this.view = view;
     }
 

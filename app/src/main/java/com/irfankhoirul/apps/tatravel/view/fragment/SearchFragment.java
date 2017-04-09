@@ -14,7 +14,7 @@ import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.irfankhoirul.apps.tatravel.R;
-import com.irfankhoirul.apps.tatravel.contract.SearchFragmentContract;
+import com.irfankhoirul.apps.tatravel.contract.SearchContract;
 import com.irfankhoirul.apps.tatravel.model.pojo.JadwalPerjalanan;
 import com.irfankhoirul.apps.tatravel.model.pojo.Lokasi;
 import com.irfankhoirul.apps.tatravel.presenter.SearchFragmentPresenter;
@@ -35,7 +35,7 @@ import butterknife.OnClick;
  * @version 1.0 (7 November 2016)
  * @since 1.0
  */
-public class SearchFragment extends BaseFragment<MainActivity> implements SearchFragmentContract.View {
+public class SearchFragment extends BaseFragment<MainActivity> implements SearchContract.View {
 
     @BindView(R.id.sliderPromotion)
     SliderLayout sliderPromotion;
