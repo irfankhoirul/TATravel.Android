@@ -1,6 +1,7 @@
 package com.irfankhoirul.apps.tatravel.view.fragment;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -25,14 +26,10 @@ import butterknife.OnClick;
  */
 public class LoginOrRegisterFragment extends BaseFragment<MainActivity> {
 
-    private LoginRegisterListener listener;
+    private FragmentListener listener;
 
     public LoginOrRegisterFragment() {
         // Required empty public constructor
-    }
-
-    public void setListener(LoginRegisterListener listener) {
-        this.listener = listener;
     }
 
     @Override
@@ -42,6 +39,18 @@ public class LoginOrRegisterFragment extends BaseFragment<MainActivity> {
         unbinder = ButterKnife.bind(this, view);
 
         return view;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        listener = (FragmentListener) context;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        listener = null;
     }
 
     @Override
@@ -84,7 +93,7 @@ public class LoginOrRegisterFragment extends BaseFragment<MainActivity> {
         }
     }
 
-    public interface LoginRegisterListener {
+    public interface FragmentListener {
         void onRegisterSuccess();
 
         void onLoginSuccess();

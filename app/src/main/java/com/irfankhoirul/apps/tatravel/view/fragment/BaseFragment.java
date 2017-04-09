@@ -107,6 +107,10 @@ public abstract class BaseFragment<T extends FragmentActivity> extends Fragment 
                 .build();
     }
 
+    @Override
+    public void showStatus(int type, String message) {
+        showSnackBar(type, message, null, null);
+    }
 
     public interface FragmentListener {
         void setTitle(String title);

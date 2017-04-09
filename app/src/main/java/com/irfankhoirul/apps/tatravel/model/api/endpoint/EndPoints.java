@@ -20,6 +20,7 @@ public class EndPoints {
     static final String DO_VERIFY = "verify";
     static final String DO_LOGIN = "login";
     static final String DO_LOGIN_DRIVER = "login-driver";
+    static final String DO_LOGOUT = "logout";
     static final String GET_PROFILE = "user/{id}";
     static final String UPDATE_PROFILE = "user/update/{id}";
     // User Device End Point

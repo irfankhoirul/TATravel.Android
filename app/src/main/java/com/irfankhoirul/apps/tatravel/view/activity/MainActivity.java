@@ -1,6 +1,9 @@
 package com.irfankhoirul.apps.tatravel.view.activity;
 
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.PopupMenu;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -22,7 +25,9 @@ import butterknife.OnClick;
  * @since 1.0
  */
 
-public class MainActivity extends BaseActivity implements LoginOrRegisterFragment.LoginRegisterListener {
+public class MainActivity extends BaseActivity implements
+        LoginOrRegisterFragment.FragmentListener,
+        ProfileFragment.FragmentListener {
 
     @BindView(R.id.ivIcon)
     ImageView ivIcon;
@@ -99,9 +104,34 @@ public class MainActivity extends BaseActivity implements LoginOrRegisterFragmen
             if (profileFragment != null) {
                 setCurrentFragment(profileFragment, false);
             } else {
-                this.profileFragment = new ProfileFragment();
+                profileFragment = new ProfileFragment();
                 setCurrentFragment(profileFragment, false);
             }
+            btOptionMenu.setVisibility(View.VISIBLE);
+            btOptionMenu.setImageResource(R.drawable.ic_more_vert_black_24dp);
+            btOptionMenu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    PopupMenu popup = new PopupMenu(MainActivity.this, btOptionMenu);
+                    popup.getMenuInflater().inflate(R.menu.menu_profile, popup.getMenu());
+                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        public boolean onMenuItemClick(MenuItem item) {
+                            switch (item.getItemId()) {
+                                case R.id.menu_change_profile:
+                                    break;
+                                case R.id.menu_logout:
+                                    profileFragment.doLogout();
+                                    break;
+                            }
+
+                            return true;
+                        }
+                    });
+
+                    popup.show();//showing popup menu
+                }
+            });
+
         } else {
             // Load LoginOrRegister
             if (loginOrRegisterFragment != null) {
@@ -128,16 +158,28 @@ public class MainActivity extends BaseActivity implements LoginOrRegisterFragmen
 
     @Override
     public void onRegisterSuccess() {
-        if (profileFragment != null) {
-            setCurrentFragment(profileFragment, false);
-        } else {
-            this.profileFragment = new ProfileFragment();
-            setCurrentFragment(profileFragment, false);
-        }
+        Log.v("Register", "Success");
+        llProfile();
     }
 
     @Override
     public void onLoginSuccess() {
 
+    }
+
+    @Override
+    public void onLogoutSuccess() {
+        Log.v("Logout", "Success");
+        resetOptionMenu();
+        if (loginOrRegisterFragment != null) {
+            setCurrentFragment(loginOrRegisterFragment, false);
+        } else {
+            this.loginOrRegisterFragment = new LoginOrRegisterFragment();
+            setCurrentFragment(loginOrRegisterFragment, false);
+        }
+    }
+
+    private void resetOptionMenu() {
+        btOptionMenu.setVisibility(View.GONE);
     }
 }

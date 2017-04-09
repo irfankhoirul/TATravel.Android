@@ -17,7 +17,7 @@ import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.contract.SearchContract;
 import com.irfankhoirul.apps.tatravel.model.pojo.JadwalPerjalanan;
 import com.irfankhoirul.apps.tatravel.model.pojo.Lokasi;
-import com.irfankhoirul.apps.tatravel.presenter.SearchFragmentPresenter;
+import com.irfankhoirul.apps.tatravel.presenter.SearchPresenter;
 import com.irfankhoirul.apps.tatravel.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.util.DisplayMetricUtils;
 import com.irfankhoirul.apps.tatravel.view.activity.DepartureActivity;
@@ -48,7 +48,7 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
     @BindView(R.id.tvPassenger)
     TextView tvPassenger;
 
-    private SearchFragmentPresenter searchPresenter;
+    private SearchPresenter searchPresenter;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -65,7 +65,7 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         unbinder = ButterKnife.bind(this, view);
 
-        searchPresenter = new SearchFragmentPresenter(this);
+        searchPresenter = new SearchPresenter(this);
 
         searchPresenter.getPromo();
 //        searchPresenter.searchJadwalPerjalanan();

@@ -16,11 +16,11 @@ import com.irfankhoirul.apps.tatravel.model.pojo.JadwalPerjalanan;
  * @since 1.0
  */
 
-public class SearchFragmentPresenter implements SearchContract.Presenter {
+public class SearchPresenter implements SearchContract.Presenter {
 
     private final SearchContract.View view;
 
-    public SearchFragmentPresenter(SearchContract.View view) {
+    public SearchPresenter(SearchContract.View view) {
         this.view = view;
     }
 

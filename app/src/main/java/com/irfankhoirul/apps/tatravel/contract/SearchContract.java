@@ -14,7 +14,7 @@ import java.util.List;
 public interface SearchContract {
 
     /**
-     * Merupakan interface yang menghubungkan SearchFragment dan SearchFragmentPresenter
+     * Merupakan interface yang menghubungkan SearchFragment dan SearchPresenter
      *
      * @author Irfan Khoirul Muhlishin - irfankhoirul@gmail.com
      * @version 1.0 (13 November 2016)

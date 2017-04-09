@@ -43,7 +43,7 @@ import com.irfankhoirul.apps.tatravel.contract.DepartureContract;
 import com.irfankhoirul.apps.tatravel.model.pojo.JadwalPerjalanan;
 import com.irfankhoirul.apps.tatravel.model.pojo.Kota;
 import com.irfankhoirul.apps.tatravel.model.pojo.Lokasi;
-import com.irfankhoirul.apps.tatravel.presenter.DepartureFragmentPresenter;
+import com.irfankhoirul.apps.tatravel.presenter.DeparturePresenter;
 import com.irfankhoirul.apps.tatravel.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.util.SnackBarBuilder;
 import com.irfankhoirul.apps.tatravel.view.activity.MainActivity;
@@ -92,7 +92,7 @@ public class DepartureFragment extends BaseFragment<MainActivity> implements
 
 
     private ProgressDialog progressDialog;
-    private DepartureFragmentPresenter departurePresenter;
+    private DeparturePresenter departurePresenter;
     private Kota selectedCity;
 
 
@@ -132,7 +132,7 @@ public class DepartureFragment extends BaseFragment<MainActivity> implements
         fragmentView = inflater.inflate(R.layout.fragment_departure, container, false);
         unbinder = ButterKnife.bind(this, fragmentView);
 
-        departurePresenter = new DepartureFragmentPresenter(this);
+        departurePresenter = new DeparturePresenter(this);
 
 
         mapDeparture.onCreate(savedInstanceState);

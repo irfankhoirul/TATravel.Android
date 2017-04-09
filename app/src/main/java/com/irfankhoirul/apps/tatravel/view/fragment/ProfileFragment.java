@@ -1,6 +1,7 @@
 package com.irfankhoirul.apps.tatravel.view.fragment;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
@@ -15,8 +16,11 @@ import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.contract.ProfileContract;
 import com.irfankhoirul.apps.tatravel.model.data.local.Session;
 import com.irfankhoirul.apps.tatravel.model.pojo.User;
-import com.irfankhoirul.apps.tatravel.presenter.ProfileFragmentPresenter;
+import com.irfankhoirul.apps.tatravel.presenter.ProfilePresenter;
 import com.irfankhoirul.apps.tatravel.view.activity.MainActivity;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,7 +57,9 @@ public class ProfileFragment extends BaseFragment<MainActivity> implements Profi
     @BindView(R.id.btChangeProfile)
     Button btChangeProfile;
 
-    private ProfileFragmentPresenter mPresenter;
+    private ProfilePresenter mPresenter;
+
+    private FragmentListener listener;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -71,18 +77,25 @@ public class ProfileFragment extends BaseFragment<MainActivity> implements Profi
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        listener = (FragmentListener) context;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        listener = null;
+    }
+
+    @Override
     protected void setTitle() {
         title = "Profil";
     }
 
     @Override
     public void setPresenter() {
-        mPresenter = new ProfileFragmentPresenter(this);
-    }
-
-    @Override
-    public void showStatus(int type, String message) {
-
+        mPresenter = new ProfilePresenter(this);
     }
 
     @Override
@@ -119,5 +132,22 @@ public class ProfileFragment extends BaseFragment<MainActivity> implements Profi
         } else {
             Log.v("ShowProfile", "UserIsNull");
         }
+    }
+
+    @Override
+    public void redirectToLoginOrRegister() {
+        Session.destroy(activity);
+        listener.onLogoutSuccess();
+    }
+
+    public void doLogout() {
+        Session<User> session = Session.getInstance(activity);
+        Map<String, String> param = new HashMap<>();
+        param.put("token", session.getSessionData().getUserToken().getToken());
+        mPresenter.logout(param);
+    }
+
+    public interface FragmentListener {
+        void onLogoutSuccess();
     }
 }

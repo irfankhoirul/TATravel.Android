@@ -19,7 +19,7 @@ import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.contract.VerifyContract;
 import com.irfankhoirul.apps.tatravel.model.data.local.Session;
 import com.irfankhoirul.apps.tatravel.model.pojo.User;
-import com.irfankhoirul.apps.tatravel.presenter.VerifyFragmentPresenter;
+import com.irfankhoirul.apps.tatravel.presenter.VerifyPresenter;
 import com.irfankhoirul.apps.tatravel.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.view.activity.VerifyActivity;
 
@@ -42,7 +42,7 @@ public class VerifyFragment extends BaseFragment<VerifyActivity> implements Veri
     @BindView(R.id.etVerificationCode)
     EditText etVerificationCode;
 
-    private VerifyFragmentPresenter mPresenter;
+    private VerifyPresenter mPresenter;
 
     public VerifyFragment() {
         // Required empty public constructor
@@ -77,7 +77,7 @@ public class VerifyFragment extends BaseFragment<VerifyActivity> implements Veri
 
     @Override
     public void setPresenter() {
-        mPresenter = new VerifyFragmentPresenter(this);
+        mPresenter = new VerifyPresenter(this);
     }
 
     @Override

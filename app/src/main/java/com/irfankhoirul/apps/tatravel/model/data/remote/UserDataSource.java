@@ -24,8 +24,13 @@ public class UserDataSource extends BaseRemoteDataSource {
         execute(call, listener);
     }
 
-    public void verifyPhoneNumber(final IRequestResponseListener<User> listener, Map<String, String> param) {
+    public void verifyPhoneNumber(IRequestResponseListener<User> listener, Map<String, String> param) {
         Call<DataResult<User>> call = ((IUserEndPoints) endPoint).verify(param);
+        execute(call, listener);
+    }
+
+    public void logout(IRequestResponseListener listener, Map<String, String> param) {
+        Call<DataResult> call = ((IUserEndPoints) endPoint).logout(param);
         execute(call, listener);
     }
 

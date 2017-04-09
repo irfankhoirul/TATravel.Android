@@ -9,7 +9,7 @@ import com.irfankhoirul.apps.tatravel.base.IBaseView;
 
 public interface LoginContract {
     interface View extends IBaseView {
-
+        void redirectToProfile();
     }
 
     interface Presenter extends IBasePresenter {

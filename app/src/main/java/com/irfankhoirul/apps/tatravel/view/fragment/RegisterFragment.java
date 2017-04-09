@@ -38,7 +38,7 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.contract.RegisterContract;
-import com.irfankhoirul.apps.tatravel.presenter.RegisterFragmentPresenter;
+import com.irfankhoirul.apps.tatravel.presenter.RegisterPresenter;
 import com.irfankhoirul.apps.tatravel.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.view.activity.RegisterActivity;
 import com.irfankhoirul.apps.tatravel.view.activity.VerifyActivity;
@@ -98,7 +98,7 @@ public class RegisterFragment extends BaseFragment<RegisterActivity> implements
     private CallbackManager callbackManager;
     private GoogleApiClient mGoogleApiClient;
 
-    private RegisterFragmentPresenter mPresenter;
+    private RegisterPresenter mPresenter;
 
     public RegisterFragment() {
         // Required empty public constructor
@@ -111,7 +111,7 @@ public class RegisterFragment extends BaseFragment<RegisterActivity> implements
 
     @Override
     public void setPresenter() {
-        mPresenter = new RegisterFragmentPresenter(this);
+        mPresenter = new RegisterPresenter(this);
     }
 
     @Override

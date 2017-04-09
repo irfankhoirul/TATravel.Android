@@ -84,11 +84,9 @@ public class Session<T> {
      * @param activity Activity saat ini. dignakan untuk mengambil shared preference.i
      */
     public static void destroy(Activity activity) {
-        if (session != null) {
-            SharedPreferences sharedPref = activity.getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
-            sharedPref.edit().clear().apply();
-            session = null;
-        }
+        SharedPreferences sharedPref = activity.getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
+        sharedPref.edit().clear().apply();
+        session = null;
     }
 
     public T getSessionData() {
