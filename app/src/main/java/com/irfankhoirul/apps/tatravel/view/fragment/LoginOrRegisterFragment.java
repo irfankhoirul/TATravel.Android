@@ -5,14 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.irfankhoirul.apps.tatravel.R;
-import com.irfankhoirul.apps.tatravel.model.data.local.Session;
-import com.irfankhoirul.apps.tatravel.model.pojo.User;
 import com.irfankhoirul.apps.tatravel.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.view.activity.LoginActivity;
 import com.irfankhoirul.apps.tatravel.view.activity.MainActivity;
@@ -63,11 +60,6 @@ public class LoginOrRegisterFragment extends BaseFragment<MainActivity> {
 
     }
 
-    @Override
-    public void showStatus(int type, String message) {
-
-    }
-
     @OnClick(R.id.btLogin)
     public void btLogin() {
         Intent intent = new Intent(activity, LoginActivity.class);
@@ -84,11 +76,12 @@ public class LoginOrRegisterFragment extends BaseFragment<MainActivity> {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == ConstantUtils.INTENT_REQUEST_LOGIN_OR_REGISTER_TO_REGISTER) {
-            if (resultCode == ConstantUtils.REQUEST_RESULT_SUCCESS) {
-                Session<User> session = Session.getInstance(activity);
-                Log.v("User Nama", session.getSessionData().getNama());
-                Log.v("ChangeFragment", "Profile");
+            if (resultCode == ConstantUtils.STATUS_SUCCESS) {
                 listener.onRegisterSuccess();
+            }
+        } else if (requestCode == ConstantUtils.INTENT_REQUEST_LOGIN_OR_REGISTER_TO_LOGIN) {
+            if (resultCode == ConstantUtils.STATUS_SUCCESS) {
+                listener.onLoginSuccess();
             }
         }
     }

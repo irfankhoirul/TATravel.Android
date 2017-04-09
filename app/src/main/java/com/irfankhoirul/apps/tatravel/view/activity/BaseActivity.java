@@ -16,16 +16,15 @@ import butterknife.OnClick;
 
 public abstract class BaseActivity extends FragmentActivity implements BaseFragment.FragmentListener {
 
+    @BindView(R.id.flFragmentContainer)
+    protected FrameLayout flFragmentContainer;
+    protected BaseFragment currentFragment;
     @BindView(R.id.btBack)
     ImageButton btBack;
     @BindView(R.id.tvToolbarTitle)
     TextView tvToolbarTitle;
     @BindView(R.id.btOptionMenu)
     ImageButton btOptionMenu;
-    @BindView(R.id.flFragmentContainer)
-    FrameLayout flFragmentContainer;
-
-    BaseFragment currentFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

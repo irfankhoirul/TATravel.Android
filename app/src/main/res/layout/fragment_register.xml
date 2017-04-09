@@ -29,7 +29,7 @@
                 android:id="@+id/etPhoneNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/label_hint_phone_number"
+                android:hint="Register dengan Nomor Handphone"
                 android:inputType="phone" />
 
         </android.support.design.widget.TextInputLayout>
@@ -58,7 +58,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:enabled="false"
-                android:hint="@string/label_hint_email"
+                android:hint="Register dengan Email"
                 android:inputType="textEmailAddress" />
 
         </android.support.design.widget.TextInputLayout>
@@ -146,7 +146,7 @@
     </LinearLayout>
 
     <android.support.v7.widget.CardView
-        android:id="@+id/cvLoginGoogle"
+        android:id="@+id/cvRegisterWithGoogle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -186,7 +186,7 @@
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
-        android:id="@+id/cvLoginFacebook"
+        android:id="@+id/cvRegisterWithFacebook"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
@@ -225,7 +225,7 @@
     </android.support.v7.widget.CardView>
 
     <com.facebook.login.widget.LoginButton
-        android:id="@+id/loginFacebook"
+        android:id="@+id/registerFacebook"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -234,7 +234,7 @@
         android:visibility="gone" />
 
     <com.google.android.gms.common.SignInButton
-        android:id="@+id/loginGoogle"
+        android:id="@+id/registerGoogle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone" />

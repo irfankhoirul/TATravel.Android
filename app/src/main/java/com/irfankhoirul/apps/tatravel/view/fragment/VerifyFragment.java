@@ -81,11 +81,6 @@ public class VerifyFragment extends BaseFragment<VerifyActivity> implements Veri
     }
 
     @Override
-    public void showStatus(int type, String message) {
-        showSnackBar(type, message, null, null);
-    }
-
-    @Override
     protected void setTitle() {
 
     }

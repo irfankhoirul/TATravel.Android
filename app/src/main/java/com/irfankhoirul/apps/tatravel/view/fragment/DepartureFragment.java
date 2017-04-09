@@ -9,7 +9,6 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -45,7 +44,6 @@ import com.irfankhoirul.apps.tatravel.model.pojo.Kota;
 import com.irfankhoirul.apps.tatravel.model.pojo.Lokasi;
 import com.irfankhoirul.apps.tatravel.presenter.DeparturePresenter;
 import com.irfankhoirul.apps.tatravel.util.ConstantUtils;
-import com.irfankhoirul.apps.tatravel.util.SnackBarBuilder;
 import com.irfankhoirul.apps.tatravel.view.activity.MainActivity;
 import com.irfankhoirul.apps.tatravel.view.dialog.CityDialog;
 import com.irfankhoirul.apps.tatravel.view.dialog.TravelLocationDialog;
@@ -145,11 +143,6 @@ public class DepartureFragment extends BaseFragment<MainActivity> implements
 
     @Override
     public void setPresenter() {
-
-    }
-
-    @Override
-    public void showStatus(int type, String message) {
 
     }
 
@@ -269,19 +262,6 @@ public class DepartureFragment extends BaseFragment<MainActivity> implements
         } else {
             progressDialog.dismiss();
         }
-    }
-
-
-    @Override
-    public void showSnackBar(int type, String message, String actionName, View.OnClickListener listener) {
-        SnackBarBuilder snackBarBuilder = new SnackBarBuilder(activity);
-        snackBarBuilder.setMessage(message)
-                .setActionName(actionName)
-                .setLength(Snackbar.LENGTH_SHORT)
-                .setRoot(fragmentView)
-                .setType(type)
-                .setActionListener(listener)
-                .build();
     }
 
     @Override

@@ -96,7 +96,12 @@ public abstract class BaseFragment<T extends FragmentActivity> extends Fragment 
         }
     }
 
-    protected void showSnackBar(int type, String message, String action, android.view.View.OnClickListener listener) {
+    @Override
+    public void showStatus(int type, String message) {
+        showSnackBar(type, message, null, null, null);
+    }
+
+    protected void showSnackBar(int type, String message, String action, View root, android.view.View.OnClickListener listener) {
         SnackBarBuilder snackBarBuilder = new SnackBarBuilder(activity);
         snackBarBuilder.setMessage(message)
                 .setActionName(action)
@@ -105,11 +110,6 @@ public abstract class BaseFragment<T extends FragmentActivity> extends Fragment 
                 .setType(type)
                 .setActionListener(listener)
                 .build();
-    }
-
-    @Override
-    public void showStatus(int type, String message) {
-        showSnackBar(type, message, null, null);
     }
 
     public interface FragmentListener {

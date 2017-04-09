@@ -32,7 +32,7 @@ public class ConstantUtils {
     public static final int DIALOG_LOCATION_REQUEST_CODE = 2002;
     public static final int DIALOG_LOCATION_RESULT_CODE = 2003;
 
-    public static final int LOGIN_GOOGLE_REQUEST = 3000;
+    public static final int REGISTER_GOOGLE_REQUEST = 3000;
     public static final String INTENT_SEARCH_FRAGMENT_DEPARTURE_CITY = "departure";
 
     public static final int INTENT_REQUEST_REGISTER_TO_VALIDATION = 4000;

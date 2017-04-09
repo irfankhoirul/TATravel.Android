@@ -99,11 +99,6 @@ public class TravelLocationDialog extends BaseDialog implements TravelLocationDi
     }
 
     @Override
-    public void showStatus(int type, String message) {
-
-    }
-
-    @Override
     public void onResume() {
         ViewGroup.LayoutParams params = getDialog().getWindow().getAttributes();
         params.width = LinearLayout.LayoutParams.MATCH_PARENT;

@@ -79,11 +79,6 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
     }
 
     @Override
-    public void showStatus(int type, String message) {
-
-    }
-
-    @Override
     public void onStop() {
         sliderPromotion.stopAutoCycle();
         super.onStop();

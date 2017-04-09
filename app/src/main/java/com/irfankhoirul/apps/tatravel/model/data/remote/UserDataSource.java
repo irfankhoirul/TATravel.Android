@@ -29,6 +29,11 @@ public class UserDataSource extends BaseRemoteDataSource {
         execute(call, listener);
     }
 
+    public void login(IRequestResponseListener<User> listener, Map<String, String> param) {
+        Call<DataResult<User>> call = ((IUserEndPoints) endPoint).login(param);
+        execute(call, listener);
+    }
+
     public void logout(IRequestResponseListener listener, Map<String, String> param) {
         Call<DataResult> call = ((IUserEndPoints) endPoint).logout(param);
         execute(call, listener);

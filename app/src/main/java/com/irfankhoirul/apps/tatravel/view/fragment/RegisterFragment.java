@@ -56,7 +56,7 @@ import butterknife.OnClick;
 
 import static com.basgeekball.awesomevalidation.ValidationStyle.TEXT_INPUT_LAYOUT;
 import static com.facebook.FacebookSdk.getApplicationContext;
-import static com.irfankhoirul.apps.tatravel.util.ConstantUtils.LOGIN_GOOGLE_REQUEST;
+import static com.irfankhoirul.apps.tatravel.util.ConstantUtils.REGISTER_GOOGLE_REQUEST;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -86,14 +86,14 @@ public class RegisterFragment extends BaseFragment<RegisterActivity> implements
     @BindView(R.id.etName)
     EditText etName;
 
-    @BindView(R.id.cvLoginGoogle)
-    CardView cvLoginGoogle;
-    @BindView(R.id.cvLoginFacebook)
-    CardView cvLoginFacebook;
-    @BindView(R.id.loginFacebook)
-    LoginButton loginFacebook;
-    @BindView(R.id.loginGoogle)
-    SignInButton loginGoogle;
+    @BindView(R.id.cvRegisterWithGoogle)
+    CardView cvRegisterWithGoogle;
+    @BindView(R.id.cvRegisterWithFacebook)
+    CardView cvRegisterWithFacebook;
+    @BindView(R.id.registerFacebook)
+    LoginButton registerFacebook;
+    @BindView(R.id.registerGoogle)
+    SignInButton registerGoogle;
 
     private CallbackManager callbackManager;
     private GoogleApiClient mGoogleApiClient;
@@ -112,11 +112,6 @@ public class RegisterFragment extends BaseFragment<RegisterActivity> implements
     @Override
     public void setPresenter() {
         mPresenter = new RegisterPresenter(this);
-    }
-
-    @Override
-    public void showStatus(int type, String message) {
-        showSnackBar(type, message, null, null);
     }
 
     @Override
@@ -170,9 +165,9 @@ public class RegisterFragment extends BaseFragment<RegisterActivity> implements
         }
 
         callbackManager = CallbackManager.Factory.create();
-        loginFacebook.setReadPermissions("email");
-        loginFacebook.setFragment(this);
-        loginFacebook.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+        registerFacebook.setReadPermissions("email");
+        registerFacebook.setFragment(this);
+        registerFacebook.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 handleFacebookResult(loginResult.getAccessToken());
@@ -258,7 +253,7 @@ public class RegisterFragment extends BaseFragment<RegisterActivity> implements
                 activity.setResult(ConstantUtils.REQUEST_RESULT_SUCCESS);
                 activity.finish();
             }
-        } else if (requestCode == LOGIN_GOOGLE_REQUEST) {
+        } else if (requestCode == REGISTER_GOOGLE_REQUEST) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             handleGoogleResult(result);
         } else {
@@ -286,15 +281,15 @@ public class RegisterFragment extends BaseFragment<RegisterActivity> implements
         }
     }
 
-    @OnClick(R.id.cvLoginFacebook)
-    public void cvLoginFacebook() {
-        loginFacebook.performClick();
+    @OnClick(R.id.cvRegisterWithFacebook)
+    public void cvRegisterWithFacebook() {
+        registerFacebook.performClick();
     }
 
-    @OnClick(R.id.cvLoginGoogle)
-    public void cvLoginGoogle() {
+    @OnClick(R.id.cvRegisterWithGoogle)
+    public void cvRegisterWithGoogle() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-        startActivityForResult(signInIntent, LOGIN_GOOGLE_REQUEST);
+        startActivityForResult(signInIntent, REGISTER_GOOGLE_REQUEST);
     }
 
     @Override

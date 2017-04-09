@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.irfankhoirul.apps.tatravel.R;
@@ -28,6 +29,9 @@ import butterknife.OnClick;
 public class MainActivity extends BaseActivity implements
         LoginOrRegisterFragment.FragmentListener,
         ProfileFragment.FragmentListener {
+
+    @BindView(R.id.rlActivityMain)
+    RelativeLayout rlActivityMain;
 
     @BindView(R.id.ivIcon)
     ImageView ivIcon;
@@ -158,13 +162,12 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     public void onRegisterSuccess() {
-        Log.v("Register", "Success");
         llProfile();
     }
 
     @Override
     public void onLoginSuccess() {
-
+        llProfile();
     }
 
     @Override
@@ -182,4 +185,5 @@ public class MainActivity extends BaseActivity implements
     private void resetOptionMenu() {
         btOptionMenu.setVisibility(View.GONE);
     }
+
 }

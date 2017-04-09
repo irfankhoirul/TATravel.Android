@@ -85,10 +85,6 @@ public class CityDialog extends BaseDialog implements CityDialogContract.View {
 
     }
 
-    @Override
-    public void showStatus(int type, String message) {
-
-    }
 
     @Override
     public void onResume() {

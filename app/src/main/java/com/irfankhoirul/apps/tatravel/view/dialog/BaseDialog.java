@@ -52,4 +52,9 @@ public abstract class BaseDialog<T extends Activity> extends DialogFragment impl
             unbinder.unbind();
         }
     }
+
+    @Override
+    public void showStatus(int type, String message) {
+
+    }
 }
