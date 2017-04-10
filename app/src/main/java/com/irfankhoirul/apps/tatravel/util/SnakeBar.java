@@ -12,7 +12,8 @@ import com.irfankhoirul.apps.tatravel.R;
  * Created by Irfan Khoirul on 12/25/2016.
  */
 
-public class SnackBarBuilder {
+public class SnakeBar {
+    private SnakeBar instance;
     private View root;
     private String message;
     private String actionName;
@@ -21,41 +22,47 @@ public class SnackBarBuilder {
     private int type;
     private Context context;
 
-    public SnackBarBuilder(Context context) {
-        this.context = context;
+    public SnakeBar() {
+
     }
 
-    public SnackBarBuilder setRoot(View root) {
+    public SnakeBar builder(Context context) {
+        instance = new SnakeBar();
+        instance.context = context;
+        return instance;
+    }
+
+    public SnakeBar setRoot(View root) {
         this.root = root;
         return this;
     }
 
-    public SnackBarBuilder setMessage(String message) {
+    public SnakeBar setMessage(String message) {
         this.message = message;
         return this;
     }
 
-    public SnackBarBuilder setActionName(String actionName) {
+    public SnakeBar setActionName(String actionName) {
         this.actionName = actionName;
         return this;
     }
 
-    public SnackBarBuilder setLength(int length) {
+    public SnakeBar setLength(int length) {
         this.length = length;
         return this;
     }
 
-    public SnackBarBuilder setActionListener(View.OnClickListener listener) {
+    public SnakeBar setActionListener(View.OnClickListener listener) {
         this.listener = listener;
         return this;
     }
 
-    public SnackBarBuilder setType(int type) {
+    public SnakeBar setType(int type) {
         this.type = type;
         return this;
     }
 
-    public void build() {
+    public void show() {
         Snackbar snackbar = Snackbar
                 .make(root, message, length)
                 .setAction(actionName, new View.OnClickListener() {

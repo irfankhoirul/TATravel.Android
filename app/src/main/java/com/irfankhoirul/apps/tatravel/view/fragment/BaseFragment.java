@@ -14,7 +14,8 @@ import android.widget.TextView;
 
 import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.base.IBaseView;
-import com.irfankhoirul.apps.tatravel.util.SnackBarBuilder;
+import com.irfankhoirul.apps.tatravel.util.SnakeBar;
+import com.irfankhoirul.apps.tatravel.util.Toaster;
 
 import butterknife.Unbinder;
 
@@ -98,18 +99,26 @@ public abstract class BaseFragment<T extends FragmentActivity> extends Fragment 
 
     @Override
     public void showStatus(int type, String message) {
-        showSnackBar(type, message, null, null, null);
+//        showSnackBar(type, message, null, null, null);
+        showToast(type, message);
     }
 
     protected void showSnackBar(int type, String message, String action, View root, android.view.View.OnClickListener listener) {
-        SnackBarBuilder snackBarBuilder = new SnackBarBuilder(activity);
-        snackBarBuilder.setMessage(message)
+        new SnakeBar().builder(activity)
+                .setMessage(message)
                 .setActionName(action)
                 .setLength(Snackbar.LENGTH_SHORT)
                 .setRoot(fragmentView)
                 .setType(type)
                 .setActionListener(listener)
-                .build();
+                .show();
+    }
+
+    protected void showToast(int type, String message) {
+        new Toaster().builder(activity)
+                .setType(type)
+                .setMessage(message)
+                .show();
     }
 
     public interface FragmentListener {
