@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.view.dialog;
+package com.irfankhoirul.apps.tatravel.aaa.core.base;
 
 import android.app.Activity;
 import android.content.Context;

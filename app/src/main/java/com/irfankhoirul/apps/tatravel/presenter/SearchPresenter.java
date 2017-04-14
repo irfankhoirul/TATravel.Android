@@ -2,8 +2,8 @@ package com.irfankhoirul.apps.tatravel.presenter;
 
 import android.util.Log;
 
+import com.irfankhoirul.apps.tatravel.aaa.core.components.DataResult;
 import com.irfankhoirul.apps.tatravel.contract.SearchContract;
-import com.irfankhoirul.apps.tatravel.model.api.DataResult;
 import com.irfankhoirul.apps.tatravel.model.data.remote.IRequestResponseListener;
 import com.irfankhoirul.apps.tatravel.model.data.remote.SearchDataSource;
 import com.irfankhoirul.apps.tatravel.model.pojo.JadwalPerjalanan;

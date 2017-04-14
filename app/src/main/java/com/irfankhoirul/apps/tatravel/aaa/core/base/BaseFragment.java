@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.view.fragment;
+package com.irfankhoirul.apps.tatravel.aaa.core.base;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -13,9 +13,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.irfankhoirul.apps.tatravel.R;
+import com.irfankhoirul.apps.tatravel.aaa.core.components.view.SnakeBar;
+import com.irfankhoirul.apps.tatravel.aaa.core.components.view.Toaster;
 import com.irfankhoirul.apps.tatravel.base.IBaseView;
-import com.irfankhoirul.apps.tatravel.util.SnakeBar;
-import com.irfankhoirul.apps.tatravel.util.Toaster;
 
 import butterknife.Unbinder;
 

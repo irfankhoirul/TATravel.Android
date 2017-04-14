@@ -19,11 +19,12 @@ import android.widget.RadioButton;
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.utility.RegexTemplate;
 import com.irfankhoirul.apps.tatravel.R;
+import com.irfankhoirul.apps.tatravel.aaa.core.base.BaseFragment;
+import com.irfankhoirul.apps.tatravel.aaa.core.components.Session;
+import com.irfankhoirul.apps.tatravel.aaa.core.components.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.contract.LoginContract;
-import com.irfankhoirul.apps.tatravel.model.data.local.Session;
 import com.irfankhoirul.apps.tatravel.model.pojo.User;
 import com.irfankhoirul.apps.tatravel.presenter.LoginPresenter;
-import com.irfankhoirul.apps.tatravel.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.view.activity.LoginActivity;
 
 import java.util.HashMap;

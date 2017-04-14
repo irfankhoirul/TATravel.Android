@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.view.activity;
+package com.irfankhoirul.apps.tatravel.aaa.core.base;
 
 import com.irfankhoirul.apps.tatravel.R;
 

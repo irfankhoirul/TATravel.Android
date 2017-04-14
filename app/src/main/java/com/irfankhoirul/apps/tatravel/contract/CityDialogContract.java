@@ -1,8 +1,8 @@
 package com.irfankhoirul.apps.tatravel.contract;
 
+import com.irfankhoirul.apps.tatravel.aaa.core.components.DataPage;
 import com.irfankhoirul.apps.tatravel.base.IBasePresenter;
 import com.irfankhoirul.apps.tatravel.base.IBaseView;
-import com.irfankhoirul.apps.tatravel.model.api.DataPage;
 import com.irfankhoirul.apps.tatravel.model.pojo.Kota;
 
 import java.util.List;

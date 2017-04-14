@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import com.irfankhoirul.apps.tatravel.model.data.local.Session;
+import com.irfankhoirul.apps.tatravel.aaa.core.components.Session;
 import com.irfankhoirul.apps.tatravel.model.pojo.User;
 
 public class SplashActivity extends AppCompatActivity {

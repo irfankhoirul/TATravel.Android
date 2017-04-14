@@ -11,7 +11,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.irfankhoirul.apps.tatravel.R;
-import com.irfankhoirul.apps.tatravel.model.data.local.Session;
+import com.irfankhoirul.apps.tatravel.aaa.core.base.BaseActivity;
+import com.irfankhoirul.apps.tatravel.aaa.core.components.Session;
 import com.irfankhoirul.apps.tatravel.view.fragment.DepartureFragment;
 import com.irfankhoirul.apps.tatravel.view.fragment.LoginOrRegisterFragment;
 import com.irfankhoirul.apps.tatravel.view.fragment.ProfileFragment;

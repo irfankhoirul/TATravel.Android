@@ -1,7 +1,7 @@
 package com.irfankhoirul.apps.tatravel.presenter;
 
+import com.irfankhoirul.apps.tatravel.aaa.core.components.DataResult;
 import com.irfankhoirul.apps.tatravel.contract.TravelLocationDialogContract;
-import com.irfankhoirul.apps.tatravel.model.api.DataResult;
 import com.irfankhoirul.apps.tatravel.model.data.remote.IRequestResponseListener;
 import com.irfankhoirul.apps.tatravel.model.data.remote.SearchDataSource;
 import com.irfankhoirul.apps.tatravel.model.pojo.Lokasi;

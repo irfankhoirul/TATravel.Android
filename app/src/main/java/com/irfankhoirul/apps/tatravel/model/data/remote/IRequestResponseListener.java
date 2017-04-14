@@ -1,6 +1,6 @@
 package com.irfankhoirul.apps.tatravel.model.data.remote;
 
-import com.irfankhoirul.apps.tatravel.model.api.DataResult;
+import com.irfankhoirul.apps.tatravel.aaa.core.components.DataResult;
 
 /**
  * Merupakan interface yang berfungsi sebagai listener hasil query menggunakan retrofit

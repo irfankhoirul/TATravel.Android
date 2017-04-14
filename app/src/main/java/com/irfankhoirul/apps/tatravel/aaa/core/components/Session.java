@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.model.data.local;
+package com.irfankhoirul.apps.tatravel.aaa.core.components;
 
 import android.app.Activity;
 import android.content.Context;
@@ -73,7 +73,7 @@ public class Session<T> {
         }
     }
 
-    public static <U> Session update(Activity activity, U sessionData) {
+    public static <T> Session update(Activity activity, T sessionData) {
         destroy(activity);
         return initialize(activity, sessionData);
     }

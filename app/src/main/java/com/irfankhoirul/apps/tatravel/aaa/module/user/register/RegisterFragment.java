@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.view.fragment;
+package com.irfankhoirul.apps.tatravel.aaa.module.user.register;
 
 
 import android.content.Context;
@@ -37,9 +37,10 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.irfankhoirul.apps.tatravel.R;
+import com.irfankhoirul.apps.tatravel.aaa.core.base.BaseFragment;
+import com.irfankhoirul.apps.tatravel.aaa.core.components.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.contract.RegisterContract;
 import com.irfankhoirul.apps.tatravel.presenter.RegisterPresenter;
-import com.irfankhoirul.apps.tatravel.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.view.activity.RegisterActivity;
 import com.irfankhoirul.apps.tatravel.view.activity.VerifyActivity;
 
@@ -56,7 +57,7 @@ import butterknife.OnClick;
 
 import static com.basgeekball.awesomevalidation.ValidationStyle.TEXT_INPUT_LAYOUT;
 import static com.facebook.FacebookSdk.getApplicationContext;
-import static com.irfankhoirul.apps.tatravel.util.ConstantUtils.REGISTER_GOOGLE_REQUEST;
+import static com.irfankhoirul.apps.tatravel.aaa.core.components.util.ConstantUtils.REGISTER_GOOGLE_REQUEST;
 
 /**
  * A simple {@link Fragment} subclass.

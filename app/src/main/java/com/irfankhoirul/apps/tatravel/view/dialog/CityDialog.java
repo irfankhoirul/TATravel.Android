@@ -13,12 +13,13 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.irfankhoirul.apps.tatravel.R;
+import com.irfankhoirul.apps.tatravel.aaa.core.base.BaseDialog;
+import com.irfankhoirul.apps.tatravel.aaa.core.components.DataPage;
+import com.irfankhoirul.apps.tatravel.aaa.core.components.util.ConstantUtils;
+import com.irfankhoirul.apps.tatravel.aaa.core.components.util.DisplayMetricUtils;
 import com.irfankhoirul.apps.tatravel.contract.CityDialogContract;
-import com.irfankhoirul.apps.tatravel.model.api.DataPage;
 import com.irfankhoirul.apps.tatravel.model.pojo.Kota;
 import com.irfankhoirul.apps.tatravel.presenter.CityDialogPresenter;
-import com.irfankhoirul.apps.tatravel.util.ConstantUtils;
-import com.irfankhoirul.apps.tatravel.util.DisplayMetricUtils;
 import com.irfankhoirul.apps.tatravel.view.adapter.CityAdapter;
 import com.wang.avi.AVLoadingIndicatorView;
 

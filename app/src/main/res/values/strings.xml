@@ -38,6 +38,8 @@
     <string name="validation_name_not_empty">Nama tidak boleh kosong</string>
     <string name="validation_phone_not_empty">Nomor Handphone tidak boleh kosong</string>
     <string name="validation_phone_valid">Hanya boleh berupa angka</string>
+    <string name="validation_email_not_empty">Email tidak boleh kosong</string>
+    <string name="validation_email_valid">Email tidak valid</string>
     <string name="validation_password_not_empty">Password tidak boleh kosong</string>
 
 </resources>

@@ -1,6 +1,6 @@
 package com.irfankhoirul.apps.tatravel.model.api.endpoint;
 
-import com.irfankhoirul.apps.tatravel.model.api.DataResult;
+import com.irfankhoirul.apps.tatravel.aaa.core.components.DataResult;
 import com.irfankhoirul.apps.tatravel.model.pojo.JadwalPerjalanan;
 
 import java.util.Map;
@@ -11,11 +11,11 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
-import static com.irfankhoirul.apps.tatravel.model.api.endpoint.EndPoints.GET_DRIVER_SCHEDULE;
-import static com.irfankhoirul.apps.tatravel.model.api.endpoint.EndPoints.GET_SCHEDULE;
-import static com.irfankhoirul.apps.tatravel.model.api.endpoint.EndPoints.LIST_DRIVER_SCHEDULE;
-import static com.irfankhoirul.apps.tatravel.model.api.endpoint.EndPoints.LIST_SCHEDULE;
-import static com.irfankhoirul.apps.tatravel.model.api.endpoint.EndPoints.UPDATE_SCHEDULE_STATUS;
+import static com.irfankhoirul.apps.tatravel.aaa.core.components.EndPoints.GET_DRIVER_SCHEDULE;
+import static com.irfankhoirul.apps.tatravel.aaa.core.components.EndPoints.GET_SCHEDULE;
+import static com.irfankhoirul.apps.tatravel.aaa.core.components.EndPoints.LIST_DRIVER_SCHEDULE;
+import static com.irfankhoirul.apps.tatravel.aaa.core.components.EndPoints.LIST_SCHEDULE;
+import static com.irfankhoirul.apps.tatravel.aaa.core.components.EndPoints.UPDATE_SCHEDULE_STATUS;
 
 /**
  * Created by Irfan Khoirul on 3/11/2017.

@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.view.fragment;
+package com.irfankhoirul.apps.tatravel.aaa.module.user.register.verification;
 
 
 import android.content.Context;
@@ -16,11 +16,12 @@ import android.widget.EditText;
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.utility.RegexTemplate;
 import com.irfankhoirul.apps.tatravel.R;
+import com.irfankhoirul.apps.tatravel.aaa.core.base.BaseFragment;
+import com.irfankhoirul.apps.tatravel.aaa.core.components.Session;
+import com.irfankhoirul.apps.tatravel.aaa.core.components.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.contract.VerifyContract;
-import com.irfankhoirul.apps.tatravel.model.data.local.Session;
 import com.irfankhoirul.apps.tatravel.model.pojo.User;
 import com.irfankhoirul.apps.tatravel.presenter.VerifyPresenter;
-import com.irfankhoirul.apps.tatravel.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.view.activity.VerifyActivity;
 
 import java.util.HashMap;

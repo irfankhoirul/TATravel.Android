@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.util;
+package com.irfankhoirul.apps.tatravel.aaa.core.components.util;
 
 /**
  * Berisi konstanta yang digunakan pada lebih dari 1 kelas
@@ -8,7 +8,7 @@ package com.irfankhoirul.apps.tatravel.util;
  */
 
 public class ConstantUtils {
-    public static final String BASE_API_URL = "http://192.168.8.101:81/api/";
+    public static final String BASE_API_URL = "http://192.168.8.100/api/";
     public static final int PAGINATION_LIMIT = 10;
     public static final int INITIAL_PAGE = 1;
 

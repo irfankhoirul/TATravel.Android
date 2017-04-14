@@ -1,10 +1,10 @@
 package com.irfankhoirul.apps.tatravel.presenter;
 
+import com.irfankhoirul.apps.tatravel.aaa.core.components.DataResult;
+import com.irfankhoirul.apps.tatravel.aaa.core.components.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.contract.ProfileContract;
-import com.irfankhoirul.apps.tatravel.model.api.DataResult;
 import com.irfankhoirul.apps.tatravel.model.data.remote.IRequestResponseListener;
 import com.irfankhoirul.apps.tatravel.model.data.remote.UserDataSource;
-import com.irfankhoirul.apps.tatravel.util.ConstantUtils;
 
 import java.util.Map;
 

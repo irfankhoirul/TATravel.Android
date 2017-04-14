@@ -4,8 +4,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.irfankhoirul.apps.tatravel.util.receiver.SmsReceiver;
-import com.irfankhoirul.apps.tatravel.view.fragment.VerifyFragment;
+import com.irfankhoirul.apps.tatravel.aaa.core.base.BaseFragmentHolderActivity;
+import com.irfankhoirul.apps.tatravel.aaa.core.components.receiver.SmsReceiver;
+import com.irfankhoirul.apps.tatravel.aaa.module.user.register.verification.VerifyFragment;
 
 public class VerifyActivity extends BaseFragmentHolderActivity {
 

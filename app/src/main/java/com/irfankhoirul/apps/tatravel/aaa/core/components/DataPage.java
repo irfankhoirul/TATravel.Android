@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.model.api;
+package com.irfankhoirul.apps.tatravel.aaa.core.components;
 
 /**
  * Created by Irfan Khoirul on 12/26/2016.

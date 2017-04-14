@@ -59,7 +59,7 @@
         <activity android:name=".view.activity.VerifyActivity" />
 
         <receiver
-            android:name=".util.receiver.SmsReceiver"
+            android:name=".aaa.core.components.receiver.SmsReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>

@@ -1,11 +1,11 @@
 package com.irfankhoirul.apps.tatravel.model.data.remote;
 
-import com.irfankhoirul.apps.tatravel.model.api.DataResult;
-import com.irfankhoirul.apps.tatravel.model.api.IEndPoint;
+import com.irfankhoirul.apps.tatravel.aaa.core.components.DataResult;
+import com.irfankhoirul.apps.tatravel.aaa.core.components.IEndPoint;
+import com.irfankhoirul.apps.tatravel.aaa.core.components.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.model.pojo.JadwalPerjalanan;
 import com.irfankhoirul.apps.tatravel.model.pojo.Kota;
 import com.irfankhoirul.apps.tatravel.model.pojo.Lokasi;
-import com.irfankhoirul.apps.tatravel.util.ConstantUtils;
 
 import retrofit2.Call;
 import retrofit2.Callback;

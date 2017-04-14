@@ -10,7 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.irfankhoirul.apps.tatravel.R;
-import com.irfankhoirul.apps.tatravel.util.ConstantUtils;
+import com.irfankhoirul.apps.tatravel.aaa.core.base.BaseFragment;
+import com.irfankhoirul.apps.tatravel.aaa.core.components.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.view.activity.LoginActivity;
 import com.irfankhoirul.apps.tatravel.view.activity.MainActivity;
 import com.irfankhoirul.apps.tatravel.view.activity.RegisterActivity;

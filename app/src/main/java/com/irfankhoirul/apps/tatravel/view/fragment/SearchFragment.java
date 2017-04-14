@@ -14,12 +14,13 @@ import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.irfankhoirul.apps.tatravel.R;
+import com.irfankhoirul.apps.tatravel.aaa.core.base.BaseFragment;
+import com.irfankhoirul.apps.tatravel.aaa.core.components.util.ConstantUtils;
+import com.irfankhoirul.apps.tatravel.aaa.core.components.util.DisplayMetricUtils;
 import com.irfankhoirul.apps.tatravel.contract.SearchContract;
 import com.irfankhoirul.apps.tatravel.model.pojo.JadwalPerjalanan;
 import com.irfankhoirul.apps.tatravel.model.pojo.Lokasi;
 import com.irfankhoirul.apps.tatravel.presenter.SearchPresenter;
-import com.irfankhoirul.apps.tatravel.util.ConstantUtils;
-import com.irfankhoirul.apps.tatravel.util.DisplayMetricUtils;
 import com.irfankhoirul.apps.tatravel.view.activity.DepartureActivity;
 import com.irfankhoirul.apps.tatravel.view.activity.MainActivity;
 

@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.view.activity;
+package com.irfankhoirul.apps.tatravel.aaa.core.base;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -9,7 +9,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.irfankhoirul.apps.tatravel.R;
-import com.irfankhoirul.apps.tatravel.view.fragment.BaseFragment;
 
 import butterknife.BindView;
 import butterknife.OnClick;

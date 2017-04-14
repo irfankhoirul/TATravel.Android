@@ -1,6 +1,6 @@
 package com.irfankhoirul.apps.tatravel.model.api.endpoint;
 
-import com.irfankhoirul.apps.tatravel.model.api.DataResult;
+import com.irfankhoirul.apps.tatravel.aaa.core.components.DataResult;
 import com.irfankhoirul.apps.tatravel.model.pojo.Lokasi;
 
 import java.util.Map;
@@ -11,9 +11,9 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
-import static com.irfankhoirul.apps.tatravel.model.api.endpoint.EndPoints.CREATE_RATING_OPERATOR_TRAVEL;
-import static com.irfankhoirul.apps.tatravel.model.api.endpoint.EndPoints.DELETE_RATING_OPERATOR_TRAVEL;
-import static com.irfankhoirul.apps.tatravel.model.api.endpoint.EndPoints.UPDATE_RATING_OPERATOR_TRAVEL;
+import static com.irfankhoirul.apps.tatravel.aaa.core.components.EndPoints.CREATE_RATING_OPERATOR_TRAVEL;
+import static com.irfankhoirul.apps.tatravel.aaa.core.components.EndPoints.DELETE_RATING_OPERATOR_TRAVEL;
+import static com.irfankhoirul.apps.tatravel.aaa.core.components.EndPoints.UPDATE_RATING_OPERATOR_TRAVEL;
 
 /**
  * Created by Irfan Khoirul on 3/11/2017.
