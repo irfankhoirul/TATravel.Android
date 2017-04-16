@@ -122,7 +122,7 @@ public class MainActivity extends BaseActivity implements
     @OnClick(R.id.llProfile)
     public void llProfile() {
         if (!(currentFragment instanceof ProfileFragment)) {
-            if (Session.getInstance(this) != null && Session.getInstance(this).getSessionData() != null) {
+            if (Session.getInstance() != null && Session.getInstance().getSessionData() != null) {
                 // Load profile
                 if (profileFragment != null) {
                     setCurrentFragment(profileFragment, false);

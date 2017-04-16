@@ -107,7 +107,7 @@ public class ProfileFragment extends BaseFragment<MainActivity> implements Profi
     @Override
     public void showProfile() {
         Log.v("ShowProfile", "Start");
-        Session<User> session = Session.initialize(activity, User.class);
+        Session<User> session = Session.getInstance(activity, User.class);
         User user = session.getSessionData();
         if (user != null) {
             Log.v("ShowProfile", "UserIsNotNull");
@@ -147,7 +147,7 @@ public class ProfileFragment extends BaseFragment<MainActivity> implements Profi
     }
 
     public void doLogout() {
-        Session<User> session = Session.getInstance(activity);
+        Session<User> session = Session.getInstance();
         Map<String, String> param = new HashMap<>();
         param.put("token", session.getSessionData().getUserToken().getToken());
         mPresenter.logout(param);

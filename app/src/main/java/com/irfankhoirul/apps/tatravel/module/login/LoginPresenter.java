@@ -41,11 +41,12 @@ public class LoginPresenter implements LoginContract.Presenter {
         userDataSource.login(new IRequestResponseListener<User>() {
             @Override
             public void onSuccess(DataResult<User> result) {
-                view.setLoadingDialog(false, null);
                 if (result.getCode() == ConstantUtils.REQUEST_RESULT_SUCCESS) {
+                    Map<String, String> fcmParam = view.setFcmTokenData(result.getData());
+                    updateFcmToken(fcmParam);
                     view.showStatus(ConstantUtils.STATUS_SUCCESS, result.getMessage());
-                    view.redirectToProfile(result.getData());
                 } else {
+                    view.setLoadingDialog(false, null);
                     view.showStatus(ConstantUtils.STATUS_ERROR, result.getMessage());
                 }
             }
@@ -54,6 +55,27 @@ public class LoginPresenter implements LoginContract.Presenter {
             public void onFailure(Throwable throwable) {
                 view.setLoadingDialog(false, null);
                 view.showStatus(ConstantUtils.STATUS_ERROR, "Login gagal");
+            }
+        }, param);
+    }
+
+    @Override
+    public void updateFcmToken(Map<String, String> param) {
+        userDataSource.updateFcmToken(new IRequestResponseListener<User>() {
+            @Override
+            public void onSuccess(DataResult<User> result) {
+                view.setLoadingDialog(false, null);
+                if (result.getCode() == ConstantUtils.REQUEST_RESULT_SUCCESS) {
+                    view.redirectToProfile();
+                } else {
+                    view.showStatus(ConstantUtils.STATUS_ERROR, result.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                view.setLoadingDialog(false, null);
+                view.showStatus(ConstantUtils.STATUS_ERROR, "Gagal melakukan verifikasi");
             }
         }, param);
     }

@@ -13,7 +13,7 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Session<User> session = Session.initialize(this, User.class);
+        Session<User> session = Session.getInstance(this, User.class);
         if (session.getSessionData() != null) {
             Log.v("User Nama", session.getSessionData().getNama());
         }

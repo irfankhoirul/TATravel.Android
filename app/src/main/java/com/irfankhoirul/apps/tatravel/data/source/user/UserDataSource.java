@@ -3,7 +3,6 @@ package com.irfankhoirul.apps.tatravel.data.source.user;
 import com.irfankhoirul.apps.tatravel.core.base.BaseRemoteDataSource;
 import com.irfankhoirul.apps.tatravel.core.data.DataResult;
 import com.irfankhoirul.apps.tatravel.core.data.IRequestResponseListener;
-import com.irfankhoirul.apps.tatravel.data.endpoints.IUserEndPoints;
 import com.irfankhoirul.apps.tatravel.data.pojo.User;
 
 import java.util.Map;
@@ -38,6 +37,11 @@ public class UserDataSource extends BaseRemoteDataSource {
 
     public void logout(IRequestResponseListener listener, Map<String, String> param) {
         Call<DataResult> call = ((IUserEndPoints) endPoint).logout(param);
+        execute(call, listener);
+    }
+
+    public void updateFcmToken(IRequestResponseListener listener, Map<String, String> param) {
+        Call<DataResult> call = ((IUserEndPoints) endPoint).updateFcmToken(param);
         execute(call, listener);
     }
 

@@ -15,6 +15,7 @@ import android.widget.EditText;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.utility.RegexTemplate;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.core.base.BaseFragment;
 import com.irfankhoirul.apps.tatravel.core.components.Session;
@@ -67,9 +68,18 @@ public class VerifyFragment extends BaseFragment<VerifyActivity> implements Veri
     }
 
     @Override
-    public void redirectToProfile(User user) {
+    public Map<String, String> setFcmTokenData(User user) {
+        Session<User> session = Session.initialize(activity, user);
+        Map<String, String> params = new HashMap<>();
+        params.put("token", session.getSessionData().getUserToken().getToken());
+        params.put("FCMToken", FirebaseInstanceId.getInstance().getToken());
+
+        return params;
+    }
+
+    @Override
+    public void redirectToProfile() {
         activity.setResult(ConstantUtils.STATUS_SUCCESS);
-        Session.initialize(activity, user);
         activity.setResult(ConstantUtils.STATUS_SUCCESS);
         activity.finish();
     }

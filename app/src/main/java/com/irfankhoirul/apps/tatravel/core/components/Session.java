@@ -48,8 +48,8 @@ public class Session<T> {
         return session;
     }
 
-    public static Session initialize(Activity activity, Class classType) {
-        SharedPreferences sharedPref = activity.getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
+    public static Session getInstance(Context context, Class classType) {
+        SharedPreferences sharedPref = context.getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
         String sessionDataJson = sharedPref.getString(USER_TOKEN, null);
 
         session = new Session(new Gson().fromJson(sessionDataJson, classType));
@@ -61,11 +61,11 @@ public class Session<T> {
      * Mengembalikan object singleton Session jika session sudah diinisialisasi atau Runtime
      * Exception jika session belum diinisialisasi.
      *
-     * @param activity Activity saat ini. dignakan untuk mengambil shared preference.
+     //     * @param activity Activity saat ini. dignakan untuk mengambil shared preference.
      * @return object singleton Session jika session sudah diinisialisasi atau Runtime
      * Exception jika session belum diinisialisasi.
      */
-    public static Session getInstance(Activity activity) {
+    public static Session getInstance() {
         if (session != null) {
             return session;
         } else {

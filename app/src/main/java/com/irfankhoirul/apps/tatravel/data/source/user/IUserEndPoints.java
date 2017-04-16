@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.data.endpoints;
+package com.irfankhoirul.apps.tatravel.data.source.user;
 
 import com.irfankhoirul.apps.tatravel.core.data.DataResult;
 import com.irfankhoirul.apps.tatravel.data.pojo.User;
@@ -17,6 +17,7 @@ import static com.irfankhoirul.apps.tatravel.data.EndPoints.DO_LOGOUT;
 import static com.irfankhoirul.apps.tatravel.data.EndPoints.DO_REGISTER;
 import static com.irfankhoirul.apps.tatravel.data.EndPoints.DO_VERIFY;
 import static com.irfankhoirul.apps.tatravel.data.EndPoints.GET_PROFILE;
+import static com.irfankhoirul.apps.tatravel.data.EndPoints.UPDATE_FCM_TOKEN;
 import static com.irfankhoirul.apps.tatravel.data.EndPoints.UPDATE_PROFILE;
 
 /**
@@ -104,5 +105,16 @@ public interface IUserEndPoints {
     @FormUrlEncoded
     @POST(DO_LOGOUT)
     Call<DataResult> logout(@FieldMap Map<String, String> param);
+
+    /**
+     * Param
+     *
+     * @param param - token
+     *              - FCMToken
+     *              - secretCode
+     */
+    @FormUrlEncoded
+    @POST(UPDATE_FCM_TOKEN)
+    Call<DataResult> updateFcmToken(@FieldMap Map<String, String> param);
 
 }
