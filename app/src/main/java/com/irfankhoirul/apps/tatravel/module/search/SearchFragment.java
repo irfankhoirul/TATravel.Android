@@ -2,6 +2,7 @@ package com.irfankhoirul.apps.tatravel.module.search;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,11 +71,6 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
 //        searchPresenter.searchJadwalPerjalanan();
 
         return view;
-    }
-
-    @Override
-    public void setPresenter() {
-
     }
 
     @Override
@@ -183,4 +179,18 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
     }
 
 
+    @Override
+    public void setPresenter(SearchContract.Presenter Presenter) {
+
+    }
+
+    @Override
+    public void setLoadingDialog(boolean isLoading, @Nullable String message) {
+
+    }
+
+    @Override
+    public void showStatus(int type, String message) {
+
+    }
 }

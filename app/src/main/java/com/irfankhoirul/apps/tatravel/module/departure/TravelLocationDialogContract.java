@@ -12,7 +12,7 @@ import java.util.List;
  */
 
 public interface TravelLocationDialogContract {
-    interface View extends IBaseView {
+    interface View extends IBaseView<Presenter> {
         void updateTravelLocationList(DataPage dataPageManager, List<Lokasi> data);
 
         void setProgressBarVisibility(boolean visible);

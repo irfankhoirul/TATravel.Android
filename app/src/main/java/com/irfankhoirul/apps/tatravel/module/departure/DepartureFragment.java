@@ -136,11 +136,6 @@ public class DepartureFragment extends BaseFragment<MainActivity> implements
     }
 
     @Override
-    public void setPresenter() {
-
-    }
-
-    @Override
     public void onDetach() {
         super.onDetach();
         if (mGoogleApiClient != null) {
@@ -291,4 +286,18 @@ public class DepartureFragment extends BaseFragment<MainActivity> implements
         }
     }
 
+    @Override
+    public void setPresenter(DepartureContract.Presenter Presenter) {
+
+    }
+
+    @Override
+    public void setLoadingDialog(boolean isLoading, @Nullable String message) {
+
+    }
+
+    @Override
+    public void showStatus(int type, String message) {
+
+    }
 }

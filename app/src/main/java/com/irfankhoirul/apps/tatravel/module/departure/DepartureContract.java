@@ -13,7 +13,7 @@ import java.util.List;
 
 public interface DepartureContract {
 
-    interface View extends IBaseView {
+    interface View extends IBaseView<Presenter> {
         void setProgressDialog(boolean visibility, String title, String message);
 
         void showDialogCityDeparture();

@@ -27,7 +27,7 @@ import butterknife.Unbinder;
  * @since 1.0
  */
 
-public abstract class BaseFragment<T extends FragmentActivity> extends Fragment implements IBaseView {
+public abstract class BaseFragment<T extends FragmentActivity> extends Fragment {
 
     protected String title;
     protected FragmentActivity activity;
@@ -49,7 +49,7 @@ public abstract class BaseFragment<T extends FragmentActivity> extends Fragment 
         title = getResources().getString(R.string.app_name);
         setTitle();
         fragmentListener.setTitle(title);
-        setPresenter();
+//        setPresenter();
 
         return view;
     }
@@ -64,9 +64,9 @@ public abstract class BaseFragment<T extends FragmentActivity> extends Fragment 
 
     @Override
     public void onDetach() {
-        super.onDetach();
         this.activity = null;
         this.fragmentListener = null;
+        super.onDetach();
     }
 
     @Override
@@ -77,8 +77,7 @@ public abstract class BaseFragment<T extends FragmentActivity> extends Fragment 
         }
     }
 
-    @Override
-    public void setLoadingDialog(boolean isLoading, @Nullable String message) {
+    protected void setLoadingDialog(boolean isLoading, @Nullable String message) {
         if (isLoading) {
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
             LayoutInflater inflater = this.getLayoutInflater(null);
@@ -96,8 +95,7 @@ public abstract class BaseFragment<T extends FragmentActivity> extends Fragment 
         }
     }
 
-    @Override
-    public void showStatus(int type, String message) {
+    protected void showStatus(int type, String message) {
 //        showSnackBar(type, message, null, null, null);
         showToast(type, message);
     }

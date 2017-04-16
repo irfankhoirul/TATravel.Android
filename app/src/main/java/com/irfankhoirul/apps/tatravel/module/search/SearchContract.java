@@ -20,7 +20,7 @@ public interface SearchContract {
      * @version 1.0 (13 November 2016)
      * @since 1.0
      */
-    interface View extends IBaseView {
+    interface View extends IBaseView<Presenter> {
         void showPromo();
 
         void showSearchResult(List<JadwalPerjalanan> jadwalPerjalanan);

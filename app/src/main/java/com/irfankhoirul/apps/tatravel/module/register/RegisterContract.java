@@ -10,7 +10,7 @@ import java.util.Map;
  */
 
 public interface RegisterContract {
-    interface View extends IBaseView {
+    interface View extends IBaseView<Presenter> {
         void redirectToVerification();
     }
 

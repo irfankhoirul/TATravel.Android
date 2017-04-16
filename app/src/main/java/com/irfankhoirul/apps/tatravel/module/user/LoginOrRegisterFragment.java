@@ -55,11 +55,6 @@ public class LoginOrRegisterFragment extends BaseFragment<MainActivity> {
         title = "Profil";
     }
 
-    @Override
-    public void setPresenter() {
-
-    }
-
     @OnClick(R.id.btLogin)
     public void btLogin() {
         Intent intent = new Intent(activity, LoginActivity.class);

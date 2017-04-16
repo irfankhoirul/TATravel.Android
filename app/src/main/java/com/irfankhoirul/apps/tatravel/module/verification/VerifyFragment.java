@@ -3,6 +3,7 @@ package com.irfankhoirul.apps.tatravel.module.verification;
 import android.content.Context;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -73,8 +74,18 @@ public class VerifyFragment extends BaseFragment<VerifyActivity> implements Veri
     }
 
     @Override
-    public void setPresenter() {
+    public void setPresenter(VerifyContract.Presenter presenter) {
         mPresenter = new VerifyPresenter(this);
+    }
+
+    @Override
+    public void setLoadingDialog(boolean isLoading, @Nullable String message) {
+
+    }
+
+    @Override
+    public void showStatus(int type, String message) {
+
     }
 
     @Override

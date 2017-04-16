@@ -11,7 +11,7 @@ import android.support.annotation.Nullable;
  */
 
 public interface IBaseView<T> {
-    void setPresenter();
+    void setPresenter(T Presenter);
 
     void setLoadingDialog(boolean isLoading, @Nullable String message);
 

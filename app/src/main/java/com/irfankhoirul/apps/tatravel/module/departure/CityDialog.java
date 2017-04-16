@@ -74,12 +74,17 @@ public class CityDialog extends BaseDialog implements CityDialogContract.View {
     }
 
     @Override
-    public void setPresenter() {
+    public void setPresenter(CityDialogContract.Presenter Presenter) {
 
     }
 
     @Override
     public void setLoadingDialog(boolean isLoading, @Nullable String message) {
+
+    }
+
+    @Override
+    public void showStatus(int type, String message) {
 
     }
 

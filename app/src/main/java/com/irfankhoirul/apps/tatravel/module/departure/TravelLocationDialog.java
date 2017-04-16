@@ -87,12 +87,17 @@ public class TravelLocationDialog extends BaseDialog implements TravelLocationDi
     }
 
     @Override
-    public void setPresenter() {
+    public void setPresenter(TravelLocationDialogContract.Presenter Presenter) {
 
     }
 
     @Override
     public void setLoadingDialog(boolean isLoading, @Nullable String message) {
+
+    }
+
+    @Override
+    public void showStatus(int type, String message) {
 
     }
 

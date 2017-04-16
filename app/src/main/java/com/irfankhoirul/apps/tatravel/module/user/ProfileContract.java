@@ -10,7 +10,7 @@ import java.util.Map;
  */
 
 public interface ProfileContract {
-    interface View extends IBaseView {
+    interface View extends IBaseView<Presenter> {
         void showProfile();
 
         void redirectToLoginOrRegister();

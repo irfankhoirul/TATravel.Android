@@ -11,7 +11,7 @@ import java.util.Map;
  */
 
 public interface LoginContract {
-    interface View extends IBaseView {
+    interface View extends IBaseView<Presenter> {
         void redirectToProfile(User user);
     }
 

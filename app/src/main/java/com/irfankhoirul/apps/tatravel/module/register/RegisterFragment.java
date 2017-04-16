@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
@@ -106,10 +107,10 @@ public class RegisterFragment extends BaseFragment<RegisterActivity> implements
         title = "Daftar";
     }
 
-    @Override
-    public void setPresenter() {
-        mPresenter = new RegisterPresenter(this);
-    }
+//    @Override
+//    public void setPresenter() {
+//        mPresenter = new RegisterPresenter(this);
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -296,4 +297,18 @@ public class RegisterFragment extends BaseFragment<RegisterActivity> implements
         startActivityForResult(intent, ConstantUtils.INTENT_REQUEST_REGISTER_TO_VALIDATION);
     }
 
+    @Override
+    public void setPresenter(RegisterContract.Presenter Presenter) {
+
+    }
+
+    @Override
+    public void setLoadingDialog(boolean isLoading, @Nullable String message) {
+
+    }
+
+    @Override
+    public void showStatus(int type, String message) {
+
+    }
 }

@@ -16,7 +16,7 @@ import butterknife.Unbinder;
  * Created by Irfan Khoirul on 12/25/2016.
  */
 
-public abstract class BaseDialog<T extends Activity> extends DialogFragment implements IBaseView {
+public abstract class BaseDialog<T extends Activity> extends DialogFragment {
 
     protected Unbinder unbinder;
     protected Activity activity;
@@ -25,7 +25,7 @@ public abstract class BaseDialog<T extends Activity> extends DialogFragment impl
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
-        setPresenter();
+//        setPresenter();
 
         return view;
     }
@@ -39,8 +39,8 @@ public abstract class BaseDialog<T extends Activity> extends DialogFragment impl
 
     @Override
     public void onDetach() {
-        super.onDetach();
         this.activity = null;
+        super.onDetach();
     }
 
     @Override
@@ -51,8 +51,8 @@ public abstract class BaseDialog<T extends Activity> extends DialogFragment impl
         }
     }
 
-    @Override
-    public void showStatus(int type, String message) {
-
-    }
+//    @Override
+//    public void showStatus(int type, String message) {
+//
+//    }
 }

@@ -12,7 +12,7 @@ import java.util.List;
  */
 
 public interface CityDialogContract {
-    interface View extends IBaseView {
+    interface View extends IBaseView<Presenter> {
         void updateCityList(DataPage dataPageManager, List<Kota> data);
 
         void setProgressBarVisibility(boolean visible);

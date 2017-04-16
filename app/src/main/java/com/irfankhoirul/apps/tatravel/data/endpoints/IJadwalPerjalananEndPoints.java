@@ -3,6 +3,7 @@ package com.irfankhoirul.apps.tatravel.data.endpoints;
 import com.irfankhoirul.apps.tatravel.core.data.DataResult;
 import com.irfankhoirul.apps.tatravel.data.pojo.JadwalPerjalanan;
 
+import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -34,7 +35,7 @@ public interface IJadwalPerjalananEndPoints {
      */
     @FormUrlEncoded
     @POST(LIST_SCHEDULE)
-    Call<DataResult<JadwalPerjalanan>> listJadwalPerjalanan(@Path("id") String id, @FieldMap Map<String, String> param);
+    Call<DataResult<List<JadwalPerjalanan>>> listJadwalPerjalanan(@Path("id") String id, @FieldMap Map<String, String> param);
 
     /**
      * Param

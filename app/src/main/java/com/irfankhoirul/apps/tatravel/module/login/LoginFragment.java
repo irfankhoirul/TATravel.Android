@@ -3,6 +3,7 @@ package com.irfankhoirul.apps.tatravel.module.login;
 import android.content.Context;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -32,6 +33,7 @@ import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 
 import static com.basgeekball.awesomevalidation.ValidationStyle.TEXT_INPUT_LAYOUT;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -60,7 +62,7 @@ public class LoginFragment extends BaseFragment<LoginActivity> implements LoginC
     @BindView(R.id.btForgotPassword)
     Button btForgotPassword;
 
-    private LoginPresenter mPresenter;
+    LoginContract.Presenter mPresenter;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -69,11 +71,6 @@ public class LoginFragment extends BaseFragment<LoginActivity> implements LoginC
     @Override
     protected void setTitle() {
         title = "Login";
-    }
-
-    @Override
-    public void setPresenter() {
-        mPresenter = new LoginPresenter(this);
     }
 
     @Override
@@ -143,5 +140,20 @@ public class LoginFragment extends BaseFragment<LoginActivity> implements LoginC
         } else {
             Log.v("Validation", "Failed");
         }
+    }
+
+    @Override
+    public void setPresenter(LoginContract.Presenter Presenter) {
+        mPresenter = checkNotNull(Presenter);
+    }
+
+    @Override
+    public void setLoadingDialog(boolean isLoading, @Nullable String message) {
+        super.setLoadingDialog(isLoading, message);
+    }
+
+    @Override
+    public void showStatus(int type, String message) {
+        super.showStatus(type, message);
     }
 }

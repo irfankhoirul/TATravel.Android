@@ -2,6 +2,7 @@ package com.irfankhoirul.apps.tatravel.module.user;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -91,10 +92,10 @@ public class ProfileFragment extends BaseFragment<MainActivity> implements Profi
         title = "Profil";
     }
 
-    @Override
-    public void setPresenter() {
-        mPresenter = new ProfilePresenter(this);
-    }
+//    @Override
+//    public void setPresenter() {
+//        mPresenter = new ProfilePresenter(this);
+//    }
 
     @Override
     public void showProfile() {
@@ -143,6 +144,21 @@ public class ProfileFragment extends BaseFragment<MainActivity> implements Profi
         Map<String, String> param = new HashMap<>();
         param.put("token", session.getSessionData().getUserToken().getToken());
         mPresenter.logout(param);
+    }
+
+    @Override
+    public void setPresenter(ProfileContract.Presenter Presenter) {
+
+    }
+
+    @Override
+    public void setLoadingDialog(boolean isLoading, @Nullable String message) {
+
+    }
+
+    @Override
+    public void showStatus(int type, String message) {
+
     }
 
     public interface FragmentListener {
