@@ -29,6 +29,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.basgeekball.awesomevalidation.ValidationStyle.TEXT_INPUT_LAYOUT;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -40,7 +41,7 @@ public class VerifyFragment extends BaseFragment<VerifyActivity> implements Veri
     @BindView(R.id.etVerificationCode)
     EditText etVerificationCode;
 
-    private VerifyPresenter mPresenter;
+    VerifyContract.Presenter mPresenter;
 
     public VerifyFragment() {
         // Required empty public constructor
@@ -75,22 +76,22 @@ public class VerifyFragment extends BaseFragment<VerifyActivity> implements Veri
 
     @Override
     public void setPresenter(VerifyContract.Presenter presenter) {
-        mPresenter = new VerifyPresenter(this);
+        mPresenter = checkNotNull(presenter);
     }
 
     @Override
     public void setLoadingDialog(boolean isLoading, @Nullable String message) {
-
+        super.setLoadingDialog(isLoading, message);
     }
 
     @Override
     public void showStatus(int type, String message) {
-
+        super.showStatus(type, message);
     }
 
     @Override
     protected void setTitle() {
-
+        title = "Verifikasi";
     }
 
     @OnClick(R.id.btVerify)

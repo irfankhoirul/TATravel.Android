@@ -14,8 +14,13 @@ import com.irfankhoirul.apps.tatravel.core.base.BaseActivity;
 import com.irfankhoirul.apps.tatravel.core.components.Session;
 import com.irfankhoirul.apps.tatravel.module.departure.DepartureFragment;
 import com.irfankhoirul.apps.tatravel.module.search.SearchFragment;
+import com.irfankhoirul.apps.tatravel.module.user.DaggerProfileComponent;
 import com.irfankhoirul.apps.tatravel.module.user.LoginOrRegisterFragment;
 import com.irfankhoirul.apps.tatravel.module.user.ProfileFragment;
+import com.irfankhoirul.apps.tatravel.module.user.ProfilePresenter;
+import com.irfankhoirul.apps.tatravel.module.user.ProfilePresenterModule;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -56,7 +61,8 @@ public class MainActivity extends BaseActivity implements
     ImageView ivProfile;
     @BindView(R.id.tvProfile)
     TextView tvProfile;
-
+    @Inject
+    ProfilePresenter profilePresenter;
     private SearchFragment searchFragment;
     private DepartureFragment departureFragment;
     private LoginOrRegisterFragment loginOrRegisterFragment;
@@ -64,7 +70,15 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     protected void initializeFragment() {
-        setCurrentFragment(new SearchFragment(), false);
+        currentFragment = new SearchFragment();
+        setCurrentFragment(currentFragment, false);
+
+        profileFragment = new ProfileFragment();
+        DaggerProfileComponent.builder()
+                .profilePresenterModule(new ProfilePresenterModule(profileFragment))
+                .userDataSourceComponent(((TAApplication) getApplication())
+                        .getTasksRepositoryComponent())
+                .build().inject(this);
     }
 
     @Override
@@ -77,78 +91,84 @@ public class MainActivity extends BaseActivity implements
 
     @OnClick(R.id.llSearch)
     public void llSearch() {
-        if (searchFragment != null) {
-            setCurrentFragment(searchFragment, false);
-        } else {
-            this.searchFragment = new SearchFragment();
-            setCurrentFragment(searchFragment, false);
+        if (!(currentFragment instanceof SearchFragment)) {
+            if (searchFragment != null) {
+                setCurrentFragment(searchFragment, false);
+            } else {
+                this.searchFragment = new SearchFragment();
+                setCurrentFragment(searchFragment, false);
+            }
+            resetIconColor();
+            ivSearch.setColorFilter(ContextCompat.getColor(this, R.color.colorPrimary));
+            tvSearch.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
         }
-        resetIconColor();
-        ivSearch.setColorFilter(ContextCompat.getColor(this, R.color.colorPrimary));
-        tvSearch.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
     }
 
     @OnClick(R.id.llOrder)
     public void llOrder() {
-        if (departureFragment != null) {
-            setCurrentFragment(departureFragment, false);
-        } else {
-            this.departureFragment = new DepartureFragment();
-            setCurrentFragment(departureFragment, false);
+        if (!(currentFragment instanceof DepartureFragment)) {
+            if (departureFragment != null) {
+                setCurrentFragment(departureFragment, false);
+            } else {
+                this.departureFragment = new DepartureFragment();
+                setCurrentFragment(departureFragment, false);
+            }
+            resetIconColor();
+            ivOrder.setColorFilter(ContextCompat.getColor(this, R.color.colorPrimary));
+            tvOrder.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
         }
-        resetIconColor();
-        ivOrder.setColorFilter(ContextCompat.getColor(this, R.color.colorPrimary));
-        tvOrder.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
     }
 
     @OnClick(R.id.llProfile)
     public void llProfile() {
-        if (Session.getInstance(this) != null && Session.getInstance(this).getSessionData() != null) {
-            // Load profile
-            if (profileFragment != null) {
-                setCurrentFragment(profileFragment, false);
-            } else {
-                profileFragment = new ProfileFragment();
-                setCurrentFragment(profileFragment, false);
-            }
-            btOptionMenu.setVisibility(View.VISIBLE);
-            btOptionMenu.setImageResource(R.drawable.ic_more_vert_black_24dp);
-            btOptionMenu.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    PopupMenu popup = new PopupMenu(MainActivity.this, btOptionMenu);
-                    popup.getMenuInflater().inflate(R.menu.menu_profile, popup.getMenu());
-                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                        public boolean onMenuItemClick(MenuItem item) {
-                            switch (item.getItemId()) {
-                                case R.id.menu_change_profile:
-                                    break;
-                                case R.id.menu_logout:
-                                    profileFragment.doLogout();
-                                    break;
-                            }
-
-                            return true;
-                        }
-                    });
-
-                    popup.show();//showing popup menu
+        if (!(currentFragment instanceof ProfileFragment)) {
+            if (Session.getInstance(this) != null && Session.getInstance(this).getSessionData() != null) {
+                // Load profile
+                if (profileFragment != null) {
+                    setCurrentFragment(profileFragment, false);
+                } else {
+                    profileFragment = new ProfileFragment();
+                    setCurrentFragment(profileFragment, false);
                 }
-            });
+                btOptionMenu.setVisibility(View.VISIBLE);
+                btOptionMenu.setImageResource(R.drawable.ic_more_vert_black_24dp);
+                btOptionMenu.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        PopupMenu popup = new PopupMenu(MainActivity.this, btOptionMenu);
+                        popup.getMenuInflater().inflate(R.menu.menu_profile, popup.getMenu());
+                        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                            public boolean onMenuItemClick(MenuItem item) {
+                                switch (item.getItemId()) {
+                                    case R.id.menu_change_profile:
+                                        break;
+                                    case R.id.menu_logout:
+                                        profileFragment.doLogout();
+                                        break;
+                                }
 
-        } else {
-            // Load LoginOrRegister
-            if (loginOrRegisterFragment != null) {
-                setCurrentFragment(loginOrRegisterFragment, false);
+                                return true;
+                            }
+                        });
+
+                        popup.show();//showing popup menu
+                    }
+                });
+
             } else {
-                this.loginOrRegisterFragment = new LoginOrRegisterFragment();
-                setCurrentFragment(loginOrRegisterFragment, false);
+                // Load LoginOrRegister
+                if (loginOrRegisterFragment != null) {
+                    setCurrentFragment(loginOrRegisterFragment, false);
+                } else {
+                    this.loginOrRegisterFragment = new LoginOrRegisterFragment();
+                    setCurrentFragment(loginOrRegisterFragment, false);
+                }
             }
-        }
 
-        resetIconColor();
-        ivProfile.setColorFilter(ContextCompat.getColor(this, R.color.colorPrimary));
-        tvProfile.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+            resetIconColor();
+            ivProfile.setColorFilter(ContextCompat.getColor(this, R.color.colorPrimary));
+            tvProfile.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+        }
     }
 
     public void resetIconColor() {

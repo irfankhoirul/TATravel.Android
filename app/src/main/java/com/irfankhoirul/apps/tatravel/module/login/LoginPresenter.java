@@ -14,7 +14,7 @@ import javax.inject.Inject;
  * Created by Irfan Khoirul on 4/2/2017.
  */
 
-public final class LoginPresenter implements LoginContract.Presenter {
+public class LoginPresenter implements LoginContract.Presenter {
 
     private final LoginContract.View view;
     private final UserDataSource userDataSource;
@@ -38,14 +38,13 @@ public final class LoginPresenter implements LoginContract.Presenter {
     @Override
     public void login(Map<String, String> param) {
         view.setLoadingDialog(true, "Login");
-//        UserDataSource dataSource = new UserDataSource();
         userDataSource.login(new IRequestResponseListener<User>() {
             @Override
             public void onSuccess(DataResult<User> result) {
                 view.setLoadingDialog(false, null);
                 if (result.getCode() == ConstantUtils.REQUEST_RESULT_SUCCESS) {
                     view.showStatus(ConstantUtils.STATUS_SUCCESS, result.getMessage());
-//                    view.redirectToProfile(result.getData());
+                    view.redirectToProfile(result.getData());
                 } else {
                     view.showStatus(ConstantUtils.STATUS_ERROR, result.getMessage());
                 }

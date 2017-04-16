@@ -8,6 +8,8 @@ import com.irfankhoirul.apps.tatravel.data.source.user.UserDataSource;
 
 import java.util.Map;
 
+import javax.inject.Inject;
+
 /**
  * Created by Irfan Khoirul on 3/11/2017.
  */
@@ -15,9 +17,17 @@ import java.util.Map;
 public class VerifyPresenter implements VerifyContract.Presenter {
 
     private final VerifyContract.View view;
+    private final UserDataSource userDataSource;
 
-    public VerifyPresenter(VerifyContract.View view) {
+    @Inject
+    public VerifyPresenter(UserDataSource userDataSource, VerifyContract.View view) {
         this.view = view;
+        this.userDataSource = userDataSource;
+    }
+
+    @Inject
+    void setupListeners() {
+        view.setPresenter(this);
     }
 
     @Override
@@ -28,8 +38,7 @@ public class VerifyPresenter implements VerifyContract.Presenter {
     @Override
     public void verify(Map<String, String> param) {
         view.setLoadingDialog(true, "Sedang melakukan verifikasi");
-        UserDataSource dataSource = new UserDataSource();
-        dataSource.verifyPhoneNumber(new IRequestResponseListener<User>() {
+        userDataSource.verifyPhoneNumber(new IRequestResponseListener<User>() {
             @Override
             public void onSuccess(DataResult<User> result) {
                 view.setLoadingDialog(false, null);

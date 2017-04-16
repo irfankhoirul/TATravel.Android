@@ -7,6 +7,8 @@ import com.irfankhoirul.apps.tatravel.data.source.user.UserDataSource;
 
 import java.util.Map;
 
+import javax.inject.Inject;
+
 /**
  * Created by Irfan Khoirul on 3/11/2017.
  */
@@ -14,9 +16,17 @@ import java.util.Map;
 public class ProfilePresenter implements ProfileContract.Presenter {
 
     private final ProfileContract.View view;
+    private final UserDataSource userDataSource;
 
-    public ProfilePresenter(ProfileContract.View view) {
+    @Inject
+    public ProfilePresenter(UserDataSource userDataSource, ProfileContract.View view) {
         this.view = view;
+        this.userDataSource = userDataSource;
+    }
+
+    @Inject
+    void setupListeners() {
+        view.setPresenter(this);
     }
 
     @Override
@@ -28,8 +38,7 @@ public class ProfilePresenter implements ProfileContract.Presenter {
     @Override
     public void logout(Map<String, String> param) {
         view.setLoadingDialog(true, "Logout");
-        UserDataSource dataSource = new UserDataSource();
-        dataSource.logout(new IRequestResponseListener() {
+        userDataSource.logout(new IRequestResponseListener() {
             @Override
             public void onSuccess(DataResult result) {
                 view.setLoadingDialog(false, null);

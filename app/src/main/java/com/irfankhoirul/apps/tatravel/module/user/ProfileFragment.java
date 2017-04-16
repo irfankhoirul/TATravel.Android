@@ -24,6 +24,8 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -56,12 +58,17 @@ public class ProfileFragment extends BaseFragment<MainActivity> implements Profi
     @BindView(R.id.btChangeProfile)
     Button btChangeProfile;
 
-    private ProfilePresenter mPresenter;
+    ProfileContract.Presenter mPresenter;
 
     private FragmentListener listener;
 
     public ProfileFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -147,18 +154,18 @@ public class ProfileFragment extends BaseFragment<MainActivity> implements Profi
     }
 
     @Override
-    public void setPresenter(ProfileContract.Presenter Presenter) {
-
+    public void setPresenter(ProfileContract.Presenter presenter) {
+        mPresenter = checkNotNull(presenter);
     }
 
     @Override
     public void setLoadingDialog(boolean isLoading, @Nullable String message) {
-
+        super.setLoadingDialog(isLoading, message);
     }
 
     @Override
     public void showStatus(int type, String message) {
-
+        super.showStatus(type, message);
     }
 
     public interface FragmentListener {

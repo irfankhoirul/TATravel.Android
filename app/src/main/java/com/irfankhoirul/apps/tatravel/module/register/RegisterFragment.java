@@ -54,6 +54,7 @@ import butterknife.OnClick;
 
 import static com.basgeekball.awesomevalidation.ValidationStyle.TEXT_INPUT_LAYOUT;
 import static com.facebook.FacebookSdk.getApplicationContext;
+import static com.google.common.base.Preconditions.checkNotNull;
 import static com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils.REGISTER_GOOGLE_REQUEST;
 
 /**
@@ -96,7 +97,7 @@ public class RegisterFragment extends BaseFragment<RegisterActivity> implements
     private CallbackManager callbackManager;
     private GoogleApiClient mGoogleApiClient;
 
-    private RegisterPresenter mPresenter;
+    private RegisterContract.Presenter mPresenter;
 
     public RegisterFragment() {
         // Required empty public constructor
@@ -106,11 +107,6 @@ public class RegisterFragment extends BaseFragment<RegisterActivity> implements
     protected void setTitle() {
         title = "Daftar";
     }
-
-//    @Override
-//    public void setPresenter() {
-//        mPresenter = new RegisterPresenter(this);
-//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -298,17 +294,17 @@ public class RegisterFragment extends BaseFragment<RegisterActivity> implements
     }
 
     @Override
-    public void setPresenter(RegisterContract.Presenter Presenter) {
-
+    public void setPresenter(RegisterContract.Presenter presenter) {
+        mPresenter = checkNotNull(presenter);
     }
 
     @Override
     public void setLoadingDialog(boolean isLoading, @Nullable String message) {
-
+        super.setLoadingDialog(isLoading, message);
     }
 
     @Override
     public void showStatus(int type, String message) {
-
+        super.showStatus(type, message);
     }
 }

@@ -4,10 +4,16 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.irfankhoirul.apps.tatravel.TAApplication;
 import com.irfankhoirul.apps.tatravel.core.base.BaseFragmentHolderActivity;
 import com.irfankhoirul.apps.tatravel.core.components.receiver.SmsReceiver;
 
+import javax.inject.Inject;
+
 public class VerifyActivity extends BaseFragmentHolderActivity {
+
+    @Inject
+    VerifyPresenter verifyPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +29,12 @@ public class VerifyActivity extends BaseFragmentHolderActivity {
 
     @Override
     protected void initializeFragment() {
-        setCurrentFragment(VerifyFragment.newInstance(getIntent().getStringExtra("phone")), false);
+        VerifyFragment verifyFragment = VerifyFragment.newInstance(getIntent().getStringExtra("phone"));
+        setCurrentFragment(verifyFragment, false);
+        DaggerVerifyComponent.builder()
+                .verifyPresenterModule(new VerifyPresenterModule(verifyFragment))
+                .userDataSourceComponent(((TAApplication) getApplication())
+                        .getTasksRepositoryComponent())
+                .build().inject(this);
     }
 }

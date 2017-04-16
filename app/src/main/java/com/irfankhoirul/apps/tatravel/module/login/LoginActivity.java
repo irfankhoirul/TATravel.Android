@@ -1,7 +1,5 @@
 package com.irfankhoirul.apps.tatravel.module.login;
 
-import android.util.Log;
-
 import com.irfankhoirul.apps.tatravel.TAApplication;
 import com.irfankhoirul.apps.tatravel.core.base.BaseFragmentHolderActivity;
 
@@ -23,7 +21,7 @@ public class LoginActivity extends BaseFragmentHolderActivity {
                         .getTasksRepositoryComponent())
                 .build().inject(this);
 
-        Log.v("LoginPresenterInjection", String.valueOf(mPresenter != null));
+//        Log.v("LoginPresenterInjection", String.valueOf(mPresenter != null));
     }
 
 }

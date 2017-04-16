@@ -7,6 +7,8 @@ import com.irfankhoirul.apps.tatravel.data.source.user.UserDataSource;
 
 import java.util.Map;
 
+import javax.inject.Inject;
+
 /**
  * Created by Irfan Khoirul on 3/11/2017.
  */
@@ -14,9 +16,17 @@ import java.util.Map;
 public class RegisterPresenter implements RegisterContract.Presenter {
 
     private final RegisterContract.View view;
+    private final UserDataSource userDataSource;
 
-    public RegisterPresenter(RegisterContract.View view) {
+    @Inject
+    public RegisterPresenter(UserDataSource userDataSource, RegisterContract.View view) {
         this.view = view;
+        this.userDataSource = userDataSource;
+    }
+
+    @Inject
+    void setupListeners() {
+        view.setPresenter(this);
     }
 
     @Override
@@ -27,8 +37,7 @@ public class RegisterPresenter implements RegisterContract.Presenter {
     @Override
     public void register(Map<String, String> param) {
         view.setLoadingDialog(true, "Sedang melakukan registrasi");
-        UserDataSource dataSource = new UserDataSource();
-        dataSource.registerWithPhoneNumber(new IRequestResponseListener() {
+        userDataSource.registerWithPhoneNumber(new IRequestResponseListener() {
             @Override
             public void onSuccess(DataResult result) {
                 view.setLoadingDialog(false, null);
