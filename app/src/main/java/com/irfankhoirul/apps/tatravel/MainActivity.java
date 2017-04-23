@@ -14,11 +14,9 @@ import com.irfankhoirul.apps.tatravel.core.base.BaseActivity;
 import com.irfankhoirul.apps.tatravel.core.components.Session;
 import com.irfankhoirul.apps.tatravel.module.departure.DepartureFragment;
 import com.irfankhoirul.apps.tatravel.module.search.SearchFragment;
-import com.irfankhoirul.apps.tatravel.module.user.DaggerProfileComponent;
 import com.irfankhoirul.apps.tatravel.module.user.LoginOrRegisterFragment;
 import com.irfankhoirul.apps.tatravel.module.user.ProfileFragment;
 import com.irfankhoirul.apps.tatravel.module.user.ProfilePresenter;
-import com.irfankhoirul.apps.tatravel.module.user.ProfilePresenterModule;
 
 import javax.inject.Inject;
 
@@ -74,11 +72,7 @@ public class MainActivity extends BaseActivity implements
         setCurrentFragment(currentFragment, false);
 
         profileFragment = new ProfileFragment();
-        DaggerProfileComponent.builder()
-                .profilePresenterModule(new ProfilePresenterModule(profileFragment))
-                .userDataSourceComponent(((TAApplication) getApplication())
-                        .getTasksRepositoryComponent())
-                .build().inject(this);
+
     }
 
     @Override

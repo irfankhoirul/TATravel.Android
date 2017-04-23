@@ -17,6 +17,7 @@ import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.core.base.BaseFragment;
 import com.irfankhoirul.apps.tatravel.core.components.Session;
 import com.irfankhoirul.apps.tatravel.data.pojo.User;
+import com.irfankhoirul.apps.tatravel.data.source.user.DaggerUserDataSourceComponent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -69,6 +70,11 @@ public class ProfileFragment extends BaseFragment<MainActivity> implements Profi
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        DaggerProfileComponent.builder()
+                .profilePresenterModule(new ProfilePresenterModule(this))
+                .userDataSourceComponent(DaggerUserDataSourceComponent.builder().build())
+                .build().inject((MainActivity) activity);
     }
 
     @Override

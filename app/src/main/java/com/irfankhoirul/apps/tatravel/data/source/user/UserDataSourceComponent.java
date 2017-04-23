@@ -1,7 +1,5 @@
 package com.irfankhoirul.apps.tatravel.data.source.user;
 
-import com.irfankhoirul.apps.tatravel.TAApplicationModule;
-
 import javax.inject.Singleton;
 
 import dagger.Component;
@@ -11,7 +9,7 @@ import dagger.Component;
  */
 
 @Singleton
-@Component(modules = {UserDataSourceModule.class, TAApplicationModule.class})
+@Component(modules = {UserDataSourceModule.class})
 public interface UserDataSourceComponent {
 
     UserDataSource getUserRepository();

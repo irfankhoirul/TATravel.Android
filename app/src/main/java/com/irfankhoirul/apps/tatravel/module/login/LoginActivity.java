@@ -1,7 +1,7 @@
 package com.irfankhoirul.apps.tatravel.module.login;
 
-import com.irfankhoirul.apps.tatravel.TAApplication;
 import com.irfankhoirul.apps.tatravel.core.base.BaseFragmentHolderActivity;
+import com.irfankhoirul.apps.tatravel.data.source.user.DaggerUserDataSourceComponent;
 
 import javax.inject.Inject;
 
@@ -17,11 +17,8 @@ public class LoginActivity extends BaseFragmentHolderActivity {
 
         DaggerLoginComponent.builder()
                 .loginPresenterModule(new LoginPresenterModule(loginFragment))
-                .userDataSourceComponent(((TAApplication) getApplication())
-                        .getTasksRepositoryComponent())
+                .userDataSourceComponent(DaggerUserDataSourceComponent.builder().build())
                 .build().inject(this);
-
-//        Log.v("LoginPresenterInjection", String.valueOf(mPresenter != null));
     }
 
 }

@@ -1,7 +1,7 @@
 package com.irfankhoirul.apps.tatravel.module.register;
 
-import com.irfankhoirul.apps.tatravel.TAApplication;
 import com.irfankhoirul.apps.tatravel.core.base.BaseFragmentHolderActivity;
+import com.irfankhoirul.apps.tatravel.data.source.user.DaggerUserDataSourceComponent;
 
 import javax.inject.Inject;
 
@@ -17,8 +17,7 @@ public class RegisterActivity extends BaseFragmentHolderActivity {
 
         DaggerRegisterComponent.builder()
                 .registerPresenterModule(new RegisterPresenterModule(registerFragment))
-                .userDataSourceComponent(((TAApplication) getApplication())
-                        .getTasksRepositoryComponent())
+                .userDataSourceComponent(DaggerUserDataSourceComponent.builder().build())
                 .build().inject(this);
     }
 
