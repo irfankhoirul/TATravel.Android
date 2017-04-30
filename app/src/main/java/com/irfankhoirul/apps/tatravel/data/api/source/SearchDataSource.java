@@ -1,10 +1,10 @@
-package com.irfankhoirul.apps.tatravel.data.source;
+package com.irfankhoirul.apps.tatravel.data.api.source;
 
 import com.irfankhoirul.apps.tatravel.core.base.BaseRemoteDataSource;
 import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.core.data.DataResult;
 import com.irfankhoirul.apps.tatravel.core.data.IRequestResponseListener;
-import com.irfankhoirul.apps.tatravel.data.IEndPoint;
+import com.irfankhoirul.apps.tatravel.data.api.IEndPoint;
 import com.irfankhoirul.apps.tatravel.data.pojo.JadwalPerjalanan;
 import com.irfankhoirul.apps.tatravel.data.pojo.Kota;
 import com.irfankhoirul.apps.tatravel.data.pojo.Lokasi;

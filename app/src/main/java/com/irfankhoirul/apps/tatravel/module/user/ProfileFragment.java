@@ -16,8 +16,8 @@ import com.irfankhoirul.apps.tatravel.MainActivity;
 import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.core.base.BaseFragment;
 import com.irfankhoirul.apps.tatravel.core.components.Session;
+import com.irfankhoirul.apps.tatravel.data.api.source.user.DaggerUserDataSourceComponent;
 import com.irfankhoirul.apps.tatravel.data.pojo.User;
-import com.irfankhoirul.apps.tatravel.data.source.user.DaggerUserDataSourceComponent;
 
 import java.util.HashMap;
 import java.util.Map;

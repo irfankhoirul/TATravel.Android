@@ -2,8 +2,8 @@ package com.irfankhoirul.apps.tatravel.module.departure;
 
 import com.irfankhoirul.apps.tatravel.core.data.DataResult;
 import com.irfankhoirul.apps.tatravel.core.data.IRequestResponseListener;
+import com.irfankhoirul.apps.tatravel.data.api.source.SearchDataSource;
 import com.irfankhoirul.apps.tatravel.data.pojo.Lokasi;
-import com.irfankhoirul.apps.tatravel.data.source.SearchDataSource;
 
 /**
  * Created by Irfan Khoirul on 12/25/2016.

@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.data;
+package com.irfankhoirul.apps.tatravel.data.api;
 
 /**
  * Merupakan kelas helper yamg berisi konstanta end point API

@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.data.endpoints;
+package com.irfankhoirul.apps.tatravel.data.api.endpoints;
 
 import com.irfankhoirul.apps.tatravel.core.data.DataResult;
 import com.irfankhoirul.apps.tatravel.data.pojo.OperatorTravel;
@@ -11,8 +11,8 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
-import static com.irfankhoirul.apps.tatravel.data.EndPoints.GET_OPERATOR_TRAVEL;
-import static com.irfankhoirul.apps.tatravel.data.EndPoints.LIST_OPERATOR_TRAVEL;
+import static com.irfankhoirul.apps.tatravel.data.api.EndPoints.GET_OPERATOR_TRAVEL;
+import static com.irfankhoirul.apps.tatravel.data.api.EndPoints.LIST_OPERATOR_TRAVEL;
 
 /**
  * Created by Irfan Khoirul on 3/11/2017.

@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
@@ -39,6 +40,8 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
 
     @BindView(R.id.sliderPromotion)
     SliderLayout sliderPromotion;
+    @BindView(R.id.llDeparture)
+    LinearLayout llDeparture;
     @BindView(R.id.tvDeparture)
     TextView tvDeparture;
     @BindView(R.id.tvDestination)
@@ -164,7 +167,7 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
         }
     }
 
-    @OnClick(R.id.tvDeparture)
+    @OnClick(R.id.llDeparture)
     public void actvDeparture() {
         Intent intent = new Intent(activity, DepartureActivity.class);
         startActivityForResult(intent, ConstantUtils.ACTIVITY_REQUEST_CODE_DEPARTURE);
@@ -173,11 +176,13 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == ConstantUtils.ACTIVITY_REQUEST_CODE_DEPARTURE && resultCode == ConstantUtils.ACTIVITY_RESULT_CODE_DEPARTURE) {
-            tvDeparture.setText(data.getStringExtra(ConstantUtils.INTENT_SEARCH_FRAGMENT_DEPARTURE_CITY));
+        if (requestCode == ConstantUtils.ACTIVITY_REQUEST_CODE_DEPARTURE && resultCode == ConstantUtils.REQUEST_RESULT_SUCCESS) {
+            String departureLocation = data.getStringExtra("thoroughfare") + ",  " +
+                    data.getStringExtra("locality") + ", " +
+                    data.getStringExtra("sub_admin");
+            tvDeparture.setText(departureLocation);
         }
     }
-
 
     @Override
     public void setPresenter(SearchContract.Presenter Presenter) {

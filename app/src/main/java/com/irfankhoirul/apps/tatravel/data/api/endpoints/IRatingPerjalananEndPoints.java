@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.data.endpoints;
+package com.irfankhoirul.apps.tatravel.data.api.endpoints;
 
 import com.irfankhoirul.apps.tatravel.core.data.DataResult;
 import com.irfankhoirul.apps.tatravel.data.pojo.Lokasi;
@@ -11,9 +11,9 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
-import static com.irfankhoirul.apps.tatravel.data.EndPoints.CREATE_RATING_OPERATOR_TRAVEL;
-import static com.irfankhoirul.apps.tatravel.data.EndPoints.DELETE_RATING_OPERATOR_TRAVEL;
-import static com.irfankhoirul.apps.tatravel.data.EndPoints.UPDATE_RATING_OPERATOR_TRAVEL;
+import static com.irfankhoirul.apps.tatravel.data.api.EndPoints.CREATE_RATING_OPERATOR_TRAVEL;
+import static com.irfankhoirul.apps.tatravel.data.api.EndPoints.DELETE_RATING_OPERATOR_TRAVEL;
+import static com.irfankhoirul.apps.tatravel.data.api.EndPoints.UPDATE_RATING_OPERATOR_TRAVEL;
 
 /**
  * Created by Irfan Khoirul on 3/11/2017.

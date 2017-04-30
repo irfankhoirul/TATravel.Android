@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.data.source.user;
+package com.irfankhoirul.apps.tatravel.data.api.source.user;
 
 import javax.inject.Singleton;
 

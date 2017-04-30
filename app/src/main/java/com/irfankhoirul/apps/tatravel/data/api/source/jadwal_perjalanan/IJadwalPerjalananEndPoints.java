@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.data.endpoints;
+package com.irfankhoirul.apps.tatravel.data.api.source.jadwal_perjalanan;
 
 import com.irfankhoirul.apps.tatravel.core.data.DataResult;
 import com.irfankhoirul.apps.tatravel.data.pojo.JadwalPerjalanan;
@@ -12,11 +12,11 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
-import static com.irfankhoirul.apps.tatravel.data.EndPoints.GET_DRIVER_SCHEDULE;
-import static com.irfankhoirul.apps.tatravel.data.EndPoints.GET_SCHEDULE;
-import static com.irfankhoirul.apps.tatravel.data.EndPoints.LIST_DRIVER_SCHEDULE;
-import static com.irfankhoirul.apps.tatravel.data.EndPoints.LIST_SCHEDULE;
-import static com.irfankhoirul.apps.tatravel.data.EndPoints.UPDATE_SCHEDULE_STATUS;
+import static com.irfankhoirul.apps.tatravel.data.api.EndPoints.GET_DRIVER_SCHEDULE;
+import static com.irfankhoirul.apps.tatravel.data.api.EndPoints.GET_SCHEDULE;
+import static com.irfankhoirul.apps.tatravel.data.api.EndPoints.LIST_DRIVER_SCHEDULE;
+import static com.irfankhoirul.apps.tatravel.data.api.EndPoints.LIST_SCHEDULE;
+import static com.irfankhoirul.apps.tatravel.data.api.EndPoints.UPDATE_SCHEDULE_STATUS;
 
 /**
  * Created by Irfan Khoirul on 3/11/2017.

@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.data.source.user;
+package com.irfankhoirul.apps.tatravel.data.api.source.user;
 
 import com.irfankhoirul.apps.tatravel.core.data.DataResult;
 import com.irfankhoirul.apps.tatravel.data.pojo.User;
@@ -11,14 +11,14 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
-import static com.irfankhoirul.apps.tatravel.data.EndPoints.DO_LOGIN;
-import static com.irfankhoirul.apps.tatravel.data.EndPoints.DO_LOGIN_DRIVER;
-import static com.irfankhoirul.apps.tatravel.data.EndPoints.DO_LOGOUT;
-import static com.irfankhoirul.apps.tatravel.data.EndPoints.DO_REGISTER;
-import static com.irfankhoirul.apps.tatravel.data.EndPoints.DO_VERIFY;
-import static com.irfankhoirul.apps.tatravel.data.EndPoints.GET_PROFILE;
-import static com.irfankhoirul.apps.tatravel.data.EndPoints.UPDATE_FCM_TOKEN;
-import static com.irfankhoirul.apps.tatravel.data.EndPoints.UPDATE_PROFILE;
+import static com.irfankhoirul.apps.tatravel.data.api.EndPoints.DO_LOGIN;
+import static com.irfankhoirul.apps.tatravel.data.api.EndPoints.DO_LOGIN_DRIVER;
+import static com.irfankhoirul.apps.tatravel.data.api.EndPoints.DO_LOGOUT;
+import static com.irfankhoirul.apps.tatravel.data.api.EndPoints.DO_REGISTER;
+import static com.irfankhoirul.apps.tatravel.data.api.EndPoints.DO_VERIFY;
+import static com.irfankhoirul.apps.tatravel.data.api.EndPoints.GET_PROFILE;
+import static com.irfankhoirul.apps.tatravel.data.api.EndPoints.UPDATE_FCM_TOKEN;
+import static com.irfankhoirul.apps.tatravel.data.api.EndPoints.UPDATE_PROFILE;
 
 /**
  * Created by Irfan Khoirul on 3/11/2017.

@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.data.endpoints;
+package com.irfankhoirul.apps.tatravel.data.api.endpoints;
 
 import com.irfankhoirul.apps.tatravel.core.data.DataResult;
 import com.irfankhoirul.apps.tatravel.data.pojo.KursiPerjalanan;
@@ -11,8 +11,8 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
-import static com.irfankhoirul.apps.tatravel.data.EndPoints.DO_BOOK_SEAT;
-import static com.irfankhoirul.apps.tatravel.data.EndPoints.LIST_SEAT;
+import static com.irfankhoirul.apps.tatravel.data.api.EndPoints.DO_BOOK_SEAT;
+import static com.irfankhoirul.apps.tatravel.data.api.EndPoints.LIST_SEAT;
 
 /**
  * Created by Irfan Khoirul on 3/11/2017.

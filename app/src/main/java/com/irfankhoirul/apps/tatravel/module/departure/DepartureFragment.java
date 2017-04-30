@@ -2,9 +2,10 @@ package com.irfankhoirul.apps.tatravel.module.departure;
 
 
 import android.Manifest;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,7 +13,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,17 +41,16 @@ import com.irfankhoirul.apps.tatravel.MainActivity;
 import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.core.base.BaseFragment;
 import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
-import com.irfankhoirul.apps.tatravel.data.pojo.JadwalPerjalanan;
-import com.irfankhoirul.apps.tatravel.data.pojo.Kota;
-import com.irfankhoirul.apps.tatravel.data.pojo.Lokasi;
 
-import org.parceler.Parcels;
-
+import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -77,7 +76,7 @@ public class DepartureFragment extends BaseFragment<MainActivity> implements
     MapView mapDeparture;
     @BindView(R.id.btSetDeparture)
     Button btSetDeparture;
-
+    DepartureContract.Presenter mPresenter;
     private GoogleMap departureMap;
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
@@ -85,33 +84,45 @@ public class DepartureFragment extends BaseFragment<MainActivity> implements
     private boolean gotLocation = false;
     private View fragmentView;
 
-    private ProgressDialog progressDialog;
-    private DeparturePresenter departurePresenter;
-    private Kota selectedCity;
-
     public DepartureFragment() {
         // Required empty public constructor
     }
 
     @OnClick(R.id.btSetDeparture)
     public void btSetDeparture() {
+        final double tmpLat = departureMap.getCameraPosition().target.latitude;
+        final double tmpLon = departureMap.getCameraPosition().target.longitude;
         Log.v("Location", departureMap.getCameraPosition().target.toString());
-    }
+        setLoadingDialog(true, "Tunggu sebentar...");
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                List<Address> addresses = null;
+                try {
+                    Locale indonesia = new Locale("in", "ID");
+                    addresses = new Geocoder(activity, indonesia).getFromLocation(tmpLat, tmpLon, 1);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
-    @OnClick(R.id.tieCity)
-    public void tieCity() {
-        FragmentManager manager = getFragmentManager();
-        CityDialog cityDialog = new CityDialog();
-        cityDialog.setTargetFragment(this, ConstantUtils.DIALOG_CITY_REQUEST_CODE);
-        cityDialog.show(manager, "city_dialog_fragment");
-    }
-
-    @OnClick(R.id.tieLocation)
-    public void tieLocation() {
-        FragmentManager manager = getFragmentManager();
-        TravelLocationDialog travelLocationDialog = TravelLocationDialog.newInstance(selectedCity);
-        travelLocationDialog.setTargetFragment(this, ConstantUtils.DIALOG_LOCATION_REQUEST_CODE);
-        travelLocationDialog.show(manager, "travel_location_dialog_fragment");
+                for (Address address : addresses) {
+                    Log.v("Address", address.toString());
+                }
+                if (addresses.get(0) != null) {
+                    Address address = addresses.get(0);
+                    Intent intent = new Intent();
+                    intent.putExtra("latitude", address.getLatitude()); // Double
+                    intent.putExtra("longitude", address.getLongitude()); // Double
+                    intent.putExtra("thoroughfare", address.getThoroughfare());
+                    intent.putExtra("locality", address.getLocality());
+                    intent.putExtra("sub_admin", address.getSubAdminArea());
+                    intent.putExtra("admin", address.getAdminArea());
+                    setLoadingDialog(false, null);
+                    activity.setResult(ConstantUtils.REQUEST_RESULT_SUCCESS, intent);
+                    activity.finish();
+                }
+            }
+        }).start();
     }
 
     @Override
@@ -125,12 +136,20 @@ public class DepartureFragment extends BaseFragment<MainActivity> implements
         fragmentView = inflater.inflate(R.layout.fragment_departure, container, false);
         unbinder = ButterKnife.bind(this, fragmentView);
 
-        departurePresenter = new DeparturePresenter(this);
-
         mapDeparture.onCreate(savedInstanceState);
         mapDeparture.onResume(); // needed to get the map to display immediately
-        MapsInitializer.initialize(activity);
         mapDeparture.getMapAsync(this);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    MapsInitializer.initialize(activity);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
 
         return fragmentView;
     }
@@ -200,10 +219,10 @@ public class DepartureFragment extends BaseFragment<MainActivity> implements
             }
 
             mLocationRequest = new LocationRequest();
-            mLocationRequest.setNumUpdates(3); // Maksimum 5 kali update lokasi
+            mLocationRequest.setNumUpdates(2); // Maksimum 2 kali update lokasi
             mLocationRequest.setInterval(30000); //30 seconds
             mLocationRequest.setFastestInterval(10000); //10 seconds
-            mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+            mLocationRequest.setPriority(LocationRequest.PRIORITY_LOW_POWER);
             //mLocationRequest.setSmallestDisplacement(0.1F); //1/10 meter
 
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
@@ -222,7 +241,6 @@ public class DepartureFragment extends BaseFragment<MainActivity> implements
 
     @Override
     public void onLocationChanged(Location location) {
-        Toast.makeText(activity, "OnLocationChanged", Toast.LENGTH_SHORT).show();
         latLng = new LatLng(location.getLatitude(), location.getLongitude());
 
         //zoom to current position:
@@ -238,66 +256,23 @@ public class DepartureFragment extends BaseFragment<MainActivity> implements
 
     }
 
-
     @Override
-    public void setProgressDialog(boolean visible, String title, String message) {
-        if (progressDialog == null) {
-            progressDialog = new ProgressDialog(activity);
-        }
-        if (!visible) {
-            progressDialog.setTitle(title);
-            progressDialog.setMessage(message);
-            progressDialog.show();
-        } else {
-            progressDialog.dismiss();
-        }
-    }
-
-    @Override
-    public void showDialogCityDeparture() {
-
-    }
-
-    @Override
-    public void showDialogDepartureLocation() {
-
-    }
-
-    @Override
-    public void showSearchResult(List<JadwalPerjalanan> jadwalPerjalanan) {
-
-    }
-
-    @Override
-    public void updateLocationSpinner(List<Lokasi> lokasi) {
-
-    }
-
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == ConstantUtils.DIALOG_CITY_RESULT_CODE) {
-            selectedCity = Parcels.unwrap(data.getParcelableExtra("kota"));
-            tieCity.setText(selectedCity.getNama() + ", " + selectedCity.getProvinsi().getNama());
-        } else if (resultCode == ConstantUtils.DIALOG_LOCATION_RESULT_CODE) {
-            Lokasi selectedLocation = Parcels.unwrap(data.getParcelableExtra("location"));
-            tieLocation.setText(selectedLocation.getOperatorTravel().getNama() + ", " + selectedLocation.getAlamat());
-        }
-    }
-
-    @Override
-    public void setPresenter(DepartureContract.Presenter Presenter) {
-
+    public void setPresenter(DepartureContract.Presenter presenter) {
+        mPresenter = checkNotNull(presenter);
     }
 
     @Override
     public void setLoadingDialog(boolean isLoading, @Nullable String message) {
-
+        super.setLoadingDialog(isLoading, message);
     }
 
     @Override
     public void showStatus(int type, String message) {
+        super.showStatus(type, message);
+    }
+
+    @Override
+    public void redirectToSearchFragment() {
 
     }
 }

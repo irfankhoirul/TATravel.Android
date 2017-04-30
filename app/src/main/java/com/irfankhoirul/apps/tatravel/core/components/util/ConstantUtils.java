@@ -24,7 +24,6 @@ public class ConstantUtils {
 
 
     public static final int ACTIVITY_REQUEST_CODE_DEPARTURE = 1000;
-    public static final int ACTIVITY_RESULT_CODE_DEPARTURE = 1001;
 
 
     public static final int DIALOG_CITY_REQUEST_CODE = 2000;

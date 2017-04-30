@@ -4,8 +4,8 @@ import android.util.Log;
 
 import com.irfankhoirul.apps.tatravel.core.data.DataResult;
 import com.irfankhoirul.apps.tatravel.core.data.IRequestResponseListener;
+import com.irfankhoirul.apps.tatravel.data.api.source.SearchDataSource;
 import com.irfankhoirul.apps.tatravel.data.pojo.JadwalPerjalanan;
-import com.irfankhoirul.apps.tatravel.data.source.SearchDataSource;
 
 
 /**

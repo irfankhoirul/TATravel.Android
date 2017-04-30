@@ -2,7 +2,7 @@ package com.irfankhoirul.apps.tatravel.module.user;
 
 import com.irfankhoirul.apps.tatravel.MainActivity;
 import com.irfankhoirul.apps.tatravel.core.components.FragmentScoped;
-import com.irfankhoirul.apps.tatravel.data.source.user.UserDataSourceComponent;
+import com.irfankhoirul.apps.tatravel.data.api.source.user.UserDataSourceComponent;
 
 import dagger.Component;
 

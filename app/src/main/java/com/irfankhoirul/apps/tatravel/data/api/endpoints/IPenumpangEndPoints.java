@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.data.endpoints;
+package com.irfankhoirul.apps.tatravel.data.api.endpoints;
 
 import com.irfankhoirul.apps.tatravel.core.data.DataResult;
 import com.irfankhoirul.apps.tatravel.data.pojo.Penumpang;
@@ -11,10 +11,10 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
-import static com.irfankhoirul.apps.tatravel.data.EndPoints.CREATE_PENUMPANG;
-import static com.irfankhoirul.apps.tatravel.data.EndPoints.DELETE_PENUMPANG;
-import static com.irfankhoirul.apps.tatravel.data.EndPoints.LIST_PENUMPANG;
-import static com.irfankhoirul.apps.tatravel.data.EndPoints.UPDATE_PENUMPANG;
+import static com.irfankhoirul.apps.tatravel.data.api.EndPoints.CREATE_PENUMPANG;
+import static com.irfankhoirul.apps.tatravel.data.api.EndPoints.DELETE_PENUMPANG;
+import static com.irfankhoirul.apps.tatravel.data.api.EndPoints.LIST_PENUMPANG;
+import static com.irfankhoirul.apps.tatravel.data.api.EndPoints.UPDATE_PENUMPANG;
 
 /**
  * Created by Irfan Khoirul on 3/11/2017.

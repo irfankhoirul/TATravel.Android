@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.data.endpoints;
+package com.irfankhoirul.apps.tatravel.data.api.endpoints;
 
 import com.irfankhoirul.apps.tatravel.core.data.DataResult;
 import com.irfankhoirul.apps.tatravel.data.pojo.User;
@@ -10,7 +10,7 @@ import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 
-import static com.irfankhoirul.apps.tatravel.data.EndPoints.LIST_KOTA;
+import static com.irfankhoirul.apps.tatravel.data.api.EndPoints.LIST_KOTA;
 
 /**
  * Created by Irfan Khoirul on 3/11/2017.

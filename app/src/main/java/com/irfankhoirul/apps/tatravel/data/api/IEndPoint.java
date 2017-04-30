@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.data;
+package com.irfankhoirul.apps.tatravel.data.api;
 
 import com.irfankhoirul.apps.tatravel.core.data.DataResult;
 import com.irfankhoirul.apps.tatravel.data.pojo.JadwalPerjalanan;

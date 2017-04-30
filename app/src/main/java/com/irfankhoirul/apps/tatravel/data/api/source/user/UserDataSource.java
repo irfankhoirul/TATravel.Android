@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.data.source.user;
+package com.irfankhoirul.apps.tatravel.data.api.source.user;
 
 import com.irfankhoirul.apps.tatravel.core.base.BaseRemoteDataSource;
 import com.irfankhoirul.apps.tatravel.core.data.DataResult;

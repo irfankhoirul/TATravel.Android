@@ -1,7 +1,7 @@
 package com.irfankhoirul.apps.tatravel.module.register;
 
 import com.irfankhoirul.apps.tatravel.core.base.BaseFragmentHolderActivity;
-import com.irfankhoirul.apps.tatravel.data.source.user.DaggerUserDataSourceComponent;
+import com.irfankhoirul.apps.tatravel.data.api.source.user.DaggerUserDataSourceComponent;
 
 import javax.inject.Inject;
 
