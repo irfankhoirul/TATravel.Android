@@ -37,6 +37,7 @@
             android:value="@string/facebook_app_id" />
 
         <activity android:name=".module.departure.DepartureActivity" />
+        <activity android:name=".module.destination.DestinationActivity" />
         <activity
             android:name=".SplashActivity"
             android:theme="@style/SplashTheme">

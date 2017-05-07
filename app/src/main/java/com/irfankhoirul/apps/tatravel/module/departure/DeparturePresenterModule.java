@@ -17,7 +17,7 @@ public class DeparturePresenterModule {
     }
 
     @Provides
-    DepartureContract.View provideLoginContractView() {
+    DepartureContract.View provideDepartureContractView() {
         return mView;
     }
 }

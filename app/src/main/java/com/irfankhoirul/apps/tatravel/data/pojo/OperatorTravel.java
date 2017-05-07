@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName;
 
 import org.parceler.Parcel;
 
+import java.util.Map;
+
 /**
  * Merupakan model dari tabel OperatorTravel
  *
@@ -65,6 +67,13 @@ public class OperatorTravel extends BaseModel {
     @SerializedName("jarak_penjemputan_maksimum")
     @Expose
     protected int jarakPenjemputanMaksimum;
+
+    @SerializedName("biaya_lokasi_khusus")
+    @Expose
+    protected int biayaLokasiKhusus;
+
+    // Tambahan
+    protected Map<String, String> keterangan;
 
 
     public int getIdSuperAdmin() {
@@ -169,5 +178,21 @@ public class OperatorTravel extends BaseModel {
 
     public void setJarakPenjemputanMaksimum(int jarakPenjemputanMaksimum) {
         this.jarakPenjemputanMaksimum = jarakPenjemputanMaksimum;
+    }
+
+    public int getBiayaLokasiKhusus() {
+        return biayaLokasiKhusus;
+    }
+
+    public void setBiayaLokasiKhusus(int biayaLokasiKhusus) {
+        this.biayaLokasiKhusus = biayaLokasiKhusus;
+    }
+
+    public Map<String, String> getKeterangan() {
+        return keterangan;
+    }
+
+    public void setKeterangan(Map<String, String> keterangan) {
+        this.keterangan = keterangan;
     }
 }

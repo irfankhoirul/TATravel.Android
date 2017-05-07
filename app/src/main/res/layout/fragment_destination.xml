@@ -9,30 +9,54 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:visibility="gone">
 
-        <Spinner
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/tieCity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="false"
+                android:hint="Kota"
+                android:inputType="textCapWords" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/tieLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="false"
+                android:hint="Lokasi Keberangkatan"
+                android:inputType="textCapWords" />
+
+        </android.support.design.widget.TextInputLayout>
 
         <Switch
+            android:id="@+id/switchSpecialLocation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp"
             android:switchPadding="8dp"
-            android:text="@string/label_switch_specific_destination" />
+            android:text="@string/label_switch_specific_departure" />
 
         <TextView
+            android:id="@+id/tvSpecialLocationInformation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="@string/label_info_specific_destination"
-            android:textColor="@color/colorSecondaryText" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/label_info_specific_destination_notice"
+            android:text="@string/label_info_specific_departure_notice"
             android:textColor="@color/colorSecondaryText" />
 
     </LinearLayout>
@@ -43,31 +67,73 @@
         android:layout_weight="1">
 
         <com.google.android.gms.maps.MapView
-            android:id="@+id/mapDeparture"
+            android:id="@+id/mapDestination"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <android.support.v7.widget.CardView
+        <ImageView
+            android:id="@+id/ivMarkerDestination"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:paddingBottom="32dp"
+            android:src="@drawable/ic_place_black_24dp"
+            android:tint="@color/colorPrimary" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_margin="16dp"
-            app:cardBackgroundColor="@color/colorAccent"
-            app:cardCornerRadius="3dp"
-            app:cardElevation="1dp"
-            app:cardUseCompatPadding="true">
+            android:layout_marginBottom="16dp"
+            android:orientation="vertical">
 
-            <Button
-                style="?android:attr/buttonStyleSmall"
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:text="@string/label_button_set_destination"
-                android:textAllCaps="false"
-                android:textColor="@android:color/white" />
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                app:cardCornerRadius="3dp"
+                app:cardElevation="1dp"
+                app:cardUseCompatPadding="true">
 
-        </android.support.v7.widget.CardView>
+                <Button
+                    android:id="@+id/btCheckAvailability"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_button_login"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:text="Cek Ketersediaan Travel"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorAccent" />
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                app:cardBackgroundColor="@color/grey_300"
+                app:cardCornerRadius="3dp"
+                app:cardElevation="1dp"
+                app:cardUseCompatPadding="true">
+
+                <Button
+                    android:id="@+id/btSetDestination"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:enabled="false"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:text="@string/label_button_set_destination"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white" />
+
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
 
     </FrameLayout>
 

@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.module.departure;
+package com.irfankhoirul.apps.tatravel.module.destination;
 
 import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.core.data.DataResult;
@@ -14,13 +14,13 @@ import javax.inject.Inject;
  * Created by Irfan Khoirul on 12/25/2016.
  */
 
-public class DeparturePresenter implements DepartureContract.Presenter {
+public class DestinationPresenter implements DestinationContract.Presenter {
 
-    private final DepartureContract.View view;
+    private final DestinationContract.View view;
     private final JadwalPerjalananDataSource jadwalPerjalananDataSource;
 
     @Inject
-    public DeparturePresenter(JadwalPerjalananDataSource jadwalPerjalananDataSource, DepartureContract.View view) {
+    public DestinationPresenter(JadwalPerjalananDataSource jadwalPerjalananDataSource, DestinationContract.View view) {
         this.view = view;
         this.jadwalPerjalananDataSource = jadwalPerjalananDataSource;
     }
@@ -30,7 +30,7 @@ public class DeparturePresenter implements DepartureContract.Presenter {
         view.setPresenter(this);
     }
 
-    public DepartureContract.View getView() {
+    public DestinationContract.View getView() {
         return view;
     }
 
@@ -42,7 +42,7 @@ public class DeparturePresenter implements DepartureContract.Presenter {
     @Override
     public void checkLocationAvailability(Map<String, String> params) {
         view.setLoadingDialog(true, "Mencari Operator Travel...");
-        jadwalPerjalananDataSource.getDepartureAvailability(new IRequestResponseListener<Lokasi>() {
+        jadwalPerjalananDataSource.getDestinationAvailability(new IRequestResponseListener<Lokasi>() {
             @Override
             public void onSuccess(DataResult<Lokasi> result) {
                 view.setLoadingDialog(false, null);

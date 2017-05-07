@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.data.api.source.jadwal_perjalanan;
+package com.irfankhoirul.apps.tatravel.data.api.source.jadwal;
 
 import javax.inject.Singleton;
 

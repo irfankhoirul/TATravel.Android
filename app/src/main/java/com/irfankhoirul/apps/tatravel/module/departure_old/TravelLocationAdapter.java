@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.module.departure;
+package com.irfankhoirul.apps.tatravel.module.departure_old;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

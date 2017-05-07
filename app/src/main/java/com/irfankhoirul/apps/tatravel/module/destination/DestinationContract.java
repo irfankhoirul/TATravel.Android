@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.module.departure;
+package com.irfankhoirul.apps.tatravel.module.destination;
 
 import com.irfankhoirul.apps.tatravel.core.base.IBasePresenter;
 import com.irfankhoirul.apps.tatravel.core.base.IBaseView;
@@ -11,7 +11,7 @@ import java.util.Map;
  * Created by Irfan Khoirul on 12/24/2016.
  */
 
-public interface DepartureContract {
+public interface DestinationContract {
 
     interface View extends IBaseView<Presenter> {
         void updateMap(List<Lokasi> locations);

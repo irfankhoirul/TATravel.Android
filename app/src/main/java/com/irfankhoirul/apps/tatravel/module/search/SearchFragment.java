@@ -23,6 +23,7 @@ import com.irfankhoirul.apps.tatravel.core.components.util.DisplayMetricUtils;
 import com.irfankhoirul.apps.tatravel.data.pojo.JadwalPerjalanan;
 import com.irfankhoirul.apps.tatravel.data.pojo.Lokasi;
 import com.irfankhoirul.apps.tatravel.module.departure.DepartureActivity;
+import com.irfankhoirul.apps.tatravel.module.destination.DestinationActivity;
 
 import java.util.HashMap;
 import java.util.List;
@@ -51,6 +52,11 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
     @BindView(R.id.tvPassenger)
     TextView tvPassenger;
 
+    private int idOperatorTravelDeparture;
+    private double departureLatitude;
+    private double departureLongitude;
+    private double destinationLatitude;
+    private double destinationLongitude;
     private SearchPresenter searchPresenter;
 
     public SearchFragment() {
@@ -168,9 +174,17 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
     }
 
     @OnClick(R.id.llDeparture)
-    public void actvDeparture() {
+    public void llDeparture() {
         Intent intent = new Intent(activity, DepartureActivity.class);
         startActivityForResult(intent, ConstantUtils.ACTIVITY_REQUEST_CODE_DEPARTURE);
+    }
+
+    @OnClick(R.id.llDestination)
+    public void llDestination() {
+        Intent intent = new Intent(activity, DestinationActivity.class);
+        intent.putExtra("id_operator_travel", idOperatorTravelDeparture);
+        Log.v("id_operator_travel", String.valueOf(idOperatorTravelDeparture));
+        startActivityForResult(intent, ConstantUtils.ACTIVITY_REQUEST_CODE_DESTINATION);
     }
 
     @Override
@@ -181,6 +195,16 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
                     data.getStringExtra("locality") + ", " +
                     data.getStringExtra("sub_admin");
             tvDeparture.setText(departureLocation);
+            departureLatitude = data.getDoubleExtra("departureLatitude", 0);
+            departureLongitude = data.getDoubleExtra("departureLongitude", 0);
+            idOperatorTravelDeparture = data.getIntExtra("id_operator_travel", -1);
+        } else if (requestCode == ConstantUtils.ACTIVITY_REQUEST_CODE_DESTINATION && resultCode == ConstantUtils.REQUEST_RESULT_SUCCESS) {
+            String destinationLocation = data.getStringExtra("thoroughfare") + ",  " +
+                    data.getStringExtra("locality") + ", " +
+                    data.getStringExtra("sub_admin");
+            tvDestination.setText(destinationLocation);
+            destinationLatitude = data.getDoubleExtra("departureLatitude", 0);
+            destinationLongitude = data.getDoubleExtra("departureLongitude", 0);
         }
     }
 

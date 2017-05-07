@@ -14,6 +14,10 @@ import org.parceler.Parcel;
 
 @Parcel
 public class Lokasi extends BaseModel {
+    @SerializedName("nama")
+    @Expose
+    protected String nama;
+
     @SerializedName("id_admin")
     @Expose
     protected int idAdmin;
@@ -49,6 +53,18 @@ public class Lokasi extends BaseModel {
     @SerializedName("longitude")
     @Expose
     protected String longitude;
+
+    @SerializedName("distance")
+    @Expose
+    protected String distance;
+
+    public String getNama() {
+        return nama;
+    }
+
+    public void setNama(String nama) {
+        this.nama = nama;
+    }
 
     public int getIdAdmin() {
         return idAdmin;
@@ -120,6 +136,14 @@ public class Lokasi extends BaseModel {
 
     public void setKota(Kota kota) {
         this.kota = kota;
+    }
+
+    public String getDistance() {
+        return distance;
+    }
+
+    public void setDistance(String distance) {
+        this.distance = distance;
     }
 
     @Override

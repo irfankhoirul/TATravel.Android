@@ -1,7 +1,8 @@
-package com.irfankhoirul.apps.tatravel.data.api.source.jadwal_perjalanan;
+package com.irfankhoirul.apps.tatravel.data.api.source.jadwal;
 
 import com.irfankhoirul.apps.tatravel.core.data.DataResult;
 import com.irfankhoirul.apps.tatravel.data.pojo.JadwalPerjalanan;
+import com.irfankhoirul.apps.tatravel.data.pojo.Lokasi;
 
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,8 @@ import retrofit2.http.Path;
 
 import static com.irfankhoirul.apps.tatravel.data.api.EndPoints.GET_DRIVER_SCHEDULE;
 import static com.irfankhoirul.apps.tatravel.data.api.EndPoints.GET_SCHEDULE;
+import static com.irfankhoirul.apps.tatravel.data.api.EndPoints.LIST_DEPARTURE_AVAILABILITY;
+import static com.irfankhoirul.apps.tatravel.data.api.EndPoints.LIST_DESTINATION_AVAILABILITY;
 import static com.irfankhoirul.apps.tatravel.data.api.EndPoints.LIST_DRIVER_SCHEDULE;
 import static com.irfankhoirul.apps.tatravel.data.api.EndPoints.LIST_SCHEDULE;
 import static com.irfankhoirul.apps.tatravel.data.api.EndPoints.UPDATE_SCHEDULE_STATUS;
@@ -74,5 +77,26 @@ public interface IJadwalPerjalananEndPoints {
     @FormUrlEncoded
     @POST(UPDATE_SCHEDULE_STATUS)
     Call<DataResult> setStatusJadwalPerjalanan(@Path("id") String id, @FieldMap Map<String, String> param);
+
+    /**
+     * Param
+     *
+     * @param param - latitude
+     *              - longitude
+     */
+    @FormUrlEncoded
+    @POST(LIST_DEPARTURE_AVAILABILITY)
+    Call<DataResult<Lokasi>> getDepartureAvailability(@FieldMap Map<String, String> param);
+
+    /**
+     * Param
+     *
+     * @param param - latitude
+     *              - longitude
+     *              - id_operator_travel
+     */
+    @FormUrlEncoded
+    @POST(LIST_DESTINATION_AVAILABILITY)
+    Call<DataResult<Lokasi>> getDestinationAvailability(@FieldMap Map<String, String> param);
 
 }

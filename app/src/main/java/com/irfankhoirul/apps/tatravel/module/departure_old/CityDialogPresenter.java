@@ -1,20 +1,20 @@
-package com.irfankhoirul.apps.tatravel.module.departure;
+package com.irfankhoirul.apps.tatravel.module.departure_old;
 
 import com.irfankhoirul.apps.tatravel.core.data.DataResult;
 import com.irfankhoirul.apps.tatravel.core.data.IRequestResponseListener;
 import com.irfankhoirul.apps.tatravel.data.api.source.SearchDataSource;
-import com.irfankhoirul.apps.tatravel.data.pojo.Lokasi;
+import com.irfankhoirul.apps.tatravel.data.pojo.Kota;
 
 /**
  * Created by Irfan Khoirul on 12/25/2016.
  */
 
-public class TravelLocationDialogPresenter implements TravelLocationDialogContract.Presenter {
+public class CityDialogPresenter implements CityDialogContract.Presenter {
 
-    private final TravelLocationDialogContract.View view;
+    private final CityDialogContract.View view;
     private boolean loadingData = false;
 
-    public TravelLocationDialogPresenter(TravelLocationDialogContract.View view) {
+    public CityDialogPresenter(CityDialogContract.View view) {
         this.view = view;
     }
 
@@ -32,17 +32,17 @@ public class TravelLocationDialogPresenter implements TravelLocationDialogContra
     }
 
     @Override
-    public void getTravelLocationData(int page, int idKota) {
+    public void getCityData(int page) {
         view.setProgressBarVisibility(true);
         loadingData = true;
         SearchDataSource repository = new SearchDataSource();
-        repository.getLocation(new IRequestResponseListener<Lokasi>() {
+        repository.getCity(new IRequestResponseListener<Kota>() {
             @Override
-            public void onSuccess(DataResult<Lokasi> data) {
+            public void onSuccess(DataResult<Kota> data) {
                 view.setProgressBarVisibility(false);
                 loadingData = false;
                 if (data != null) {
-                    view.updateTravelLocationList(data.getDataPageManager(), data.getDatas());
+                    view.updateCityList(data.getDataPageManager(), data.getDatas());
                 }
             }
 
@@ -51,7 +51,6 @@ public class TravelLocationDialogPresenter implements TravelLocationDialogContra
                 view.setProgressBarVisibility(false);
                 loadingData = false;
             }
-        }, page, idKota);
+        }, page);
     }
-
 }

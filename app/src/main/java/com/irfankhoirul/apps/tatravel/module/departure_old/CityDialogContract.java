@@ -1,9 +1,9 @@
-package com.irfankhoirul.apps.tatravel.module.departure;
+package com.irfankhoirul.apps.tatravel.module.departure_old;
 
 import com.irfankhoirul.apps.tatravel.core.base.IBasePresenter;
 import com.irfankhoirul.apps.tatravel.core.base.IBaseView;
 import com.irfankhoirul.apps.tatravel.core.data.DataPage;
-import com.irfankhoirul.apps.tatravel.data.pojo.Lokasi;
+import com.irfankhoirul.apps.tatravel.data.pojo.Kota;
 
 import java.util.List;
 
@@ -11,14 +11,14 @@ import java.util.List;
  * Created by Irfan Khoirul on 12/25/2016.
  */
 
-public interface TravelLocationDialogContract {
+public interface CityDialogContract {
     interface View extends IBaseView<Presenter> {
-        void updateTravelLocationList(DataPage dataPageManager, List<Lokasi> data);
+        void updateCityList(DataPage dataPageManager, List<Kota> data);
 
         void setProgressBarVisibility(boolean visible);
     }
 
     interface Presenter extends IBasePresenter {
-        void getTravelLocationData(int page, int idKota);
+        void getCityData(int page);
     }
 }

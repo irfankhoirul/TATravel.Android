@@ -45,6 +45,8 @@ public class EndPoints {
     public static final String LIST_TERMINAL = "operator-travel/{id}/location";
 
     // Jadwal Perjalanan End Point
+    public static final String LIST_DEPARTURE_AVAILABILITY = "operator-travel/departure-availability";
+    public static final String LIST_DESTINATION_AVAILABILITY = "operator-travel/destination-availability";
     public static final String LIST_SCHEDULE = "operator-travel/{id}/schedule/list";
     public static final String GET_SCHEDULE = "schedule/{id}";
     public static final String LIST_DRIVER_SCHEDULE = "driver/schedule/list";

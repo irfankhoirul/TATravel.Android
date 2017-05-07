@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.module.departure;
+package com.irfankhoirul.apps.tatravel.module.destination;
 
 
 import android.Manifest;
@@ -42,19 +42,12 @@ import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.core.base.BaseFragment;
 import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.data.pojo.Lokasi;
-import com.irfankhoirul.apps.tatravel.data.pojo.OperatorTravel;
-import com.irfankhoirul.apps.tatravel.module.departure.travel_choice.DaggerTravelChoiceComponent;
-import com.irfankhoirul.apps.tatravel.module.departure.travel_choice.TravelChoiceDialog;
-import com.irfankhoirul.apps.tatravel.module.departure.travel_choice.TravelChoiceDialogPresenter;
-import com.irfankhoirul.apps.tatravel.module.departure.travel_choice.TravelChoicePresenterModule;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -65,13 +58,12 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DepartureFragment extends BaseFragment<MainActivity> implements
+public class DestinationFragment extends BaseFragment<MainActivity> implements
         OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener,
-        TravelChoiceDialog.DialogListener,
-        DepartureContract.View {
+        DestinationContract.View {
 
     @BindView(R.id.tieCity)
     TextInputEditText tieCity;
@@ -81,47 +73,76 @@ public class DepartureFragment extends BaseFragment<MainActivity> implements
     Switch switchSpecialLocation;
     @BindView(R.id.tvSpecialLocationInformation)
     TextView tvSpecialLocationInformation;
-    @BindView(R.id.ivMarkerDeparture)
-    ImageView ivMarkerDeparture;
-    @BindView(R.id.mapDeparture)
-    MapView mapViewDeparture;
-    @BindView(R.id.btSetDeparture)
-    Button btSetDeparture;
-    DepartureContract.Presenter mPresenter;
-    @Inject
-    TravelChoiceDialogPresenter travelChoiceDialogPresenter;
-    private GoogleMap departureMap;
+    @BindView(R.id.ivMarkerDestination)
+    ImageView ivMarkerDestination;
+    @BindView(R.id.mapDestination)
+    MapView mapViewDestination;
+    @BindView(R.id.btSetDestination)
+    Button btSetDestination;
+    DestinationContract.Presenter mPresenter;
+    private GoogleMap destinationMap;
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
     private LatLng latLng;
     private boolean gotLocation = false;
     private View fragmentView;
-    private List<Lokasi> lokasiList;
 
-    public DepartureFragment() {
+    public DestinationFragment() {
         // Required empty public constructor
     }
 
-    public void sort() {
+    public static DestinationFragment newInstance(int idOperatorTravel) {
+        DestinationFragment destinationFragment = new DestinationFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("id_operator_travel", idOperatorTravel);
+        destinationFragment.setArguments(bundle);
 
+        return destinationFragment;
     }
 
-    @OnClick(R.id.btSetDeparture)
-    public void btSetDeparture() {
-        TravelChoiceDialog travelChoiceDialog = TravelChoiceDialog.newInstance(lokasiList);
-        travelChoiceDialog.setListener(this);
-        travelChoiceDialog.show(getFragmentManager(), "travelChoiceDialog");
+    @OnClick(R.id.btSetDestination)
+    public void btSetDestination() {
+        final double tmpLat = destinationMap.getCameraPosition().target.latitude;
+        final double tmpLon = destinationMap.getCameraPosition().target.longitude;
+        Log.v("Location", destinationMap.getCameraPosition().target.toString());
+        setLoadingDialog(true, "Tunggu sebentar...");
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                List<Address> addresses = null;
+                try {
+                    Locale indonesia = new Locale("in", "ID");
+                    addresses = new Geocoder(activity, indonesia).getFromLocation(tmpLat, tmpLon, 1);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
-        DaggerTravelChoiceComponent.builder()
-                .travelChoicePresenterModule(new TravelChoicePresenterModule(travelChoiceDialog))
-                .build().inject(this);
+                for (Address address : addresses) {
+                    Log.v("Address", address.toString());
+                }
+                if (addresses.get(0) != null) {
+                    Address address = addresses.get(0);
+                    Intent intent = new Intent();
+                    intent.putExtra("latitude", address.getLatitude()); // Double
+                    intent.putExtra("longitude", address.getLongitude()); // Double
+                    intent.putExtra("thoroughfare", address.getThoroughfare());
+                    intent.putExtra("locality", address.getLocality());
+                    intent.putExtra("sub_admin", address.getSubAdminArea());
+                    intent.putExtra("admin", address.getAdminArea());
+                    setLoadingDialog(false, null);
+                    activity.setResult(ConstantUtils.REQUEST_RESULT_SUCCESS, intent);
+                    activity.finish();
+                }
+            }
+        }).start();
     }
 
     @OnClick(R.id.btCheckAvailability)
     public void btCheckAvailability() {
         Map<String, String> params = new HashMap<>();
-        params.put("latitude", String.valueOf(departureMap.getCameraPosition().target.latitude));
-        params.put("longitude", String.valueOf(departureMap.getCameraPosition().target.longitude));
+        params.put("latitude", String.valueOf(destinationMap.getCameraPosition().target.latitude));
+        params.put("longitude", String.valueOf(destinationMap.getCameraPosition().target.longitude));
+        params.put("id_operator_travel", String.valueOf(getArguments().getInt("id_operator_travel")));
         mPresenter.checkLocationAvailability(params);
     }
 
@@ -133,12 +154,12 @@ public class DepartureFragment extends BaseFragment<MainActivity> implements
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        fragmentView = inflater.inflate(R.layout.fragment_departure, container, false);
+        fragmentView = inflater.inflate(R.layout.fragment_destination, container, false);
         unbinder = ButterKnife.bind(this, fragmentView);
 
-        mapViewDeparture.onCreate(savedInstanceState);
-        mapViewDeparture.onResume(); // needed to get the map to display immediately
-        mapViewDeparture.getMapAsync(this);
+        mapViewDestination.onCreate(savedInstanceState);
+        mapViewDestination.onResume(); // needed to get the map to display immediately
+        mapViewDestination.getMapAsync(this);
 
         new Thread(new Runnable() {
             @Override
@@ -164,13 +185,13 @@ public class DepartureFragment extends BaseFragment<MainActivity> implements
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        departureMap = googleMap;
+        destinationMap = googleMap;
 
         if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             String[] locationPermissions = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
             requestPermissions(locationPermissions, ConstantUtils.PERMISSION_REQUEST_LOCATIONS);
         } else {
-            departureMap.setMyLocationEnabled(true);
+            destinationMap.setMyLocationEnabled(true);
             buildGoogleApiClient();
             mGoogleApiClient.connect();
         }
@@ -189,8 +210,11 @@ public class DepartureFragment extends BaseFragment<MainActivity> implements
         if (requestCode == ConstantUtils.PERMISSION_REQUEST_LOCATIONS) {
             if (grantResults.length == 2 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
                 if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    departureMap.setMyLocationEnabled(true);
+
                 }
+                destinationMap.setMyLocationEnabled(true);
+            } else {
+
             }
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -223,12 +247,12 @@ public class DepartureFragment extends BaseFragment<MainActivity> implements
 
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
 
-            departureMap.setOnCameraMoveStartedListener(new GoogleMap.OnCameraMoveStartedListener() {
+            destinationMap.setOnCameraMoveStartedListener(new GoogleMap.OnCameraMoveStartedListener() {
                 @Override
                 public void onCameraMoveStarted(int i) {
-                    departureMap.clear();
-                    btSetDeparture.setEnabled(false);
-                    btSetDeparture.setBackgroundColor(ContextCompat.getColor(activity, R.color.grey_300));
+                    destinationMap.clear();
+                    btSetDestination.setEnabled(false);
+                    btSetDestination.setBackgroundColor(ContextCompat.getColor(activity, R.color.grey_300));
                 }
             });
 
@@ -255,7 +279,7 @@ public class DepartureFragment extends BaseFragment<MainActivity> implements
             CameraPosition cameraPosition = new CameraPosition.Builder()
                     .target(latLng).zoom(16).build();
 
-            departureMap.animateCamera(CameraUpdateFactory
+            destinationMap.animateCamera(CameraUpdateFactory
                     .newCameraPosition(cameraPosition));
 
             gotLocation = true;
@@ -264,7 +288,7 @@ public class DepartureFragment extends BaseFragment<MainActivity> implements
     }
 
     @Override
-    public void setPresenter(DepartureContract.Presenter presenter) {
+    public void setPresenter(DestinationContract.Presenter presenter) {
         mPresenter = checkNotNull(presenter);
     }
 
@@ -280,73 +304,26 @@ public class DepartureFragment extends BaseFragment<MainActivity> implements
 
     @Override
     public void updateMap(List<Lokasi> locations) {
-        lokasiList = locations;
-        departureMap.clear();
+        destinationMap.clear();
         if (locations.size() > 0) {
-            btSetDeparture.setEnabled(true);
-            btSetDeparture.setBackgroundColor(ContextCompat.getColor(activity, R.color.colorAccent));
+            btSetDestination.setEnabled(true);
+            btSetDestination.setBackgroundColor(ContextCompat.getColor(activity, R.color.colorAccent));
             for (int i = 0; i < locations.size(); i++) {
-                departureMap.addMarker(new MarkerOptions()
+                destinationMap.addMarker(new MarkerOptions()
                         .position(new LatLng(Double.parseDouble(locations.get(i).getLatitude()),
                                 Double.parseDouble(locations.get(i).getLongitude())))
                         .title(locations.get(i).getOperatorTravel().getNama() + " - " + locations.get(i).getNama()));
             }
         } else {
             showStatus(ConstantUtils.STATUS_WARNING, "Operator Travel tidak ditemukan");
-            btSetDeparture.setEnabled(false);
-            btSetDeparture.setBackgroundColor(ContextCompat.getColor(activity, R.color.grey_300));
+            btSetDestination.setEnabled(false);
+            btSetDestination.setBackgroundColor(ContextCompat.getColor(activity, R.color.grey_300));
         }
         Log.v("LocationSize", String.valueOf(locations.size()));
     }
 
     @Override
     public void redirectToSearchFragment() {
-
-    }
-
-    @Override
-    public void onOperatorTravelChoose(final OperatorTravel operatorTravel) {
-        final double tmpLat = departureMap.getCameraPosition().target.latitude;
-        final double tmpLon = departureMap.getCameraPosition().target.longitude;
-        Log.v("Location", departureMap.getCameraPosition().target.toString());
-        setLoadingDialog(true, "Tunggu sebentar...");
-
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                List<Address> addresses = null;
-                try {
-                    Locale indonesia = new Locale("in", "ID");
-                    addresses = new Geocoder(activity, indonesia).getFromLocation(tmpLat, tmpLon, 1);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                if (addresses != null) {
-                    for (Address address : addresses) {
-                        Log.v("Address", address.toString());
-                    }
-                    if (addresses.get(0) != null) {
-                        Address address = addresses.get(0);
-                        Intent intent = new Intent();
-                        intent.putExtra("latitude", address.getLatitude()); // Double
-                        intent.putExtra("longitude", address.getLongitude()); // Double
-                        intent.putExtra("thoroughfare", address.getThoroughfare());
-                        intent.putExtra("locality", address.getLocality());
-                        intent.putExtra("sub_admin", address.getSubAdminArea());
-                        intent.putExtra("admin", address.getAdminArea());
-                        intent.putExtra("id_operator_travel", operatorTravel.getId());
-                        setLoadingDialog(false, null);
-                        activity.setResult(ConstantUtils.REQUEST_RESULT_SUCCESS, intent);
-                        activity.finish();
-                    }
-                } else {
-                    showToast(ConstantUtils.STATUS_ERROR, "Gagal mendapatkan lokasi");
-                }
-                setLoadingDialog(false, null);
-            }
-        };
-        new Thread(runnable).start();
 
     }
 }
