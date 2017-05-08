@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +14,7 @@ import android.widget.EditText;
 import com.irfankhoirul.apps.tatravel.MainActivity;
 import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.core.base.BaseFragment;
-import com.irfankhoirul.apps.tatravel.core.components.Session;
 import com.irfankhoirul.apps.tatravel.data.api.source.user.DaggerUserDataSourceComponent;
-import com.irfankhoirul.apps.tatravel.data.pojo.User;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -105,18 +99,13 @@ public class ProfileFragment extends BaseFragment<MainActivity> implements Profi
         title = "Profil";
     }
 
-//    @Override
-//    public void setPresenter() {
-//        mPresenter = new ProfilePresenter(this);
-//    }
-
     @Override
     public void showProfile() {
-        Log.v("ShowProfile", "Start");
+        // Todo : Check Session
+/*
         Session<User> session = Session.getInstance(activity, User.class);
         User user = session.getSessionData();
         if (user != null) {
-            Log.v("ShowProfile", "UserIsNotNull");
             if (user.getNama() != null)
                 etName.setText(user.getNama());
             else
@@ -141,22 +130,23 @@ public class ProfileFragment extends BaseFragment<MainActivity> implements Profi
                 etProvince.setText(user.getProvinsi().getNama());
             else
                 etProvince.setText("-");
-        } else {
-            Log.v("ShowProfile", "UserIsNull");
         }
+*/
     }
 
     @Override
     public void redirectToLoginOrRegister() {
-        Session.destroy(activity);
-        listener.onLogoutSuccess();
+        // Todo : Check Session
+//        Session.destroy(activity);
+//        listener.onLogoutSuccess();
     }
 
     public void doLogout() {
-        Session<User> session = Session.getInstance();
-        Map<String, String> param = new HashMap<>();
-        param.put("token", session.getSessionData().getUserToken().getToken());
-        mPresenter.logout(param);
+        // Todo : Check Session
+//        Session<User> session = Session.getInstance();
+//        Map<String, String> param = new HashMap<>();
+//        param.put("token", session.getSessionData().getUserToken().getToken());
+//        mPresenter.logout(param);
     }
 
     @Override

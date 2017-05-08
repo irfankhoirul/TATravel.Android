@@ -25,7 +25,7 @@ import static com.irfankhoirul.apps.tatravel.data.api.EndPoints.UPDATE_SCHEDULE_
  * Created by Irfan Khoirul on 3/11/2017.
  */
 
-public interface IJadwalPerjalananEndPoints {
+public interface IJadwalPerjalananUseCase {
 
     /**
      * Param

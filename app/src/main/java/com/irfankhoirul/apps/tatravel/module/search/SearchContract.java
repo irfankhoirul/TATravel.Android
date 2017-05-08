@@ -3,7 +3,6 @@ package com.irfankhoirul.apps.tatravel.module.search;
 import com.irfankhoirul.apps.tatravel.core.base.IBasePresenter;
 import com.irfankhoirul.apps.tatravel.core.base.IBaseView;
 import com.irfankhoirul.apps.tatravel.data.pojo.JadwalPerjalanan;
-import com.irfankhoirul.apps.tatravel.data.pojo.Lokasi;
 
 import java.util.List;
 
@@ -25,7 +24,6 @@ public interface SearchContract {
 
         void showSearchResult(List<JadwalPerjalanan> jadwalPerjalanan);
 
-        void updateLocationSpinner(List<Lokasi> lokasi);
     }
 
     interface Presenter extends IBasePresenter {

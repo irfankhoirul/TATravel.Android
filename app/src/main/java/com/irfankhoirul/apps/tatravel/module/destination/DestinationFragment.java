@@ -306,6 +306,7 @@ public class DestinationFragment extends BaseFragment<MainActivity> implements
     public void updateMap(List<Lokasi> locations) {
         destinationMap.clear();
         if (locations.size() > 0) {
+            showStatus(ConstantUtils.STATUS_INFO, "Operator Travel tersedia");
             btSetDestination.setEnabled(true);
             btSetDestination.setBackgroundColor(ContextCompat.getColor(activity, R.color.colorAccent));
             for (int i = 0; i < locations.size(); i++) {

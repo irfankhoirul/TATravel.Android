@@ -283,6 +283,7 @@ public class DepartureFragment extends BaseFragment<MainActivity> implements
         lokasiList = locations;
         departureMap.clear();
         if (locations.size() > 0) {
+            showStatus(ConstantUtils.STATUS_INFO, mPresenter.prepareOperatorTraveldata(locations).size() + " Operator Travel tersedia");
             btSetDeparture.setEnabled(true);
             btSetDeparture.setBackgroundColor(ContextCompat.getColor(activity, R.color.colorAccent));
             for (int i = 0; i < locations.size(); i++) {
@@ -296,7 +297,6 @@ public class DepartureFragment extends BaseFragment<MainActivity> implements
             btSetDeparture.setEnabled(false);
             btSetDeparture.setBackgroundColor(ContextCompat.getColor(activity, R.color.grey_300));
         }
-        Log.v("LocationSize", String.valueOf(locations.size()));
     }
 
     @Override

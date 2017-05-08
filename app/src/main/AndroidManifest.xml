@@ -59,6 +59,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".module.verification.VerifyActivity" />
+        <activity android:name=".module.passenger.PassengerActivity" />
 
         <receiver
             android:name=".core.components.receiver.SmsReceiver"

@@ -17,31 +17,31 @@ public class UserDataSource extends BaseRemoteDataSource {
 
     @Override
     public void setEndPoint() {
-        endPoint = retrofit.create(IUserEndPoints.class);
+        endPoint = retrofit.create(IUserUseCase.class);
     }
 
     public void registerWithPhoneNumber(IRequestResponseListener listener, Map<String, String> param) {
-        Call<DataResult> call = ((IUserEndPoints) endPoint).register(param);
+        Call<DataResult> call = ((IUserUseCase) endPoint).register(param);
         execute(call, listener);
     }
 
     public void verifyPhoneNumber(IRequestResponseListener<User> listener, Map<String, String> param) {
-        Call<DataResult<User>> call = ((IUserEndPoints) endPoint).verify(param);
+        Call<DataResult<User>> call = ((IUserUseCase) endPoint).verify(param);
         execute(call, listener);
     }
 
     public void login(IRequestResponseListener<User> listener, Map<String, String> param) {
-        Call<DataResult<User>> call = ((IUserEndPoints) endPoint).login(param);
+        Call<DataResult<User>> call = ((IUserUseCase) endPoint).login(param);
         execute(call, listener);
     }
 
     public void logout(IRequestResponseListener listener, Map<String, String> param) {
-        Call<DataResult> call = ((IUserEndPoints) endPoint).logout(param);
+        Call<DataResult> call = ((IUserUseCase) endPoint).logout(param);
         execute(call, listener);
     }
 
     public void updateFcmToken(IRequestResponseListener listener, Map<String, String> param) {
-        Call<DataResult> call = ((IUserEndPoints) endPoint).updateFcmToken(param);
+        Call<DataResult> call = ((IUserUseCase) endPoint).updateFcmToken(param);
         execute(call, listener);
     }
 

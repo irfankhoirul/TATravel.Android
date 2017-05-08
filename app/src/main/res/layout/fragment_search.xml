@@ -80,6 +80,7 @@
                     android:id="@+id/llDeparture"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/red_50"
                     android:clickable="true"
                     android:foreground="?android:selectableItemBackground"
                     android:orientation="horizontal"
@@ -116,7 +117,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Pilih Lokasi Keberangkatan"
-                            android:textColor="@color/font_black_primary"
+                            android:textColor="@color/font_black_disabled"
                             android:textSize="16sp" />
 
                     </LinearLayout>
@@ -133,6 +134,7 @@
                     android:id="@+id/llDestination"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/red_50"
                     android:clickable="true"
                     android:foreground="?android:selectableItemBackground"
                     android:orientation="horizontal"
@@ -169,7 +171,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Pilih Lokasi Tujuan"
-                            android:textColor="@color/font_black_primary"
+                            android:textColor="@color/font_black_disabled"
                             android:textSize="16sp" />
                     </LinearLayout>
 
@@ -182,8 +184,10 @@
                     android:background="@color/grey_500" />
 
                 <LinearLayout
+                    android:id="@+id/llDepartureDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/red_50"
                     android:clickable="true"
                     android:foreground="?android:selectableItemBackground"
                     android:orientation="horizontal"
@@ -220,7 +224,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Pilih Tanggal Keberangkatan"
-                            android:textColor="@color/font_black_primary"
+                            android:textColor="@color/font_black_disabled"
                             android:textSize="16sp" />
                     </LinearLayout>
 
@@ -241,7 +245,7 @@
                     android:orientation="horizontal">
 
                     <Switch
-                        android:id="@+id/switch1"
+                        android:id="@+id/swPulangPergi"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:switchPadding="16dp" />
@@ -261,12 +265,15 @@
                     android:background="@color/grey_500" />
 
                 <LinearLayout
+                    android:id="@+id/llReturnDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/red_50"
                     android:clickable="true"
                     android:foreground="?android:selectableItemBackground"
                     android:orientation="horizontal"
-                    android:padding="8dp">
+                    android:padding="8dp"
+                    android:visibility="gone">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -299,7 +306,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Pilih Tanggal Kepulangan"
-                            android:textColor="@color/font_black_primary"
+                            android:textColor="@color/font_black_disabled"
                             android:textSize="16sp" />
 
                     </LinearLayout>
@@ -313,8 +320,10 @@
                     android:background="@color/grey_500" />
 
                 <LinearLayout
+                    android:id="@+id/llPassenger"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/red_50"
                     android:clickable="true"
                     android:foreground="?android:selectableItemBackground"
                     android:orientation="horizontal"
@@ -346,7 +355,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Tambahkan Penumpang"
-                            android:textColor="@color/font_black_primary"
+                            android:textColor="@color/font_black_disabled"
                             android:textSize="16sp" />
 
                     </LinearLayout>

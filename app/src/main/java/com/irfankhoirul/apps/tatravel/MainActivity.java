@@ -1,9 +1,7 @@
 package com.irfankhoirul.apps.tatravel;
 
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.PopupMenu;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -11,7 +9,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.irfankhoirul.apps.tatravel.core.base.BaseActivity;
-import com.irfankhoirul.apps.tatravel.core.components.Session;
 import com.irfankhoirul.apps.tatravel.module.departure.DepartureFragment;
 import com.irfankhoirul.apps.tatravel.module.search.SearchFragment;
 import com.irfankhoirul.apps.tatravel.module.user.LoginOrRegisterFragment;
@@ -115,6 +112,8 @@ public class MainActivity extends BaseActivity implements
 
     @OnClick(R.id.llProfile)
     public void llProfile() {
+        // Todo : Check Session
+/*
         if (!(currentFragment instanceof ProfileFragment)) {
             if (Session.getInstance() != null && Session.getInstance().getSessionData() != null) {
                 // Load profile
@@ -163,6 +162,7 @@ public class MainActivity extends BaseActivity implements
             ivProfile.setColorFilter(ContextCompat.getColor(this, R.color.colorPrimary));
             tvProfile.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
         }
+*/
     }
 
     public void resetIconColor() {

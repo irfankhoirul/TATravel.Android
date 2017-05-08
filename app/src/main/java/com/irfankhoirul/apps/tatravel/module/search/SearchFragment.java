@@ -1,12 +1,15 @@
 package com.irfankhoirul.apps.tatravel.module.search;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -19,17 +22,22 @@ import com.irfankhoirul.apps.tatravel.MainActivity;
 import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.core.base.BaseFragment;
 import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
+import com.irfankhoirul.apps.tatravel.core.components.util.DateUtils;
 import com.irfankhoirul.apps.tatravel.core.components.util.DisplayMetricUtils;
+import com.irfankhoirul.apps.tatravel.data.locale.cart.Cart;
 import com.irfankhoirul.apps.tatravel.data.pojo.JadwalPerjalanan;
-import com.irfankhoirul.apps.tatravel.data.pojo.Lokasi;
 import com.irfankhoirul.apps.tatravel.module.departure.DepartureActivity;
 import com.irfankhoirul.apps.tatravel.module.destination.DestinationActivity;
+import com.irfankhoirul.apps.tatravel.module.passenger.PassengerActivity;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 
 /**
@@ -43,6 +51,8 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
     SliderLayout sliderPromotion;
     @BindView(R.id.llDeparture)
     LinearLayout llDeparture;
+    @BindView(R.id.llDestination)
+    LinearLayout llDestination;
     @BindView(R.id.tvDeparture)
     TextView tvDeparture;
     @BindView(R.id.tvDestination)
@@ -51,6 +61,12 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
     TextView tvDateGo;
     @BindView(R.id.tvPassenger)
     TextView tvPassenger;
+    @BindView(R.id.llDepartureDate)
+    LinearLayout llDepartureDate;
+    @BindView(R.id.llReturnDate)
+    LinearLayout llReturnDate;
+    @BindView(R.id.llPassenger)
+    LinearLayout llPassenger;
 
     private int idOperatorTravelDeparture;
     private double departureLatitude;
@@ -58,6 +74,7 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
     private double destinationLatitude;
     private double destinationLongitude;
     private SearchPresenter searchPresenter;
+    private Cart cart;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -73,6 +90,7 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         unbinder = ButterKnife.bind(this, view);
+        cart = new Cart(activity);
 
         searchPresenter = new SearchPresenter(this);
 
@@ -158,21 +176,6 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
         }
     }
 
-    @Override
-    public void updateLocationSpinner(List<Lokasi> lokasi) {
-        if (lokasi != null) {
-            if (lokasi.size() > 0) {
-                for (int i = 0; i < lokasi.size(); i++) {
-                    Log.v("DataLokasi[" + i + "]", lokasi.get(i).toString());
-                }
-            } else {
-                Log.v("DataLokasi", "isEmpty");
-            }
-        } else {
-            Log.v("DataLokasi", "isNull");
-        }
-    }
-
     @OnClick(R.id.llDeparture)
     public void llDeparture() {
         Intent intent = new Intent(activity, DepartureActivity.class);
@@ -181,10 +184,47 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
 
     @OnClick(R.id.llDestination)
     public void llDestination() {
-        Intent intent = new Intent(activity, DestinationActivity.class);
-        intent.putExtra("id_operator_travel", idOperatorTravelDeparture);
-        Log.v("id_operator_travel", String.valueOf(idOperatorTravelDeparture));
-        startActivityForResult(intent, ConstantUtils.ACTIVITY_REQUEST_CODE_DESTINATION);
+        if (cart.getDeparture() != null) {
+            Intent intent = new Intent(activity, DestinationActivity.class);
+            intent.putExtra("id_operator_travel", idOperatorTravelDeparture);
+            startActivityForResult(intent, ConstantUtils.ACTIVITY_REQUEST_CODE_DESTINATION);
+        } else {
+            showStatus(ConstantUtils.STATUS_ERROR, "Anda belum memilih lokasi keberangkatan");
+        }
+    }
+
+    @OnClick(R.id.llDepartureDate)
+    public void llDepartureDate() {
+        if (cart.getDestination() != null) {
+            final Calendar newCalendar = Calendar.getInstance();
+            DatePickerDialog fromDatePickerDialog = new DatePickerDialog(activity, new DatePickerDialog.OnDateSetListener() {
+                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                    Calendar selectedDate = Calendar.getInstance();
+                    selectedDate.set(year, monthOfYear, dayOfMonth);
+                    newCalendar.setTimeInMillis(selectedDate.getTimeInMillis());
+                    tvDateGo.setText(DateUtils.getStandardDayFormat(selectedDate.getTimeInMillis()));
+                    tvDateGo.setTextColor(ContextCompat.getColor(activity, R.color.font_black_primary));
+                }
+            }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+            fromDatePickerDialog.show();
+        } else {
+            showStatus(ConstantUtils.STATUS_ERROR, "Anda belum memilih lokasi tujuan");
+        }
+    }
+
+    @OnCheckedChanged(R.id.swPulangPergi)
+    public void swPulangPergi(boolean isChecked) {
+        if (isChecked) {
+            llReturnDate.setVisibility(View.VISIBLE);
+        } else {
+            llReturnDate.setVisibility(View.GONE);
+        }
+    }
+
+    @OnClick(R.id.llPassenger)
+    public void llPassenger() {
+        Intent intent = new Intent(activity, PassengerActivity.class);
+        startActivityForResult(intent, ConstantUtils.ACTIVITY_REQUEST_CODE_PASSENGER);
     }
 
     @Override
@@ -195,16 +235,29 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
                     data.getStringExtra("locality") + ", " +
                     data.getStringExtra("sub_admin");
             tvDeparture.setText(departureLocation);
-            departureLatitude = data.getDoubleExtra("departureLatitude", 0);
-            departureLongitude = data.getDoubleExtra("departureLongitude", 0);
-            idOperatorTravelDeparture = data.getIntExtra("id_operator_travel", -1);
+            tvDeparture.setTextColor(ContextCompat.getColor(activity, R.color.font_black_primary));
+            llDeparture.setBackgroundColor(ContextCompat.getColor(activity, R.color.pure_white));
+
+            Map<String, String> departureData = new HashMap<>();
+            departureData.put("address", departureLocation);
+            departureData.put("latitude", String.valueOf(data.getDoubleExtra("departureLatitude", 0)));
+            departureData.put("longitude", String.valueOf(data.getDoubleExtra("departureLongitude", 0)));
+            departureData.put("operatorTravelId", String.valueOf(data.getIntExtra("id_operator_travel", -1)));
+            cart.setDeparture(departureData);
+
+            llDestination.setBackgroundColor(ContextCompat.getColor(activity, R.color.red_50));
+            tvDestination.setText("Pilih Lokasi Tujuan");
+            tvDestination.setTextColor(ContextCompat.getColor(activity, R.color.font_black_disabled));
+            destinationLatitude = destinationLongitude = 0;
         } else if (requestCode == ConstantUtils.ACTIVITY_REQUEST_CODE_DESTINATION && resultCode == ConstantUtils.REQUEST_RESULT_SUCCESS) {
             String destinationLocation = data.getStringExtra("thoroughfare") + ",  " +
                     data.getStringExtra("locality") + ", " +
                     data.getStringExtra("sub_admin");
             tvDestination.setText(destinationLocation);
+            tvDestination.setTextColor(ContextCompat.getColor(activity, R.color.font_black_primary));
             destinationLatitude = data.getDoubleExtra("departureLatitude", 0);
             destinationLongitude = data.getDoubleExtra("departureLongitude", 0);
+            llDestination.setBackgroundColor(ContextCompat.getColor(activity, R.color.pure_white));
         }
     }
 
@@ -215,11 +268,11 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
 
     @Override
     public void setLoadingDialog(boolean isLoading, @Nullable String message) {
-
+        super.setLoadingDialog(isLoading, message);
     }
 
     @Override
     public void showStatus(int type, String message) {
-
+        super.showStatus(type, message);
     }
 }

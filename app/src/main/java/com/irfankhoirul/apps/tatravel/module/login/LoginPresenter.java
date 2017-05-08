@@ -18,11 +18,13 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     private final LoginContract.View view;
     private final UserDataSource userDataSource;
+//    private final Session session;
 
     @Inject
-    public LoginPresenter(UserDataSource userDataSource, LoginContract.View view) {
+    public LoginPresenter(/*Session session,*/ UserDataSource userDataSource, LoginContract.View view) {
         this.view = view;
         this.userDataSource = userDataSource;
+//        this.session = session;
     }
 
     @Inject

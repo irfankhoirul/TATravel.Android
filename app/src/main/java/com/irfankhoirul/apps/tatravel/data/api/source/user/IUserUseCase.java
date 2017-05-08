@@ -24,7 +24,7 @@ import static com.irfankhoirul.apps.tatravel.data.api.EndPoints.UPDATE_PROFILE;
  * Created by Irfan Khoirul on 3/11/2017.
  */
 
-public interface IUserEndPoints {
+public interface IUserUseCase {
 
     /**
      * Param :

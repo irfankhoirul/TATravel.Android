@@ -8,11 +8,10 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.irfankhoirul.apps.tatravel.core.components.Session;
 import com.irfankhoirul.apps.tatravel.core.data.DataResult;
 import com.irfankhoirul.apps.tatravel.core.data.IRequestResponseListener;
 import com.irfankhoirul.apps.tatravel.data.api.source.user.UserDataSource;
-import com.irfankhoirul.apps.tatravel.data.pojo.User;
+import com.irfankhoirul.apps.tatravel.data.locale.session.Session;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +21,7 @@ public class RegistrationFCMIntentService extends IntentService {
     public static final String SENT_TOKEN_TO_SERVER = "sentTokenToServer";
     public static final String REGISTRATION_COMPLETE = "registrationComplete";
     private static final String TAG = "RegIntentService";
-    private Session<User> session;
+    private Session session;
 
     public RegistrationFCMIntentService() {
         super(TAG);
@@ -31,7 +30,8 @@ public class RegistrationFCMIntentService extends IntentService {
     @Override
     public void onCreate() {
         super.onCreate();
-        session = Session.getInstance(getApplicationContext(), User.class);
+        // Todo : Check Session
+//        session = Session.getInstance(getApplicationContext(), User.class);
     }
 
     @Override

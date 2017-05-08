@@ -15,10 +15,8 @@ import android.widget.EditText;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.utility.RegexTemplate;
-import com.google.firebase.iid.FirebaseInstanceId;
 import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.core.base.BaseFragment;
-import com.irfankhoirul.apps.tatravel.core.components.Session;
 import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.data.pojo.User;
 
@@ -69,12 +67,16 @@ public class VerifyFragment extends BaseFragment<VerifyActivity> implements Veri
 
     @Override
     public Map<String, String> setFcmTokenData(User user) {
+        // Todo : Check Session
+/*
         Session<User> session = Session.initialize(activity, user);
         Map<String, String> params = new HashMap<>();
         params.put("token", session.getSessionData().getUserToken().getToken());
         params.put("FCMToken", FirebaseInstanceId.getInstance().getToken());
 
         return params;
+*/
+        return null;
     }
 
     @Override

@@ -17,16 +17,16 @@ public class JadwalPerjalananDataSource extends BaseRemoteDataSource {
 
     @Override
     public void setEndPoint() {
-        endPoint = retrofit.create(IJadwalPerjalananEndPoints.class);
+        endPoint = retrofit.create(IJadwalPerjalananUseCase.class);
     }
 
     public void getDepartureAvailability(IRequestResponseListener listener, Map<String, String> param) {
-        Call<DataResult<Lokasi>> call = ((IJadwalPerjalananEndPoints) endPoint).getDepartureAvailability(param);
+        Call<DataResult<Lokasi>> call = ((IJadwalPerjalananUseCase) endPoint).getDepartureAvailability(param);
         execute(call, listener);
     }
 
     public void getDestinationAvailability(IRequestResponseListener listener, Map<String, String> param) {
-        Call<DataResult<Lokasi>> call = ((IJadwalPerjalananEndPoints) endPoint).getDestinationAvailability(param);
+        Call<DataResult<Lokasi>> call = ((IJadwalPerjalananUseCase) endPoint).getDestinationAvailability(param);
         execute(call, listener);
     }
 
