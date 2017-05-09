@@ -4,7 +4,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.core.data.DataResult;
 import com.irfankhoirul.apps.tatravel.core.data.IRequestResponseListener;
-import com.irfankhoirul.apps.tatravel.data.api.source.user.UserDataSource;
+import com.irfankhoirul.apps.tatravel.data.api.source.user.UserRepository;
 import com.irfankhoirul.apps.tatravel.data.locale.session.SessionRepository;
 import com.irfankhoirul.apps.tatravel.data.pojo.User;
 
@@ -20,13 +20,13 @@ import javax.inject.Inject;
 public class LoginPresenter implements LoginContract.Presenter {
 
     private final LoginContract.View view;
-    private final UserDataSource userDataSource;
+    private final UserRepository userRepository;
     private final SessionRepository sessionRepository;
 
     @Inject
-    public LoginPresenter(SessionRepository sessionRepository, UserDataSource userDataSource, LoginContract.View view) {
+    public LoginPresenter(SessionRepository sessionRepository, UserRepository userRepository, LoginContract.View view) {
         this.view = view;
-        this.userDataSource = userDataSource;
+        this.userRepository = userRepository;
         this.sessionRepository = sessionRepository;
     }
 
@@ -48,7 +48,7 @@ public class LoginPresenter implements LoginContract.Presenter {
     @Override
     public void login(Map<String, String> param) {
         view.setLoadingDialog(true, "Login");
-        userDataSource.login(new IRequestResponseListener<User>() {
+        userRepository.login(new IRequestResponseListener<User>() {
             @Override
             public void onSuccess(DataResult<User> result) {
                 if (result.getCode() == ConstantUtils.REQUEST_RESULT_SUCCESS) {
@@ -76,7 +76,7 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public void updateFcmToken(Map<String, String> param) {
-        userDataSource.updateFcmToken(new IRequestResponseListener<User>() {
+        userRepository.updateFcmToken(new IRequestResponseListener<User>() {
             @Override
             public void onSuccess(DataResult<User> result) {
                 view.setLoadingDialog(false, null);

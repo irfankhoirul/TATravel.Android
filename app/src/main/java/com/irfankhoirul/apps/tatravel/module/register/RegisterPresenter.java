@@ -3,7 +3,7 @@ package com.irfankhoirul.apps.tatravel.module.register;
 import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.core.data.DataResult;
 import com.irfankhoirul.apps.tatravel.core.data.IRequestResponseListener;
-import com.irfankhoirul.apps.tatravel.data.api.source.user.UserDataSource;
+import com.irfankhoirul.apps.tatravel.data.api.source.user.UserRepository;
 
 import java.util.Map;
 
@@ -16,12 +16,12 @@ import javax.inject.Inject;
 public class RegisterPresenter implements RegisterContract.Presenter {
 
     private final RegisterContract.View view;
-    private final UserDataSource userDataSource;
+    private final UserRepository userRepository;
 
     @Inject
-    public RegisterPresenter(UserDataSource userDataSource, RegisterContract.View view) {
+    public RegisterPresenter(UserRepository userRepository, RegisterContract.View view) {
         this.view = view;
-        this.userDataSource = userDataSource;
+        this.userRepository = userRepository;
     }
 
     @Inject
@@ -37,7 +37,7 @@ public class RegisterPresenter implements RegisterContract.Presenter {
     @Override
     public void register(Map<String, String> param) {
         view.setLoadingDialog(true, "Sedang melakukan registrasi");
-        userDataSource.registerWithPhoneNumber(new IRequestResponseListener() {
+        userRepository.registerWithPhoneNumber(new IRequestResponseListener() {
             @Override
             public void onSuccess(DataResult result) {
                 view.setLoadingDialog(false, null);

@@ -13,35 +13,40 @@ import retrofit2.Call;
  * Created by Irfan Khoirul on 3/11/2017.
  */
 
-public class UserDataSource extends BaseRemoteDataSource {
+public class UserDataSource extends BaseRemoteDataSource implements UserRepository {
 
     @Override
     public void setEndPoint() {
-        endPoint = retrofit.create(IUserUseCase.class);
+        endPoint = retrofit.create(IUserEndPoints.class);
     }
 
+    @Override
     public void registerWithPhoneNumber(IRequestResponseListener listener, Map<String, String> param) {
-        Call<DataResult> call = ((IUserUseCase) endPoint).register(param);
+        Call<DataResult> call = ((IUserEndPoints) endPoint).register(param);
         execute(call, listener);
     }
 
+    @Override
     public void verifyPhoneNumber(IRequestResponseListener<User> listener, Map<String, String> param) {
-        Call<DataResult<User>> call = ((IUserUseCase) endPoint).verify(param);
+        Call<DataResult<User>> call = ((IUserEndPoints) endPoint).verify(param);
         execute(call, listener);
     }
 
+    @Override
     public void login(IRequestResponseListener<User> listener, Map<String, String> param) {
-        Call<DataResult<User>> call = ((IUserUseCase) endPoint).login(param);
+        Call<DataResult<User>> call = ((IUserEndPoints) endPoint).login(param);
         execute(call, listener);
     }
 
+    @Override
     public void logout(IRequestResponseListener listener, Map<String, String> param) {
-        Call<DataResult> call = ((IUserUseCase) endPoint).logout(param);
+        Call<DataResult> call = ((IUserEndPoints) endPoint).logout(param);
         execute(call, listener);
     }
 
+    @Override
     public void updateFcmToken(IRequestResponseListener listener, Map<String, String> param) {
-        Call<DataResult> call = ((IUserUseCase) endPoint).updateFcmToken(param);
+        Call<DataResult> call = ((IUserEndPoints) endPoint).updateFcmToken(param);
         execute(call, listener);
     }
 

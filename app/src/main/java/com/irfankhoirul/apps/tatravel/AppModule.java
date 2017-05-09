@@ -3,6 +3,7 @@ package com.irfankhoirul.apps.tatravel;
 import android.content.Context;
 
 import com.irfankhoirul.apps.tatravel.data.api.source.user.UserDataSource;
+import com.irfankhoirul.apps.tatravel.data.api.source.user.UserRepository;
 import com.irfankhoirul.apps.tatravel.data.locale.session.Session;
 import com.irfankhoirul.apps.tatravel.data.locale.session.SessionRepository;
 
@@ -39,7 +40,7 @@ public final class AppModule {
 
     @Singleton
     @Provides
-    UserDataSource provideUserDataSource() {
+    UserRepository provideUserRepository() {
         return new UserDataSource();
     }
 }

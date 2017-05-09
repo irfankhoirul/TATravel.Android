@@ -1,6 +1,6 @@
 package com.irfankhoirul.apps.tatravel;
 
-import com.irfankhoirul.apps.tatravel.data.api.source.user.UserDataSource;
+import com.irfankhoirul.apps.tatravel.data.api.source.user.UserRepository;
 import com.irfankhoirul.apps.tatravel.data.locale.session.SessionRepository;
 
 import javax.inject.Singleton;
@@ -18,5 +18,5 @@ public interface AppComponent {
 
     SessionRepository session();
 
-    UserDataSource userdataSource();
+    UserRepository userRepository();
 }

@@ -30,8 +30,7 @@ public class RegistrationFCMIntentService extends IntentService {
     @Override
     public void onCreate() {
         super.onCreate();
-        // Todo : Check Session
-//        session = Session.getInstance(getApplicationContext(), User.class);
+        session = new Session(this);
     }
 
     @Override

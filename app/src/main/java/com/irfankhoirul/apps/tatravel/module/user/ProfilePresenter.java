@@ -3,7 +3,7 @@ package com.irfankhoirul.apps.tatravel.module.user;
 import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.core.data.DataResult;
 import com.irfankhoirul.apps.tatravel.core.data.IRequestResponseListener;
-import com.irfankhoirul.apps.tatravel.data.api.source.user.UserDataSource;
+import com.irfankhoirul.apps.tatravel.data.api.source.user.UserRepository;
 import com.irfankhoirul.apps.tatravel.data.locale.session.SessionRepository;
 import com.irfankhoirul.apps.tatravel.data.pojo.User;
 
@@ -18,13 +18,13 @@ import javax.inject.Inject;
 public class ProfilePresenter implements ProfileContract.Presenter {
 
     private final ProfileContract.View view;
-    private final UserDataSource userDataSource;
+    private final UserRepository userRepository;
     private final SessionRepository sessionRepository;
 
     @Inject
-    public ProfilePresenter(SessionRepository sessionRepository, UserDataSource userDataSource, ProfileContract.View view) {
+    public ProfilePresenter(SessionRepository sessionRepository, UserRepository userRepository, ProfileContract.View view) {
         this.view = view;
-        this.userDataSource = userDataSource;
+        this.userRepository = userRepository;
         this.sessionRepository = sessionRepository;
     }
 
@@ -52,7 +52,7 @@ public class ProfilePresenter implements ProfileContract.Presenter {
     @Override
     public void logout(Map<String, String> param) {
         view.setLoadingDialog(true, "Logout");
-        userDataSource.logout(new IRequestResponseListener() {
+        userRepository.logout(new IRequestResponseListener() {
             @Override
             public void onSuccess(DataResult result) {
                 view.setLoadingDialog(false, null);

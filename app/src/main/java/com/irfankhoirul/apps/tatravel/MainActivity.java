@@ -73,12 +73,6 @@ public class MainActivity extends BaseActivity implements
     protected void initializeFragment() {
         currentFragment = new SearchFragment();
         setCurrentFragment(currentFragment, false);
-
-        profileFragment = new ProfileFragment();
-        DaggerProfileComponent.builder()
-                .profilePresenterModule(new ProfilePresenterModule(profileFragment))
-                .appComponent(((TAApplication) getApplication()).getAppComponent())
-                .build().inject(this);
     }
 
     @Override
@@ -121,6 +115,14 @@ public class MainActivity extends BaseActivity implements
 
     @OnClick(R.id.llProfile)
     public void llProfile() {
+        if (profileFragment == null) {
+            profileFragment = new ProfileFragment();
+            DaggerProfileComponent.builder()
+                    .profilePresenterModule(new ProfilePresenterModule(profileFragment))
+                    .appComponent(((TAApplication) getApplication()).getAppComponent())
+                    .build().inject(this);
+        }
+
         if (!(currentFragment instanceof ProfileFragment)) {
             if (profilePresenter.getSessionData() != null) {
                 // Load profile

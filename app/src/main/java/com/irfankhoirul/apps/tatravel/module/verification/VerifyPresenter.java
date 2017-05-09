@@ -4,7 +4,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.core.data.DataResult;
 import com.irfankhoirul.apps.tatravel.core.data.IRequestResponseListener;
-import com.irfankhoirul.apps.tatravel.data.api.source.user.UserDataSource;
+import com.irfankhoirul.apps.tatravel.data.api.source.user.UserRepository;
 import com.irfankhoirul.apps.tatravel.data.locale.session.SessionRepository;
 import com.irfankhoirul.apps.tatravel.data.pojo.User;
 
@@ -20,13 +20,13 @@ import javax.inject.Inject;
 public class VerifyPresenter implements VerifyContract.Presenter {
 
     private final VerifyContract.View view;
-    private final UserDataSource userDataSource;
+    private final UserRepository userRepository;
     private final SessionRepository sessionRepository;
 
     @Inject
-    public VerifyPresenter(SessionRepository sessionRepository, UserDataSource userDataSource, VerifyContract.View view) {
+    public VerifyPresenter(SessionRepository sessionRepository, UserRepository userRepository, VerifyContract.View view) {
         this.view = view;
-        this.userDataSource = userDataSource;
+        this.userRepository = userRepository;
         this.sessionRepository = sessionRepository;
     }
 
@@ -53,7 +53,7 @@ public class VerifyPresenter implements VerifyContract.Presenter {
     @Override
     public void verify(Map<String, String> param) {
         view.setLoadingDialog(true, "Sedang melakukan verifikasi");
-        userDataSource.verifyPhoneNumber(new IRequestResponseListener<User>() {
+        userRepository.verifyPhoneNumber(new IRequestResponseListener<User>() {
             @Override
             public void onSuccess(DataResult<User> result) {
                 if (result.getCode() == ConstantUtils.REQUEST_RESULT_SUCCESS) {
@@ -81,7 +81,7 @@ public class VerifyPresenter implements VerifyContract.Presenter {
 
     @Override
     public void updateFcmToken(Map<String, String> param) {
-        userDataSource.updateFcmToken(new IRequestResponseListener<User>() {
+        userRepository.updateFcmToken(new IRequestResponseListener<User>() {
             @Override
             public void onSuccess(DataResult<User> result) {
                 view.setLoadingDialog(false, null);
