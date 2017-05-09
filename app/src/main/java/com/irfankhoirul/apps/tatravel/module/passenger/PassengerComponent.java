@@ -1,7 +1,7 @@
 package com.irfankhoirul.apps.tatravel.module.passenger;
 
 import com.irfankhoirul.apps.tatravel.core.components.FragmentScoped;
-import com.irfankhoirul.apps.tatravel.data.api.source.passenger.PassengerDataSourceComponent;
+import com.irfankhoirul.apps.tatravel.data.source.remote.source.passenger.PassengerDataSourceComponent;
 
 import dagger.Component;
 

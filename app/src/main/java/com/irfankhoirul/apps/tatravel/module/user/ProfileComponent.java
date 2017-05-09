@@ -1,7 +1,7 @@
 package com.irfankhoirul.apps.tatravel.module.user;
 
-import com.irfankhoirul.apps.tatravel.AppComponent;
-import com.irfankhoirul.apps.tatravel.MainActivity;
+import com.irfankhoirul.apps.tatravel.core.activity.MainActivity;
+import com.irfankhoirul.apps.tatravel.core.app.AppComponent;
 import com.irfankhoirul.apps.tatravel.core.components.FragmentScoped;
 
 import dagger.Component;

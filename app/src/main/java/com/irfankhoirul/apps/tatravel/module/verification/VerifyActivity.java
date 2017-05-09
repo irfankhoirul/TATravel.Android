@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.irfankhoirul.apps.tatravel.TAApplication;
+import com.irfankhoirul.apps.tatravel.core.app.TAApplication;
 import com.irfankhoirul.apps.tatravel.core.base.BaseFragmentHolderActivity;
 import com.irfankhoirul.apps.tatravel.core.components.receiver.SmsReceiver;
 

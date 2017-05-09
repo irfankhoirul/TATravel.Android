@@ -1,6 +1,6 @@
 package com.irfankhoirul.apps.tatravel.module.verification;
 
-import com.irfankhoirul.apps.tatravel.AppComponent;
+import com.irfankhoirul.apps.tatravel.core.app.AppComponent;
 import com.irfankhoirul.apps.tatravel.core.components.FragmentScoped;
 
 import dagger.Component;

@@ -1,7 +1,7 @@
 package com.irfankhoirul.apps.tatravel.module.departure;
 
 import com.irfankhoirul.apps.tatravel.core.components.FragmentScoped;
-import com.irfankhoirul.apps.tatravel.data.api.source.jadwal.JadwalPerjalananDataSourceComponent;
+import com.irfankhoirul.apps.tatravel.data.source.remote.source.jadwal.JadwalPerjalananDataSourceComponent;
 
 import dagger.Component;
 

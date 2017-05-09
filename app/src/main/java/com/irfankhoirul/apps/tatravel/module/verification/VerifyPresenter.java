@@ -4,9 +4,9 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.core.data.DataResult;
 import com.irfankhoirul.apps.tatravel.core.data.IRequestResponseListener;
-import com.irfankhoirul.apps.tatravel.data.api.source.user.UserRepository;
-import com.irfankhoirul.apps.tatravel.data.locale.session.SessionRepository;
 import com.irfankhoirul.apps.tatravel.data.pojo.User;
+import com.irfankhoirul.apps.tatravel.data.source.locale.session.SessionRepository;
+import com.irfankhoirul.apps.tatravel.data.source.remote.source.user.UserRepository;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,7 +1,7 @@
 package com.irfankhoirul.apps.tatravel.module.departure;
 
 import com.irfankhoirul.apps.tatravel.core.base.BaseFragmentHolderActivity;
-import com.irfankhoirul.apps.tatravel.data.api.source.jadwal.DaggerJadwalPerjalananDataSourceComponent;
+import com.irfankhoirul.apps.tatravel.data.source.remote.source.jadwal.DaggerJadwalPerjalananDataSourceComponent;
 
 import javax.inject.Inject;
 

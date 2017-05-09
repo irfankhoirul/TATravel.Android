@@ -1,8 +1,8 @@
 package com.irfankhoirul.apps.tatravel.module.login;
 
-import com.irfankhoirul.apps.tatravel.AppComponent;
+import com.irfankhoirul.apps.tatravel.core.app.AppComponent;
 import com.irfankhoirul.apps.tatravel.core.components.FragmentScoped;
-import com.irfankhoirul.apps.tatravel.data.locale.session.SessionRepository;
+import com.irfankhoirul.apps.tatravel.data.source.locale.session.SessionRepository;
 
 import dagger.Component;
 

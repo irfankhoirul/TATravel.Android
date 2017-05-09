@@ -3,8 +3,8 @@ package com.irfankhoirul.apps.tatravel.module.passenger;
 import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.core.data.DataResult;
 import com.irfankhoirul.apps.tatravel.core.data.IRequestResponseListener;
-import com.irfankhoirul.apps.tatravel.data.api.source.passenger.PassengerDataSource;
 import com.irfankhoirul.apps.tatravel.data.pojo.User;
+import com.irfankhoirul.apps.tatravel.data.source.remote.source.passenger.PassengerDataSource;
 
 import java.util.Map;
 

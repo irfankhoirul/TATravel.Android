@@ -3,9 +3,9 @@ package com.irfankhoirul.apps.tatravel.module.departure;
 import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.core.data.DataResult;
 import com.irfankhoirul.apps.tatravel.core.data.IRequestResponseListener;
-import com.irfankhoirul.apps.tatravel.data.api.source.jadwal.JadwalPerjalananDataSource;
 import com.irfankhoirul.apps.tatravel.data.pojo.Lokasi;
 import com.irfankhoirul.apps.tatravel.data.pojo.OperatorTravel;
+import com.irfankhoirul.apps.tatravel.data.source.remote.source.jadwal.JadwalPerjalananDataSource;
 
 import java.util.ArrayList;
 import java.util.HashMap;
