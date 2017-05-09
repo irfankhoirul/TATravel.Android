@@ -4,9 +4,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.irfankhoirul.apps.tatravel.TAApplication;
 import com.irfankhoirul.apps.tatravel.core.base.BaseFragmentHolderActivity;
 import com.irfankhoirul.apps.tatravel.core.components.receiver.SmsReceiver;
-import com.irfankhoirul.apps.tatravel.data.api.source.user.DaggerUserDataSourceComponent;
 
 import javax.inject.Inject;
 
@@ -31,9 +31,10 @@ public class VerifyActivity extends BaseFragmentHolderActivity {
     protected void initializeFragment() {
         VerifyFragment verifyFragment = VerifyFragment.newInstance(getIntent().getStringExtra("phone"));
         setCurrentFragment(verifyFragment, false);
+
         DaggerVerifyComponent.builder()
                 .verifyPresenterModule(new VerifyPresenterModule(verifyFragment))
-                .userDataSourceComponent(DaggerUserDataSourceComponent.builder().build())
+                .appComponent(((TAApplication) getApplication()).getAppComponent())
                 .build().inject(this);
     }
 }

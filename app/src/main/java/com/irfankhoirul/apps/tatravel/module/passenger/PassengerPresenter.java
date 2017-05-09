@@ -1,6 +1,10 @@
 package com.irfankhoirul.apps.tatravel.module.passenger;
 
+import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
+import com.irfankhoirul.apps.tatravel.core.data.DataResult;
+import com.irfankhoirul.apps.tatravel.core.data.IRequestResponseListener;
 import com.irfankhoirul.apps.tatravel.data.api.source.passenger.PassengerDataSource;
+import com.irfankhoirul.apps.tatravel.data.pojo.User;
 
 import java.util.Map;
 
@@ -28,33 +32,8 @@ public class PassengerPresenter implements PassengerContract.Presenter {
 
     @Override
     public void start() {
-//        loadPassenger();
-    }
 
-/*
-    public void loadPassenger() {
-        view.setLoadingDialog(true, "Login");
-        passengerDataSource.listPassenger(new IRequestResponseListener<User>() {
-            @Override
-            public void onSuccess(DataResult<User> result) {
-                if (result.getCode() == ConstantUtils.REQUEST_RESULT_SUCCESS) {
-                    Map<String, String> fcmParam = view.setFcmTokenData(result.getData());
-                    updateFcmToken(fcmParam);
-                    view.showStatus(ConstantUtils.STATUS_SUCCESS, result.getMessage());
-                } else {
-                    view.setLoadingDialog(false, null);
-                    view.showStatus(ConstantUtils.STATUS_ERROR, result.getMessage());
-                }
-            }
-
-            @Override
-            public void onFailure(Throwable throwable) {
-                view.setLoadingDialog(false, null);
-                view.showStatus(ConstantUtils.STATUS_ERROR, "Login gagal");
-            }
-        }, param);
     }
-*/
 
     @Override
     public void createPassenger(String userId, Map<String, String> param) {
@@ -73,6 +52,24 @@ public class PassengerPresenter implements PassengerContract.Presenter {
 
     @Override
     public void listPassenger(String userId, Map<String, String> param) {
+        view.setLoadingDialog(true, "Tunggu sebentar...");
+        passengerDataSource.listPassenger(new IRequestResponseListener<User>() {
+            @Override
+            public void onSuccess(DataResult<User> result) {
+                view.setLoadingDialog(false, null);
+                if (result.getCode() == ConstantUtils.REQUEST_RESULT_SUCCESS) {
 
+                } else {
+                    view.setLoadingDialog(false, null);
+                    view.showStatus(ConstantUtils.STATUS_ERROR, result.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                view.setLoadingDialog(false, null);
+                view.showStatus(ConstantUtils.STATUS_ERROR, "Terjadi kesalahan");
+            }
+        }, userId, param);
     }
 }

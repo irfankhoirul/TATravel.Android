@@ -37,7 +37,10 @@ public class Session implements SessionRepository {
     @Override
     public User getSessionData() {
         String sessionDataJson = sharedPref.getString(USER_TOKEN, null);
-        return new Gson().fromJson(sessionDataJson, User.class);
+        if (sessionDataJson != null) {
+            return new Gson().fromJson(sessionDataJson, User.class);
+        }
+        return null;
     }
 
     @Override

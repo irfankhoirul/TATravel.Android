@@ -1,7 +1,8 @@
 package com.irfankhoirul.apps.tatravel.module.login;
 
+import com.irfankhoirul.apps.tatravel.AppComponent;
 import com.irfankhoirul.apps.tatravel.core.components.FragmentScoped;
-import com.irfankhoirul.apps.tatravel.data.api.source.user.UserDataSourceComponent;
+import com.irfankhoirul.apps.tatravel.data.locale.session.SessionRepository;
 
 import dagger.Component;
 
@@ -9,8 +10,10 @@ import dagger.Component;
  * Created by Irfan Khoirul on 4/15/2017.
  */
 @FragmentScoped
-@Component(dependencies = UserDataSourceComponent.class, modules = LoginPresenterModule.class)
+@Component(dependencies = {AppComponent.class}, modules = LoginPresenterModule.class)
 public interface LoginComponent {
 
     void inject(LoginActivity loginActivity);
+
+    SessionRepository session();
 }

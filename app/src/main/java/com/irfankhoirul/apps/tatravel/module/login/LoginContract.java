@@ -12,12 +12,12 @@ import java.util.Map;
 
 public interface LoginContract {
     interface View extends IBaseView<Presenter> {
-        Map<String, String> setFcmTokenData(User user);
-
         void redirectToProfile();
     }
 
     interface Presenter extends IBasePresenter {
+        void initializeSession(User user);
+
         void login(Map<String, String> params);
 
         void updateFcmToken(Map<String, String> param);

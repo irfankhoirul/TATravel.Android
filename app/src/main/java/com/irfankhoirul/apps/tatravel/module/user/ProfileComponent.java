@@ -1,8 +1,8 @@
 package com.irfankhoirul.apps.tatravel.module.user;
 
+import com.irfankhoirul.apps.tatravel.AppComponent;
 import com.irfankhoirul.apps.tatravel.MainActivity;
 import com.irfankhoirul.apps.tatravel.core.components.FragmentScoped;
-import com.irfankhoirul.apps.tatravel.data.api.source.user.UserDataSourceComponent;
 
 import dagger.Component;
 
@@ -10,7 +10,7 @@ import dagger.Component;
  * Created by Irfan Khoirul on 4/15/2017.
  */
 @FragmentScoped
-@Component(dependencies = UserDataSourceComponent.class, modules = ProfilePresenterModule.class)
+@Component(dependencies = AppComponent.class, modules = ProfilePresenterModule.class)
 public interface ProfileComponent {
 
     void inject(MainActivity mainActivity);

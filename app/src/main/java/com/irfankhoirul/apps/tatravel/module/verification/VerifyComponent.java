@@ -1,7 +1,7 @@
 package com.irfankhoirul.apps.tatravel.module.verification;
 
+import com.irfankhoirul.apps.tatravel.AppComponent;
 import com.irfankhoirul.apps.tatravel.core.components.FragmentScoped;
-import com.irfankhoirul.apps.tatravel.data.api.source.user.UserDataSourceComponent;
 
 import dagger.Component;
 
@@ -9,7 +9,7 @@ import dagger.Component;
  * Created by Irfan Khoirul on 4/15/2017.
  */
 @FragmentScoped
-@Component(dependencies = UserDataSourceComponent.class, modules = VerifyPresenterModule.class)
+@Component(dependencies = AppComponent.class, modules = VerifyPresenterModule.class)
 public interface VerifyComponent {
 
     void inject(VerifyActivity verifyActivity);

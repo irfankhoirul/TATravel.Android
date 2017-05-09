@@ -1,11 +1,14 @@
 package com.irfankhoirul.apps.tatravel.module.login;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.core.data.DataResult;
 import com.irfankhoirul.apps.tatravel.core.data.IRequestResponseListener;
 import com.irfankhoirul.apps.tatravel.data.api.source.user.UserDataSource;
+import com.irfankhoirul.apps.tatravel.data.locale.session.SessionRepository;
 import com.irfankhoirul.apps.tatravel.data.pojo.User;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -18,13 +21,13 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     private final LoginContract.View view;
     private final UserDataSource userDataSource;
-//    private final Session session;
+    private final SessionRepository sessionRepository;
 
     @Inject
-    public LoginPresenter(/*Session session,*/ UserDataSource userDataSource, LoginContract.View view) {
+    public LoginPresenter(SessionRepository sessionRepository, UserDataSource userDataSource, LoginContract.View view) {
         this.view = view;
         this.userDataSource = userDataSource;
-//        this.session = session;
+        this.sessionRepository = sessionRepository;
     }
 
     @Inject
@@ -38,14 +41,24 @@ public class LoginPresenter implements LoginContract.Presenter {
     }
 
     @Override
+    public void initializeSession(User user) {
+        sessionRepository.initialize(user);
+    }
+
+    @Override
     public void login(Map<String, String> param) {
         view.setLoadingDialog(true, "Login");
         userDataSource.login(new IRequestResponseListener<User>() {
             @Override
             public void onSuccess(DataResult<User> result) {
                 if (result.getCode() == ConstantUtils.REQUEST_RESULT_SUCCESS) {
-                    Map<String, String> fcmParam = view.setFcmTokenData(result.getData());
-                    updateFcmToken(fcmParam);
+                    initializeSession(result.getData());
+
+                    Map<String, String> params = new HashMap<>();
+                    params.put("token", sessionRepository.getSessionData().getUserToken().getToken());
+                    params.put("FCMToken", FirebaseInstanceId.getInstance().getToken());
+
+                    updateFcmToken(params);
                     view.showStatus(ConstantUtils.STATUS_SUCCESS, result.getMessage());
                 } else {
                     view.setLoadingDialog(false, null);

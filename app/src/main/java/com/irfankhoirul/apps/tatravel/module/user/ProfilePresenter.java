@@ -4,6 +4,8 @@ import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.core.data.DataResult;
 import com.irfankhoirul.apps.tatravel.core.data.IRequestResponseListener;
 import com.irfankhoirul.apps.tatravel.data.api.source.user.UserDataSource;
+import com.irfankhoirul.apps.tatravel.data.locale.session.SessionRepository;
+import com.irfankhoirul.apps.tatravel.data.pojo.User;
 
 import java.util.Map;
 
@@ -17,11 +19,13 @@ public class ProfilePresenter implements ProfileContract.Presenter {
 
     private final ProfileContract.View view;
     private final UserDataSource userDataSource;
+    private final SessionRepository sessionRepository;
 
     @Inject
-    public ProfilePresenter(UserDataSource userDataSource, ProfileContract.View view) {
+    public ProfilePresenter(SessionRepository sessionRepository, UserDataSource userDataSource, ProfileContract.View view) {
         this.view = view;
         this.userDataSource = userDataSource;
+        this.sessionRepository = sessionRepository;
     }
 
     @Inject
@@ -33,6 +37,16 @@ public class ProfilePresenter implements ProfileContract.Presenter {
     public void start() {
         // Do Nothing; Tidak ada yg perlu dilakukan otomatis
         view.showProfile();
+    }
+
+    @Override
+    public User getSessionData() {
+        return sessionRepository.getSessionData();
+    }
+
+    @Override
+    public void destroySession() {
+        sessionRepository.destroy();
     }
 
     @Override

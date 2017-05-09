@@ -18,7 +18,6 @@ import com.basgeekball.awesomevalidation.utility.RegexTemplate;
 import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.core.base.BaseFragment;
 import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
-import com.irfankhoirul.apps.tatravel.data.pojo.User;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -63,20 +62,6 @@ public class VerifyFragment extends BaseFragment<VerifyActivity> implements Veri
         mPresenter.start();
 
         return fragmentView;
-    }
-
-    @Override
-    public Map<String, String> setFcmTokenData(User user) {
-        // Todo : Check Session
-/*
-        Session<User> session = Session.initialize(activity, user);
-        Map<String, String> params = new HashMap<>();
-        params.put("token", session.getSessionData().getUserToken().getToken());
-        params.put("FCMToken", FirebaseInstanceId.getInstance().getToken());
-
-        return params;
-*/
-        return null;
     }
 
     @Override
