@@ -10,7 +10,7 @@ import dagger.Component;
  * Created by Irfan Khoirul on 4/15/2017.
  */
 @FragmentScoped
-@Component(dependencies = {AppComponent.class}, modules = LoginPresenterModule.class)
+@Component(dependencies = AppComponent.class, modules = LoginPresenterModule.class)
 public interface LoginComponent {
 
     void inject(LoginActivity loginActivity);

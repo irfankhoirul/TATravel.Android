@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.data.source.remote.source.passenger;
+package com.irfankhoirul.apps.tatravel.data.source.remote.passenger;
 
 import com.irfankhoirul.apps.tatravel.core.data.DataResult;
 import com.irfankhoirul.apps.tatravel.data.pojo.Penumpang;
@@ -20,7 +20,7 @@ import static com.irfankhoirul.apps.tatravel.data.source.remote.EndPoints.UPDATE
  * Created by Irfan Khoirul on 3/11/2017.
  */
 
-public interface IPassengerUseCase {
+public interface IPassengerEndPoints {
 
     /**
      * Param
@@ -30,7 +30,7 @@ public interface IPassengerUseCase {
      */
     @FormUrlEncoded
     @POST(CREATE_PENUMPANG)
-    Call<DataResult> createPenumpang(@Path("userId") String userId, @FieldMap Map<String, String> param);
+    Call<DataResult> createPenumpang(@Path("userId") int userId, @FieldMap Map<String, String> param);
 
     /**
      * Param
@@ -40,15 +40,15 @@ public interface IPassengerUseCase {
      */
     @FormUrlEncoded
     @POST(UPDATE_PENUMPANG)
-    Call<DataResult> updatePenumpang(@Path("userId") String userId, @Path("id") String idPenumpang, @FieldMap Map<String, String> param);
+    Call<DataResult> updatePenumpang(@Path("userId") int userId, @Path("id") int idPenumpang, @FieldMap Map<String, String> param);
 
     /**
      * Param
-     * -
+     * - token
      */
     @FormUrlEncoded
     @POST(DELETE_PENUMPANG)
-    Call<DataResult> deletePenumpang(@Path("userId") String userId, @Path("id") String idPenumpang);
+    Call<DataResult> deletePenumpang(@Path("userId") int userId, @Path("id") int idPenumpang, @FieldMap Map<String, String> param);
 
     /**
      * Param
@@ -58,6 +58,6 @@ public interface IPassengerUseCase {
      */
     @FormUrlEncoded
     @POST(LIST_PENUMPANG)
-    Call<DataResult<Penumpang>> listPenumpang(@Path("userId") String userId, @FieldMap Map<String, String> param);
+    Call<DataResult<Penumpang>> listPenumpang(@Path("userId") int userId, @FieldMap Map<String, String> param);
 
 }

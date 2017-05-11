@@ -1,10 +1,5 @@
 package com.irfankhoirul.apps.tatravel.module.departure_old;
 
-import com.irfankhoirul.apps.tatravel.core.data.DataResult;
-import com.irfankhoirul.apps.tatravel.core.data.IRequestResponseListener;
-import com.irfankhoirul.apps.tatravel.data.pojo.Kota;
-import com.irfankhoirul.apps.tatravel.data.source.remote.source.SearchDataSource;
-
 /**
  * Created by Irfan Khoirul on 12/25/2016.
  */
@@ -33,24 +28,6 @@ public class CityDialogPresenter implements CityDialogContract.Presenter {
 
     @Override
     public void getCityData(int page) {
-        view.setProgressBarVisibility(true);
-        loadingData = true;
-        SearchDataSource repository = new SearchDataSource();
-        repository.getCity(new IRequestResponseListener<Kota>() {
-            @Override
-            public void onSuccess(DataResult<Kota> data) {
-                view.setProgressBarVisibility(false);
-                loadingData = false;
-                if (data != null) {
-                    view.updateCityList(data.getDataPageManager(), data.getDatas());
-                }
-            }
 
-            @Override
-            public void onFailure(Throwable throwable) {
-                view.setProgressBarVisibility(false);
-                loadingData = false;
-            }
-        }, page);
     }
 }

@@ -1,7 +1,10 @@
 package com.irfankhoirul.apps.tatravel.core.app;
 
+import com.irfankhoirul.apps.tatravel.data.source.locale.cart.CartRepository;
 import com.irfankhoirul.apps.tatravel.data.source.locale.session.SessionRepository;
-import com.irfankhoirul.apps.tatravel.data.source.remote.source.user.UserRepository;
+import com.irfankhoirul.apps.tatravel.data.source.remote.passenger.PassengerRepository;
+import com.irfankhoirul.apps.tatravel.data.source.remote.schedule.ScheduleRepository;
+import com.irfankhoirul.apps.tatravel.data.source.remote.user.UserRepository;
 
 import javax.inject.Singleton;
 
@@ -18,5 +21,11 @@ public interface AppComponent {
 
     SessionRepository session();
 
+    CartRepository cart();
+
     UserRepository userRepository();
+
+    ScheduleRepository scheduleRepository();
+
+    PassengerRepository passengerRepository();
 }

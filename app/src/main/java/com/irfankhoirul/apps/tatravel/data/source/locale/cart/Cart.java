@@ -14,7 +14,7 @@ import java.util.Map;
  * Created by Irfan Khoirul on 5/7/2017.
  */
 
-public class Cart {
+public class Cart implements CartRepository {
 
     private static String SHARED_PREFERENCE_NAME = "Cart";
     SharedPreferences sharedPref;
@@ -28,6 +28,7 @@ public class Cart {
         editor.apply();
     }
 
+    @Override
     public Map<String, String> getDeparture() {
         if (sharedPref.getString("departure", null) != null) {
             return new Gson().fromJson(sharedPref.getString("departure", null), new TypeToken<Map<String, String>>() {
@@ -43,16 +44,19 @@ public class Cart {
      * - Longitude
      * - OperatorTravelId
      */
+    @Override
     public void setDeparture(Map<String, String> departureData) {
         editor.putString("departure", new Gson().toJson(departureData));
         editor.apply();
     }
 
+    @Override
     public void clearDeparture() {
         editor.remove("departure");
         editor.apply();
     }
 
+    @Override
     public Map<String, String> getDestination() {
         if (sharedPref.getString("destination", null) != null) {
             return new Gson().fromJson(sharedPref.getString("destination", null), new TypeToken<Map<String, String>>() {
@@ -68,53 +72,64 @@ public class Cart {
      * - Longitude
      * - OperatorTravelId
      */
+    @Override
     public void setDestination(Map<String, String> destinationData) {
         editor.putString("destination", new Gson().toJson(destinationData));
         editor.apply();
     }
 
+    @Override
     public void clearDestination() {
         editor.remove("destination");
         editor.apply();
     }
 
+    @Override
     public long getTanggalKeberangkatan() {
         return sharedPref.getLong("tanggalKeberangkatan", 0);
     }
 
+    @Override
     public void setTanggalKeberangkatan(long date) {
         editor.putLong("tanggalKeberangkatan", date);
         editor.apply();
     }
 
+    @Override
     public void clearTanggalKeberangkatan() {
         editor.remove("tanggalKeberangkatan");
         editor.apply();
     }
 
+    @Override
     public boolean isPulangPergi() {
         return sharedPref.getBoolean("pulangPergi", false);
     }
 
+    @Override
     public void setPulangPergi(boolean isPulangPergi) {
         editor.putBoolean("pulangPergi", isPulangPergi);
         editor.apply();
     }
 
+    @Override
     public long getTanggalKepulangan() {
         return sharedPref.getLong("tanggalKepulangan", 0);
     }
 
+    @Override
     public void setTanggalKepulangan(long date) {
         editor.putLong("tanggalKepulangan", date);
         editor.apply();
     }
 
+    @Override
     public void clearTanggalKepulangan() {
         editor.remove("tanggalKepulangan");
         editor.apply();
     }
 
+    @Override
     public List<Penumpang> getPenumpang() {
         if (sharedPref.getString("penumpang", null) != null) {
             return new Gson().fromJson(sharedPref.getString("penumpang", null), new TypeToken<List<Penumpang>>() {
@@ -126,11 +141,13 @@ public class Cart {
     /**
      * Data : List<Penumpang></>
      */
+    @Override
     public void setPenumpang(List<Penumpang> penumpangList) {
         editor.putString("penumpang", new Gson().toJson(penumpangList));
         editor.apply();
     }
 
+    @Override
     public void clearPenumpang() {
         editor.remove("penumpang");
         editor.apply();

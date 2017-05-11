@@ -118,6 +118,14 @@ public abstract class BaseFragment<T extends FragmentActivity> extends Fragment 
                 .show();
     }
 
+    protected AlertDialog.Builder createAlert(String title, String message) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity);
+        alertDialogBuilder
+                .setTitle(title)
+                .setMessage(message);
+        return alertDialogBuilder;
+    }
+
     public interface FragmentListener {
         void setTitle(String title);
     }

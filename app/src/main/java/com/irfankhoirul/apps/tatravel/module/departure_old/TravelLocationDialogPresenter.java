@@ -1,10 +1,5 @@
 package com.irfankhoirul.apps.tatravel.module.departure_old;
 
-import com.irfankhoirul.apps.tatravel.core.data.DataResult;
-import com.irfankhoirul.apps.tatravel.core.data.IRequestResponseListener;
-import com.irfankhoirul.apps.tatravel.data.pojo.Lokasi;
-import com.irfankhoirul.apps.tatravel.data.source.remote.source.SearchDataSource;
-
 /**
  * Created by Irfan Khoirul on 12/25/2016.
  */
@@ -33,25 +28,7 @@ public class TravelLocationDialogPresenter implements TravelLocationDialogContra
 
     @Override
     public void getTravelLocationData(int page, int idKota) {
-        view.setProgressBarVisibility(true);
-        loadingData = true;
-        SearchDataSource repository = new SearchDataSource();
-        repository.getLocation(new IRequestResponseListener<Lokasi>() {
-            @Override
-            public void onSuccess(DataResult<Lokasi> data) {
-                view.setProgressBarVisibility(false);
-                loadingData = false;
-                if (data != null) {
-                    view.updateTravelLocationList(data.getDataPageManager(), data.getDatas());
-                }
-            }
 
-            @Override
-            public void onFailure(Throwable throwable) {
-                view.setProgressBarVisibility(false);
-                loadingData = false;
-            }
-        }, page, idKota);
     }
 
 }

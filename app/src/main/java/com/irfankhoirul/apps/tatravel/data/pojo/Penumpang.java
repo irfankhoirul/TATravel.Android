@@ -26,6 +26,9 @@ public class Penumpang extends BaseModel {
     @Expose
     protected User user;
 
+    // Tambahan
+    protected boolean selected;
+
     public int getIdUser() {
         return idUser;
     }
@@ -48,5 +51,13 @@ public class Penumpang extends BaseModel {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 }

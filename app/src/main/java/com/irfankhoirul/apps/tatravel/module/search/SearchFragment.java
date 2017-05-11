@@ -25,11 +25,14 @@ import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.core.components.util.DateUtils;
 import com.irfankhoirul.apps.tatravel.core.components.util.DisplayMetricUtils;
 import com.irfankhoirul.apps.tatravel.data.pojo.JadwalPerjalanan;
-import com.irfankhoirul.apps.tatravel.data.source.locale.cart.Cart;
+import com.irfankhoirul.apps.tatravel.data.pojo.Penumpang;
 import com.irfankhoirul.apps.tatravel.module.departure.DepartureActivity;
 import com.irfankhoirul.apps.tatravel.module.destination.DestinationActivity;
 import com.irfankhoirul.apps.tatravel.module.passenger.PassengerActivity;
 
+import org.parceler.Parcels;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -39,6 +42,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * @author Irfan Khoirul Muhlishin - irfankhoirul@gmail.com
@@ -67,14 +72,9 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
     LinearLayout llReturnDate;
     @BindView(R.id.llPassenger)
     LinearLayout llPassenger;
-
-    private int idOperatorTravelDeparture;
-    private double departureLatitude;
-    private double departureLongitude;
+    SearchContract.Presenter mPresenter;
     private double destinationLatitude;
     private double destinationLongitude;
-    private SearchPresenter searchPresenter;
-    private Cart cart;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -90,11 +90,9 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         unbinder = ButterKnife.bind(this, view);
-        cart = new Cart(activity);
+        mPresenter.start();
 
-        searchPresenter = new SearchPresenter(this);
-
-        searchPresenter.getPromo();
+        mPresenter.getPromo();
 //        searchPresenter.searchJadwalPerjalanan();
 
         return view;
@@ -184,9 +182,10 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
 
     @OnClick(R.id.llDestination)
     public void llDestination() {
-        if (cart.getDeparture() != null) {
+        if (mPresenter.getCart().getDeparture() != null) {
             Intent intent = new Intent(activity, DestinationActivity.class);
-            intent.putExtra("id_operator_travel", idOperatorTravelDeparture);
+            Log.v("id_operator_travelPre", mPresenter.getCart().getDeparture().get("operatorTravelId"));
+            intent.putExtra("id_operator_travel", mPresenter.getCart().getDeparture().get("operatorTravelId"));
             startActivityForResult(intent, ConstantUtils.ACTIVITY_REQUEST_CODE_DESTINATION);
         } else {
             showStatus(ConstantUtils.STATUS_ERROR, "Anda belum memilih lokasi keberangkatan");
@@ -195,15 +194,17 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
 
     @OnClick(R.id.llDepartureDate)
     public void llDepartureDate() {
-        if (cart.getDestination() != null) {
+        if (mPresenter.getCart().getDestination() != null) {
             final Calendar newCalendar = Calendar.getInstance();
             DatePickerDialog fromDatePickerDialog = new DatePickerDialog(activity, new DatePickerDialog.OnDateSetListener() {
                 public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                     Calendar selectedDate = Calendar.getInstance();
                     selectedDate.set(year, monthOfYear, dayOfMonth);
                     newCalendar.setTimeInMillis(selectedDate.getTimeInMillis());
+                    mPresenter.getCart().setTanggalKeberangkatan(selectedDate.getTimeInMillis());
                     tvDateGo.setText(DateUtils.getStandardDayFormat(selectedDate.getTimeInMillis()));
                     tvDateGo.setTextColor(ContextCompat.getColor(activity, R.color.font_black_primary));
+                    llDepartureDate.setBackgroundColor(ContextCompat.getColor(activity, R.color.grey_50));
                 }
             }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
             fromDatePickerDialog.show();
@@ -223,8 +224,12 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
 
     @OnClick(R.id.llPassenger)
     public void llPassenger() {
-        Intent intent = new Intent(activity, PassengerActivity.class);
-        startActivityForResult(intent, ConstantUtils.ACTIVITY_REQUEST_CODE_PASSENGER);
+        if (mPresenter.getCart().getTanggalKeberangkatan() != 0) {
+            Intent intent = new Intent(activity, PassengerActivity.class);
+            startActivityForResult(intent, ConstantUtils.ACTIVITY_REQUEST_CODE_PASSENGER);
+        } else {
+            showStatus(ConstantUtils.STATUS_ERROR, "Anda belum memilih tanggal keberangkatan");
+        }
     }
 
     @Override
@@ -236,34 +241,70 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
                     data.getStringExtra("sub_admin");
             tvDeparture.setText(departureLocation);
             tvDeparture.setTextColor(ContextCompat.getColor(activity, R.color.font_black_primary));
-            llDeparture.setBackgroundColor(ContextCompat.getColor(activity, R.color.pure_white));
+            llDeparture.setBackgroundColor(ContextCompat.getColor(activity, R.color.grey_50));
 
             Map<String, String> departureData = new HashMap<>();
             departureData.put("address", departureLocation);
             departureData.put("latitude", String.valueOf(data.getDoubleExtra("departureLatitude", 0)));
             departureData.put("longitude", String.valueOf(data.getDoubleExtra("departureLongitude", 0)));
             departureData.put("operatorTravelId", String.valueOf(data.getIntExtra("id_operator_travel", -1)));
-            cart.setDeparture(departureData);
+            Log.v("id_operator_travelInte", String.valueOf(data.getIntExtra("id_operator_travel", -1)));
+            mPresenter.getCart().setDeparture(departureData);
 
+            // Reset destination karena departure berubah
             llDestination.setBackgroundColor(ContextCompat.getColor(activity, R.color.red_50));
             tvDestination.setText("Pilih Lokasi Tujuan");
             tvDestination.setTextColor(ContextCompat.getColor(activity, R.color.font_black_disabled));
-            destinationLatitude = destinationLongitude = 0;
         } else if (requestCode == ConstantUtils.ACTIVITY_REQUEST_CODE_DESTINATION && resultCode == ConstantUtils.REQUEST_RESULT_SUCCESS) {
             String destinationLocation = data.getStringExtra("thoroughfare") + ",  " +
                     data.getStringExtra("locality") + ", " +
                     data.getStringExtra("sub_admin");
+
             tvDestination.setText(destinationLocation);
             tvDestination.setTextColor(ContextCompat.getColor(activity, R.color.font_black_primary));
-            destinationLatitude = data.getDoubleExtra("departureLatitude", 0);
-            destinationLongitude = data.getDoubleExtra("departureLongitude", 0);
-            llDestination.setBackgroundColor(ContextCompat.getColor(activity, R.color.pure_white));
+            llDestination.setBackgroundColor(ContextCompat.getColor(activity, R.color.grey_50));
+
+            Map<String, String> destinationData = new HashMap<>();
+            destinationData.put("address", destinationLocation);
+            destinationData.put("latitude", String.valueOf(data.getDoubleExtra("destinationLatitude", 0)));
+            destinationData.put("longitude", String.valueOf(data.getDoubleExtra("destinationLongitude", 0)));
+            mPresenter.getCart().setDestination(destinationData);
+
+            // Reset tanggal keberangkatan karena destination berubah / departure berubah
+            llDepartureDate.setBackgroundColor(ContextCompat.getColor(activity, R.color.red_50));
+            tvDateGo.setText("Pilih Tanggal Keberangkatan");
+            tvDateGo.setTextColor(ContextCompat.getColor(activity, R.color.font_black_disabled));
+        } else if (requestCode == ConstantUtils.ACTIVITY_REQUEST_CODE_PASSENGER && resultCode == ConstantUtils.REQUEST_RESULT_SUCCESS) {
+            mPresenter.getCart().clearPenumpang();
+            if (data.getParcelableExtra("selectedPassengers") != null) {
+                ArrayList<Penumpang> selectedPassengers = Parcels.unwrap(data.getParcelableExtra("selectedPassengers"));
+                mPresenter.getCart().setPenumpang(selectedPassengers);
+                if (selectedPassengers.size() > 0) {
+                    tvPassenger.setText("");
+                    tvPassenger.setTextColor(ContextCompat.getColor(activity, R.color.font_black_primary));
+                    for (int i = 0; i < selectedPassengers.size(); i++) {
+                        tvPassenger.append(selectedPassengers.get(i).getNama());
+                        if (i < selectedPassengers.size() - 1) {
+                            tvPassenger.append(", ");
+                        }
+                    }
+                    llPassenger.setBackgroundColor(ContextCompat.getColor(activity, R.color.grey_50));
+                } else {
+                    tvPassenger.setText("Tambahkan Penumpang");
+                    tvPassenger.setTextColor(ContextCompat.getColor(activity, R.color.font_black_disabled));
+                    llPassenger.setBackgroundColor(ContextCompat.getColor(activity, R.color.red_50));
+                }
+            } else {
+                tvPassenger.setText("Tambahkan Penumpang");
+                tvPassenger.setTextColor(ContextCompat.getColor(activity, R.color.font_black_disabled));
+                llPassenger.setBackgroundColor(ContextCompat.getColor(activity, R.color.red_50));
+            }
         }
     }
 
     @Override
-    public void setPresenter(SearchContract.Presenter Presenter) {
-
+    public void setPresenter(SearchContract.Presenter presenter) {
+        mPresenter = checkNotNull(presenter);
     }
 
     @Override

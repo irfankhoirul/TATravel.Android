@@ -2,7 +2,9 @@ package com.irfankhoirul.apps.tatravel.module.passenger;
 
 import com.irfankhoirul.apps.tatravel.core.base.IBasePresenter;
 import com.irfankhoirul.apps.tatravel.core.base.IBaseView;
+import com.irfankhoirul.apps.tatravel.data.pojo.Penumpang;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -11,16 +13,18 @@ import java.util.Map;
 
 public interface PassengerContract {
     interface View extends IBaseView<Presenter> {
+        void updatePassengerList(List<Penumpang> passengers);
 
+        void onCreatePassengerClick();
     }
 
     interface Presenter extends IBasePresenter {
-        void createPassenger(String userId, Map<String, String> param);
+        void createPassenger(Map<String, String> param);
 
-        void updatePassenger(String userId, String idPenumpang, Map<String, String> param);
+        void updatePassenger(int idPenumpang, Map<String, String> param);
 
-        void deletePassenger(String userId, String idPenumpang);
+        void deletePassenger(int idPenumpang);
 
-        void listPassenger(String userId, Map<String, String> param);
+        void listPassenger(Map<String, String> param);
     }
 }

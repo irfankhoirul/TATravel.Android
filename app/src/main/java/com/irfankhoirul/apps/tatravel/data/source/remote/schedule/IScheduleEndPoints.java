@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.data.source.remote.source.jadwal;
+package com.irfankhoirul.apps.tatravel.data.source.remote.schedule;
 
 import com.irfankhoirul.apps.tatravel.core.data.DataResult;
 import com.irfankhoirul.apps.tatravel.data.pojo.JadwalPerjalanan;
@@ -25,7 +25,7 @@ import static com.irfankhoirul.apps.tatravel.data.source.remote.EndPoints.UPDATE
  * Created by Irfan Khoirul on 3/11/2017.
  */
 
-public interface IJadwalPerjalananUseCase {
+public interface IScheduleEndPoints {
 
     /**
      * Param

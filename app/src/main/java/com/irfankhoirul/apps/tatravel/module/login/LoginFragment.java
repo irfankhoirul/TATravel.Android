@@ -140,8 +140,8 @@ public class LoginFragment extends BaseFragment<LoginActivity> implements LoginC
     }
 
     @Override
-    public void setPresenter(LoginContract.Presenter Presenter) {
-        mPresenter = checkNotNull(Presenter);
+    public void setPresenter(LoginContract.Presenter presenter) {
+        mPresenter = checkNotNull(presenter);
     }
 
     @Override

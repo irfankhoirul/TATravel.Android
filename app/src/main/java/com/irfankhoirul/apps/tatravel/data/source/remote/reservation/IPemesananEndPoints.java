@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.data.source.remote.endpoints;
+package com.irfankhoirul.apps.tatravel.data.source.remote.reservation;
 
 import com.irfankhoirul.apps.tatravel.core.data.DataResult;
 import com.irfankhoirul.apps.tatravel.data.pojo.Pemesanan;

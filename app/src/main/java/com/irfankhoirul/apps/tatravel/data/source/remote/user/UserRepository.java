@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.data.source.remote.source.user;
+package com.irfankhoirul.apps.tatravel.data.source.remote.user;
 
 import com.irfankhoirul.apps.tatravel.core.data.IRequestResponseListener;
 import com.irfankhoirul.apps.tatravel.data.pojo.User;

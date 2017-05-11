@@ -1,12 +1,10 @@
 package com.irfankhoirul.apps.tatravel.module.search;
 
-import android.util.Log;
+import com.irfankhoirul.apps.tatravel.data.source.locale.cart.CartRepository;
+import com.irfankhoirul.apps.tatravel.data.source.locale.session.SessionRepository;
+import com.irfankhoirul.apps.tatravel.data.source.remote.schedule.ScheduleRepository;
 
-import com.irfankhoirul.apps.tatravel.core.data.DataResult;
-import com.irfankhoirul.apps.tatravel.core.data.IRequestResponseListener;
-import com.irfankhoirul.apps.tatravel.data.pojo.JadwalPerjalanan;
-import com.irfankhoirul.apps.tatravel.data.source.remote.source.SearchDataSource;
-
+import javax.inject.Inject;
 
 /**
  * Merupakan presenter dari SearchFragment
@@ -19,14 +17,31 @@ import com.irfankhoirul.apps.tatravel.data.source.remote.source.SearchDataSource
 public class SearchPresenter implements SearchContract.Presenter {
 
     private final SearchContract.View view;
+    private final ScheduleRepository scheduleRepository;
+    private final SessionRepository sessionRepository;
+    private final CartRepository cartRepository;
 
-    public SearchPresenter(SearchContract.View view) {
+    @Inject
+    public SearchPresenter(SessionRepository sessionRepository, CartRepository cartRepository,
+                           ScheduleRepository scheduleRepository, SearchContract.View view) {
         this.view = view;
+        this.sessionRepository = sessionRepository;
+        this.scheduleRepository = scheduleRepository;
+        this.cartRepository = cartRepository;
     }
 
+    @Inject
+    void setupListeners() {
+        view.setPresenter(this);
+    }
     @Override
     public void start() {
 
+    }
+
+    @Override
+    public CartRepository getCart() {
+        return cartRepository;
     }
 
     @Override
@@ -37,17 +52,6 @@ public class SearchPresenter implements SearchContract.Presenter {
 
     @Override
     public void searchJadwalPerjalanan() {
-        SearchDataSource repository = new SearchDataSource();
-        repository.getJadwalPerjalanan(new IRequestResponseListener<JadwalPerjalanan>() {
-            @Override
-            public void onSuccess(DataResult<JadwalPerjalanan> data) {
-                view.showSearchResult(data.getDatas());
-            }
 
-            @Override
-            public void onFailure(Throwable throwable) {
-                Log.e("ERROR", throwable.getMessage());
-            }
-        });
     }
 }

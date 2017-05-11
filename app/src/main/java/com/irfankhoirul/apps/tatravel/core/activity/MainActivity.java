@@ -14,8 +14,10 @@ import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.core.app.TAApplication;
 import com.irfankhoirul.apps.tatravel.core.base.BaseActivity;
 import com.irfankhoirul.apps.tatravel.module.departure.DepartureFragment;
+import com.irfankhoirul.apps.tatravel.module.search.DaggerSearchComponent;
 import com.irfankhoirul.apps.tatravel.module.search.SearchFragment;
-import com.irfankhoirul.apps.tatravel.module.user.DaggerProfileComponent;
+import com.irfankhoirul.apps.tatravel.module.search.SearchPresenter;
+import com.irfankhoirul.apps.tatravel.module.search.SearchPresenterModule;
 import com.irfankhoirul.apps.tatravel.module.user.LoginOrRegisterFragment;
 import com.irfankhoirul.apps.tatravel.module.user.ProfileFragment;
 import com.irfankhoirul.apps.tatravel.module.user.ProfilePresenter;
@@ -66,6 +68,9 @@ public class MainActivity extends BaseActivity implements
     @Inject
     ProfilePresenter profilePresenter;
 
+    @Inject
+    SearchPresenter searchPresenter;
+
     private SearchFragment searchFragment;
     private DepartureFragment departureFragment;
     private LoginOrRegisterFragment loginOrRegisterFragment;
@@ -73,8 +78,19 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     protected void initializeFragment() {
-        currentFragment = new SearchFragment();
+        searchFragment = new SearchFragment();
+        currentFragment = searchFragment;
         setCurrentFragment(currentFragment, false);
+
+        if (profileFragment == null) {
+            profileFragment = new ProfileFragment();
+        }
+
+        DaggerSearchComponent.builder()
+                .profilePresenterModule(new ProfilePresenterModule(profileFragment))
+                .searchPresenterModule(new SearchPresenterModule(searchFragment))
+                .appComponent(((TAApplication) getApplication()).getAppComponent())
+                .build().inject(this);
     }
 
     @Override
@@ -117,14 +133,6 @@ public class MainActivity extends BaseActivity implements
 
     @OnClick(R.id.llProfile)
     public void llProfile() {
-        if (profileFragment == null) {
-            profileFragment = new ProfileFragment();
-            DaggerProfileComponent.builder()
-                    .profilePresenterModule(new ProfilePresenterModule(profileFragment))
-                    .appComponent(((TAApplication) getApplication()).getAppComponent())
-                    .build().inject(this);
-        }
-
         if (!(currentFragment instanceof ProfileFragment)) {
             if (profilePresenter.getSessionData() != null) {
                 // Load profile

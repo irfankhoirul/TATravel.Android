@@ -4,7 +4,7 @@ import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.core.data.DataResult;
 import com.irfankhoirul.apps.tatravel.core.data.IRequestResponseListener;
 import com.irfankhoirul.apps.tatravel.data.pojo.Lokasi;
-import com.irfankhoirul.apps.tatravel.data.source.remote.source.jadwal.JadwalPerjalananDataSource;
+import com.irfankhoirul.apps.tatravel.data.source.remote.schedule.ScheduleRepository;
 
 import java.util.Map;
 
@@ -17,12 +17,12 @@ import javax.inject.Inject;
 public class DestinationPresenter implements DestinationContract.Presenter {
 
     private final DestinationContract.View view;
-    private final JadwalPerjalananDataSource jadwalPerjalananDataSource;
+    private final ScheduleRepository scheduleRepository;
 
     @Inject
-    public DestinationPresenter(JadwalPerjalananDataSource jadwalPerjalananDataSource, DestinationContract.View view) {
+    public DestinationPresenter(ScheduleRepository scheduleRepository, DestinationContract.View view) {
         this.view = view;
-        this.jadwalPerjalananDataSource = jadwalPerjalananDataSource;
+        this.scheduleRepository = scheduleRepository;
     }
 
     @Inject
@@ -42,7 +42,7 @@ public class DestinationPresenter implements DestinationContract.Presenter {
     @Override
     public void checkLocationAvailability(Map<String, String> params) {
         view.setLoadingDialog(true, "Mencari Operator Travel...");
-        jadwalPerjalananDataSource.getDestinationAvailability(new IRequestResponseListener<Lokasi>() {
+        scheduleRepository.getDestinationAvailability(new IRequestResponseListener<Lokasi>() {
             @Override
             public void onSuccess(DataResult<Lokasi> result) {
                 view.setLoadingDialog(false, null);

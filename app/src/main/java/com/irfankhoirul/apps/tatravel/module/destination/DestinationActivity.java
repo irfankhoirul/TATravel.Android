@@ -1,7 +1,7 @@
 package com.irfankhoirul.apps.tatravel.module.destination;
 
+import com.irfankhoirul.apps.tatravel.core.app.TAApplication;
 import com.irfankhoirul.apps.tatravel.core.base.BaseFragmentHolderActivity;
-import com.irfankhoirul.apps.tatravel.data.source.remote.source.jadwal.DaggerJadwalPerjalananDataSourceComponent;
 
 import javax.inject.Inject;
 
@@ -12,12 +12,13 @@ public class DestinationActivity extends BaseFragmentHolderActivity {
 
     @Override
     protected void initializeFragment() {
-        DestinationFragment destinationFragment = DestinationFragment.newInstance(getIntent().getIntExtra("id_operator_travel", -1));
+        DestinationFragment destinationFragment = DestinationFragment.newInstance(
+                Integer.parseInt(getIntent().getStringExtra("id_operator_travel")));
         setCurrentFragment(destinationFragment, true);
 
         DaggerDestinationComponent.builder()
                 .destinationPresenterModule(new DestinationPresenterModule(destinationFragment))
-                .jadwalPerjalananDataSourceComponent(DaggerJadwalPerjalananDataSourceComponent.builder().build())
+                .appComponent(((TAApplication) getApplication()).getAppComponent())
                 .build().inject(this);
     }
 

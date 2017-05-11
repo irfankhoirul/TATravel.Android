@@ -36,7 +36,7 @@ public class DataResult<T> {
      */
     private List<T> datas;
 
-    private DataPage dataPageManager;
+    private DataPage dataPage;
 
     public List<T> getDatas() {
         return datas;
@@ -70,12 +70,12 @@ public class DataResult<T> {
         this.message = message;
     }
 
-    public DataPage getDataPageManager() {
-        return dataPageManager;
+    public DataPage getDataPage() {
+        return dataPage;
     }
 
-    public void setDataPageManager(DataPage dataPageManager) {
-        this.dataPageManager = dataPageManager;
+    public void setDataPage(DataPage dataPage) {
+        this.dataPage = dataPage;
     }
 
     public String getDebugMessage() {

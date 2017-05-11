@@ -88,8 +88,10 @@ public class DepartureFragment extends BaseFragment<MainActivity> implements
     @BindView(R.id.btSetDeparture)
     Button btSetDeparture;
     DepartureContract.Presenter mPresenter;
+
     @Inject
     TravelChoiceDialogPresenter travelChoiceDialogPresenter;
+
     private GoogleMap departureMap;
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;

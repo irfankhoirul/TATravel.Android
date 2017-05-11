@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.data.source.remote.source.user;
+package com.irfankhoirul.apps.tatravel.data.source.remote.user;
 
 import com.irfankhoirul.apps.tatravel.core.base.BaseRemoteDataSource;
 import com.irfankhoirul.apps.tatravel.core.data.DataResult;
@@ -13,7 +13,7 @@ import retrofit2.Call;
  * Created by Irfan Khoirul on 3/11/2017.
  */
 
-public class UserDataSource extends BaseRemoteDataSource implements UserRepository {
+public class UserRepositoryImpl extends BaseRemoteDataSource implements UserRepository {
 
     @Override
     public void setEndPoint() {

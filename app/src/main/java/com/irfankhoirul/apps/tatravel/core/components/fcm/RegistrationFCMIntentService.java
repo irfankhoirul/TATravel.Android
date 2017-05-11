@@ -11,7 +11,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.irfankhoirul.apps.tatravel.core.data.DataResult;
 import com.irfankhoirul.apps.tatravel.core.data.IRequestResponseListener;
 import com.irfankhoirul.apps.tatravel.data.source.locale.session.Session;
-import com.irfankhoirul.apps.tatravel.data.source.remote.source.user.UserDataSource;
+import com.irfankhoirul.apps.tatravel.data.source.remote.user.UserRepositoryImpl;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -71,8 +71,8 @@ public class RegistrationFCMIntentService extends IntentService {
         params.put("token", session.getSessionData().getUserToken().getToken());
         params.put("FCMToken", FirebaseInstanceId.getInstance().getToken());
 //        params.put("secretCode", Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
-        UserDataSource userDataSource = new UserDataSource();
-        userDataSource.updateFcmToken(new IRequestResponseListener() {
+        UserRepositoryImpl userRepositoryImpl = new UserRepositoryImpl();
+        userRepositoryImpl.updateFcmToken(new IRequestResponseListener() {
             @Override
             public void onSuccess(DataResult result) {
             }

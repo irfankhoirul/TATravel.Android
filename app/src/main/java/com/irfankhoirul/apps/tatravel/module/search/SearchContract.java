@@ -3,6 +3,7 @@ package com.irfankhoirul.apps.tatravel.module.search;
 import com.irfankhoirul.apps.tatravel.core.base.IBasePresenter;
 import com.irfankhoirul.apps.tatravel.core.base.IBaseView;
 import com.irfankhoirul.apps.tatravel.data.pojo.JadwalPerjalanan;
+import com.irfankhoirul.apps.tatravel.data.source.locale.cart.CartRepository;
 
 import java.util.List;
 
@@ -27,6 +28,8 @@ public interface SearchContract {
     }
 
     interface Presenter extends IBasePresenter {
+        CartRepository getCart();
+
         void getPromo();
 
         void searchJadwalPerjalanan();

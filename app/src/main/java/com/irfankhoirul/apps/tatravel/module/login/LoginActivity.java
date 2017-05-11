@@ -18,8 +18,6 @@ public class LoginActivity extends BaseFragmentHolderActivity {
         DaggerLoginComponent.builder()
                 .loginPresenterModule(new LoginPresenterModule(loginFragment))
                 .appComponent(((TAApplication) getApplication()).getAppComponent())
-//                .userDataSourceComponent(DaggerUserDataSourceComponent.builder().build())
-//                .sessionRepositoryComponent(DaggerRegisterComponent.builder().build())
                 .build().inject(this);
 
     }

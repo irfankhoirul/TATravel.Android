@@ -5,7 +5,7 @@ import com.irfankhoirul.apps.tatravel.core.data.DataResult;
 import com.irfankhoirul.apps.tatravel.core.data.IRequestResponseListener;
 import com.irfankhoirul.apps.tatravel.data.pojo.Lokasi;
 import com.irfankhoirul.apps.tatravel.data.pojo.OperatorTravel;
-import com.irfankhoirul.apps.tatravel.data.source.remote.source.jadwal.JadwalPerjalananDataSource;
+import com.irfankhoirul.apps.tatravel.data.source.remote.schedule.ScheduleRepository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,12 +21,12 @@ import javax.inject.Inject;
 public class DeparturePresenter implements DepartureContract.Presenter {
 
     private final DepartureContract.View view;
-    private final JadwalPerjalananDataSource jadwalPerjalananDataSource;
+    private final ScheduleRepository scheduleRepository;
 
     @Inject
-    public DeparturePresenter(JadwalPerjalananDataSource jadwalPerjalananDataSource, DepartureContract.View view) {
+    public DeparturePresenter(ScheduleRepository scheduleRepository, DepartureContract.View view) {
         this.view = view;
-        this.jadwalPerjalananDataSource = jadwalPerjalananDataSource;
+        this.scheduleRepository = scheduleRepository;
     }
 
     @Inject
@@ -46,7 +46,7 @@ public class DeparturePresenter implements DepartureContract.Presenter {
     @Override
     public void checkLocationAvailability(Map<String, String> params) {
         view.setLoadingDialog(true, "Mencari Operator Travel...");
-        jadwalPerjalananDataSource.getDepartureAvailability(new IRequestResponseListener<Lokasi>() {
+        scheduleRepository.getDepartureAvailability(new IRequestResponseListener<Lokasi>() {
             @Override
             public void onSuccess(DataResult<Lokasi> result) {
                 view.setLoadingDialog(false, null);

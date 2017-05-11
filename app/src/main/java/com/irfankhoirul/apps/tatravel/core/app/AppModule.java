@@ -2,10 +2,16 @@ package com.irfankhoirul.apps.tatravel.core.app;
 
 import android.content.Context;
 
+import com.irfankhoirul.apps.tatravel.data.source.locale.cart.Cart;
+import com.irfankhoirul.apps.tatravel.data.source.locale.cart.CartRepository;
 import com.irfankhoirul.apps.tatravel.data.source.locale.session.Session;
 import com.irfankhoirul.apps.tatravel.data.source.locale.session.SessionRepository;
-import com.irfankhoirul.apps.tatravel.data.source.remote.source.user.UserDataSource;
-import com.irfankhoirul.apps.tatravel.data.source.remote.source.user.UserRepository;
+import com.irfankhoirul.apps.tatravel.data.source.remote.passenger.PassengerRepository;
+import com.irfankhoirul.apps.tatravel.data.source.remote.passenger.PassengerRepositoryImpl;
+import com.irfankhoirul.apps.tatravel.data.source.remote.schedule.ScheduleRepository;
+import com.irfankhoirul.apps.tatravel.data.source.remote.schedule.ScheduleRepositoryImpl;
+import com.irfankhoirul.apps.tatravel.data.source.remote.user.UserRepository;
+import com.irfankhoirul.apps.tatravel.data.source.remote.user.UserRepositoryImpl;
 
 import javax.inject.Singleton;
 
@@ -40,7 +46,25 @@ public final class AppModule {
 
     @Singleton
     @Provides
+    CartRepository provideCartRepository(Context context) {
+        return new Cart(context);
+    }
+
+    @Singleton
+    @Provides
     UserRepository provideUserRepository() {
-        return new UserDataSource();
+        return new UserRepositoryImpl();
+    }
+
+    @Singleton
+    @Provides
+    ScheduleRepository provideScheduleRepository() {
+        return new ScheduleRepositoryImpl();
+    }
+
+    @Singleton
+    @Provides
+    PassengerRepository providePassengerRepository() {
+        return new PassengerRepositoryImpl();
     }
 }

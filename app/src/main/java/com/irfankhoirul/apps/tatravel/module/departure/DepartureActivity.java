@@ -1,7 +1,7 @@
 package com.irfankhoirul.apps.tatravel.module.departure;
 
+import com.irfankhoirul.apps.tatravel.core.app.TAApplication;
 import com.irfankhoirul.apps.tatravel.core.base.BaseFragmentHolderActivity;
-import com.irfankhoirul.apps.tatravel.data.source.remote.source.jadwal.DaggerJadwalPerjalananDataSourceComponent;
 
 import javax.inject.Inject;
 
@@ -17,7 +17,7 @@ public class DepartureActivity extends BaseFragmentHolderActivity {
 
         DaggerDepartureComponent.builder()
                 .departurePresenterModule(new DeparturePresenterModule(departureFragment))
-                .jadwalPerjalananDataSourceComponent(DaggerJadwalPerjalananDataSourceComponent.builder().build())
+                .appComponent(((TAApplication) getApplication()).getAppComponent())
                 .build().inject(this);
     }
 

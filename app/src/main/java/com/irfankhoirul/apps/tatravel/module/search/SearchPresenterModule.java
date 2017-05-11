@@ -1,7 +1,5 @@
 package com.irfankhoirul.apps.tatravel.module.search;
 
-import com.irfankhoirul.apps.tatravel.module.login.LoginContract;
-
 import dagger.Module;
 import dagger.Provides;
 
@@ -12,14 +10,14 @@ import dagger.Provides;
 @Module
 public class SearchPresenterModule {
 
-    private final LoginContract.View mView;
+    private final SearchContract.View mView;
 
-    public SearchPresenterModule(LoginContract.View view) {
+    public SearchPresenterModule(SearchContract.View view) {
         mView = view;
     }
 
     @Provides
-    LoginContract.View provideLoginContractView() {
+    SearchContract.View provideSearchContractView() {
         return mView;
     }
 }
