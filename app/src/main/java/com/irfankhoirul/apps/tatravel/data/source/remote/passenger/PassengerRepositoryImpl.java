@@ -22,7 +22,7 @@ public class PassengerRepositoryImpl extends BaseRemoteDataSource implements Pas
 
     @Override
     public void createPassenger(IRequestResponseListener listener, int userId, Map<String, String> param) {
-        Call<DataResult> call = ((IPassengerEndPoints) endPoint).createPenumpang(userId, param);
+        Call<DataResult<Penumpang>> call = ((IPassengerEndPoints) endPoint).createPenumpang(userId, param);
         execute(call, listener);
     }
 

@@ -18,6 +18,7 @@ import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
+import com.google.gson.Gson;
 import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.core.activity.MainActivity;
 import com.irfankhoirul.apps.tatravel.core.base.BaseFragment;
@@ -72,9 +73,10 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
     LinearLayout llReturnDate;
     @BindView(R.id.llPassenger)
     LinearLayout llPassenger;
+
     SearchContract.Presenter mPresenter;
-    private double destinationLatitude;
-    private double destinationLongitude;
+
+    ArrayList<Penumpang> selectedPassengers = new ArrayList<>();
 
     public SearchFragment() {
         // Required empty public constructor
@@ -226,6 +228,7 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
     public void llPassenger() {
         if (mPresenter.getCart().getTanggalKeberangkatan() != 0) {
             Intent intent = new Intent(activity, PassengerActivity.class);
+            intent.putExtra("selectedPassengers", Parcels.wrap(selectedPassengers));
             startActivityForResult(intent, ConstantUtils.ACTIVITY_REQUEST_CODE_PASSENGER);
         } else {
             showStatus(ConstantUtils.STATUS_ERROR, "Anda belum memilih tanggal keberangkatan");
@@ -248,7 +251,7 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
             departureData.put("latitude", String.valueOf(data.getDoubleExtra("departureLatitude", 0)));
             departureData.put("longitude", String.valueOf(data.getDoubleExtra("departureLongitude", 0)));
             departureData.put("operatorTravelId", String.valueOf(data.getIntExtra("id_operator_travel", -1)));
-            Log.v("id_operator_travelInte", String.valueOf(data.getIntExtra("id_operator_travel", -1)));
+            departureData.put("operatorTravelLocationIds", new Gson().toJson(Parcels.unwrap(data.getParcelableExtra("operatorTravelLocationIds"))));
             mPresenter.getCart().setDeparture(departureData);
 
             // Reset destination karena departure berubah
@@ -268,6 +271,8 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
             destinationData.put("address", destinationLocation);
             destinationData.put("latitude", String.valueOf(data.getDoubleExtra("destinationLatitude", 0)));
             destinationData.put("longitude", String.valueOf(data.getDoubleExtra("destinationLongitude", 0)));
+            destinationData.put("operatorTravelLocationIds", new Gson().toJson(Parcels.unwrap(data.getParcelableExtra("operatorTravelLocationIds"))));
+            Log.v("LocationIds", new Gson().toJson(Parcels.unwrap(data.getParcelableExtra("operatorTravelLocationIds"))));
             mPresenter.getCart().setDestination(destinationData);
 
             // Reset tanggal keberangkatan karena destination berubah / departure berubah
@@ -277,7 +282,7 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
         } else if (requestCode == ConstantUtils.ACTIVITY_REQUEST_CODE_PASSENGER && resultCode == ConstantUtils.REQUEST_RESULT_SUCCESS) {
             mPresenter.getCart().clearPenumpang();
             if (data.getParcelableExtra("selectedPassengers") != null) {
-                ArrayList<Penumpang> selectedPassengers = Parcels.unwrap(data.getParcelableExtra("selectedPassengers"));
+                selectedPassengers = Parcels.unwrap(data.getParcelableExtra("selectedPassengers"));
                 mPresenter.getCart().setPenumpang(selectedPassengers);
                 if (selectedPassengers.size() > 0) {
                     tvPassenger.setText("");

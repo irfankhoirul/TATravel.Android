@@ -43,6 +43,7 @@ public class Cart implements CartRepository {
      * - Latitude
      * - Longitude
      * - OperatorTravelId
+     * - locationIds (JsonArray)
      */
     @Override
     public void setDeparture(Map<String, String> departureData) {

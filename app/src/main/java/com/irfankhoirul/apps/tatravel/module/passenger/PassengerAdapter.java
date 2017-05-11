@@ -1,11 +1,11 @@
 package com.irfankhoirul.apps.tatravel.module.passenger;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -41,36 +41,68 @@ public class PassengerAdapter extends RecyclerView.Adapter<PassengerAdapter.Trav
 
     @Override
     public void onBindViewHolder(final TravelChoiceViewHolder holder, int position) {
-        final Penumpang item = passengers.get(position);
+        holder.tvPassengerName.setText(passengers.get(position).getNama());
+        holder.cbPassengerSelected.setChecked(passengers.get(position).isSelected());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onItemClick(item);
-                if (holder.cbPassengerSelected.isSelected()) {
-                    holder.cbPassengerSelected.setSelected(false);
+                if (passengers.get(holder.getAdapterPosition()).isSelected()) {
+                    holder.cbPassengerSelected.setChecked(false);
+                    passengers.get(holder.getAdapterPosition()).setSelected(false);
+                    mListener.onItemClick(passengers.get(holder.getAdapterPosition()), false);
+                    Log.v("onClicked", holder.getAdapterPosition() + "True >> False");
                 } else {
-                    holder.cbPassengerSelected.setSelected(true);
+                    holder.cbPassengerSelected.setChecked(true);
+                    passengers.get(holder.getAdapterPosition()).setSelected(true);
+                    mListener.onItemClick(passengers.get(holder.getAdapterPosition()), true);
+                    Log.v("onClicked", holder.getAdapterPosition() + "False >> True");
                 }
             }
         });
-
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                mListener.oItemLongClick(item);
+                mListener.oItemLongClick(passengers.get(holder.getAdapterPosition()), holder.getAdapterPosition());
                 return true;
             }
         });
 
-        holder.tvPassengerName.setText(item.getNama());
-        holder.cbPassengerSelected.setSelected(item.isSelected());
-
-        holder.cbPassengerSelected.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                holder.itemView.performClick();
-            }
-        });
+//        Penumpang item = passengers.get(position);
+//        holder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
+//
+//        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v) {
+//                mListener.oItemLongClick(item, holder.getAdapterPosition());
+//                return true;
+//            }
+//        });
+//
+//        holder.tvPassengerName.setText(item.getNama());
+//        holder.cbPassengerSelected.setSelected(item.isSelected());
+//
+//        holder.cbPassengerSelected.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                Log.v("CheckedPosition", String.valueOf(holder.getAdapterPosition()));
+//                passengers.get(holder.getAdapterPosition()).setSelected(isChecked);
+//
+////                if (holder.cbPassengerSelected.isSelected()) {
+////                    mListener.onItemClick(passengers.get(holder.getAdapterPosition()), false);
+////                    passengers.get(holder.getAdapterPosition()).setSelected(false);
+////                    holder.cbPassengerSelected.setSelected(false);
+////                } else {
+////                    mListener.onItemClick(passengers.get(holder.getAdapterPosition()), true);
+////                    passengers.get(holder.getAdapterPosition()).setSelected(true);
+////                    holder.cbPassengerSelected.setSelected(true);
+////                }
+//            }
+//        });
     }
 
     @Override
@@ -79,9 +111,9 @@ public class PassengerAdapter extends RecyclerView.Adapter<PassengerAdapter.Trav
     }
 
     public interface OnSpecificItemClick {
-        void onItemClick(Penumpang passenger);
+        void onItemClick(Penumpang passenger, boolean isSelected);
 
-        void oItemLongClick(Penumpang passenger);
+        void oItemLongClick(Penumpang passenger, int position);
     }
 
     public class TravelChoiceViewHolder extends RecyclerView.ViewHolder {

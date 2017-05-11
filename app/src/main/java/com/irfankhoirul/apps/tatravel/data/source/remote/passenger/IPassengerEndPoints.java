@@ -30,7 +30,7 @@ public interface IPassengerEndPoints {
      */
     @FormUrlEncoded
     @POST(CREATE_PENUMPANG)
-    Call<DataResult> createPenumpang(@Path("userId") int userId, @FieldMap Map<String, String> param);
+    Call<DataResult<Penumpang>> createPenumpang(@Path("userId") int userId, @FieldMap Map<String, String> param);
 
     /**
      * Param

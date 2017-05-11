@@ -13,16 +13,19 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.core.base.BaseFragment;
 import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
+import com.irfankhoirul.apps.tatravel.core.components.util.DisplayMetricUtils;
+import com.irfankhoirul.apps.tatravel.core.data.DataPage;
 import com.irfankhoirul.apps.tatravel.data.pojo.Penumpang;
-import com.irfankhoirul.apps.tatravel.module.passenger.create.DaggerPassengerCreatorDialogComponent;
-import com.irfankhoirul.apps.tatravel.module.passenger.create.PassengerCreatorDialog;
-import com.irfankhoirul.apps.tatravel.module.passenger.create.PassengerCreatorDialogPresenter;
-import com.irfankhoirul.apps.tatravel.module.passenger.create.PassengerCreatorPresenterModule;
+import com.irfankhoirul.apps.tatravel.module.passenger.creator.DaggerPassengerCreatorDialogComponent;
+import com.irfankhoirul.apps.tatravel.module.passenger.creator.PassengerCreatorDialog;
+import com.irfankhoirul.apps.tatravel.module.passenger.creator.PassengerCreatorDialogPresenter;
+import com.irfankhoirul.apps.tatravel.module.passenger.creator.PassengerCreatorPresenterModule;
 
 import org.parceler.Parcels;
 
@@ -51,6 +54,9 @@ public class PassengerFragment extends BaseFragment<PassengerActivity> implement
     RecyclerView rvPassenger;
     @BindView(R.id.llEmptyMessage)
     LinearLayout llEmptyMessage;
+    @BindView(R.id.btSetPassenger)
+    Button btSetPassenger;
+
     @Inject
     PassengerCreatorDialogPresenter passengerCreatorDialogPresenter;
     PassengerContract.Presenter mPresenter;
@@ -60,6 +66,15 @@ public class PassengerFragment extends BaseFragment<PassengerActivity> implement
 
     public PassengerFragment() {
         // Required empty public constructor
+    }
+
+    public static PassengerFragment newInstance(List<Penumpang> selectedPassengers) {
+        PassengerFragment passengerFragment = new PassengerFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("selectedPassengers", Parcels.wrap(selectedPassengers));
+        passengerFragment.setArguments(bundle);
+
+        return passengerFragment;
     }
 
     @Override
@@ -74,16 +89,26 @@ public class PassengerFragment extends BaseFragment<PassengerActivity> implement
         unbinder = ButterKnife.bind(this, fragmentView);
         mPresenter.start();
 
+        selectedPassengers = Parcels.unwrap(getArguments().getParcelable("selectedPassengers"));
+
         passengerAdapter = new PassengerAdapter(passengers, new PassengerAdapter.OnSpecificItemClick() {
             @Override
-            public void onItemClick(Penumpang passenger) {
+            public void onItemClick(Penumpang passenger, boolean isSelected) {
                 if (!selectedPassengers.contains(passenger)) {
-                    selectedPassengers.add(passenger);
+                    if (isSelected) {
+                        selectedPassengers.add(passenger);
+                    } else {
+                        for (int i = 0; i < selectedPassengers.size(); i++) {
+                            if (selectedPassengers.get(i).getId() == passenger.getId()) {
+                                selectedPassengers.remove(i);
+                            }
+                        }
+                    }
                 }
             }
 
             @Override
-            public void oItemLongClick(final Penumpang passenger) {
+            public void oItemLongClick(final Penumpang passenger, final int position) {
                 AlertDialog.Builder builder = createAlert("Pilihan", null);
                 builder.setCancelable(true);
                 builder.setPositiveButton("Hapus", new DialogInterface.OnClickListener() {
@@ -94,7 +119,7 @@ public class PassengerFragment extends BaseFragment<PassengerActivity> implement
                         builder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                mPresenter.deletePassenger(passenger.getId());
+                                mPresenter.deletePassenger(passenger.getId(), position);
                             }
                         });
                         builder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
@@ -109,7 +134,8 @@ public class PassengerFragment extends BaseFragment<PassengerActivity> implement
                 builder.setNegativeButton("Ubah", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        PassengerCreatorDialog passengerCreatorDialog = PassengerCreatorDialog.newInstance(passenger);
+                        Log.v("UpdatedPosition4", String.valueOf(position));
+                        PassengerCreatorDialog passengerCreatorDialog = PassengerCreatorDialog.newInstance(position, passenger);
                         passengerCreatorDialog.setListener(PassengerFragment.this);
                         passengerCreatorDialog.show(getFragmentManager(), "passengerCreatorDialog");
 
@@ -125,20 +151,6 @@ public class PassengerFragment extends BaseFragment<PassengerActivity> implement
         rvPassenger.setLayoutManager(layoutManager);
         rvPassenger.setItemAnimator(new DefaultItemAnimator());
         rvPassenger.setAdapter(passengerAdapter);
-
-        rvPassenger.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                Log.v("onScrolled", String.valueOf(newState));
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                Log.v("onScrolled", dx + "; " + dy);
-            }
-        });
 
         return fragmentView;
     }
@@ -167,10 +179,45 @@ public class PassengerFragment extends BaseFragment<PassengerActivity> implement
     }
 
     @Override
-    public void updatePassengerList(List<Penumpang> passengers) {
-        this.passengers.clear();
+    public void updatePassengerList(List<Penumpang> passengers, final DataPage dataPage, final Map<String, String> params) {
         this.passengers.addAll(passengers);
+        for (int i = 0; i < this.passengers.size(); i++) {
+            for (int j = 0; j < this.selectedPassengers.size(); j++) {
+                if (this.passengers.get(i).getId() == selectedPassengers.get(j).getId()) {
+                    this.passengers.get(i).setSelected(true);
+                }
+            }
+        }
         passengerAdapter.notifyDataSetChanged();
+
+        int toolbarHeight = DisplayMetricUtils.convertDpToPixel(56);
+        int btSetPassengerHeightAndPassing = DisplayMetricUtils.convertDpToPixel(btSetPassenger.getHeight()) + DisplayMetricUtils.convertDpToPixel(16 + 16);
+        int rvPassengerMaxHeight = DisplayMetricUtils.getDeviceHeight(activity) - toolbarHeight - btSetPassengerHeightAndPassing;
+        Log.v("rvPassengerMaxHeight", String.valueOf(rvPassengerMaxHeight));
+
+        int rvPassengerHeight = rvPassenger.getHeight();
+        Log.v("rvPassengerHeight", String.valueOf(rvPassengerHeight));
+        if (rvPassengerHeight < rvPassengerMaxHeight && dataPage.getCurrentPage() < dataPage.getTotalPage()
+                && passengers.size() < ConstantUtils.PAGINATION_LIMIT * 2 && dataPage.getNextPage() != -1) {
+            Log.v("RequestPageFillingSpace", String.valueOf(dataPage.getNextPage()));
+            mPresenter.listPassenger(params);
+        }
+
+        rvPassenger.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (DisplayMetricUtils.isMaxScrollReached(rvPassenger) && dataPage.getNextPage() != -1) {
+                    if (dataPage.getCurrentPage() < dataPage.getTotalPage() && !isLoading()/* &&
+                            dataPage.getCurrentPage() + 1 < dataPage.getNextPage()*/) {
+                        Log.v("RequestPage", String.valueOf(dataPage.getNextPage()));
+                        Log.v("CurrentPage", String.valueOf(dataPage.getCurrentPage()));
+                        mPresenter.listPassenger(params);
+                    }
+                }
+            }
+        });
+
     }
 
     @Override
@@ -186,6 +233,36 @@ public class PassengerFragment extends BaseFragment<PassengerActivity> implement
     }
 
     @Override
+    public void removePassengerItem(int position) {
+        Penumpang tmpPassenger = passengers.get(position);
+        for (int i = 0; i < selectedPassengers.size(); i++) {
+            if (selectedPassengers.get(i).getId() == tmpPassenger.getId()) {
+                selectedPassengers.remove(i);
+            }
+        }
+        passengers.remove(position);
+        passengerAdapter.notifyItemRemoved(position);
+    }
+
+    @Override
+    public void updatePassengerItem(int position, Penumpang passenger) {
+        Penumpang tmpPassenger = passengers.get(position);
+        for (int i = 0; i < selectedPassengers.size(); i++) {
+            if (selectedPassengers.get(i).getId() == tmpPassenger.getId()) {
+                selectedPassengers.set(i, passenger);
+            }
+        }
+        passengers.set(position, passenger);
+        passengerAdapter.notifyItemChanged(position);
+    }
+
+    @Override
+    public void addPassengerItem(Penumpang passenger) {
+        passengers.add(passenger);
+        passengerAdapter.notifyDataSetChanged();
+    }
+
+    @Override
     public void onPassengerCreated(String passengerName) {
         Map<String, String> params = new HashMap<>();
         params.put("name", passengerName);
@@ -193,9 +270,9 @@ public class PassengerFragment extends BaseFragment<PassengerActivity> implement
     }
 
     @Override
-    public void onPassengerUpdated(Penumpang passenger) {
+    public void onPassengerUpdated(int position, Penumpang passenger) {
         Map<String, String> params = new HashMap<>();
         params.put("name", passenger.getNama());
-        mPresenter.updatePassenger(passenger.getId(), params);
+        mPresenter.updatePassenger(position, passenger, params);
     }
 }

@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.module.passenger.create;
+package com.irfankhoirul.apps.tatravel.module.passenger.creator;
 
 import com.irfankhoirul.apps.tatravel.core.components.FragmentScoped;
 import com.irfankhoirul.apps.tatravel.module.passenger.PassengerFragment;

@@ -65,11 +65,19 @@ public class TravelChoiceDialog extends BaseDialog implements TravelChoiceDialog
 
         mPresenter.start();
 
-        cityAdapter = new TravelChoiceAdapter(mPresenter.prepareData((List<Lokasi>) Parcels.unwrap(getArguments().getParcelable("lokasiList"))),
+        final List<Lokasi> operatorTravelLocations = Parcels.unwrap(getArguments().getParcelable("lokasiList"));
+
+        cityAdapter = new TravelChoiceAdapter(mPresenter.prepareData(operatorTravelLocations),
                 new TravelChoiceAdapter.OnSpecificItemClick() {
                     @Override
                     public void onItemClick(OperatorTravel operatorTravel) {
-                        listener.onOperatorTravelChoose(operatorTravel);
+                        List<Integer> operatorTravelLocationIds = new ArrayList<>();
+                        for (int i = 0; i < operatorTravelLocations.size(); i++) {
+                            if (operatorTravelLocations.get(i).getOperatorTravel().getId() == operatorTravel.getId()) {
+                                operatorTravelLocationIds.add(operatorTravelLocations.get(i).getId());
+                            }
+                        }
+                        listener.onOperatorTravelChoose(operatorTravel, operatorTravelLocationIds);
                     }
                 });
 
@@ -112,6 +120,6 @@ public class TravelChoiceDialog extends BaseDialog implements TravelChoiceDialog
     }
 
     public interface DialogListener {
-        void onOperatorTravelChoose(OperatorTravel operatorTravel);
+        void onOperatorTravelChoose(OperatorTravel operatorTravel, List<Integer> operatorTravelLocationIds);
     }
 }

@@ -6,6 +6,11 @@ import android.view.View;
 import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.core.app.TAApplication;
 import com.irfankhoirul.apps.tatravel.core.base.BaseFragmentHolderActivity;
+import com.irfankhoirul.apps.tatravel.data.pojo.Penumpang;
+
+import org.parceler.Parcels;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -26,7 +31,7 @@ public class PassengerActivity extends BaseFragmentHolderActivity {
 
     @Override
     protected void initializeFragment() {
-        passengerFragment = new PassengerFragment();
+        passengerFragment = PassengerFragment.newInstance((List<Penumpang>) Parcels.unwrap(getIntent().getParcelableExtra("selectedPassengers")));
         setCurrentFragment(passengerFragment, false);
 
         DaggerPassengerComponent.builder()

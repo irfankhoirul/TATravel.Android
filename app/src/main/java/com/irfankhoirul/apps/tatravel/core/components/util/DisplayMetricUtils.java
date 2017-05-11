@@ -2,6 +2,7 @@ package com.irfankhoirul.apps.tatravel.core.components.util;
 
 import android.app.Activity;
 import android.content.res.Resources;
+import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 
 /**
@@ -36,4 +37,11 @@ public class DisplayMetricUtils {
         float px = (float) dp * (metrics.densityDpi / 160f);
         return Math.round(px);
     }
+
+    public static boolean isMaxScrollReached(RecyclerView recyclerView) {
+        int maxScroll = recyclerView.computeVerticalScrollRange();
+        int currentScroll = recyclerView.computeVerticalScrollOffset() + recyclerView.computeVerticalScrollExtent();
+        return currentScroll >= maxScroll;
+    }
+
 }

@@ -43,6 +43,8 @@ import com.irfankhoirul.apps.tatravel.core.base.BaseFragment;
 import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.data.pojo.Lokasi;
 
+import org.parceler.Parcels;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -104,7 +106,6 @@ public class DestinationFragment extends BaseFragment<MainActivity> implements
     public void btSetDestination() {
         final double tmpLat = destinationMap.getCameraPosition().target.latitude;
         final double tmpLon = destinationMap.getCameraPosition().target.longitude;
-        Log.v("Location", destinationMap.getCameraPosition().target.toString());
         setLoadingDialog(true, "Tunggu sebentar...");
         new Thread(new Runnable() {
             @Override
@@ -117,9 +118,6 @@ public class DestinationFragment extends BaseFragment<MainActivity> implements
                     e.printStackTrace();
                 }
 
-                for (Address address : addresses) {
-                    Log.v("Address", address.toString());
-                }
                 if (addresses.get(0) != null) {
                     Address address = addresses.get(0);
                     Intent intent = new Intent();
@@ -129,6 +127,7 @@ public class DestinationFragment extends BaseFragment<MainActivity> implements
                     intent.putExtra("locality", address.getLocality());
                     intent.putExtra("sub_admin", address.getSubAdminArea());
                     intent.putExtra("admin", address.getAdminArea());
+                    intent.putExtra("operatorTravelLocationIds", Parcels.wrap(mPresenter.getTravelLocationIds()));
                     setLoadingDialog(false, null);
                     activity.setResult(ConstantUtils.REQUEST_RESULT_SUCCESS, intent);
                     activity.finish();
@@ -320,7 +319,6 @@ public class DestinationFragment extends BaseFragment<MainActivity> implements
             btSetDestination.setEnabled(false);
             btSetDestination.setBackgroundColor(ContextCompat.getColor(activity, R.color.grey_300));
         }
-        Log.v("LocationSize", String.valueOf(locations.size()));
     }
 
     @Override

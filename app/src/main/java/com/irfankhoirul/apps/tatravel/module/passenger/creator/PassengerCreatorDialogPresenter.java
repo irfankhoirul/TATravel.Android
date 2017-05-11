@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.module.passenger.create;
+package com.irfankhoirul.apps.tatravel.module.passenger.creator;
 
 import javax.inject.Inject;
 

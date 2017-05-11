@@ -6,6 +6,8 @@ import com.irfankhoirul.apps.tatravel.core.data.IRequestResponseListener;
 import com.irfankhoirul.apps.tatravel.data.pojo.Lokasi;
 import com.irfankhoirul.apps.tatravel.data.source.remote.schedule.ScheduleRepository;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -18,6 +20,7 @@ public class DestinationPresenter implements DestinationContract.Presenter {
 
     private final DestinationContract.View view;
     private final ScheduleRepository scheduleRepository;
+    private List<Integer> operatorTravelLocationIds = new ArrayList<>();
 
     @Inject
     public DestinationPresenter(ScheduleRepository scheduleRepository, DestinationContract.View view) {
@@ -48,6 +51,9 @@ public class DestinationPresenter implements DestinationContract.Presenter {
                 view.setLoadingDialog(false, null);
                 if (result.getCode() == ConstantUtils.REQUEST_RESULT_SUCCESS) {
                     view.updateMap(result.getDatas());
+                    for (int i = 0; i < result.getDatas().size(); i++) {
+                        operatorTravelLocationIds.add(result.getDatas().get(i).getId());
+                    }
                 } else {
                     view.showStatus(ConstantUtils.STATUS_ERROR, result.getMessage());
                 }
@@ -59,6 +65,11 @@ public class DestinationPresenter implements DestinationContract.Presenter {
                 view.showStatus(ConstantUtils.STATUS_ERROR, "Terjadi Kesalahan");
             }
         }, params);
+    }
+
+    @Override
+    public List<Integer> getTravelLocationIds() {
+        return operatorTravelLocationIds;
     }
 
 }

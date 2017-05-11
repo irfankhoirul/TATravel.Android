@@ -48,6 +48,8 @@ import com.irfankhoirul.apps.tatravel.module.departure.travel_choice.TravelChoic
 import com.irfankhoirul.apps.tatravel.module.departure.travel_choice.TravelChoiceDialogPresenter;
 import com.irfankhoirul.apps.tatravel.module.departure.travel_choice.TravelChoicePresenterModule;
 
+import org.parceler.Parcels;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -307,10 +309,9 @@ public class DepartureFragment extends BaseFragment<MainActivity> implements
     }
 
     @Override
-    public void onOperatorTravelChoose(final OperatorTravel operatorTravel) {
+    public void onOperatorTravelChoose(final OperatorTravel operatorTravel, final List<Integer> operatorTravelLocationIds) {
         final double tmpLat = departureMap.getCameraPosition().target.latitude;
         final double tmpLon = departureMap.getCameraPosition().target.longitude;
-        Log.v("Location", departureMap.getCameraPosition().target.toString());
         setLoadingDialog(true, "Tunggu sebentar...");
 
         Runnable runnable = new Runnable() {
@@ -338,6 +339,7 @@ public class DepartureFragment extends BaseFragment<MainActivity> implements
                         intent.putExtra("sub_admin", address.getSubAdminArea());
                         intent.putExtra("admin", address.getAdminArea());
                         intent.putExtra("id_operator_travel", operatorTravel.getId());
+                        intent.putExtra("operatorTravelLocationIds", Parcels.wrap(operatorTravelLocationIds));
                         setLoadingDialog(false, null);
                         activity.setResult(ConstantUtils.REQUEST_RESULT_SUCCESS, intent);
                         activity.finish();

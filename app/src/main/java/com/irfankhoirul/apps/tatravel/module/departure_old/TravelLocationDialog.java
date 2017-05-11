@@ -117,6 +117,7 @@ public class TravelLocationDialog extends BaseDialog implements TravelLocationDi
         Log.v("DataPage", dataPageManager.toString());
         locationList.addAll(data);
         travelLocationAdapter.notifyDataSetChanged();
+
         Log.v("Height", rvTravelLocation.getHeight() + "|" + DisplayMetricUtils.getDeviceHeight(activity) * 2 / 3);
         int rvTravelLocationHeight = rvTravelLocation.getHeight();
         int dialogHeight = DisplayMetricUtils.getDeviceHeight(activity) * 2 / 3;

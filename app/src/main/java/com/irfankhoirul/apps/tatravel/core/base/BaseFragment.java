@@ -35,11 +35,16 @@ public abstract class BaseFragment<T extends FragmentActivity> extends Fragment 
     protected AlertDialog loadingDialog;
     protected View fragmentView;
     private FragmentListener fragmentListener;
+    private boolean loading;
 
     protected abstract void setTitle();
 
     public String getTitle() {
         return title;
+    }
+
+    public boolean isLoading() {
+        return loading;
     }
 
     @Nullable
@@ -78,6 +83,7 @@ public abstract class BaseFragment<T extends FragmentActivity> extends Fragment 
     }
 
     protected void setLoadingDialog(boolean isLoading, @Nullable String message) {
+        loading = isLoading;
         if (isLoading) {
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
             LayoutInflater inflater = this.getLayoutInflater(null);

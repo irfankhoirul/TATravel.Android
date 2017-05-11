@@ -21,6 +21,8 @@ public interface DestinationContract {
 
     interface Presenter extends IBasePresenter {
         void checkLocationAvailability(Map<String, String> params);
+
+        List<Integer> getTravelLocationIds();
     }
 
 }

@@ -1,9 +1,10 @@
-package com.irfankhoirul.apps.tatravel.module.passenger.create;
+package com.irfankhoirul.apps.tatravel.module.passenger.creator;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,10 +49,11 @@ public class PassengerCreatorDialog extends BaseDialog implements PassengerCreat
         // Empty constructor required for DialogFragment
     }
 
-    public static PassengerCreatorDialog newInstance(Penumpang passenger) {
+    public static PassengerCreatorDialog newInstance(int position, Penumpang passenger) {
         PassengerCreatorDialog passengerCreatorDialog = new PassengerCreatorDialog();
         Bundle bundle = new Bundle();
         bundle.putParcelable("passenger", Parcels.wrap(passenger));
+        bundle.putInt("position", position);
         passengerCreatorDialog.setArguments(bundle);
 
         return passengerCreatorDialog;
@@ -99,7 +101,8 @@ public class PassengerCreatorDialog extends BaseDialog implements PassengerCreat
     public void btSave() {
         if (getArguments() != null && getArguments().getParcelable("passenger") != null) {
             passenger.setNama(etPassengerName.getText().toString());
-            listener.onPassengerUpdated(passenger);
+            Log.v("UpdatedPosition3", String.valueOf(getArguments().getInt("position")));
+            listener.onPassengerUpdated(getArguments().getInt("position"), passenger);
         } else {
             listener.onPassengerCreated(etPassengerName.getText().toString());
         }
@@ -124,6 +127,6 @@ public class PassengerCreatorDialog extends BaseDialog implements PassengerCreat
     public interface DialogListener {
         void onPassengerCreated(String passengerName);
 
-        void onPassengerUpdated(Penumpang passenger);
+        void onPassengerUpdated(int position, Penumpang passenger);
     }
 }
