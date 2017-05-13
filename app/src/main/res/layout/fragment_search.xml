@@ -127,7 +127,6 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:layout_marginLeft="72dp"
                     android:background="@color/grey_500" />
 
                 <LinearLayout
@@ -180,7 +179,6 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:layout_marginLeft="72dp"
                     android:background="@color/grey_500" />
 
                 <LinearLayout
@@ -234,7 +232,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
                     android:layout_marginLeft="72dp"
-                    android:background="@color/grey_500" />
+                    android:background="@color/grey_500"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -242,7 +241,8 @@
                     android:layout_marginBottom="8dp"
                     android:layout_marginLeft="72dp"
                     android:layout_marginTop="8dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <Switch
                         android:id="@+id/swPulangPergi"
@@ -261,7 +261,6 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:layout_marginLeft="72dp"
                     android:background="@color/grey_500" />
 
                 <LinearLayout
@@ -317,7 +316,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
                     android:layout_marginLeft="72dp"
-                    android:background="@color/grey_500" />
+                    android:background="@color/grey_500"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:id="@+id/llPassenger"
@@ -373,6 +373,7 @@
                     app:cardUseCompatPadding="true">
 
                     <Button
+                        android:id="@+id/btSearchSchedule"
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

@@ -46,6 +46,10 @@ public class JadwalPerjalanan extends BaseModel {
     @Expose
     protected String waktuKedatangan;
 
+    @SerializedName("timezone")
+    @Expose
+    protected String timezone;
+
     @SerializedName("status")
     @Expose
     protected String status;
@@ -85,6 +89,16 @@ public class JadwalPerjalanan extends BaseModel {
     @SerializedName("supir")
     @Expose
     protected Supir supir;
+
+    @SerializedName("jarakPenjemputan")
+    @Expose
+    protected double jarakPenjemputan;
+
+    @SerializedName("jarakPengantaran")
+    @Expose
+    protected double jarakPengantaran;
+
+
 
     public int getIdAdmin() {
         return idAdmin;
@@ -228,6 +242,30 @@ public class JadwalPerjalanan extends BaseModel {
 
     public void setSupir(Supir supir) {
         this.supir = supir;
+    }
+
+    public String getTimezone() {
+        return timezone;
+    }
+
+    public void setTimezone(String timezone) {
+        this.timezone = timezone;
+    }
+
+    public double getJarakPenjemputan() {
+        return jarakPenjemputan;
+    }
+
+    public void setJarakPenjemputan(double jarakPenjemputan) {
+        this.jarakPenjemputan = jarakPenjemputan;
+    }
+
+    public double getJarakPengantaran() {
+        return jarakPengantaran;
+    }
+
+    public void setJarakPengantaran(double jarakPengantaran) {
+        this.jarakPengantaran = jarakPengantaran;
     }
 
     @Override

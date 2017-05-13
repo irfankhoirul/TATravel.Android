@@ -21,7 +21,7 @@ import butterknife.ButterKnife;
  * Created by Irfan Khoirul on 12/24/2016.
  */
 
-public class PassengerAdapter extends RecyclerView.Adapter<PassengerAdapter.TravelChoiceViewHolder> {
+public class PassengerAdapter extends RecyclerView.Adapter<PassengerAdapter.ScheduleViewHolder> {
 
     private List<Penumpang> passengers;
     private OnSpecificItemClick mListener;
@@ -32,15 +32,15 @@ public class PassengerAdapter extends RecyclerView.Adapter<PassengerAdapter.Trav
     }
 
     @Override
-    public TravelChoiceViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ScheduleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recycler_view_item_passenger, parent, false);
 
-        return new TravelChoiceViewHolder(itemView);
+        return new ScheduleViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(final TravelChoiceViewHolder holder, int position) {
+    public void onBindViewHolder(final ScheduleViewHolder holder, int position) {
         holder.tvPassengerName.setText(passengers.get(position).getNama());
         holder.cbPassengerSelected.setChecked(passengers.get(position).isSelected());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -67,42 +67,6 @@ public class PassengerAdapter extends RecyclerView.Adapter<PassengerAdapter.Trav
             }
         });
 
-//        Penumpang item = passengers.get(position);
-//        holder.itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
-//
-//        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View v) {
-//                mListener.oItemLongClick(item, holder.getAdapterPosition());
-//                return true;
-//            }
-//        });
-//
-//        holder.tvPassengerName.setText(item.getNama());
-//        holder.cbPassengerSelected.setSelected(item.isSelected());
-//
-//        holder.cbPassengerSelected.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                Log.v("CheckedPosition", String.valueOf(holder.getAdapterPosition()));
-//                passengers.get(holder.getAdapterPosition()).setSelected(isChecked);
-//
-////                if (holder.cbPassengerSelected.isSelected()) {
-////                    mListener.onItemClick(passengers.get(holder.getAdapterPosition()), false);
-////                    passengers.get(holder.getAdapterPosition()).setSelected(false);
-////                    holder.cbPassengerSelected.setSelected(false);
-////                } else {
-////                    mListener.onItemClick(passengers.get(holder.getAdapterPosition()), true);
-////                    passengers.get(holder.getAdapterPosition()).setSelected(true);
-////                    holder.cbPassengerSelected.setSelected(true);
-////                }
-//            }
-//        });
     }
 
     @Override
@@ -116,7 +80,7 @@ public class PassengerAdapter extends RecyclerView.Adapter<PassengerAdapter.Trav
         void oItemLongClick(Penumpang passenger, int position);
     }
 
-    public class TravelChoiceViewHolder extends RecyclerView.ViewHolder {
+    public class ScheduleViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.tvPassengerName)
         TextView tvPassengerName;
@@ -125,7 +89,7 @@ public class PassengerAdapter extends RecyclerView.Adapter<PassengerAdapter.Trav
         @BindView(R.id.llPassenger)
         LinearLayout llPassenger;
 
-        public TravelChoiceViewHolder(View view) {
+        public ScheduleViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }

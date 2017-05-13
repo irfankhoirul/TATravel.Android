@@ -147,7 +147,7 @@ public class DestinationFragment extends BaseFragment<MainActivity> implements
 
     @Override
     protected void setTitle() {
-        title = "Keberangkatan";
+        title = "Tujuan";
     }
 
     @Override

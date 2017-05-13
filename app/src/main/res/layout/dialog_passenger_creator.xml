@@ -34,7 +34,7 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:text="Batal"
-            android:textAllCaps="false"
+            android:textAllCaps="true"
             android:textColor="@color/colorAccent" />
 
         <Button
@@ -47,7 +47,7 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:text="Simpan"
-            android:textAllCaps="false"
+            android:textAllCaps="true"
             android:textColor="@color/colorAccent" />
 
     </LinearLayout>

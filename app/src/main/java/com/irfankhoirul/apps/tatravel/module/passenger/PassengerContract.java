@@ -23,6 +23,10 @@ public interface PassengerContract {
         void updatePassengerItem(int position, Penumpang passenger);
 
         void addPassengerItem(Penumpang passenger);
+
+        void showDataNotExist();
+
+        void showDataExist();
     }
 
     interface Presenter extends IBasePresenter {
@@ -30,7 +34,7 @@ public interface PassengerContract {
 
         void updatePassenger(int position, Penumpang passenger, Map<String, String> param);
 
-        void deletePassenger(int idPenumpang, int position);
+        void deletePassenger(int idPenumpang, int position, List<Penumpang> passengers);
 
         void listPassenger(Map<String, String> param);
     }

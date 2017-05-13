@@ -25,18 +25,17 @@ import com.irfankhoirul.apps.tatravel.core.base.BaseFragment;
 import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.core.components.util.DateUtils;
 import com.irfankhoirul.apps.tatravel.core.components.util.DisplayMetricUtils;
-import com.irfankhoirul.apps.tatravel.data.pojo.JadwalPerjalanan;
 import com.irfankhoirul.apps.tatravel.data.pojo.Penumpang;
 import com.irfankhoirul.apps.tatravel.module.departure.DepartureActivity;
 import com.irfankhoirul.apps.tatravel.module.destination.DestinationActivity;
 import com.irfankhoirul.apps.tatravel.module.passenger.PassengerActivity;
+import com.irfankhoirul.apps.tatravel.module.schedule.ScheduleActivity;
 
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -161,21 +160,6 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
 
     }
 
-    @Override
-    public void showSearchResult(List<JadwalPerjalanan> jadwalPerjalanan) {
-        if (jadwalPerjalanan != null) {
-            if (jadwalPerjalanan.size() > 0) {
-                for (int i = 0; i < jadwalPerjalanan.size(); i++) {
-                    Log.v("DataJadwalPerjalanan[" + i + "]", jadwalPerjalanan.get(i).toString());
-                }
-            } else {
-                Log.v("DataJadwalPerjalanan", "isEmpty");
-            }
-        } else {
-            Log.v("DataJadwalPerjalanan", "isNull");
-        }
-    }
-
     @OnClick(R.id.llDeparture)
     public void llDeparture() {
         Intent intent = new Intent(activity, DepartureActivity.class);
@@ -201,6 +185,7 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
             DatePickerDialog fromDatePickerDialog = new DatePickerDialog(activity, new DatePickerDialog.OnDateSetListener() {
                 public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                     Calendar selectedDate = Calendar.getInstance();
+
                     selectedDate.set(year, monthOfYear, dayOfMonth);
                     newCalendar.setTimeInMillis(selectedDate.getTimeInMillis());
                     mPresenter.getCart().setTanggalKeberangkatan(selectedDate.getTimeInMillis());
@@ -209,6 +194,7 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
                     llDepartureDate.setBackgroundColor(ContextCompat.getColor(activity, R.color.grey_50));
                 }
             }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+            fromDatePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
             fromDatePickerDialog.show();
         } else {
             showStatus(ConstantUtils.STATUS_ERROR, "Anda belum memilih lokasi tujuan");
@@ -235,6 +221,19 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
         }
     }
 
+    @OnClick(R.id.btSearchSchedule)
+    public void btSearchSchedule() {
+        if (mPresenter.getCart().getDeparture() != null &&
+                mPresenter.getCart().getDestination() != null &&
+                mPresenter.getCart().getTanggalKeberangkatan() != 0 &&
+                mPresenter.getCart().getPenumpang() != null) {
+            Intent intent = new Intent(activity, ScheduleActivity.class);
+            startActivityForResult(intent, ConstantUtils.ACTIVITY_REQUEST_CODE_SCHEDULE);
+        } else {
+            showStatus(ConstantUtils.STATUS_ERROR, "Anda belum menambahkan penumpang");
+        }
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -248,9 +247,10 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
 
             Map<String, String> departureData = new HashMap<>();
             departureData.put("address", departureLocation);
-            departureData.put("latitude", String.valueOf(data.getDoubleExtra("departureLatitude", 0)));
-            departureData.put("longitude", String.valueOf(data.getDoubleExtra("departureLongitude", 0)));
+            departureData.put("latitude", String.valueOf(data.getDoubleExtra("latitude", 0)));
+            departureData.put("longitude", String.valueOf(data.getDoubleExtra("longitude", 0)));
             departureData.put("operatorTravelId", String.valueOf(data.getIntExtra("id_operator_travel", -1)));
+            Log.v("operatorTravelId", String.valueOf(data.getIntExtra("id_operator_travel", -1)));
             departureData.put("operatorTravelLocationIds", new Gson().toJson(Parcels.unwrap(data.getParcelableExtra("operatorTravelLocationIds"))));
             mPresenter.getCart().setDeparture(departureData);
 
@@ -258,6 +258,13 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
             llDestination.setBackgroundColor(ContextCompat.getColor(activity, R.color.red_50));
             tvDestination.setText("Pilih Lokasi Tujuan");
             tvDestination.setTextColor(ContextCompat.getColor(activity, R.color.font_black_disabled));
+            mPresenter.getCart().clearDestination();
+
+            // Reset tanggal keberangkatan karena destination berubah / departure berubah
+            llDepartureDate.setBackgroundColor(ContextCompat.getColor(activity, R.color.red_50));
+            tvDateGo.setText("Pilih Tanggal Keberangkatan");
+            tvDateGo.setTextColor(ContextCompat.getColor(activity, R.color.font_black_disabled));
+            mPresenter.getCart().clearTanggalKeberangkatan();
         } else if (requestCode == ConstantUtils.ACTIVITY_REQUEST_CODE_DESTINATION && resultCode == ConstantUtils.REQUEST_RESULT_SUCCESS) {
             String destinationLocation = data.getStringExtra("thoroughfare") + ",  " +
                     data.getStringExtra("locality") + ", " +
@@ -269,8 +276,8 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
 
             Map<String, String> destinationData = new HashMap<>();
             destinationData.put("address", destinationLocation);
-            destinationData.put("latitude", String.valueOf(data.getDoubleExtra("destinationLatitude", 0)));
-            destinationData.put("longitude", String.valueOf(data.getDoubleExtra("destinationLongitude", 0)));
+            destinationData.put("latitude", String.valueOf(data.getDoubleExtra("latitude", 0)));
+            destinationData.put("longitude", String.valueOf(data.getDoubleExtra("longitude", 0)));
             destinationData.put("operatorTravelLocationIds", new Gson().toJson(Parcels.unwrap(data.getParcelableExtra("operatorTravelLocationIds"))));
             Log.v("LocationIds", new Gson().toJson(Parcels.unwrap(data.getParcelableExtra("operatorTravelLocationIds"))));
             mPresenter.getCart().setDestination(destinationData);
@@ -279,6 +286,7 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
             llDepartureDate.setBackgroundColor(ContextCompat.getColor(activity, R.color.red_50));
             tvDateGo.setText("Pilih Tanggal Keberangkatan");
             tvDateGo.setTextColor(ContextCompat.getColor(activity, R.color.font_black_disabled));
+            mPresenter.getCart().clearTanggalKeberangkatan();
         } else if (requestCode == ConstantUtils.ACTIVITY_REQUEST_CODE_PASSENGER && resultCode == ConstantUtils.REQUEST_RESULT_SUCCESS) {
             mPresenter.getCart().clearPenumpang();
             if (data.getParcelableExtra("selectedPassengers") != null) {

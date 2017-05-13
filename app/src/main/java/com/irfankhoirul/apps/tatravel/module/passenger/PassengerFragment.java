@@ -119,7 +119,7 @@ public class PassengerFragment extends BaseFragment<PassengerActivity> implement
                         builder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                mPresenter.deletePassenger(passenger.getId(), position);
+                                mPresenter.deletePassenger(passenger.getId(), position, passengers);
                             }
                         });
                         builder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
@@ -134,7 +134,6 @@ public class PassengerFragment extends BaseFragment<PassengerActivity> implement
                 builder.setNegativeButton("Ubah", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Log.v("UpdatedPosition4", String.valueOf(position));
                         PassengerCreatorDialog passengerCreatorDialog = PassengerCreatorDialog.newInstance(position, passenger);
                         passengerCreatorDialog.setListener(PassengerFragment.this);
                         passengerCreatorDialog.show(getFragmentManager(), "passengerCreatorDialog");
@@ -260,6 +259,18 @@ public class PassengerFragment extends BaseFragment<PassengerActivity> implement
     public void addPassengerItem(Penumpang passenger) {
         passengers.add(passenger);
         passengerAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showDataNotExist() {
+        rvPassenger.setVisibility(View.GONE);
+        llEmptyMessage.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showDataExist() {
+        llEmptyMessage.setVisibility(View.GONE);
+        rvPassenger.setVisibility(View.VISIBLE);
     }
 
     @Override

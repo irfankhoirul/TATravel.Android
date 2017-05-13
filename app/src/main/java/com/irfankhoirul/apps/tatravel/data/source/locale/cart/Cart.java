@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.irfankhoirul.apps.tatravel.data.pojo.JadwalPerjalanan;
 import com.irfankhoirul.apps.tatravel.data.pojo.Penumpang;
 
 import java.util.List;
@@ -151,6 +152,26 @@ public class Cart implements CartRepository {
     @Override
     public void clearPenumpang() {
         editor.remove("penumpang");
+        editor.apply();
+    }
+
+    @Override
+    public JadwalPerjalanan getSchedule() {
+        if (sharedPref.getString("jadwalPerjalanan", null) != null) {
+            return new Gson().fromJson(sharedPref.getString("jadwalPerjalanan", null), JadwalPerjalanan.class);
+        }
+        return null;
+    }
+
+    @Override
+    public void setSchedule(JadwalPerjalanan schedule) {
+        editor.putString("jadwalPerjalanan", new Gson().toJson(schedule));
+        editor.apply();
+    }
+
+    @Override
+    public void clearSchedule() {
+        editor.remove("jadwalPerjalanan");
         editor.apply();
     }
 

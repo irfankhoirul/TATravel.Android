@@ -3,6 +3,7 @@ package com.irfankhoirul.apps.tatravel.data.source.remote.schedule;
 import com.irfankhoirul.apps.tatravel.core.base.BaseRemoteDataSource;
 import com.irfankhoirul.apps.tatravel.core.data.DataResult;
 import com.irfankhoirul.apps.tatravel.core.data.IRequestResponseListener;
+import com.irfankhoirul.apps.tatravel.data.pojo.JadwalPerjalanan;
 import com.irfankhoirul.apps.tatravel.data.pojo.Lokasi;
 
 import java.util.Map;
@@ -29,6 +30,12 @@ public class ScheduleRepositoryImpl extends BaseRemoteDataSource implements Sche
     @Override
     public void getDestinationAvailability(IRequestResponseListener listener, Map<String, String> param) {
         Call<DataResult<Lokasi>> call = ((IScheduleEndPoints) endPoint).getDestinationAvailability(param);
+        execute(call, listener);
+    }
+
+    @Override
+    public void searchSchedule(IRequestResponseListener listener, int operatorTravelId, Map<String, String> param) {
+        Call<DataResult<JadwalPerjalanan>> call = ((IScheduleEndPoints) endPoint).listJadwalPerjalanan(operatorTravelId, param);
         execute(call, listener);
     }
 

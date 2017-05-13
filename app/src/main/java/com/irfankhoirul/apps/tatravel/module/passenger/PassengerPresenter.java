@@ -10,6 +10,7 @@ import com.irfankhoirul.apps.tatravel.data.source.locale.session.SessionReposito
 import com.irfankhoirul.apps.tatravel.data.source.remote.passenger.PassengerRepository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -53,6 +54,7 @@ public class PassengerPresenter implements PassengerContract.Presenter {
             public void onSuccess(DataResult<Penumpang> result) {
                 view.setLoadingDialog(false, null);
                 if (result.getCode() == ConstantUtils.REQUEST_RESULT_SUCCESS) {
+                    view.showDataExist();
                     view.addPassengerItem(result.getData());
                     view.showStatus(ConstantUtils.STATUS_SUCCESS, result.getMessage());
                 } else {
@@ -94,7 +96,7 @@ public class PassengerPresenter implements PassengerContract.Presenter {
     }
 
     @Override
-    public void deletePassenger(int idPenumpang, final int position) {
+    public void deletePassenger(int idPenumpang, final int position, final List<Penumpang> passengers) {
         Map<String, String> param = new HashMap<>();
         param.put("token", sessionRepository.getSessionData().getUserToken().getToken());
         view.setLoadingDialog(true, "Menyimpan data penumpang...");
@@ -104,6 +106,9 @@ public class PassengerPresenter implements PassengerContract.Presenter {
                 view.setLoadingDialog(false, null);
                 if (result.getCode() == ConstantUtils.REQUEST_RESULT_SUCCESS) {
                     view.removePassengerItem(position);
+                    if (passengers.size() == 0) {
+                        view.showDataNotExist();
+                    }
                     view.showStatus(ConstantUtils.STATUS_SUCCESS, result.getMessage());
                 } else {
                     view.showStatus(ConstantUtils.STATUS_ERROR, result.getMessage());
@@ -135,7 +140,12 @@ public class PassengerPresenter implements PassengerContract.Presenter {
             public void onSuccess(DataResult<Penumpang> result) {
                 view.setLoadingDialog(false, null);
                 if (result.getCode() == ConstantUtils.REQUEST_RESULT_SUCCESS) {
-                    view.updatePassengerList(result.getDatas(), result.getDataPage(), params);
+                    if (result.getDatas() != null && result.getDatas().size() > 0) {
+                        view.showDataExist();
+                        view.updatePassengerList(result.getDatas(), result.getDataPage(), params);
+                    } else {
+                        view.showDataNotExist();
+                    }
                 } else {
                     view.setLoadingDialog(false, null);
                     view.showStatus(ConstantUtils.STATUS_ERROR, result.getMessage());

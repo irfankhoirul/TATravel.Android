@@ -14,4 +14,6 @@ public interface ScheduleRepository {
 
     void getDestinationAvailability(IRequestResponseListener listener, Map<String, String> param);
 
+    void searchSchedule(IRequestResponseListener listener, int operatorTravelId, Map<String, String> param);
+
 }

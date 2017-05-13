@@ -1,5 +1,6 @@
 package com.irfankhoirul.apps.tatravel.data.source.locale.cart;
 
+import com.irfankhoirul.apps.tatravel.data.pojo.JadwalPerjalanan;
 import com.irfankhoirul.apps.tatravel.data.pojo.Penumpang;
 
 import java.util.List;
@@ -44,5 +45,11 @@ public interface CartRepository {
     void setPenumpang(List<Penumpang> penumpangList);
 
     void clearPenumpang();
+
+    JadwalPerjalanan getSchedule();
+
+    void setSchedule(JadwalPerjalanan schedule);
+
+    void clearSchedule();
 
 }

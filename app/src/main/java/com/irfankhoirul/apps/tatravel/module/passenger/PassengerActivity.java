@@ -31,7 +31,8 @@ public class PassengerActivity extends BaseFragmentHolderActivity {
 
     @Override
     protected void initializeFragment() {
-        passengerFragment = PassengerFragment.newInstance((List<Penumpang>) Parcels.unwrap(getIntent().getParcelableExtra("selectedPassengers")));
+        passengerFragment = PassengerFragment.newInstance(
+                (List<Penumpang>) Parcels.unwrap(getIntent().getParcelableExtra("selectedPassengers")));
         setCurrentFragment(passengerFragment, false);
 
         DaggerPassengerComponent.builder()

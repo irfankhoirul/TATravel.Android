@@ -50,8 +50,4 @@ public class SearchPresenter implements SearchContract.Presenter {
         view.showPromo();
     }
 
-    @Override
-    public void searchJadwalPerjalanan() {
-
-    }
 }
