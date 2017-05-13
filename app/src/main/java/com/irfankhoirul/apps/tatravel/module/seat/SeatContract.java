@@ -2,9 +2,10 @@ package com.irfankhoirul.apps.tatravel.module.seat;
 
 import com.irfankhoirul.apps.tatravel.core.base.IBasePresenter;
 import com.irfankhoirul.apps.tatravel.core.base.IBaseView;
-import com.irfankhoirul.apps.tatravel.data.pojo.User;
+import com.irfankhoirul.apps.tatravel.data.pojo.KursiPerjalanan;
+import com.irfankhoirul.apps.tatravel.data.source.locale.cart.CartRepository;
 
-import java.util.Map;
+import java.util.List;
 
 /**
  * Created by Irfan Khoirul on 4/2/2017.
@@ -12,14 +13,26 @@ import java.util.Map;
 
 public interface SeatContract {
     interface View extends IBaseView<Presenter> {
-        void redirectToProfile();
+        void showSeats(List<KursiPerjalanan> seats);
+
+        void redirectToReservationDetail();
+
+        void setup5Seats();
+
+        void setup6Seats();
+
+        void setup10Seats();
+
+        void setup14Seats();
+
+        void setup19Seats();
     }
 
     interface Presenter extends IBasePresenter {
-        void initializeSession(User user);
+        void getCarSeats(int scheduleId);
 
-        void login(Map<String, String> params);
+        void bookSeat(KursiPerjalanan seat);
 
-        void updateFcmToken(Map<String, String> param);
+        CartRepository getCart();
     }
 }

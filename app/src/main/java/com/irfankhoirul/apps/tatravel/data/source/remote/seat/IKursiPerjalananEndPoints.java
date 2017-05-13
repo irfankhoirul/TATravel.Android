@@ -27,7 +27,7 @@ public interface IKursiPerjalananEndPoints {
      */
     @FormUrlEncoded
     @POST(LIST_SEAT)
-    Call<DataResult<KursiPerjalanan>> listKursiPerjalanan(@Path("id") String id, @FieldMap Map<String, String> param);
+    Call<DataResult<KursiPerjalanan>> listKursiPerjalanan(@Path("id") int id, @FieldMap Map<String, String> param);
 
     /**
      * Param
@@ -36,6 +36,6 @@ public interface IKursiPerjalananEndPoints {
      */
     @FormUrlEncoded
     @POST(DO_BOOK_SEAT)
-    Call<DataResult> bookKursiPerjalanan(@Path("id") String id, @FieldMap Map<String, String> param);
+    Call<DataResult> bookKursiPerjalanan(@Path("id") int id, @FieldMap Map<String, String> param);
 
 }

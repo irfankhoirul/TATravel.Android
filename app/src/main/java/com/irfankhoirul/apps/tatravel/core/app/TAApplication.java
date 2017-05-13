@@ -15,7 +15,7 @@ public class TAApplication extends Application {
         super.onCreate();
 
         appComponent = DaggerAppComponent.builder()
-                .appModule(new AppModule(this, getApplicationContext()))
+                .appModule(new AppModule(getApplicationContext()))
                 .build();
         appComponent.inject(this);
     }

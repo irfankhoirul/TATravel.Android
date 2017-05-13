@@ -85,7 +85,7 @@ public class PassengerFragment extends BaseFragment<PassengerActivity> implement
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        fragmentView = inflater.inflate(R.layout.fragment_passanger, container, false);
+        fragmentView = inflater.inflate(R.layout.fragment_passenger, container, false);
         unbinder = ButterKnife.bind(this, fragmentView);
         mPresenter.start();
 

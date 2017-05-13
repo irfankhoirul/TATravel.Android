@@ -26,6 +26,9 @@ public class KursiPerjalanan extends BaseModel {
     @Expose
     protected KursiMobil kursiMobil;
 
+    // Tambahan
+    protected boolean selected;
+
     public int getIdKursiMobil() {
         return idKursiMobil;
     }
@@ -48,5 +51,13 @@ public class KursiPerjalanan extends BaseModel {
 
     public void setKursiMobil(KursiMobil kursiMobil) {
         this.kursiMobil = kursiMobil;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 }

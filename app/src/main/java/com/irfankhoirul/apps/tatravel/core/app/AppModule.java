@@ -10,6 +10,8 @@ import com.irfankhoirul.apps.tatravel.data.source.remote.passenger.PassengerRepo
 import com.irfankhoirul.apps.tatravel.data.source.remote.passenger.PassengerRepositoryImpl;
 import com.irfankhoirul.apps.tatravel.data.source.remote.schedule.ScheduleRepository;
 import com.irfankhoirul.apps.tatravel.data.source.remote.schedule.ScheduleRepositoryImpl;
+import com.irfankhoirul.apps.tatravel.data.source.remote.seat.SeatRepository;
+import com.irfankhoirul.apps.tatravel.data.source.remote.seat.SeatRepositoryImpl;
 import com.irfankhoirul.apps.tatravel.data.source.remote.user.UserRepository;
 import com.irfankhoirul.apps.tatravel.data.source.remote.user.UserRepositoryImpl;
 
@@ -26,11 +28,9 @@ import dagger.Provides;
 public final class AppModule {
 
     private final Context mContext;
-    private TAApplication taApplication;
 
-    AppModule(TAApplication taApplication, Context context) {
+    AppModule(Context context) {
         mContext = context;
-        this.taApplication = taApplication;
     }
 
     @Provides
@@ -66,5 +66,11 @@ public final class AppModule {
     @Provides
     PassengerRepository providePassengerRepository() {
         return new PassengerRepositoryImpl();
+    }
+
+    @Singleton
+    @Provides
+    SeatRepository provideSeatRepository() {
+        return new SeatRepositoryImpl();
     }
 }

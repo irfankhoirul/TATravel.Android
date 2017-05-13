@@ -4,6 +4,7 @@ import com.irfankhoirul.apps.tatravel.data.source.locale.cart.CartRepository;
 import com.irfankhoirul.apps.tatravel.data.source.locale.session.SessionRepository;
 import com.irfankhoirul.apps.tatravel.data.source.remote.passenger.PassengerRepository;
 import com.irfankhoirul.apps.tatravel.data.source.remote.schedule.ScheduleRepository;
+import com.irfankhoirul.apps.tatravel.data.source.remote.seat.SeatRepository;
 import com.irfankhoirul.apps.tatravel.data.source.remote.user.UserRepository;
 
 import javax.inject.Singleton;
@@ -28,4 +29,6 @@ public interface AppComponent {
     ScheduleRepository scheduleRepository();
 
     PassengerRepository passengerRepository();
+
+    SeatRepository seatRepository();
 }

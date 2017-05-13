@@ -64,7 +64,7 @@ public class ScheduleFragment extends BaseFragment<LoginActivity> implements Sch
 
     @Override
     protected void setTitle() {
-        title = "Jadwal Perjalanan";
+        title = "Pilih Jadwal Perjalanan";
     }
 
     @Override

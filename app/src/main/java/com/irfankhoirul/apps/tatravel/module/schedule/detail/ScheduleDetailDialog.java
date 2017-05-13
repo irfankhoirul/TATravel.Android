@@ -1,6 +1,7 @@
 package com.irfankhoirul.apps.tatravel.module.schedule.detail;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -13,8 +14,10 @@ import android.widget.TextView;
 
 import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.core.base.BaseDialog;
+import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.core.components.util.CurrencyUtils;
 import com.irfankhoirul.apps.tatravel.data.pojo.JadwalPerjalanan;
+import com.irfankhoirul.apps.tatravel.module.seat.SeatActivity;
 
 import org.parceler.Parcels;
 
@@ -107,7 +110,9 @@ public class ScheduleDetailDialog extends BaseDialog implements ScheduleDetailDi
         // Set cart
         mPresenter.setSchedule(schedule);
         // Intent ke activity seat
-
+        Intent intent = new Intent(activity, SeatActivity.class);
+        intent.putExtra("scheduleId", schedule.getId());
+        startActivityForResult(intent, ConstantUtils.ACTIVITY_REQUEST_CODE_SEAT);
         ScheduleDetailDialog.this.dismiss();
     }
 
