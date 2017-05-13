@@ -3,12 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginTop="16dp"
     android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvSeatCount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center_horizontal"
+        android:text="Silakan Pilih 2 Kursi"
+        android:textColor="@color/colorPrimary" />
 
     <LinearLayout
         android:id="@+id/llSeatLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/tvSeatCount"
         android:layout_marginBottom="72dp"
         android:orientation="vertical" />
 

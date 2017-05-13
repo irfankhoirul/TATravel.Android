@@ -177,16 +177,17 @@ public class Cart implements CartRepository {
     }
 
     @Override
-    public KursiPerjalanan getSeat() {
+    public List<KursiPerjalanan> getSeat() {
         if (sharedPref.getString("kursiPerjalanan", null) != null) {
-            return new Gson().fromJson(sharedPref.getString("kursiPerjalanan", null), KursiPerjalanan.class);
+            return new Gson().fromJson(sharedPref.getString("kursiPerjalanan", null), new TypeToken<List<KursiPerjalanan>>() {
+            }.getType());
         }
         return null;
     }
 
     @Override
-    public void setSeat(KursiPerjalanan seat) {
-        editor.putString("kursiPerjalanan", new Gson().toJson(seat));
+    public void setSeat(List<KursiPerjalanan> seats) {
+        editor.putString("kursiPerjalanan", new Gson().toJson(seats));
         editor.apply();
     }
 

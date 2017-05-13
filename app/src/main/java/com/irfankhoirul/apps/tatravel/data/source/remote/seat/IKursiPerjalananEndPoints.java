@@ -33,9 +33,10 @@ public interface IKursiPerjalananEndPoints {
      * Param
      *
      * @param param - token
+     *              - seatIds
      */
     @FormUrlEncoded
     @POST(DO_BOOK_SEAT)
-    Call<DataResult> bookKursiPerjalanan(@Path("id") int id, @FieldMap Map<String, String> param);
+    Call<DataResult> bookKursiPerjalanan(@FieldMap Map<String, String> param);
 
 }

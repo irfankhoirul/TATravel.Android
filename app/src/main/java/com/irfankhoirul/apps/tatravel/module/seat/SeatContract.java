@@ -31,7 +31,7 @@ public interface SeatContract {
     interface Presenter extends IBasePresenter {
         void getCarSeats(int scheduleId);
 
-        void bookSeat(KursiPerjalanan seat);
+        void bookSeat(List<KursiPerjalanan> seats);
 
         CartRepository getCart();
     }

@@ -53,9 +53,9 @@ public interface CartRepository {
 
     void clearSchedule();
 
-    KursiPerjalanan getSeat();
+    List<KursiPerjalanan> getSeat();
 
-    void setSeat(KursiPerjalanan seat);
+    void setSeat(List<KursiPerjalanan> seat);
 
     void clearSeat();
 

@@ -43,7 +43,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Keputih" />
+                    android:text="-" />
 
             </LinearLayout>
 
@@ -67,7 +67,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Keputih" />
+                    android:text="-" />
 
             </LinearLayout>
 
@@ -91,7 +91,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Keputih" />
+                    android:text="-" />
 
             </LinearLayout>
 
@@ -115,7 +115,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Keputih" />
+                    android:text="-" />
 
             </LinearLayout>
 
@@ -139,7 +139,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Keputih" />
+                    android:text="-" />
 
             </LinearLayout>
 
@@ -163,7 +163,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Keputih" />
+                    android:text="-" />
 
             </LinearLayout>
 
@@ -187,7 +187,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Keputih" />
+                    android:text="-" />
 
             </LinearLayout>
 
@@ -211,7 +211,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Keputih" />
+                    android:text="-" />
 
             </LinearLayout>
 
@@ -245,7 +245,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Keputih" />
+                    android:text="-" />
 
             </LinearLayout>
 
@@ -266,12 +266,15 @@
                     android:paddingRight="8dp"
                     android:text=":" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-" />
+
 
             </LinearLayout>
 
-            <android.support.v7.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+
 
             <TextView
                 android:layout_width="match_parent"
@@ -302,7 +305,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Keputih" />
+                    android:text="-" />
 
             </LinearLayout>
 
@@ -314,7 +317,7 @@
                 <TextView
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:text="Biaya Tambahan" />
+                    android:text="Biaya Penjemputan" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -326,7 +329,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Keputih" />
+                    android:text="-" />
 
             </LinearLayout>
 
@@ -338,7 +341,7 @@
                 <TextView
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:text="Diskon" />
+                    android:text="Biaya Pengantaran" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -350,7 +353,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Keputih" />
+                    android:text="-" />
 
             </LinearLayout>
 
@@ -374,31 +377,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Keputih" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:text="Cara Pembayaran" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp"
-                    android:text=":" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Keputih" />
+                    android:text="-" />
 
             </LinearLayout>
 
@@ -431,7 +410,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Keputih" />
+                    android:text="-" />
 
             </LinearLayout>
 
@@ -455,7 +434,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Keputih" />
+                    android:text="-" />
 
             </LinearLayout>
 
@@ -479,7 +458,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Keputih" />
+                    android:text="-" />
 
             </LinearLayout>
 

@@ -1,19 +1,24 @@
 package com.irfankhoirul.apps.tatravel.module.seat;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.core.base.BaseFragment;
+import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.data.pojo.KursiPerjalanan;
+import com.irfankhoirul.apps.tatravel.module.reservation.ReservationActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,12 +38,14 @@ public class SeatFragment extends BaseFragment<SeatActivity> implements
 
     @BindView(R.id.llSeatLayout)
     LinearLayout llSeatLayout;
+    @BindView(R.id.tvSeatCount)
+    TextView tvSeatCount;
 
     SeatContract.Presenter mPresenter;
 
     private View layout;
     private List<ImageView> seatViews = new ArrayList<>();
-    private KursiPerjalanan selectedSeat;
+    private List<KursiPerjalanan> selectedSeats = new ArrayList<>();
 
     public SeatFragment() {
         // Required empty public constructor
@@ -65,6 +72,8 @@ public class SeatFragment extends BaseFragment<SeatActivity> implements
         unbinder = ButterKnife.bind(this, fragmentView);
         mPresenter.start();
 
+        tvSeatCount.setText("Silakan Pilih " + mPresenter.getCart().getPenumpang().size() + " Kursi");
+
         mPresenter.getCarSeats(getArguments().getInt("scheduleId"));
 
         return fragmentView;
@@ -87,23 +96,30 @@ public class SeatFragment extends BaseFragment<SeatActivity> implements
 
     @OnClick(R.id.btSetSeat)
     public void btSetSeat() {
-        if (selectedSeat != null) {
-            // Show dialog batas waktu order = 10 menit
-            AlertDialog.Builder builder = createAlert("Perhatian", "Setelah memilih kursi, anda memiliki waktu 10 menit untuk menyelesaikan pemesanan sebelum anda harus melakukan pembayaran");
-            builder.setCancelable(false);
-            builder.setPositiveButton("Lanjutkan", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    mPresenter.bookSeat(selectedSeat);
-                }
-            });
-            builder.setNegativeButton("Batal", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
-            builder.create().show();
+        Log.v("SelectedSeatsSize", String.valueOf(selectedSeats.size()));
+        if (selectedSeats != null && selectedSeats.size() > 0) {
+            if (selectedSeats.size() != mPresenter.getCart().getPenumpang().size()) {
+                showStatus(ConstantUtils.STATUS_ERROR, "Anda hanya bisa memilih " + mPresenter.getCart().getPenumpang().size() + " kursi");
+            } else {
+                // Show dialog batas waktu order = 10 menit
+                AlertDialog.Builder builder = createAlert("Perhatian", "Setelah memilih kursi, anda memiliki waktu 10 menit untuk menyelesaikan pemesanan sebelum anda harus melakukan pembayaran");
+                builder.setCancelable(false);
+                builder.setPositiveButton("Lanjutkan", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mPresenter.bookSeat(selectedSeats);
+                    }
+                });
+                builder.setNegativeButton("Batal", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.create().show();
+            }
+        } else {
+            showStatus(ConstantUtils.STATUS_ERROR, "Anda belum memilih kursi");
         }
     }
 
@@ -146,6 +162,8 @@ public class SeatFragment extends BaseFragment<SeatActivity> implements
     @Override
     public void redirectToReservationDetail() {
         // Intent ke detail order
+        Intent intent = new Intent(activity, ReservationActivity.class);
+        startActivityForResult(intent, ConstantUtils.ACTIVITY_REQUEST_CODE_RESERVATION);
     }
 
     @Override
@@ -228,25 +246,27 @@ public class SeatFragment extends BaseFragment<SeatActivity> implements
     }
 
     public void handelSeatClick(final List<KursiPerjalanan> seats) {
+        final int[] selectCounter = {0};
         for (int i = 0; i < seatViews.size(); i++) {
             if (seats.get(i).getStatus().equalsIgnoreCase("A")) {
                 final int finalI = i;
                 seatViews.get(i).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        selectedSeat = null;
-                        for (int j = 0; j < seatViews.size(); j++) {
-                            if (j != finalI) {
-                                seatViews.get(j).setImageResource(R.drawable.ic_car_seat_available);
-                                seats.get(finalI).setSelected(false);
-                            }
-                        }
+//                        selectedSeats = null;
+//                        for (int j = 0; j < seatViews.size(); j++) {
+//                            if (j != finalI) {
+//                                seatViews.get(j).setImageResource(R.drawable.ic_car_seat_available);
+//                                seats.get(finalI).setSelected(false);
+//                            }
+//                        }
 
                         if (!seats.get(finalI).isSelected()) {
-                            selectedSeat = seats.get(finalI);
+                            selectedSeats.add(seats.get(finalI));
                             seatViews.get(finalI).setImageResource(R.drawable.ic_car_seat_selected);
                             seats.get(finalI).setSelected(true);
                         } else {
+                            selectedSeats.remove(seats.get(finalI));
                             seatViews.get(finalI).setImageResource(R.drawable.ic_car_seat_available);
                             seats.get(finalI).setSelected(false);
                         }

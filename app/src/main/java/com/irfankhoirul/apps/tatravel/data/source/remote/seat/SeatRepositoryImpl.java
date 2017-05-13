@@ -27,8 +27,8 @@ public class SeatRepositoryImpl extends BaseRemoteDataSource implements SeatRepo
     }
 
     @Override
-    public void bookSeat(IRequestResponseListener listener, int seatId, Map<String, String> param) {
-        Call<DataResult> call = ((IKursiPerjalananEndPoints) endPoint).bookKursiPerjalanan(seatId, param);
+    public void bookSeat(IRequestResponseListener listener, Map<String, String> param) {
+        Call<DataResult> call = ((IKursiPerjalananEndPoints) endPoint).bookKursiPerjalanan(param);
         execute(call, listener);
     }
 }

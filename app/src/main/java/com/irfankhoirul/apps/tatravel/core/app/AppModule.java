@@ -8,6 +8,8 @@ import com.irfankhoirul.apps.tatravel.data.source.locale.session.Session;
 import com.irfankhoirul.apps.tatravel.data.source.locale.session.SessionRepository;
 import com.irfankhoirul.apps.tatravel.data.source.remote.passenger.PassengerRepository;
 import com.irfankhoirul.apps.tatravel.data.source.remote.passenger.PassengerRepositoryImpl;
+import com.irfankhoirul.apps.tatravel.data.source.remote.reservation.ReservationRepository;
+import com.irfankhoirul.apps.tatravel.data.source.remote.reservation.ReservationRepositoryImpl;
 import com.irfankhoirul.apps.tatravel.data.source.remote.schedule.ScheduleRepository;
 import com.irfankhoirul.apps.tatravel.data.source.remote.schedule.ScheduleRepositoryImpl;
 import com.irfankhoirul.apps.tatravel.data.source.remote.seat.SeatRepository;
@@ -72,5 +74,11 @@ public final class AppModule {
     @Provides
     SeatRepository provideSeatRepository() {
         return new SeatRepositoryImpl();
+    }
+
+    @Singleton
+    @Provides
+    ReservationRepository provideReservationRepository() {
+        return new ReservationRepositoryImpl();
     }
 }

@@ -55,7 +55,7 @@ public class EndPoints {
 
     // Kursi Perjalanan End Point
     public static final String LIST_SEAT = "schedule/{id}/seat/list";
-    public static final String DO_BOOK_SEAT = "seat/book/{id}";
+    public static final String DO_BOOK_SEAT = "seat/book";
 
     // Pemesanan End Point
     public static final String DO_RESERVATION = "reservation";

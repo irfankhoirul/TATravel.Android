@@ -12,5 +12,5 @@ public interface SeatRepository {
 
     void scheduleSeat(IRequestResponseListener listener, int scheduleId, Map<String, String> param);
 
-    void bookSeat(IRequestResponseListener listener, int seatId, Map<String, String> param);
+    void bookSeat(IRequestResponseListener listener, Map<String, String> param);
 }

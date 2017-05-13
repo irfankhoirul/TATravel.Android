@@ -3,6 +3,7 @@ package com.irfankhoirul.apps.tatravel.core.app;
 import com.irfankhoirul.apps.tatravel.data.source.locale.cart.CartRepository;
 import com.irfankhoirul.apps.tatravel.data.source.locale.session.SessionRepository;
 import com.irfankhoirul.apps.tatravel.data.source.remote.passenger.PassengerRepository;
+import com.irfankhoirul.apps.tatravel.data.source.remote.reservation.ReservationRepository;
 import com.irfankhoirul.apps.tatravel.data.source.remote.schedule.ScheduleRepository;
 import com.irfankhoirul.apps.tatravel.data.source.remote.seat.SeatRepository;
 import com.irfankhoirul.apps.tatravel.data.source.remote.user.UserRepository;
@@ -31,4 +32,6 @@ public interface AppComponent {
     PassengerRepository passengerRepository();
 
     SeatRepository seatRepository();
+
+    ReservationRepository reservationRepository();
 }

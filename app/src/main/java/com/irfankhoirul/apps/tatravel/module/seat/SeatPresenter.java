@@ -2,6 +2,7 @@ package com.irfankhoirul.apps.tatravel.module.seat;
 
 import android.util.Log;
 
+import com.google.gson.Gson;
 import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.core.data.DataResult;
 import com.irfankhoirul.apps.tatravel.core.data.IRequestResponseListener;
@@ -10,7 +11,9 @@ import com.irfankhoirul.apps.tatravel.data.source.locale.cart.CartRepository;
 import com.irfankhoirul.apps.tatravel.data.source.locale.session.SessionRepository;
 import com.irfankhoirul.apps.tatravel.data.source.remote.seat.SeatRepository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -76,12 +79,19 @@ public class SeatPresenter implements SeatContract.Presenter {
     }
 
     @Override
-    public void bookSeat(KursiPerjalanan seat) {
-        cartRepository.setSeat(seat);
+    public void bookSeat(List<KursiPerjalanan> seats) {
+        cartRepository.setSeat(seats);
         view.setLoadingDialog(true, "Membooking kursi...");
+
+        List<Integer> seatIds = new ArrayList<>();
+        for (int i = 0; i < seats.size(); i++) {
+            seatIds.add(seats.get(i).getId());
+        }
 
         Map<String, String> params = new HashMap<>();
         params.put("token", sessionRepository.getSessionData().getUserToken().getToken());
+        params.put("seatIds", new Gson().toJson(seatIds));
+
         for (Map.Entry<String, String> entry : params.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
@@ -104,7 +114,7 @@ public class SeatPresenter implements SeatContract.Presenter {
                 view.setLoadingDialog(false, null);
                 view.showStatus(ConstantUtils.STATUS_ERROR, "Terjadi kesalahan");
             }
-        }, seat.getId(), params);
+        }, params);
     }
 
     @Override
