@@ -91,6 +91,7 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         unbinder = ButterKnife.bind(this, view);
+        setRetainInstance(true);
         mPresenter.start();
 
         mPresenter.getPromo();
@@ -194,7 +195,7 @@ public class SearchFragment extends BaseFragment<MainActivity> implements Search
                     llDepartureDate.setBackgroundColor(ContextCompat.getColor(activity, R.color.grey_50));
                 }
             }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
-            fromDatePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+            fromDatePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() + 86401000);
             fromDatePickerDialog.show();
         } else {
             showStatus(ConstantUtils.STATUS_ERROR, "Anda belum memilih lokasi tujuan");

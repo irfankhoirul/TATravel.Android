@@ -309,7 +309,7 @@ public class DepartureFragment extends BaseFragment<MainActivity> implements
     }
 
     @Override
-    public void onOperatorTravelChoose(final OperatorTravel operatorTravel, final List<Integer> operatorTravelLocationIds) {
+    public void onOperatorTravelChoose(final TravelChoiceDialog travelChoiceDialog, final OperatorTravel operatorTravel, final List<Integer> operatorTravelLocationIds) {
         final double tmpLat = departureMap.getCameraPosition().target.latitude;
         final double tmpLon = departureMap.getCameraPosition().target.longitude;
         setLoadingDialog(true, "Tunggu sebentar...");
@@ -341,6 +341,7 @@ public class DepartureFragment extends BaseFragment<MainActivity> implements
                         intent.putExtra("id_operator_travel", operatorTravel.getId());
                         intent.putExtra("operatorTravelLocationIds", Parcels.wrap(operatorTravelLocationIds));
                         setLoadingDialog(false, null);
+                        travelChoiceDialog.dismiss();
                         activity.setResult(ConstantUtils.REQUEST_RESULT_SUCCESS, intent);
                         activity.finish();
                     }

@@ -34,6 +34,7 @@ public class SearchPresenter implements SearchContract.Presenter {
     void setupListeners() {
         view.setPresenter(this);
     }
+
     @Override
     public void start() {
 

@@ -77,7 +77,7 @@ public class TravelChoiceDialog extends BaseDialog implements TravelChoiceDialog
                                 operatorTravelLocationIds.add(operatorTravelLocations.get(i).getId());
                             }
                         }
-                        listener.onOperatorTravelChoose(operatorTravel, operatorTravelLocationIds);
+                        listener.onOperatorTravelChoose(TravelChoiceDialog.this, operatorTravel, operatorTravelLocationIds);
                     }
                 });
 
@@ -120,6 +120,6 @@ public class TravelChoiceDialog extends BaseDialog implements TravelChoiceDialog
     }
 
     public interface DialogListener {
-        void onOperatorTravelChoose(OperatorTravel operatorTravel, List<Integer> operatorTravelLocationIds);
+        void onOperatorTravelChoose(TravelChoiceDialog travelChoiceDialog, OperatorTravel operatorTravel, List<Integer> operatorTravelLocationIds);
     }
 }

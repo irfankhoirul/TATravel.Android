@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -96,15 +95,17 @@ public class SeatFragment extends BaseFragment<SeatActivity> implements
 
     @OnClick(R.id.btSetSeat)
     public void btSetSeat() {
-        Log.v("SelectedSeatsSize", String.valueOf(selectedSeats.size()));
         if (selectedSeats != null && selectedSeats.size() > 0) {
             if (selectedSeats.size() != mPresenter.getCart().getPenumpang().size()) {
                 showStatus(ConstantUtils.STATUS_ERROR, "Anda hanya bisa memilih " + mPresenter.getCart().getPenumpang().size() + " kursi");
             } else {
-                // Show dialog batas waktu order = 10 menit
-                AlertDialog.Builder builder = createAlert("Perhatian", "Setelah memilih kursi, anda memiliki waktu 10 menit untuk menyelesaikan pemesanan sebelum anda harus melakukan pembayaran");
+                AlertDialog.Builder builder = createAlert("Perhatian",
+                        "Setelah memilih kursi, Anda memiliki waktu 5 menit untuk menyelesaikan " +
+                                "pemesanan sebelum anda harus melakukan pembayaran. Jika dalam jangka " +
+                                "waktu tersebut Anda tidak menyelesaikan pesanan Anda, kursi yang anda " +
+                                "pilih dapat digunakan oleh orang lain.");
                 builder.setCancelable(false);
-                builder.setPositiveButton("Lanjutkan", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton("Setuju", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         mPresenter.bookSeat(selectedSeats);

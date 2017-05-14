@@ -26,6 +26,12 @@ public interface IPemesananEndPoints {
      *
      * @param param - token
      *              - idJadwalPerjalanan
+     *              - passengerIds
+     *              - seatIds
+     *              - pickUpLat
+     *              - pickUpLon
+     *              - takeLat
+     *              - takeLon
      */
     @FormUrlEncoded
     @POST(DO_RESERVATION)
@@ -39,7 +45,7 @@ public interface IPemesananEndPoints {
      */
     @FormUrlEncoded
     @POST(GET_RESERVATION)
-    Call<DataResult<Pemesanan>> getReservasi(@Path("id") String id, @FieldMap Map<String, String> param);
+    Call<DataResult<Pemesanan>> getReservasi(@Path("id") int id, @FieldMap Map<String, String> param);
 
     /**
      * Param

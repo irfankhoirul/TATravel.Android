@@ -14,9 +14,6 @@ import org.parceler.Parcel;
 
 @Parcel
 public class LokasiDetail extends BaseModel {
-    @SerializedName("id_pemesanan")
-    @Expose
-    protected int idPemesan;
 
     @SerializedName("id_penumpang_perjalanan")
     @Expose
@@ -42,13 +39,9 @@ public class LokasiDetail extends BaseModel {
     @Expose
     protected PenumpangPerjalanan penumpangPerjalanan;
 
-    public int getIdPemesan() {
-        return idPemesan;
-    }
-
-    public void setIdPemesan(int idPemesan) {
-        this.idPemesan = idPemesan;
-    }
+    @SerializedName("alamat")
+    @Expose
+    protected String alamat;
 
     public int getIdPenumpangPerjalanan() {
         return idPenumpangPerjalanan;
@@ -96,5 +89,13 @@ public class LokasiDetail extends BaseModel {
 
     public void setPenumpangPerjalanan(PenumpangPerjalanan penumpangPerjalanan) {
         this.penumpangPerjalanan = penumpangPerjalanan;
+    }
+
+    public String getAlamat() {
+        return alamat;
+    }
+
+    public void setAlamat(String alamat) {
+        this.alamat = alamat;
     }
 }
