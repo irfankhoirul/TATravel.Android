@@ -27,13 +27,14 @@ import butterknife.Unbinder;
  * @since 1.0
  */
 
-public abstract class BaseFragment<T extends FragmentActivity> extends Fragment {
+public abstract class BaseFragment<T extends FragmentActivity, U extends IBasePresenter> extends Fragment {
 
     protected String title;
     protected FragmentActivity activity;
     protected Unbinder unbinder;
     protected AlertDialog loadingDialog;
     protected View fragmentView;
+    protected U mPresenter;
     private FragmentListener fragmentListener;
     private boolean loading;
 
@@ -47,6 +48,12 @@ public abstract class BaseFragment<T extends FragmentActivity> extends Fragment 
         return loading;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.start();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -54,7 +61,6 @@ public abstract class BaseFragment<T extends FragmentActivity> extends Fragment 
         title = getResources().getString(R.string.app_name);
         setTitle();
         fragmentListener.setTitle(title);
-//        setPresenter();
 
         return view;
     }

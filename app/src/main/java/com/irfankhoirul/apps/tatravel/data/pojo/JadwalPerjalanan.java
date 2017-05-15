@@ -46,6 +46,14 @@ public class JadwalPerjalanan extends BaseModel {
     @Expose
     protected String waktuKedatangan;
 
+    @SerializedName("tanggal_keberangkatan")
+    @Expose
+    protected String tanggalKeberangkatan;
+
+    @SerializedName("tanggal_kedatangan")
+    @Expose
+    protected String tanggalKedatangan;
+
     @SerializedName("timezone")
     @Expose
     protected String timezone;
@@ -97,8 +105,6 @@ public class JadwalPerjalanan extends BaseModel {
     @SerializedName("jarakPengantaran")
     @Expose
     protected double jarakPengantaran;
-
-
 
     public int getIdAdmin() {
         return idAdmin;
@@ -266,6 +272,22 @@ public class JadwalPerjalanan extends BaseModel {
 
     public void setJarakPengantaran(double jarakPengantaran) {
         this.jarakPengantaran = jarakPengantaran;
+    }
+
+    public String getTanggalKeberangkatan() {
+        return tanggalKeberangkatan;
+    }
+
+    public void setTanggalKeberangkatan(String tanggalKeberangkatan) {
+        this.tanggalKeberangkatan = tanggalKeberangkatan;
+    }
+
+    public String getTanggalKedatangan() {
+        return tanggalKedatangan;
+    }
+
+    public void setTanggalKedatangan(String tanggalKedatangan) {
+        this.tanggalKedatangan = tanggalKedatangan;
     }
 
     @Override

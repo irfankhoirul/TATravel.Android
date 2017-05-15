@@ -35,7 +35,6 @@ public class ProfilePresenter implements ProfileContract.Presenter {
 
     @Override
     public void start() {
-        // Do Nothing; Tidak ada yg perlu dilakukan otomatis
         view.showProfile();
     }
 

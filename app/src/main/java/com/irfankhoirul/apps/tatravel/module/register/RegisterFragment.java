@@ -60,7 +60,7 @@ import static com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils.
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RegisterFragment extends BaseFragment<RegisterActivity> implements
+public class RegisterFragment extends BaseFragment<RegisterActivity, RegisterContract.Presenter> implements
         RegisterContract.View,
         GoogleApiClient.OnConnectionFailedListener {
 
@@ -97,8 +97,6 @@ public class RegisterFragment extends BaseFragment<RegisterActivity> implements
     private CallbackManager callbackManager;
     private GoogleApiClient mGoogleApiClient;
 
-    private RegisterContract.Presenter mPresenter;
-
     public RegisterFragment() {
         // Required empty public constructor
     }
@@ -113,7 +111,6 @@ public class RegisterFragment extends BaseFragment<RegisterActivity> implements
         super.onCreateView(inflater, container, savedInstanceState);
         fragmentView = inflater.inflate(R.layout.fragment_register, container, false);
         unbinder = ButterKnife.bind(this, fragmentView);
-        mPresenter.start();
         setupFacebook();
         setupGoogle();
 

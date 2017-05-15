@@ -98,7 +98,8 @@
 
         <activity android:name=".module.schedule.ScheduleActivity" />
         <activity android:name=".module.seat.SeatActivity" />
-        <activity android:name=".module.reservation.ReservationActivity" />
+        <activity android:name=".module.reservation.creator.ReservationActivity" />
+        <activity android:name=".module.reservation.detail.ReservationDetailActivity" />
     </application>
 
 </manifest>

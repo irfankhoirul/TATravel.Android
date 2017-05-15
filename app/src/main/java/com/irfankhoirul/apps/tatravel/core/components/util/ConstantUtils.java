@@ -29,6 +29,7 @@ public class ConstantUtils {
     public static final int ACTIVITY_REQUEST_CODE_SCHEDULE = 1003;
     public static final int ACTIVITY_REQUEST_CODE_SEAT = 1004;
     public static final int ACTIVITY_REQUEST_CODE_RESERVATION = 1005;
+    public static final int ACTIVITY_REQUEST_CODE_DETAIL_RESERVATION = 1005;
 
 
     public static final int DIALOG_CITY_REQUEST_CODE = 2000;

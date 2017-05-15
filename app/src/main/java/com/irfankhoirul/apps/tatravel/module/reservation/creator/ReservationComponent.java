@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.module.reservation;
+package com.irfankhoirul.apps.tatravel.module.reservation.creator;
 
 import com.irfankhoirul.apps.tatravel.core.app.AppComponent;
 import com.irfankhoirul.apps.tatravel.core.components.FragmentScoped;

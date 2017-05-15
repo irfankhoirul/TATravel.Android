@@ -37,7 +37,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * A simple {@link Fragment} subclass.
  */
 
-public class LoginFragment extends BaseFragment<LoginActivity> implements LoginContract.View {
+public class LoginFragment extends BaseFragment<LoginActivity, LoginContract.Presenter> implements LoginContract.View {
 
     @BindView(R.id.rbLoginWithPhoneNumber)
     RadioButton rbLoginWithPhoneNumber;
@@ -59,8 +59,6 @@ public class LoginFragment extends BaseFragment<LoginActivity> implements LoginC
     Button btLogin;
     @BindView(R.id.btForgotPassword)
     Button btForgotPassword;
-
-    LoginContract.Presenter mPresenter;
 
     public LoginFragment() {
         // Required empty public constructor

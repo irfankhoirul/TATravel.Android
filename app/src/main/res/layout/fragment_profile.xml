@@ -24,7 +24,8 @@
             android:focusable="false"
             android:hint="Nama Lengkap"
             android:inputType="none"
-            android:longClickable="false" />
+            android:longClickable="false"
+            android:text="-" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -43,7 +44,8 @@
             android:focusable="false"
             android:hint="@string/label_hint_phone_number"
             android:inputType="none"
-            android:longClickable="false" />
+            android:longClickable="false"
+            android:text="-" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -62,7 +64,8 @@
             android:focusable="false"
             android:hint="@string/label_hint_email"
             android:inputType="none"
-            android:longClickable="false" />
+            android:longClickable="false"
+            android:text="-" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -81,7 +84,8 @@
             android:focusable="false"
             android:hint="Alamat"
             android:inputType="none"
-            android:longClickable="false" />
+            android:longClickable="false"
+            android:text="-" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -100,7 +104,8 @@
             android:focusable="false"
             android:hint="Kota"
             android:inputType="none"
-            android:longClickable="false" />
+            android:longClickable="false"
+            android:text="-" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -119,7 +124,8 @@
             android:focusable="false"
             android:hint="Provinsi"
             android:inputType="none"
-            android:longClickable="false" />
+            android:longClickable="false"
+            android:text="-" />
 
     </android.support.design.widget.TextInputLayout>
 

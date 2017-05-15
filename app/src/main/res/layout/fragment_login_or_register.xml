@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:fontFamily="sans-serif-medium"
-        android:text="Agar dapat melakukan pemesanan, anda harus membuat akun TATravel terlebih dahulu"
+        android:text="Silakan Masuk atau Daftar untuk melanjutkan"
         android:textAlignment="center" />
 
     <android.support.v7.widget.CardView

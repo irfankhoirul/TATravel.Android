@@ -17,7 +17,7 @@ import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.core.base.BaseFragment;
 import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.data.pojo.KursiPerjalanan;
-import com.irfankhoirul.apps.tatravel.module.reservation.ReservationActivity;
+import com.irfankhoirul.apps.tatravel.module.reservation.creator.ReservationActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,15 +32,13 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * A simple {@link Fragment} subclass.
  */
 
-public class SeatFragment extends BaseFragment<SeatActivity> implements
+public class SeatFragment extends BaseFragment<SeatActivity, SeatContract.Presenter> implements
         SeatContract.View {
 
     @BindView(R.id.llSeatLayout)
     LinearLayout llSeatLayout;
     @BindView(R.id.tvSeatCount)
     TextView tvSeatCount;
-
-    SeatContract.Presenter mPresenter;
 
     private View layout;
     private List<ImageView> seatViews = new ArrayList<>();
@@ -69,7 +67,6 @@ public class SeatFragment extends BaseFragment<SeatActivity> implements
         super.onCreateView(inflater, container, savedInstanceState);
         fragmentView = inflater.inflate(R.layout.fragment_seat, container, false);
         unbinder = ButterKnife.bind(this, fragmentView);
-        mPresenter.start();
 
         tvSeatCount.setText("Silakan Pilih " + mPresenter.getCart().getPenumpang().size() + " Kursi");
 

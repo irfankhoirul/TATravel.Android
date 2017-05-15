@@ -13,15 +13,19 @@ import android.widget.TextView;
 import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.core.app.TAApplication;
 import com.irfankhoirul.apps.tatravel.core.base.BaseActivity;
-import com.irfankhoirul.apps.tatravel.module.departure.DepartureFragment;
+import com.irfankhoirul.apps.tatravel.module.reservation.history.ReservationHistoryFragment;
+import com.irfankhoirul.apps.tatravel.module.reservation.history.ReservationHistoryPresenter;
+import com.irfankhoirul.apps.tatravel.module.reservation.history.ReservationHistoryPresenterModule;
 import com.irfankhoirul.apps.tatravel.module.search.DaggerSearchComponent;
 import com.irfankhoirul.apps.tatravel.module.search.SearchFragment;
 import com.irfankhoirul.apps.tatravel.module.search.SearchPresenter;
 import com.irfankhoirul.apps.tatravel.module.search.SearchPresenterModule;
-import com.irfankhoirul.apps.tatravel.module.user.LoginOrRegisterFragment;
 import com.irfankhoirul.apps.tatravel.module.user.ProfileFragment;
 import com.irfankhoirul.apps.tatravel.module.user.ProfilePresenter;
 import com.irfankhoirul.apps.tatravel.module.user.ProfilePresenterModule;
+import com.irfankhoirul.apps.tatravel.module.user.login_or_register.LoginOrRegisterFragment;
+import com.irfankhoirul.apps.tatravel.module.user.login_or_register.LoginOrRegisterPresenter;
+import com.irfankhoirul.apps.tatravel.module.user.login_or_register.LoginOrRegisterPresenterModule;
 
 import javax.inject.Inject;
 
@@ -36,6 +40,8 @@ import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity implements
         LoginOrRegisterFragment.FragmentListener,
+        ReservationHistoryFragment.FragmentListener,
+        SearchFragment.FragmentListener,
         ProfileFragment.FragmentListener {
 
     @BindView(R.id.rlActivityMain)
@@ -66,13 +72,19 @@ public class MainActivity extends BaseActivity implements
     TextView tvProfile;
 
     @Inject
+    LoginOrRegisterPresenter loginOrRegisterPresenter;
+
+    @Inject
     ProfilePresenter profilePresenter;
+
+    @Inject
+    ReservationHistoryPresenter reservationHistoryPresenter;
 
     @Inject
     SearchPresenter searchPresenter;
 
     private SearchFragment searchFragment;
-    private DepartureFragment departureFragment;
+    private ReservationHistoryFragment reservationHistoryFragment;
     private LoginOrRegisterFragment loginOrRegisterFragment;
     private ProfileFragment profileFragment;
 
@@ -86,9 +98,19 @@ public class MainActivity extends BaseActivity implements
             profileFragment = new ProfileFragment();
         }
 
+        if (loginOrRegisterFragment == null) {
+            loginOrRegisterFragment = new LoginOrRegisterFragment();
+        }
+
+        if (reservationHistoryFragment == null) {
+            reservationHistoryFragment = new ReservationHistoryFragment();
+        }
+
         DaggerSearchComponent.builder()
                 .profilePresenterModule(new ProfilePresenterModule(profileFragment))
                 .searchPresenterModule(new SearchPresenterModule(searchFragment))
+                .loginOrRegisterPresenterModule(new LoginOrRegisterPresenterModule(loginOrRegisterFragment))
+                .reservationHistoryPresenterModule(new ReservationHistoryPresenterModule(reservationHistoryFragment))
                 .appComponent(((TAApplication) getApplication()).getAppComponent())
                 .build().inject(this);
     }
@@ -118,12 +140,12 @@ public class MainActivity extends BaseActivity implements
 
     @OnClick(R.id.llOrder)
     public void llOrder() {
-        if (!(currentFragment instanceof DepartureFragment)) {
-            if (departureFragment != null) {
-                setCurrentFragment(departureFragment, false);
+        if (!(currentFragment instanceof ReservationHistoryFragment)) {
+            if (reservationHistoryFragment != null) {
+                setCurrentFragment(reservationHistoryFragment, false);
             } else {
-                this.departureFragment = new DepartureFragment();
-                setCurrentFragment(departureFragment, false);
+                this.reservationHistoryFragment = new ReservationHistoryFragment();
+                setCurrentFragment(reservationHistoryFragment, false);
             }
             resetIconColor();
             ivOrder.setColorFilter(ContextCompat.getColor(this, R.color.colorPrimary));
@@ -218,4 +240,8 @@ public class MainActivity extends BaseActivity implements
         btOptionMenu.setVisibility(View.GONE);
     }
 
+    @Override
+    public void redirectToLoginOrRegister() {
+        llProfile();
+    }
 }

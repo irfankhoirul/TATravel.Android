@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.module.reservation;
+package com.irfankhoirul.apps.tatravel.module.reservation.creator;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -25,7 +25,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * A simple {@link Fragment} subclass.
  */
 
-public class ReservationFragment extends BaseFragment<ReservationActivity> implements
+public class ReservationFragment extends BaseFragment<ReservationActivity, ReservationContract.Presenter> implements
         ReservationContract.View {
 
     @BindView(R.id.tvDepartureLocation)
@@ -67,8 +67,6 @@ public class ReservationFragment extends BaseFragment<ReservationActivity> imple
     @BindView(R.id.tvTakeCoordinate)
     TextView tvTakeCoordinate;
 
-    ReservationContract.Presenter mPresenter;
-
     public ReservationFragment() {
         // Required empty public constructor
     }
@@ -83,7 +81,6 @@ public class ReservationFragment extends BaseFragment<ReservationActivity> imple
         super.onCreateView(inflater, container, savedInstanceState);
         fragmentView = inflater.inflate(R.layout.fragment_reservation, container, false);
         unbinder = ButterKnife.bind(this, fragmentView);
-        mPresenter.start();
 
         return fragmentView;
     }

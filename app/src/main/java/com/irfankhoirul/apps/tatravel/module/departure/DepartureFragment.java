@@ -67,7 +67,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DepartureFragment extends BaseFragment<MainActivity> implements
+public class DepartureFragment extends BaseFragment<MainActivity, DepartureContract.Presenter> implements
         OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
@@ -89,7 +89,6 @@ public class DepartureFragment extends BaseFragment<MainActivity> implements
     MapView mapViewDeparture;
     @BindView(R.id.btSetDeparture)
     Button btSetDeparture;
-    DepartureContract.Presenter mPresenter;
 
     @Inject
     TravelChoiceDialogPresenter travelChoiceDialogPresenter;
@@ -108,25 +107,6 @@ public class DepartureFragment extends BaseFragment<MainActivity> implements
 
     public void sort() {
 
-    }
-
-    @OnClick(R.id.btSetDeparture)
-    public void btSetDeparture() {
-        TravelChoiceDialog travelChoiceDialog = TravelChoiceDialog.newInstance(lokasiList);
-        travelChoiceDialog.setListener(this);
-        travelChoiceDialog.show(getFragmentManager(), "travelChoiceDialog");
-
-        DaggerTravelChoiceComponent.builder()
-                .travelChoicePresenterModule(new TravelChoicePresenterModule(travelChoiceDialog))
-                .build().inject(this);
-    }
-
-    @OnClick(R.id.btCheckAvailability)
-    public void btCheckAvailability() {
-        Map<String, String> params = new HashMap<>();
-        params.put("latitude", String.valueOf(departureMap.getCameraPosition().target.latitude));
-        params.put("longitude", String.valueOf(departureMap.getCameraPosition().target.longitude));
-        mPresenter.checkLocationAvailability(params);
     }
 
     @Override
@@ -164,6 +144,25 @@ public class DepartureFragment extends BaseFragment<MainActivity> implements
         if (mGoogleApiClient != null) {
             mGoogleApiClient.disconnect();
         }
+    }
+
+    @OnClick(R.id.btSetDeparture)
+    public void btSetDeparture() {
+        TravelChoiceDialog travelChoiceDialog = TravelChoiceDialog.newInstance(lokasiList);
+        travelChoiceDialog.setListener(this);
+        travelChoiceDialog.show(getFragmentManager(), "travelChoiceDialog");
+
+        DaggerTravelChoiceComponent.builder()
+                .travelChoicePresenterModule(new TravelChoicePresenterModule(travelChoiceDialog))
+                .build().inject(this);
+    }
+
+    @OnClick(R.id.btCheckAvailability)
+    public void btCheckAvailability() {
+        Map<String, String> params = new HashMap<>();
+        params.put("latitude", String.valueOf(departureMap.getCameraPosition().target.latitude));
+        params.put("longitude", String.valueOf(departureMap.getCameraPosition().target.longitude));
+        mPresenter.checkLocationAvailability(params);
     }
 
     @Override

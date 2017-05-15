@@ -32,14 +32,12 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class VerifyFragment extends BaseFragment<VerifyActivity> implements VerifyContract.View {
+public class VerifyFragment extends BaseFragment<VerifyActivity, VerifyContract.Presenter> implements VerifyContract.View {
 
     @BindView(R.id.tilVerificationCode)
     TextInputLayout tilVerificationCode;
     @BindView(R.id.etVerificationCode)
     EditText etVerificationCode;
-
-    VerifyContract.Presenter mPresenter;
 
     public VerifyFragment() {
         // Required empty public constructor
@@ -59,7 +57,6 @@ public class VerifyFragment extends BaseFragment<VerifyActivity> implements Veri
         super.onCreateView(inflater, container, savedInstanceState);
         fragmentView = inflater.inflate(R.layout.fragment_verification, container, false);
         unbinder = ButterKnife.bind(this, fragmentView);
-        mPresenter.start();
 
         return fragmentView;
     }

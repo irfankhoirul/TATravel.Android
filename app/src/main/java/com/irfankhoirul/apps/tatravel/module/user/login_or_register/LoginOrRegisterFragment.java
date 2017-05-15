@@ -1,8 +1,9 @@
-package com.irfankhoirul.apps.tatravel.module.user;
+package com.irfankhoirul.apps.tatravel.module.user.login_or_register;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,10 +19,13 @@ import com.irfankhoirul.apps.tatravel.module.register.RegisterActivity;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LoginOrRegisterFragment extends BaseFragment<MainActivity> {
+public class LoginOrRegisterFragment extends BaseFragment<MainActivity, LoginOrRegisterContract.Presenter>
+        implements LoginOrRegisterContract.View {
 
     private FragmentListener listener;
 
@@ -70,15 +74,32 @@ public class LoginOrRegisterFragment extends BaseFragment<MainActivity> {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == ConstantUtils.INTENT_REQUEST_LOGIN_OR_REGISTER_TO_REGISTER) {
-            if (resultCode == ConstantUtils.STATUS_SUCCESS) {
-                listener.onRegisterSuccess();
-            }
-        } else if (requestCode == ConstantUtils.INTENT_REQUEST_LOGIN_OR_REGISTER_TO_LOGIN) {
-            if (resultCode == ConstantUtils.STATUS_SUCCESS) {
-                listener.onLoginSuccess();
-            }
-        }
+        mPresenter.handleActivityResult(requestCode, resultCode);
+    }
+
+    @Override
+    public void setPresenter(LoginOrRegisterContract.Presenter presenter) {
+        mPresenter = checkNotNull(presenter);
+    }
+
+    @Override
+    public void notifyListenerLoginSuccess() {
+        listener.onLoginSuccess();
+    }
+
+    @Override
+    public void notifyListenerRegisterSuccess() {
+        listener.onRegisterSuccess();
+    }
+
+    @Override
+    public void setLoadingDialog(boolean isLoading, @Nullable String message) {
+        super.setLoadingDialog(isLoading, message);
+    }
+
+    @Override
+    public void showStatus(int type, String message) {
+        super.showStatus(type, message);
     }
 
     public interface FragmentListener {

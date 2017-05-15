@@ -41,7 +41,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * A simple {@link Fragment} subclass.
  */
 
-public class ScheduleFragment extends BaseFragment<LoginActivity> implements ScheduleContract.View {
+public class ScheduleFragment extends BaseFragment<LoginActivity, ScheduleContract.Presenter> implements ScheduleContract.View {
 
     @BindView(R.id.rlContainer)
     RelativeLayout rlContainer;
@@ -49,8 +49,6 @@ public class ScheduleFragment extends BaseFragment<LoginActivity> implements Sch
     RecyclerView rvSchedule;
     @BindView(R.id.llEmptyMessage)
     LinearLayout llEmptyMessage;
-
-    ScheduleContract.Presenter mPresenter;
 
     @Inject
     ScheduleDetailDialogPresenter scheduleDetailDialogPresenter;
@@ -72,7 +70,6 @@ public class ScheduleFragment extends BaseFragment<LoginActivity> implements Sch
         super.onCreateView(inflater, container, savedInstanceState);
         fragmentView = inflater.inflate(R.layout.fragment_schedule, container, false);
         unbinder = ButterKnife.bind(this, fragmentView);
-        mPresenter.start();
 
         scheduleAdapter = new ScheduleAdapter(schedules, new ScheduleAdapter.OnSpecificItemClick() {
             @Override

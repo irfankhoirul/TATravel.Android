@@ -60,7 +60,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DestinationFragment extends BaseFragment<MainActivity> implements
+public class DestinationFragment extends BaseFragment<MainActivity, DestinationContract.Presenter> implements
         OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
@@ -81,7 +81,7 @@ public class DestinationFragment extends BaseFragment<MainActivity> implements
     MapView mapViewDestination;
     @BindView(R.id.btSetDestination)
     Button btSetDestination;
-    DestinationContract.Presenter mPresenter;
+
     private GoogleMap destinationMap;
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
@@ -100,49 +100,6 @@ public class DestinationFragment extends BaseFragment<MainActivity> implements
         destinationFragment.setArguments(bundle);
 
         return destinationFragment;
-    }
-
-    @OnClick(R.id.btSetDestination)
-    public void btSetDestination() {
-        final double tmpLat = destinationMap.getCameraPosition().target.latitude;
-        final double tmpLon = destinationMap.getCameraPosition().target.longitude;
-        setLoadingDialog(true, "Tunggu sebentar...");
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                List<Address> addresses = null;
-                try {
-                    Locale indonesia = new Locale("in", "ID");
-                    addresses = new Geocoder(activity, indonesia).getFromLocation(tmpLat, tmpLon, 1);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                if (addresses.get(0) != null) {
-                    Address address = addresses.get(0);
-                    Intent intent = new Intent();
-                    intent.putExtra("latitude", address.getLatitude()); // Double
-                    intent.putExtra("longitude", address.getLongitude()); // Double
-                    intent.putExtra("thoroughfare", address.getThoroughfare());
-                    intent.putExtra("locality", address.getLocality());
-                    intent.putExtra("sub_admin", address.getSubAdminArea());
-                    intent.putExtra("admin", address.getAdminArea());
-                    intent.putExtra("operatorTravelLocationIds", Parcels.wrap(mPresenter.getTravelLocationIds()));
-                    setLoadingDialog(false, null);
-                    activity.setResult(ConstantUtils.REQUEST_RESULT_SUCCESS, intent);
-                    activity.finish();
-                }
-            }
-        }).start();
-    }
-
-    @OnClick(R.id.btCheckAvailability)
-    public void btCheckAvailability() {
-        Map<String, String> params = new HashMap<>();
-        params.put("latitude", String.valueOf(destinationMap.getCameraPosition().target.latitude));
-        params.put("longitude", String.valueOf(destinationMap.getCameraPosition().target.longitude));
-        params.put("id_operator_travel", String.valueOf(getArguments().getInt("id_operator_travel")));
-        mPresenter.checkLocationAvailability(params);
     }
 
     @Override
@@ -325,4 +282,48 @@ public class DestinationFragment extends BaseFragment<MainActivity> implements
     public void redirectToSearchFragment() {
 
     }
+
+    @OnClick(R.id.btSetDestination)
+    public void btSetDestination() {
+        final double tmpLat = destinationMap.getCameraPosition().target.latitude;
+        final double tmpLon = destinationMap.getCameraPosition().target.longitude;
+        setLoadingDialog(true, "Tunggu sebentar...");
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                List<Address> addresses = null;
+                try {
+                    Locale indonesia = new Locale("in", "ID");
+                    addresses = new Geocoder(activity, indonesia).getFromLocation(tmpLat, tmpLon, 1);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                if (addresses.get(0) != null) {
+                    Address address = addresses.get(0);
+                    Intent intent = new Intent();
+                    intent.putExtra("latitude", address.getLatitude()); // Double
+                    intent.putExtra("longitude", address.getLongitude()); // Double
+                    intent.putExtra("thoroughfare", address.getThoroughfare());
+                    intent.putExtra("locality", address.getLocality());
+                    intent.putExtra("sub_admin", address.getSubAdminArea());
+                    intent.putExtra("admin", address.getAdminArea());
+                    intent.putExtra("operatorTravelLocationIds", Parcels.wrap(mPresenter.getTravelLocationIds()));
+                    setLoadingDialog(false, null);
+                    activity.setResult(ConstantUtils.REQUEST_RESULT_SUCCESS, intent);
+                    activity.finish();
+                }
+            }
+        }).start();
+    }
+
+    @OnClick(R.id.btCheckAvailability)
+    public void btCheckAvailability() {
+        Map<String, String> params = new HashMap<>();
+        params.put("latitude", String.valueOf(destinationMap.getCameraPosition().target.latitude));
+        params.put("longitude", String.valueOf(destinationMap.getCameraPosition().target.longitude));
+        params.put("id_operator_travel", String.valueOf(getArguments().getInt("id_operator_travel")));
+        mPresenter.checkLocationAvailability(params);
+    }
+
 }

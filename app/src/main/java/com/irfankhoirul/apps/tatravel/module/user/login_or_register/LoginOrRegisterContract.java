@@ -1,20 +1,20 @@
-package com.irfankhoirul.apps.tatravel.module.reservation;
+package com.irfankhoirul.apps.tatravel.module.user.login_or_register;
 
 import com.irfankhoirul.apps.tatravel.core.base.IBasePresenter;
 import com.irfankhoirul.apps.tatravel.core.base.IBaseView;
-
-import java.util.Map;
 
 /**
  * Created by Irfan Khoirul on 4/2/2017.
  */
 
-public interface ReservationContract {
+public interface LoginOrRegisterContract {
     interface View extends IBaseView<Presenter> {
-        void showDetailReservation(Map<String, String> reservationData);
+        void notifyListenerLoginSuccess();
+
+        void notifyListenerRegisterSuccess();
     }
 
     interface Presenter extends IBasePresenter {
-        void makeReservation();
+        void handleActivityResult(int requestCode, int resultCode);
     }
 }

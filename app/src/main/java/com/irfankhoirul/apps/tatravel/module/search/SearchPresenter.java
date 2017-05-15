@@ -1,8 +1,12 @@
 package com.irfankhoirul.apps.tatravel.module.search;
 
+import com.irfankhoirul.apps.tatravel.data.pojo.Penumpang;
 import com.irfankhoirul.apps.tatravel.data.source.locale.cart.CartRepository;
 import com.irfankhoirul.apps.tatravel.data.source.locale.session.SessionRepository;
 import com.irfankhoirul.apps.tatravel.data.source.remote.schedule.ScheduleRepository;
+
+import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -37,18 +41,92 @@ public class SearchPresenter implements SearchContract.Presenter {
 
     @Override
     public void start() {
+        if (cartRepository.getDeparture() != null) {
+            view.setDepartureView(cartRepository.getDeparture().get("address"));
+        }
 
-    }
+        if (cartRepository.getDestination() != null) {
+            view.setDestinationView(cartRepository.getDestination().get("address"));
+        }
 
-    @Override
-    public CartRepository getCart() {
-        return cartRepository;
+        if (cartRepository.getTanggalKeberangkatan() != 0) {
+            view.setDateView(cartRepository.getTanggalKeberangkatan());
+        }
+
+        if (cartRepository.getPenumpang() != null && cartRepository.getPenumpang().size() > 0) {
+            view.setPassengerView(cartRepository.getPenumpang());
+        }
     }
 
     @Override
     public void getPromo() {
         //Todo : get promo data from server
         view.showPromo();
+    }
+
+    @Override
+    public boolean isLoggedIn() {
+        return sessionRepository.getSessionData() != null;
+    }
+
+    @Override
+    public boolean isDepartureSet() {
+        return cartRepository.getDeparture() != null;
+    }
+
+    @Override
+    public void setDeparture(Map<String, String> departureData) {
+        cartRepository.setDeparture(departureData);
+    }
+
+    @Override
+    public boolean isDestinationSet() {
+        return cartRepository.getDestination() != null;
+    }
+
+    @Override
+    public void setDestination(Map<String, String> destinationData) {
+        cartRepository.setDestination(destinationData);
+    }
+
+    @Override
+    public void clearDestination() {
+        cartRepository.clearDestination();
+    }
+
+    @Override
+    public boolean isDateSet() {
+        return cartRepository.getTanggalKeberangkatan() != 0;
+    }
+
+    @Override
+    public void setDate(long date) {
+        cartRepository.setTanggalKeberangkatan(date);
+    }
+
+    @Override
+    public void clearDate() {
+        cartRepository.clearTanggalKeberangkatan();
+    }
+
+    @Override
+    public boolean isPassengerSet() {
+        return cartRepository.getPenumpang() != null;
+    }
+
+    @Override
+    public void setPassenger(List<Penumpang> passengers) {
+        cartRepository.setPenumpang(passengers);
+    }
+
+    @Override
+    public void clearPassenger() {
+        cartRepository.clearPenumpang();
+    }
+
+    @Override
+    public String getSelectedOperatorTravelId() {
+        return cartRepository.getDeparture().get("operatorTravelId");
     }
 
 }

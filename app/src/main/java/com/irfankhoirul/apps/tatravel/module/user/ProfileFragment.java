@@ -27,7 +27,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ProfileFragment extends BaseFragment<MainActivity> implements ProfileContract.View {
+public class ProfileFragment extends BaseFragment<MainActivity, ProfileContract.Presenter> implements ProfileContract.View {
 
     @BindView(R.id.tilName)
     TextInputLayout tilName;
@@ -56,8 +56,6 @@ public class ProfileFragment extends BaseFragment<MainActivity> implements Profi
     @BindView(R.id.btChangeProfile)
     Button btChangeProfile;
 
-    ProfileContract.Presenter mPresenter;
-
     private FragmentListener listener;
 
     public ProfileFragment() {
@@ -84,7 +82,6 @@ public class ProfileFragment extends BaseFragment<MainActivity> implements Profi
         super.onCreateView(inflater, container, savedInstanceState);
         fragmentView = inflater.inflate(R.layout.fragment_profile, container, false);
         unbinder = ButterKnife.bind(this, fragmentView);
-        mPresenter.start();
 
         return fragmentView;
     }

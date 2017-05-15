@@ -46,9 +46,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * A simple {@link Fragment} subclass.
  */
 
-public class PassengerFragment extends BaseFragment<PassengerActivity> implements
-        PassengerContract.View,
-        PassengerCreatorDialog.DialogListener {
+public class PassengerFragment extends BaseFragment<PassengerActivity, PassengerContract.Presenter>
+        implements PassengerContract.View, PassengerCreatorDialog.DialogListener {
 
     @BindView(R.id.rvPassenger)
     RecyclerView rvPassenger;
@@ -59,7 +58,7 @@ public class PassengerFragment extends BaseFragment<PassengerActivity> implement
 
     @Inject
     PassengerCreatorDialogPresenter passengerCreatorDialogPresenter;
-    PassengerContract.Presenter mPresenter;
+
     private PassengerAdapter passengerAdapter;
     private List<Penumpang> passengers = new ArrayList<>();
     private List<Penumpang> selectedPassengers = new ArrayList<>();
@@ -87,7 +86,6 @@ public class PassengerFragment extends BaseFragment<PassengerActivity> implement
         super.onCreateView(inflater, container, savedInstanceState);
         fragmentView = inflater.inflate(R.layout.fragment_passenger, container, false);
         unbinder = ButterKnife.bind(this, fragmentView);
-        mPresenter.start();
 
         selectedPassengers = Parcels.unwrap(getArguments().getParcelable("selectedPassengers"));
 
