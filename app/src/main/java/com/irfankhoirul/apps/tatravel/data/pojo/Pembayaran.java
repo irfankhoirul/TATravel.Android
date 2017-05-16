@@ -14,6 +14,10 @@ import org.parceler.Parcel;
 
 @Parcel
 public class Pembayaran extends BaseModel {
+    public static final String PAYMENT_STATUS_PAID = "P";
+    public static final String PAYMENT_STATUS_UNPAID = "U";
+    public static final String PAYMENT_STATUS_TIMEOUT = "O";
+
     @SerializedName("id_pembayaran")
     @Expose
     protected int idPembayaran;

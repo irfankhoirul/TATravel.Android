@@ -30,6 +30,10 @@ public class PenumpangPerjalanan extends BaseModel {
     @Expose
     protected Pemesanan pemesanan;
 
+    @SerializedName("kursi_perjalanan")
+    @Expose
+    protected KursiPerjalanan kursiPerjalanan;
+
     public int getIdPenumpang() {
         return idPenumpang;
     }
@@ -60,5 +64,13 @@ public class PenumpangPerjalanan extends BaseModel {
 
     public void setPemesanan(Pemesanan pemesanan) {
         this.pemesanan = pemesanan;
+    }
+
+    public KursiPerjalanan getKursiPerjalanan() {
+        return kursiPerjalanan;
+    }
+
+    public void setKursiPerjalanan(KursiPerjalanan kursiPerjalanan) {
+        this.kursiPerjalanan = kursiPerjalanan;
     }
 }

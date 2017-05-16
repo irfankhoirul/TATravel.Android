@@ -35,7 +35,7 @@ public class LokasiDetail extends BaseModel {
     @Expose
     protected Pemesanan pemesanan;
 
-    @SerializedName("penumpang_perjalanan")
+    @SerializedName("penumpangPerjalanan")
     @Expose
     protected PenumpangPerjalanan penumpangPerjalanan;
 

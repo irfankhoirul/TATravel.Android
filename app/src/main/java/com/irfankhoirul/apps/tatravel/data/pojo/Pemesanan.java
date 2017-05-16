@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName;
 
 import org.parceler.Parcel;
 
+import java.util.List;
+
 /**
  * Merupakan model dari tabel Pemesanan
  *
@@ -45,6 +47,10 @@ public class Pemesanan extends BaseModel {
     @SerializedName("lokasi_pengantaran")
     @Expose
     protected LokasiDetail lokasiPengantaran;
+
+    @SerializedName("penumpang_perjalanan")
+    @Expose
+    protected List<PenumpangPerjalanan> penumpangPerjalanan;
 
     public int getIdUser() {
         return idUser;
@@ -108,5 +114,13 @@ public class Pemesanan extends BaseModel {
 
     public void setLokasiPengantaran(LokasiDetail lokasiPengantaran) {
         this.lokasiPengantaran = lokasiPengantaran;
+    }
+
+    public List<PenumpangPerjalanan> getPenumpangPerjalanan() {
+        return penumpangPerjalanan;
+    }
+
+    public void setPenumpangPerjalanan(List<PenumpangPerjalanan> penumpangPerjalanan) {
+        this.penumpangPerjalanan = penumpangPerjalanan;
     }
 }

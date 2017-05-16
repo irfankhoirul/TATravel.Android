@@ -12,6 +12,8 @@ import android.widget.TextView;
 import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.core.activity.MainActivity;
 import com.irfankhoirul.apps.tatravel.core.base.BaseFragment;
+import com.irfankhoirul.apps.tatravel.core.components.util.CurrencyUtils;
+import com.irfankhoirul.apps.tatravel.data.pojo.Pembayaran;
 import com.irfankhoirul.apps.tatravel.data.pojo.Pemesanan;
 
 import org.parceler.Parcels;
@@ -97,12 +99,16 @@ public class ReservationDetailFragment extends BaseFragment<MainActivity, Reserv
         unbinder = ButterKnife.bind(this, fragmentView);
 
         reservation = Parcels.unwrap(getArguments().getParcelable("reservation"));
-//        showReservationDetail();
+        showReservationDetail();
 
         return fragmentView;
     }
 
     public void showReservationDetail() {
+        if (!reservation.getPembayaran().getStatus().equalsIgnoreCase(Pembayaran.PAYMENT_STATUS_UNPAID)) {
+            btPay.setVisibility(View.GONE);
+        }
+
         tvDepartureLocation.setText(reservation.getJadwalPerjalanan().getLokasiPemberangkatan().getNama() + ", " +
                 reservation.getJadwalPerjalanan().getLokasiPemberangkatan().getKota().getNama());
         tvPickUpLocation.setText(reservation.getLokasiPenjemputan().getAlamat());
@@ -118,16 +124,34 @@ public class ReservationDetailFragment extends BaseFragment<MainActivity, Reserv
         tvArrivalTime.setText(reservation.getJadwalPerjalanan().getWaktuKedatangan() + " " +
                 reservation.getJadwalPerjalanan().getTimezone());
         tvOperatorTravel.setText(reservation.getJadwalPerjalanan().getOperatorTravel().getNama());
-//        tvPassengerCount.setText();
-//        tvPassengerNames.setText();
-//        tvSeatNumbers.setText();
-//        tvTravelPrice.setText();
-//        tvPickUpPrice.setText();
-//        tvTakePrice.setText();
-//        tvTotalPrice.setText();
-//        tvBuyerName.setText();
-//        tvBuyerPhoneNumber.setText();
-//        tvBuyerEmail.setText();
+        tvPassengerCount.setText(String.valueOf(reservation.getPenumpangPerjalanan().size()));
+        String tmpPassengerNames = "";
+        String tmpSeatNumbers = "";
+        for (int i = 0; i < reservation.getPenumpangPerjalanan().size(); i++) {
+            tmpPassengerNames += reservation.getPenumpangPerjalanan().get(i).getPenumpang().getNama();
+            tmpSeatNumbers += reservation.getPenumpangPerjalanan().get(i).getKursiPerjalanan().getKursiMobil().getNomor();
+            if (i < reservation.getPenumpangPerjalanan().size() - 1) {
+                tmpPassengerNames += ", ";
+                tmpSeatNumbers += ", ";
+            }
+        }
+        tvPassengerNames.setText(tmpPassengerNames);
+        tvSeatNumbers.setText(tmpSeatNumbers);
+
+        int pickUpDistance = (int) Math.ceil(reservation.getJadwalPerjalanan().getJarakPenjemputan());
+        int pickUpPrice = reservation.getJadwalPerjalanan().getBiayaLokasiKhusus() * pickUpDistance;
+
+        int takeDistance = (int) Math.ceil(reservation.getJadwalPerjalanan().getJarakPengantaran());
+        int takePrice = reservation.getJadwalPerjalanan().getBiayaLokasiKhusus() * takeDistance;
+
+        tvTravelPrice.setText(CurrencyUtils.formatRupiah(reservation.getJadwalPerjalanan().getHarga()));
+        tvPickUpPrice.setText(CurrencyUtils.formatRupiah(pickUpPrice));
+        tvTakePrice.setText(CurrencyUtils.formatRupiah(takePrice));
+        tvTotalPrice.setText(CurrencyUtils.formatRupiah(pickUpPrice + takePrice +
+                (reservation.getPenumpangPerjalanan().size() * reservation.getJadwalPerjalanan().getHarga())));
+        tvBuyerName.setText(reservation.getUser().getNama());
+        tvBuyerPhoneNumber.setText(reservation.getUser().getNomorHandphone());
+        tvBuyerEmail.setText(reservation.getUser().getEmail());
     }
 
     @Override
