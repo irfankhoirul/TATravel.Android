@@ -36,6 +36,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.common.hash.Hashing;
 import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.core.base.BaseFragment;
@@ -62,9 +64,8 @@ import static com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils.
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RegisterFragment extends BaseFragment<RegisterActivity, RegisterContract.Presenter> implements
-        RegisterContract.View,
-        GoogleApiClient.OnConnectionFailedListener {
+public class RegisterFragment extends BaseFragment<RegisterActivity, RegisterContract.Presenter>
+        implements RegisterContract.View, GoogleApiClient.OnConnectionFailedListener {
 
     @BindView(R.id.rbRegisterWithPhoneNumber)
     RadioButton rbRegisterWithPhoneNumber;
@@ -116,46 +117,28 @@ public class RegisterFragment extends BaseFragment<RegisterActivity, RegisterCon
         setupFacebook();
         setupGoogle();
 
+//        try {
+//            PackageInfo info = activity.getPackageManager().getPackageInfo(
+//                    "com.irfankhoirul.apps.tatravel",
+//                    PackageManager.GET_SIGNATURES);
+//            for (Signature signature : info.signatures) {
+//                MessageDigest md = MessageDigest.getInstance("SHA");
+//                md.update(signature.toByteArray());
+//                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+//            }
+//        } catch (PackageManager.NameNotFoundException e) {
+//
+//        } catch (NoSuchAlgorithmException e) {
+//
+//        }
+
         return fragmentView;
-    }
-
-    @OnClick(R.id.btRegister)
-    public void btRegister() {
-        View view = activity.getCurrentFocus();
-        if (view != null) {
-            InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
-
-        AwesomeValidation mAwesomeValidation = new AwesomeValidation(TEXT_INPUT_LAYOUT);
-        if (rbRegisterWithPhoneNumber.isChecked()) {
-            mAwesomeValidation.addValidation(activity, R.id.tilPhoneNumber, Patterns.PHONE, R.string.validation_phone_valid);
-            mAwesomeValidation.addValidation(activity, R.id.tilPhoneNumber, RegexTemplate.NOT_EMPTY, R.string.validation_phone_not_empty);
-        } else if (rbRegisterWithEmailAddress.isChecked()) {
-            mAwesomeValidation.addValidation(activity, R.id.tilEmailAddress, Patterns.EMAIL_ADDRESS, R.string.validation_email_valid);
-            mAwesomeValidation.addValidation(activity, R.id.tilEmailAddress, RegexTemplate.NOT_EMPTY, R.string.validation_email_not_empty);
-        }
-        mAwesomeValidation.addValidation(activity, R.id.tilName, RegexTemplate.NOT_EMPTY, R.string.validation_name_not_empty);
-        mAwesomeValidation.addValidation(activity, R.id.tilPassword, RegexTemplate.NOT_EMPTY, R.string.validation_password_not_empty);
-
-        if (mAwesomeValidation.validate()) {
-            Map<String, String> params = new HashMap<>();
-            params.put("name", etName.getText().toString());
-            if (rbRegisterWithEmailAddress.isChecked()) {
-                params.put("email", etEmailAddress.getText().toString());
-            } else if (rbRegisterWithPhoneNumber.isChecked()) {
-                params.put("phone", etPhoneNumber.getText().toString());
-            }
-            params.put("password", etPassword.getText().toString());
-            params.put("deviceSecretId", Settings.Secure.getString(getActivity().getContentResolver(), Settings.Secure.ANDROID_ID));
-
-            mPresenter.register(params);
-        }
     }
 
     private void setupFacebook() {
         if (AccessToken.getCurrentAccessToken() != null) {
-            handleFacebookResult(AccessToken.getCurrentAccessToken());
+//            handleFacebookResult(AccessToken.getCurrentAccessToken());
+            registerFacebook.performClick();
         }
 
         callbackManager = CallbackManager.Factory.create();
@@ -164,17 +147,18 @@ public class RegisterFragment extends BaseFragment<RegisterActivity, RegisterCon
         registerFacebook.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
+                Log.v("LoginWithFacebook", "onSuccess");
                 handleFacebookResult(loginResult.getAccessToken());
             }
 
             @Override
             public void onCancel() {
-                // App code
+                Log.v("LoginWithFacebook", "onCancel");
             }
 
             @Override
             public void onError(FacebookException exception) {
-                // App code
+                Log.v("LoginWithFacebook", "onError:" + exception.getStackTrace());
             }
         });
     }
@@ -190,6 +174,24 @@ public class RegisterFragment extends BaseFragment<RegisterActivity, RegisterCon
                     Log.v("Facebook Name", name);
                     String token = accessToken.getToken();
                     Log.v("Facebook Token", token);
+
+                    String hashedPassword1 = Hashing.md5()
+                            .hashString(email, Charset.forName("UTF-8"))
+                            .toString();
+                    String hashedPassword2 = Hashing.sha1()
+                            .hashString(hashedPassword1, Charset.forName("UTF-8"))
+                            .toString();
+                    String hashedPassword3 = Hashing.sha256()
+                            .hashString(hashedPassword2, Charset.forName("UTF-8"))
+                            .toString();
+
+                    Map<String, String> params = new HashMap<>();
+                    params.put("name", name);
+                    params.put("email", email);
+                    params.put("password", hashedPassword3);
+                    params.put("deviceSecretId", Settings.Secure.getString(getActivity().getContentResolver(), Settings.Secure.ANDROID_ID));
+                    params.put("socialMedia", "TRUE");
+                    mPresenter.register(params);
                 } catch (JSONException e) {
                     Toast.makeText(getApplicationContext(), "graph request error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
@@ -210,11 +212,6 @@ public class RegisterFragment extends BaseFragment<RegisterActivity, RegisterCon
                 .enableAutoManage(activity, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, googleSignInOptions)
                 .build();
-
-        if (mGoogleApiClient.isConnected()) {
-            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient));
-            handleGoogleResult(result);
-        }
     }
 
     private void handleGoogleResult(GoogleSignInResult result) {
@@ -258,7 +255,7 @@ public class RegisterFragment extends BaseFragment<RegisterActivity, RegisterCon
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
+        showStatus(ConstantUtils.STATUS_ERROR, "Gagal menghubungkan akun Google Anda");
     }
 
     @Override
@@ -297,6 +294,40 @@ public class RegisterFragment extends BaseFragment<RegisterActivity, RegisterCon
         }
     }
 
+    @OnClick(R.id.btRegister)
+    public void btRegister() {
+        View view = activity.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+
+        AwesomeValidation mAwesomeValidation = new AwesomeValidation(TEXT_INPUT_LAYOUT);
+        if (rbRegisterWithPhoneNumber.isChecked()) {
+            mAwesomeValidation.addValidation(activity, R.id.tilPhoneNumber, Patterns.PHONE, R.string.validation_phone_valid);
+            mAwesomeValidation.addValidation(activity, R.id.tilPhoneNumber, RegexTemplate.NOT_EMPTY, R.string.validation_phone_not_empty);
+        } else if (rbRegisterWithEmailAddress.isChecked()) {
+            mAwesomeValidation.addValidation(activity, R.id.tilEmailAddress, Patterns.EMAIL_ADDRESS, R.string.validation_email_valid);
+            mAwesomeValidation.addValidation(activity, R.id.tilEmailAddress, RegexTemplate.NOT_EMPTY, R.string.validation_email_not_empty);
+        }
+        mAwesomeValidation.addValidation(activity, R.id.tilName, RegexTemplate.NOT_EMPTY, R.string.validation_name_not_empty);
+        mAwesomeValidation.addValidation(activity, R.id.tilPassword, RegexTemplate.NOT_EMPTY, R.string.validation_password_not_empty);
+
+        if (mAwesomeValidation.validate()) {
+            Map<String, String> params = new HashMap<>();
+            params.put("name", etName.getText().toString());
+            if (rbRegisterWithEmailAddress.isChecked()) {
+                params.put("email", etEmailAddress.getText().toString());
+            } else if (rbRegisterWithPhoneNumber.isChecked()) {
+                params.put("phone", etPhoneNumber.getText().toString());
+            }
+            params.put("password", etPassword.getText().toString());
+            params.put("deviceSecretId", Settings.Secure.getString(getActivity().getContentResolver(), Settings.Secure.ANDROID_ID));
+
+            mPresenter.register(params);
+        }
+    }
+
     @OnClick(R.id.cvRegisterWithFacebook)
     public void cvRegisterWithFacebook() {
         registerFacebook.performClick();
@@ -304,8 +335,14 @@ public class RegisterFragment extends BaseFragment<RegisterActivity, RegisterCon
 
     @OnClick(R.id.cvRegisterWithGoogle)
     public void cvRegisterWithGoogle() {
-        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-        startActivityForResult(signInIntent, REGISTER_GOOGLE_REQUEST);
+        Auth.GoogleSignInApi.revokeAccess(mGoogleApiClient).setResultCallback(
+                new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(Status status) {
+                        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+                        startActivityForResult(signInIntent, REGISTER_GOOGLE_REQUEST);
+                    }
+                });
     }
 
     @Override

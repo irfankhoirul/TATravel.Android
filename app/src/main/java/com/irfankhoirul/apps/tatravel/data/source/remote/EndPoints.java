@@ -9,12 +9,6 @@ package com.irfankhoirul.apps.tatravel.data.source.remote;
  */
 
 public class EndPoints {
-    /*NEW*/
-
-    /*OLD*/
-    public static final String GET_SCHEDULE_OLD = "search";
-    public static final String GET_LOCATION_OLD = "location";
-    public static final String GET_CITY_OLD = "city";
 
     // User End Point
     public static final String DO_REGISTER = "register";
