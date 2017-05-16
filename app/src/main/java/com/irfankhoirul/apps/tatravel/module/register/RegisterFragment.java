@@ -117,27 +117,11 @@ public class RegisterFragment extends BaseFragment<RegisterActivity, RegisterCon
         setupFacebook();
         setupGoogle();
 
-//        try {
-//            PackageInfo info = activity.getPackageManager().getPackageInfo(
-//                    "com.irfankhoirul.apps.tatravel",
-//                    PackageManager.GET_SIGNATURES);
-//            for (Signature signature : info.signatures) {
-//                MessageDigest md = MessageDigest.getInstance("SHA");
-//                md.update(signature.toByteArray());
-//                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-//            }
-//        } catch (PackageManager.NameNotFoundException e) {
-//
-//        } catch (NoSuchAlgorithmException e) {
-//
-//        }
-
         return fragmentView;
     }
 
     private void setupFacebook() {
         if (AccessToken.getCurrentAccessToken() != null) {
-//            handleFacebookResult(AccessToken.getCurrentAccessToken());
             registerFacebook.performClick();
         }
 
@@ -158,7 +142,6 @@ public class RegisterFragment extends BaseFragment<RegisterActivity, RegisterCon
 
             @Override
             public void onError(FacebookException exception) {
-                Log.v("LoginWithFacebook", "onError:" + exception.getStackTrace());
             }
         });
     }
@@ -169,11 +152,8 @@ public class RegisterFragment extends BaseFragment<RegisterActivity, RegisterCon
             public void onCompleted(JSONObject object, GraphResponse response) {
                 try {
                     String email = object.getString("email");
-                    Log.v("Facebook Email", email);
                     String name = object.getString("name");
-                    Log.v("Facebook Name", name);
                     String token = accessToken.getToken();
-                    Log.v("Facebook Token", token);
 
                     String hashedPassword1 = Hashing.md5()
                             .hashString(email, Charset.forName("UTF-8"))
@@ -216,15 +196,9 @@ public class RegisterFragment extends BaseFragment<RegisterActivity, RegisterCon
 
     private void handleGoogleResult(GoogleSignInResult result) {
         if (result.isSuccess()) {
-            // Signed in successfully, show authenticated UI.
             GoogleSignInAccount account = result.getSignInAccount();
             String email = account.getEmail();
-            Log.v("Google Email", email);
             String name = account.getDisplayName();
-            Log.v("Google Name", name);
-//            String token = account.getIdToken();
-//            Log.v("Google Token", token);
-//            updateUI(true);
 
             if (email != null && name != null) {
                 String hashedPassword1 = Hashing.md5()
@@ -247,9 +221,6 @@ public class RegisterFragment extends BaseFragment<RegisterActivity, RegisterCon
             } else {
                 showStatus(ConstantUtils.STATUS_ERROR, "Registrasi Gagal");
             }
-        } else {
-            // Signed out, show unauthenticated UI.
-//            updateUI(false);
         }
     }
 

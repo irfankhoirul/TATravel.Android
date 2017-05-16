@@ -85,7 +85,6 @@ public class RegisterPresenter implements RegisterContract.Presenter {
                     params.put("FCMToken", FirebaseInstanceId.getInstance().getToken());
 
                     updateFcmToken(params);
-                    view.showStatus(ConstantUtils.STATUS_SUCCESS, result.getMessage());
                 } else {
                     view.setLoadingDialog(false, null);
                     view.showStatus(ConstantUtils.STATUS_ERROR, result.getMessage());

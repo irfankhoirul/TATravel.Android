@@ -8,7 +8,7 @@ package com.irfankhoirul.apps.tatravel.core.components.util;
  */
 
 public class ConstantUtils {
-    public static final String BASE_API_URL = "http://192.168.8.102/api/";
+    public static final String BASE_API_URL = "http://192.168.8.101/api/";
     public static final int PAGINATION_LIMIT = 10;
     public static final int INITIAL_PAGE = 1;
 

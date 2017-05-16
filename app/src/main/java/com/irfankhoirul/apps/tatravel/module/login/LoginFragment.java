@@ -106,22 +106,6 @@ public class LoginFragment extends BaseFragment<LoginActivity, LoginContract.Pre
         super.onCreateView(inflater, container, savedInstanceState);
         fragmentView = inflater.inflate(R.layout.fragment_login, container, false);
         unbinder = ButterKnife.bind(this, fragmentView);
-
-//        try {
-//            PackageInfo info = activity.getPackageManager().getPackageInfo(
-//                    "com.irfankhoirul.apps.tatravel",
-//                    PackageManager.GET_SIGNATURES);
-//            for (Signature signature : info.signatures) {
-//                MessageDigest md = MessageDigest.getInstance("SHA");
-//                md.update(signature.toByteArray());
-//                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-//            }
-//        } catch (PackageManager.NameNotFoundException e) {
-//
-//        } catch (NoSuchAlgorithmException e) {
-//
-//        }
-
         setupFacebook();
         setupGoogle();
 
@@ -130,7 +114,6 @@ public class LoginFragment extends BaseFragment<LoginActivity, LoginContract.Pre
 
     private void setupFacebook() {
         if (AccessToken.getCurrentAccessToken() != null) {
-//            handleFacebookResult(AccessToken.getCurrentAccessToken());
             loginFacebook.performClick();
         }
 
@@ -140,34 +123,27 @@ public class LoginFragment extends BaseFragment<LoginActivity, LoginContract.Pre
         loginFacebook.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Log.v("LoginWithFacebook", "onSuccess");
                 handleFacebookResult(loginResult.getAccessToken());
             }
 
             @Override
             public void onCancel() {
-                Log.v("LoginWithFacebook", "onCancel");
             }
 
             @Override
             public void onError(FacebookException exception) {
-                Log.v("LoginWithFacebook", "onError:" + exception.getStackTrace());
             }
         });
     }
 
     private void handleFacebookResult(final AccessToken accessToken) {
-        Log.v("HandleFacebook", "TRUE");
         GraphRequest req = GraphRequest.newMeRequest(accessToken, new GraphRequest.GraphJSONObjectCallback() {
             @Override
             public void onCompleted(JSONObject object, GraphResponse response) {
                 try {
                     String email = object.getString("email");
-                    Log.v("Facebook Email", email);
                     String name = object.getString("name");
-                    Log.v("Facebook Name", name);
                     String token = accessToken.getToken();
-                    Log.v("Facebook Token", token);
 
                     String hashedPassword1 = Hashing.md5()
                             .hashString(email, Charset.forName("UTF-8"))
@@ -212,15 +188,9 @@ public class LoginFragment extends BaseFragment<LoginActivity, LoginContract.Pre
 
     private void handleGoogleResult(GoogleSignInResult result) {
         if (result.isSuccess()) {
-            // Signed in successfully, show authenticated UI.
             GoogleSignInAccount account = result.getSignInAccount();
             String email = account.getEmail();
-            Log.v("Google Email", email);
             String name = account.getDisplayName();
-            Log.v("Google Name", name);
-//            String token = account.getIdToken();
-//            Log.v("Google Token", token);
-//            updateUI(true);
 
             if (email != null && name != null) {
                 String hashedPassword1 = Hashing.md5()
@@ -239,14 +209,10 @@ public class LoginFragment extends BaseFragment<LoginActivity, LoginContract.Pre
                 params.put("password", hashedPassword3);
                 params.put("deviceSecretId", Settings.Secure.getString(getActivity().getContentResolver(), Settings.Secure.ANDROID_ID));
                 params.put("socialMedia", "TRUE");
-//                mPresenter.register(params);
                 mPresenter.login(params);
             } else {
                 showStatus(ConstantUtils.STATUS_ERROR, "Registrasi Gagal");
             }
-        } else {
-            // Signed out, show unauthenticated UI.
-//            updateUI(false);
         }
     }
 
@@ -262,7 +228,7 @@ public class LoginFragment extends BaseFragment<LoginActivity, LoginContract.Pre
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             handleGoogleResult(result);
         } else {
-//            callbackManager.onActivityResult(requestCode, resultCode, data);
+            callbackManager.onActivityResult(requestCode, resultCode, data);
         }
     }
 
