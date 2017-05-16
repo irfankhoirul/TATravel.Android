@@ -37,7 +37,7 @@ public class RegisterPresenter implements RegisterContract.Presenter {
     @Override
     public void register(Map<String, String> param) {
         view.setLoadingDialog(true, "Sedang melakukan registrasi");
-        userRepository.registerWithPhoneNumber(new IRequestResponseListener() {
+        userRepository.register(new IRequestResponseListener() {
             @Override
             public void onSuccess(DataResult result) {
                 view.setLoadingDialog(false, null);

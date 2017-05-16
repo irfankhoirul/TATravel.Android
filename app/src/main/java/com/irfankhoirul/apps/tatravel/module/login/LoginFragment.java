@@ -6,7 +6,6 @@ import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -118,22 +117,23 @@ public class LoginFragment extends BaseFragment<LoginActivity, LoginContract.Pre
             mAwesomeValidation.addValidation(activity, R.id.tilPhoneNumber, Patterns.PHONE, R.string.validation_phone_valid);
             mAwesomeValidation.addValidation(activity, R.id.tilPhoneNumber, RegexTemplate.NOT_EMPTY, R.string.validation_phone_not_empty);
         } else if (rbLoginWithEmailAddress.isChecked()) {
-            mAwesomeValidation.addValidation(activity, R.id.tilEmailAddress, Patterns.PHONE, R.string.validation_phone_valid);
-            mAwesomeValidation.addValidation(activity, R.id.tilEmailAddress, RegexTemplate.NOT_EMPTY, R.string.validation_phone_not_empty);
+            mAwesomeValidation.addValidation(activity, R.id.tilEmailAddress, Patterns.EMAIL_ADDRESS, R.string.validation_email_valid);
+            mAwesomeValidation.addValidation(activity, R.id.tilEmailAddress, RegexTemplate.NOT_EMPTY, R.string.validation_email_not_empty);
         }
         mAwesomeValidation.addValidation(activity, R.id.tilName, RegexTemplate.NOT_EMPTY, R.string.validation_name_not_empty);
         mAwesomeValidation.addValidation(activity, R.id.tilPassword, RegexTemplate.NOT_EMPTY, R.string.validation_password_not_empty);
 
         if (mAwesomeValidation.validate()) {
             Map<String, String> params = new HashMap<>();
-            params.put("phone", etPhoneNumber.getText().toString());
+            if (rbLoginWithPhoneNumber.isChecked()) {
+                params.put("phone", etPhoneNumber.getText().toString());
+            } else if (rbLoginWithEmailAddress.isChecked()) {
+                params.put("email", etEmailAddress.getText().toString());
+            }
             params.put("password", etPassword.getText().toString());
             params.put("deviceSecretId", Settings.Secure.getString(getActivity().getContentResolver(), Settings.Secure.ANDROID_ID));
-            Log.v("Validation", "Pass");
 
             mPresenter.login(params);
-        } else {
-            Log.v("Validation", "Failed");
         }
     }
 

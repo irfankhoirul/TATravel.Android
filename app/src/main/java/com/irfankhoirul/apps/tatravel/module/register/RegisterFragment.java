@@ -130,8 +130,8 @@ public class RegisterFragment extends BaseFragment<RegisterActivity, RegisterCon
             mAwesomeValidation.addValidation(activity, R.id.tilPhoneNumber, Patterns.PHONE, R.string.validation_phone_valid);
             mAwesomeValidation.addValidation(activity, R.id.tilPhoneNumber, RegexTemplate.NOT_EMPTY, R.string.validation_phone_not_empty);
         } else if (rbRegisterWithEmailAddress.isChecked()) {
-            mAwesomeValidation.addValidation(activity, R.id.tilEmailAddress, Patterns.PHONE, R.string.validation_phone_valid);
-            mAwesomeValidation.addValidation(activity, R.id.tilEmailAddress, RegexTemplate.NOT_EMPTY, R.string.validation_phone_not_empty);
+            mAwesomeValidation.addValidation(activity, R.id.tilEmailAddress, Patterns.EMAIL_ADDRESS, R.string.validation_email_valid);
+            mAwesomeValidation.addValidation(activity, R.id.tilEmailAddress, RegexTemplate.NOT_EMPTY, R.string.validation_email_not_empty);
         }
         mAwesomeValidation.addValidation(activity, R.id.tilName, RegexTemplate.NOT_EMPTY, R.string.validation_name_not_empty);
         mAwesomeValidation.addValidation(activity, R.id.tilPassword, RegexTemplate.NOT_EMPTY, R.string.validation_password_not_empty);
@@ -139,14 +139,15 @@ public class RegisterFragment extends BaseFragment<RegisterActivity, RegisterCon
         if (mAwesomeValidation.validate()) {
             Map<String, String> params = new HashMap<>();
             params.put("name", etName.getText().toString());
-            params.put("phone", etPhoneNumber.getText().toString());
+            if (rbRegisterWithEmailAddress.isChecked()) {
+                params.put("email", etEmailAddress.getText().toString());
+            } else if (rbRegisterWithPhoneNumber.isChecked()) {
+                params.put("phone", etPhoneNumber.getText().toString());
+            }
             params.put("password", etPassword.getText().toString());
             params.put("deviceSecretId", Settings.Secure.getString(getActivity().getContentResolver(), Settings.Secure.ANDROID_ID));
-            Log.v("Validation", "Pass");
 
             mPresenter.register(params);
-        } else {
-            Log.v("Validation", "Failed");
         }
     }
 
@@ -287,6 +288,7 @@ public class RegisterFragment extends BaseFragment<RegisterActivity, RegisterCon
     public void redirectToVerification() {
         Intent intent = new Intent(activity, VerifyActivity.class);
         intent.putExtra("phone", etPhoneNumber.getText().toString());
+        intent.putExtra("email", etEmailAddress.getText().toString());
         startActivityForResult(intent, ConstantUtils.INTENT_REQUEST_REGISTER_TO_VALIDATION);
     }
 

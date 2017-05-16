@@ -53,7 +53,7 @@ public class VerifyPresenter implements VerifyContract.Presenter {
     @Override
     public void verify(Map<String, String> param) {
         view.setLoadingDialog(true, "Sedang melakukan verifikasi");
-        userRepository.verifyPhoneNumber(new IRequestResponseListener<User>() {
+        userRepository.verify(new IRequestResponseListener<User>() {
             @Override
             public void onSuccess(DataResult<User> result) {
                 if (result.getCode() == ConstantUtils.REQUEST_RESULT_SUCCESS) {

@@ -45,6 +45,7 @@ public interface IUserEndPoints {
      *
      * @param param - registrationCode
      *              - phone
+     *              - email
      *              - deviceSecretId
      */
     @FormUrlEncoded

@@ -21,13 +21,13 @@ public class UserRepositoryImpl extends BaseRemoteDataSource implements UserRepo
     }
 
     @Override
-    public void registerWithPhoneNumber(IRequestResponseListener listener, Map<String, String> param) {
+    public void register(IRequestResponseListener listener, Map<String, String> param) {
         Call<DataResult> call = ((IUserEndPoints) endPoint).register(param);
         execute(call, listener);
     }
 
     @Override
-    public void verifyPhoneNumber(IRequestResponseListener<User> listener, Map<String, String> param) {
+    public void verify(IRequestResponseListener<User> listener, Map<String, String> param) {
         Call<DataResult<User>> call = ((IUserEndPoints) endPoint).verify(param);
         execute(call, listener);
     }

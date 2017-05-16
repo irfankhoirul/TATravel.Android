@@ -43,9 +43,10 @@ public class VerifyFragment extends BaseFragment<VerifyActivity, VerifyContract.
         // Required empty public constructor
     }
 
-    public static VerifyFragment newInstance(String phone) {
+    public static VerifyFragment newInstance(String phone, String email) {
         Bundle bundle = new Bundle();
         bundle.putString("phone", phone);
+        bundle.putString("email", email);
         VerifyFragment verifyFragment = new VerifyFragment();
         verifyFragment.setArguments(bundle);
 
@@ -103,6 +104,7 @@ public class VerifyFragment extends BaseFragment<VerifyActivity, VerifyContract.
             Map<String, String> params = new HashMap<>();
             params.put("registrationCode", etVerificationCode.getText().toString());
             params.put("phone", getArguments().getString("phone"));
+            params.put("email", getArguments().getString("email"));
             params.put("deviceSecretId", Settings.Secure.getString(getActivity().getContentResolver(), Settings.Secure.ANDROID_ID));
             Log.v("Validation", "Pass");
 

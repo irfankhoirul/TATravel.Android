@@ -29,7 +29,8 @@ public class VerifyActivity extends BaseFragmentHolderActivity {
 
     @Override
     protected void initializeFragment() {
-        VerifyFragment verifyFragment = VerifyFragment.newInstance(getIntent().getStringExtra("phone"));
+        VerifyFragment verifyFragment = VerifyFragment.newInstance(getIntent().getStringExtra("phone"),
+                getIntent().getStringExtra("email"));
         setCurrentFragment(verifyFragment, false);
 
         DaggerVerifyComponent.builder()

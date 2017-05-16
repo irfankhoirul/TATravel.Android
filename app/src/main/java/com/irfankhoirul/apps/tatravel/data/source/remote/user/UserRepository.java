@@ -11,9 +11,9 @@ import java.util.Map;
 
 public interface UserRepository {
 
-    void registerWithPhoneNumber(IRequestResponseListener listener, Map<String, String> param);
+    void register(IRequestResponseListener listener, Map<String, String> param);
 
-    void verifyPhoneNumber(IRequestResponseListener<User> listener, Map<String, String> param);
+    void verify(IRequestResponseListener<User> listener, Map<String, String> param);
 
     void login(IRequestResponseListener<User> listener, Map<String, String> param);
 
