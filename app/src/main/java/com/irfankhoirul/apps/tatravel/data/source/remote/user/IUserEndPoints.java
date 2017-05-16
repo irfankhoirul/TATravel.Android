@@ -57,6 +57,7 @@ public interface IUserEndPoints {
      *
      * @param param - deviceSecretId
      *              - phone
+     *              - email
      *              - password
      */
     @FormUrlEncoded
@@ -68,6 +69,7 @@ public interface IUserEndPoints {
      *
      * @param param - deviceSecretId
      *              - phone
+     *              - email
      *              - password
      */
     @FormUrlEncoded

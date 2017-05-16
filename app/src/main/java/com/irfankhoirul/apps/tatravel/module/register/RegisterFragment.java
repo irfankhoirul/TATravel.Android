@@ -36,6 +36,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.common.hash.Hashing;
 import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.core.base.BaseFragment;
 import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
@@ -44,6 +45,7 @@ import com.irfankhoirul.apps.tatravel.module.verification.VerifyActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -226,6 +228,28 @@ public class RegisterFragment extends BaseFragment<RegisterActivity, RegisterCon
 //            String token = account.getIdToken();
 //            Log.v("Google Token", token);
 //            updateUI(true);
+
+            if (email != null && name != null) {
+                String hashedPassword1 = Hashing.md5()
+                        .hashString(email, Charset.forName("UTF-8"))
+                        .toString();
+                String hashedPassword2 = Hashing.sha1()
+                        .hashString(hashedPassword1, Charset.forName("UTF-8"))
+                        .toString();
+                String hashedPassword3 = Hashing.sha256()
+                        .hashString(hashedPassword2, Charset.forName("UTF-8"))
+                        .toString();
+
+                Map<String, String> params = new HashMap<>();
+                params.put("name", name);
+                params.put("email", email);
+                params.put("password", hashedPassword3);
+                params.put("deviceSecretId", Settings.Secure.getString(getActivity().getContentResolver(), Settings.Secure.ANDROID_ID));
+                params.put("socialMedia", "TRUE");
+                mPresenter.register(params);
+            } else {
+                showStatus(ConstantUtils.STATUS_ERROR, "Registrasi Gagal");
+            }
         } else {
             // Signed out, show unauthenticated UI.
 //            updateUI(false);
@@ -285,11 +309,17 @@ public class RegisterFragment extends BaseFragment<RegisterActivity, RegisterCon
     }
 
     @Override
-    public void redirectToVerification() {
+    public void redirectToVerification(String phone, String email) {
         Intent intent = new Intent(activity, VerifyActivity.class);
-        intent.putExtra("phone", etPhoneNumber.getText().toString());
-        intent.putExtra("email", etEmailAddress.getText().toString());
+        intent.putExtra("phone", phone);
+        intent.putExtra("email", email);
         startActivityForResult(intent, ConstantUtils.INTENT_REQUEST_REGISTER_TO_VALIDATION);
+    }
+
+    @Override
+    public void redirectToProfile() {
+        activity.setResult(ConstantUtils.STATUS_SUCCESS);
+        activity.finish();
     }
 
     @Override
