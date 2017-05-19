@@ -55,11 +55,13 @@ public interface SearchContract {
 
         boolean isPassengerSet();
 
-        void setPassenger(List<Penumpang> passengers);
-
         void clearPassenger();
 
         String getSelectedOperatorTravelId();
+
+        List<Penumpang> getSelectedPassengers();
+
+        void setSelectedPassengers(List<Penumpang> selectedPassengers);
 
     }
 

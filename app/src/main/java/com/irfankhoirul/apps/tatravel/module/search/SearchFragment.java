@@ -36,7 +36,6 @@ import com.irfankhoirul.apps.tatravel.module.schedule.ScheduleActivity;
 
 import org.parceler.Parcels;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -76,8 +75,6 @@ public class SearchFragment extends BaseFragment<MainActivity, SearchContract.Pr
     LinearLayout llReturnDate;
     @BindView(R.id.llPassenger)
     LinearLayout llPassenger;
-
-    ArrayList<Penumpang> selectedPassengers = new ArrayList<>();
 
     private FragmentListener listener;
 
@@ -230,10 +227,10 @@ public class SearchFragment extends BaseFragment<MainActivity, SearchContract.Pr
         } else if (requestCode == ConstantUtils.ACTIVITY_REQUEST_CODE_PASSENGER && resultCode == ConstantUtils.REQUEST_RESULT_SUCCESS) {
             mPresenter.clearPassenger();
             if (data.getParcelableExtra("selectedPassengers") != null) {
-                selectedPassengers = Parcels.unwrap(data.getParcelableExtra("selectedPassengers"));
-                mPresenter.setPassenger(selectedPassengers);
-                if (selectedPassengers.size() > 0) {
-                    setPassengerView(selectedPassengers);
+                mPresenter.setSelectedPassengers((List<Penumpang>) Parcels.unwrap(data.getParcelableExtra("selectedPassengers")));
+//                mPresenter.setPassenger(selectedPassengers);
+                if (mPresenter.getSelectedPassengers().size() > 0) {
+                    setPassengerView(mPresenter.getSelectedPassengers());
                 } else {
                     resetPassengerView();
                 }
@@ -367,7 +364,7 @@ public class SearchFragment extends BaseFragment<MainActivity, SearchContract.Pr
         if (mPresenter.isLoggedIn()) {
             if (mPresenter.isDateSet()) {
                 Intent intent = new Intent(activity, PassengerActivity.class);
-                intent.putExtra("selectedPassengers", Parcels.wrap(selectedPassengers));
+                intent.putExtra("selectedPassengers", Parcels.wrap(mPresenter.getSelectedPassengers()));
                 startActivityForResult(intent, ConstantUtils.ACTIVITY_REQUEST_CODE_PASSENGER);
             } else {
                 showStatus(ConstantUtils.STATUS_ERROR, "Anda belum memilih tanggal keberangkatan");

@@ -5,6 +5,7 @@ import com.irfankhoirul.apps.tatravel.data.source.locale.cart.CartRepository;
 import com.irfankhoirul.apps.tatravel.data.source.locale.session.SessionRepository;
 import com.irfankhoirul.apps.tatravel.data.source.remote.schedule.ScheduleRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +25,7 @@ public class SearchPresenter implements SearchContract.Presenter {
     private final ScheduleRepository scheduleRepository;
     private final SessionRepository sessionRepository;
     private final CartRepository cartRepository;
+    private List<Penumpang> selectedPassengers = new ArrayList<>();
 
     @Inject
     public SearchPresenter(SessionRepository sessionRepository, CartRepository cartRepository,
@@ -115,11 +117,6 @@ public class SearchPresenter implements SearchContract.Presenter {
     }
 
     @Override
-    public void setPassenger(List<Penumpang> passengers) {
-        cartRepository.setPenumpang(passengers);
-    }
-
-    @Override
     public void clearPassenger() {
         cartRepository.clearPenumpang();
     }
@@ -127,6 +124,17 @@ public class SearchPresenter implements SearchContract.Presenter {
     @Override
     public String getSelectedOperatorTravelId() {
         return cartRepository.getDeparture().get("operatorTravelId");
+    }
+
+    @Override
+    public List<Penumpang> getSelectedPassengers() {
+        return selectedPassengers;
+    }
+
+    @Override
+    public void setSelectedPassengers(List<Penumpang> selectedPassengers) {
+        cartRepository.setPenumpang(selectedPassengers);
+        this.selectedPassengers = selectedPassengers;
     }
 
 }
