@@ -6,7 +6,6 @@ import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,6 +69,11 @@ public class VerifyFragment extends BaseFragment<VerifyActivity, VerifyContract.
     }
 
     @Override
+    public boolean isActive() {
+        return isAdded();
+    }
+
+    @Override
     public void setPresenter(VerifyContract.Presenter presenter) {
         mPresenter = checkNotNull(presenter);
     }
@@ -89,6 +93,13 @@ public class VerifyFragment extends BaseFragment<VerifyActivity, VerifyContract.
         title = "Verifikasi";
     }
 
+    private boolean verifyVerificationForm() {
+        AwesomeValidation mAwesomeValidation = new AwesomeValidation(TEXT_INPUT_LAYOUT);
+        mAwesomeValidation.addValidation(activity, R.id.tilVerificationCode, RegexTemplate.NOT_EMPTY, R.string.validation_verification_code_not_empty);
+
+        return mAwesomeValidation.validate();
+    }
+
     @OnClick(R.id.btVerify)
     public void btVerify() {
         View view = activity.getCurrentFocus();
@@ -97,20 +108,14 @@ public class VerifyFragment extends BaseFragment<VerifyActivity, VerifyContract.
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
 
-        AwesomeValidation mAwesomeValidation = new AwesomeValidation(TEXT_INPUT_LAYOUT);
-        mAwesomeValidation.addValidation(activity, R.id.tilVerificationCode, RegexTemplate.NOT_EMPTY, R.string.validation_verification_code_not_empty);
-
-        if (mAwesomeValidation.validate()) {
+        if (verifyVerificationForm()) {
             Map<String, String> params = new HashMap<>();
             params.put("registrationCode", etVerificationCode.getText().toString());
             params.put("phone", getArguments().getString("phone"));
             params.put("email", getArguments().getString("email"));
             params.put("deviceSecretId", Settings.Secure.getString(getActivity().getContentResolver(), Settings.Secure.ANDROID_ID));
-            Log.v("Validation", "Pass");
 
-            mPresenter.verify(params);
-        } else {
-            Log.v("Validation", "Failed");
+            mPresenter.verifyUser(params);
         }
     }
 

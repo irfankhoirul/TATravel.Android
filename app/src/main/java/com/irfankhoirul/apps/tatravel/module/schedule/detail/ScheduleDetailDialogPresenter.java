@@ -12,8 +12,8 @@ import javax.inject.Inject;
 public class ScheduleDetailDialogPresenter implements ScheduleDetailDialogContract.Presenter {
 
     private final ScheduleDetailDialogContract.View view;
-
     private final CartRepository cartRepository;
+    private JadwalPerjalanan schedule;
 
     @Inject
     public ScheduleDetailDialogPresenter(CartRepository cartRepository, ScheduleDetailDialogContract.View view) {
@@ -32,7 +32,13 @@ public class ScheduleDetailDialogPresenter implements ScheduleDetailDialogContra
     }
 
     @Override
+    public JadwalPerjalanan getSchedule() {
+        return schedule;
+    }
+
+    @Override
     public void setSchedule(JadwalPerjalanan schedule) {
+        this.schedule = schedule;
         cartRepository.setSchedule(schedule);
     }
 

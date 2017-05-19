@@ -12,7 +12,7 @@ public class EndPoints {
 
     // User End Point
     public static final String DO_REGISTER = "register";
-    public static final String DO_VERIFY = "verify";
+    public static final String DO_VERIFY = "verifyUser";
     public static final String DO_LOGIN = "login";
     public static final String DO_LOGIN_DRIVER = "login-driver";
     public static final String DO_LOGOUT = "logout";

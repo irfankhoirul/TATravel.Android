@@ -27,7 +27,6 @@ import com.irfankhoirul.apps.tatravel.module.reservation.detail.ReservationDetai
 
 import org.parceler.Parcels;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -52,7 +51,6 @@ public class ReservationHistoryFragment extends BaseFragment<MainActivity, Reser
 
     private FragmentListener listener;
     private ReservationHistoryAdapter reservationHistoryAdapter;
-    private List<Pemesanan> reservations = new ArrayList<>();
 
     public ReservationHistoryFragment() {
         // Required empty public constructor
@@ -69,7 +67,7 @@ public class ReservationHistoryFragment extends BaseFragment<MainActivity, Reser
         fragmentView = inflater.inflate(R.layout.fragment_reservation_history, container, false);
         unbinder = ButterKnife.bind(this, fragmentView);
 
-        reservationHistoryAdapter = new ReservationHistoryAdapter(reservations, new ReservationHistoryAdapter.OnSpecificItemClick() {
+        reservationHistoryAdapter = new ReservationHistoryAdapter(mPresenter.getReservations(), new ReservationHistoryAdapter.OnSpecificItemClick() {
             @Override
             public void onItemClick(Pemesanan reservation) {
                 // Show detail
@@ -115,7 +113,7 @@ public class ReservationHistoryFragment extends BaseFragment<MainActivity, Reser
 
     @Override
     public void updateReservationList(List<Pemesanan> reservations, final DataPage dataPage, final Map<String, String> params) {
-        this.reservations.addAll(reservations);
+        mPresenter.getReservations().addAll(reservations);
         reservationHistoryAdapter.notifyDataSetChanged();
 
         int rvPassengerMaxHeight = DisplayMetricUtils.convertDpToPixel(rlFragmentContainer.getHeight());
@@ -136,11 +134,6 @@ public class ReservationHistoryFragment extends BaseFragment<MainActivity, Reser
                 }
             }
         });
-    }
-
-    @Override
-    public void resetReservationListData() {
-        reservations.clear();
     }
 
     @Override

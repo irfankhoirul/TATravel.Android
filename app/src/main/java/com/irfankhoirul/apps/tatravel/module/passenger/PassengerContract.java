@@ -20,9 +20,9 @@ public interface PassengerContract {
 
         void removePassengerItem(int position);
 
-        void updatePassengerItem(int position, Penumpang passenger);
+        void updatePassengerItem(int position);
 
-        void addPassengerItem(Penumpang passenger);
+        void addPassengerItem();
 
         void showDataNotExist();
 
@@ -37,5 +37,13 @@ public interface PassengerContract {
         void deletePassenger(int idPenumpang, int position, List<Penumpang> passengers);
 
         void listPassenger(Map<String, String> param);
+
+        void setSelectedPassenger(List<Penumpang> passengers);
+
+        List<Penumpang> getSelectedPassengers();
+
+        void onPassengerItemClick(Penumpang passenger, boolean isSelected);
+
+        List<Penumpang> getPassenger();
     }
 }

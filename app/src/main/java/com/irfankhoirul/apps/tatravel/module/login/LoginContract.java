@@ -21,5 +21,7 @@ public interface LoginContract {
         void login(Map<String, String> params);
 
         void updateFcmToken(Map<String, String> param);
+
+        void handleSocialLogin(String email, String firebaseInstanceId);
     }
 }

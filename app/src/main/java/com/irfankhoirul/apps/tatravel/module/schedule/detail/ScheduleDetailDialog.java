@@ -55,7 +55,6 @@ public class ScheduleDetailDialog extends BaseDialog implements ScheduleDetailDi
     Button btNext;
 
     ScheduleDetailDialogContract.Presenter mPresenter;
-    private JadwalPerjalanan schedule;
 
     public ScheduleDetailDialog() {
         // Empty constructor required for DialogFragment
@@ -76,8 +75,13 @@ public class ScheduleDetailDialog extends BaseDialog implements ScheduleDetailDi
         unbinder = ButterKnife.bind(this, fragmentView);
         mPresenter.start();
 
-        schedule = Parcels.unwrap(getArguments().getParcelable("schedule"));
+        mPresenter.setSchedule((JadwalPerjalanan) Parcels.unwrap(getArguments().getParcelable("schedule")));
+        showScheduleDetail(mPresenter.getSchedule());
 
+        return fragmentView;
+    }
+
+    private void showScheduleDetail(JadwalPerjalanan schedule) {
         tvDepartureLocation.setText(schedule.getLokasiPemberangkatan().getNama() + ", " + schedule.getLokasiPemberangkatan().getKota().getNama());
         tvDepartureTime.setText(schedule.getWaktuKeberangkatan() + " " + schedule.getTimezone());
         tvDestinationLocation.setText(schedule.getLokasiTujuan().getNama() + ", " + schedule.getLokasiTujuan().getKota().getNama());
@@ -96,8 +100,6 @@ public class ScheduleDetailDialog extends BaseDialog implements ScheduleDetailDi
                 CurrencyUtils.formatRupiah(schedule.getBiayaLokasiKhusus()) + ")");
 
         tvTotalPrice.setText(CurrencyUtils.formatRupiah(schedule.getHarga() + pickUpPrice + takePrice));
-
-        return fragmentView;
     }
 
     @OnClick(R.id.btCancel)
@@ -107,11 +109,9 @@ public class ScheduleDetailDialog extends BaseDialog implements ScheduleDetailDi
 
     @OnClick(R.id.btNext)
     public void btNext() {
-        // Set cart
-        mPresenter.setSchedule(schedule);
         // Intent ke activity seat
         Intent intent = new Intent(activity, SeatActivity.class);
-        intent.putExtra("scheduleId", schedule.getId());
+        intent.putExtra("scheduleId", mPresenter.getSchedule().getId());
         startActivityForResult(intent, ConstantUtils.ACTIVITY_REQUEST_CODE_SEAT);
         ScheduleDetailDialog.this.dismiss();
     }

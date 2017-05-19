@@ -7,7 +7,9 @@ import com.irfankhoirul.apps.tatravel.data.pojo.Pemesanan;
 import com.irfankhoirul.apps.tatravel.data.source.locale.session.SessionRepository;
 import com.irfankhoirul.apps.tatravel.data.source.remote.reservation.ReservationRepository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -21,6 +23,7 @@ public class ReservationHistoryPresenter implements ReservationHistoryContract.P
     private final ReservationHistoryContract.View view;
     private final ReservationRepository reservationRepository;
     private final SessionRepository sessionRepository;
+    private List<Pemesanan> reservations = new ArrayList<>();
 
     @Inject
     public ReservationHistoryPresenter(SessionRepository sessionRepository,
@@ -38,7 +41,7 @@ public class ReservationHistoryPresenter implements ReservationHistoryContract.P
 
     @Override
     public void start() {
-        view.resetReservationListData();
+        reservations.clear();
         Map<String, String> params = new HashMap<>();
         listReservation(params);
     }
@@ -84,5 +87,10 @@ public class ReservationHistoryPresenter implements ReservationHistoryContract.P
                 }
             }, params);
         }
+    }
+
+    @Override
+    public List<Pemesanan> getReservations() {
+        return reservations;
     }
 }

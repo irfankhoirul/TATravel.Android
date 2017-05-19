@@ -34,4 +34,8 @@ public class ReservationDetailPresenter implements ReservationDetailContract.Pre
 
     }
 
+    @Override
+    public void getReservationDetail() {
+        // Todo : get reservation detail dari cart repository, lalu show view reservation detail
+    }
 }

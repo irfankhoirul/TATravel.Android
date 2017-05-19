@@ -16,8 +16,6 @@ public interface ReservationHistoryContract {
     interface View extends IBaseView<Presenter> {
         void updateReservationList(List<Pemesanan> reservations, DataPage dataPage, Map<String, String> params);
 
-        void resetReservationListData();
-
         void showDataExist();
 
         void showDataNotExist();
@@ -28,5 +26,7 @@ public interface ReservationHistoryContract {
 
     interface Presenter extends IBasePresenter {
         void listReservation(Map<String, String> params);
+
+        List<Pemesanan> getReservations();
     }
 }

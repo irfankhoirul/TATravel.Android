@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +16,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.Toast;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.utility.RegexTemplate;
@@ -37,7 +35,6 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
-import com.google.common.hash.Hashing;
 import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.core.base.BaseFragment;
 import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
@@ -45,7 +42,6 @@ import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,7 +51,6 @@ import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 
 import static com.basgeekball.awesomevalidation.ValidationStyle.TEXT_INPUT_LAYOUT;
-import static com.facebook.FacebookSdk.getApplicationContext;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils.REGISTER_GOOGLE_REQUEST;
 
@@ -141,29 +136,10 @@ public class LoginFragment extends BaseFragment<LoginActivity, LoginContract.Pre
             @Override
             public void onCompleted(JSONObject object, GraphResponse response) {
                 try {
-                    String email = object.getString("email");
-                    String name = object.getString("name");
-                    String token = accessToken.getToken();
-
-                    String hashedPassword1 = Hashing.md5()
-                            .hashString(email, Charset.forName("UTF-8"))
-                            .toString();
-                    String hashedPassword2 = Hashing.sha1()
-                            .hashString(hashedPassword1, Charset.forName("UTF-8"))
-                            .toString();
-                    String hashedPassword3 = Hashing.sha256()
-                            .hashString(hashedPassword2, Charset.forName("UTF-8"))
-                            .toString();
-
-                    Map<String, String> params = new HashMap<>();
-                    params.put("name", name);
-                    params.put("email", email);
-                    params.put("password", hashedPassword3);
-                    params.put("deviceSecretId", Settings.Secure.getString(getActivity().getContentResolver(), Settings.Secure.ANDROID_ID));
-                    params.put("socialMedia", "TRUE");
-                    mPresenter.login(params);
+                    mPresenter.handleSocialLogin(object.getString("email"), Settings.Secure.getString(
+                            getActivity().getContentResolver(), Settings.Secure.ANDROID_ID));
                 } catch (JSONException e) {
-                    Toast.makeText(getApplicationContext(), "graph request error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    showStatus(ConstantUtils.STATUS_ERROR, "Terjadi Kesalahan");
                 }
             }
         });
@@ -174,7 +150,8 @@ public class LoginFragment extends BaseFragment<LoginActivity, LoginContract.Pre
     }
 
     private void setupGoogle() {
-        GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions
+                .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
 
@@ -182,36 +159,16 @@ public class LoginFragment extends BaseFragment<LoginActivity, LoginContract.Pre
                 .enableAutoManage(activity, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, googleSignInOptions)
                 .build();
-
-        Log.v("LoginGoogleSetup", "TRUE");
     }
 
     private void handleGoogleResult(GoogleSignInResult result) {
         if (result.isSuccess()) {
             GoogleSignInAccount account = result.getSignInAccount();
-            String email = account.getEmail();
-            String name = account.getDisplayName();
-
-            if (email != null && name != null) {
-                String hashedPassword1 = Hashing.md5()
-                        .hashString(email, Charset.forName("UTF-8"))
-                        .toString();
-                String hashedPassword2 = Hashing.sha1()
-                        .hashString(hashedPassword1, Charset.forName("UTF-8"))
-                        .toString();
-                String hashedPassword3 = Hashing.sha256()
-                        .hashString(hashedPassword2, Charset.forName("UTF-8"))
-                        .toString();
-
-                Map<String, String> params = new HashMap<>();
-                params.put("name", name);
-                params.put("email", email);
-                params.put("password", hashedPassword3);
-                params.put("deviceSecretId", Settings.Secure.getString(getActivity().getContentResolver(), Settings.Secure.ANDROID_ID));
-                params.put("socialMedia", "TRUE");
-                mPresenter.login(params);
+            if (account != null) {
+                mPresenter.handleSocialLogin(account.getEmail(), Settings.Secure.getString(getActivity()
+                        .getContentResolver(), Settings.Secure.ANDROID_ID));
             } else {
-                showStatus(ConstantUtils.STATUS_ERROR, "Registrasi Gagal");
+                showStatus(ConstantUtils.STATUS_ERROR, "Gagal Login");
             }
         }
     }
@@ -236,6 +193,27 @@ public class LoginFragment extends BaseFragment<LoginActivity, LoginContract.Pre
     public void redirectToProfile() {
         activity.setResult(ConstantUtils.STATUS_SUCCESS);
         activity.finish();
+    }
+
+    private boolean validateLoginForm() {
+        AwesomeValidation mAwesomeValidation = new AwesomeValidation(TEXT_INPUT_LAYOUT);
+        if (rbLoginWithPhoneNumber.isChecked()) {
+            mAwesomeValidation.addValidation(activity, R.id.tilPhoneNumber, Patterns.PHONE,
+                    R.string.validation_phone_valid);
+            mAwesomeValidation.addValidation(activity, R.id.tilPhoneNumber, RegexTemplate.NOT_EMPTY,
+                    R.string.validation_phone_not_empty);
+        } else if (rbLoginWithEmailAddress.isChecked()) {
+            mAwesomeValidation.addValidation(activity, R.id.tilEmailAddress, Patterns.EMAIL_ADDRESS,
+                    R.string.validation_email_valid);
+            mAwesomeValidation.addValidation(activity, R.id.tilEmailAddress, RegexTemplate.NOT_EMPTY,
+                    R.string.validation_email_not_empty);
+        }
+        mAwesomeValidation.addValidation(activity, R.id.tilName, RegexTemplate.NOT_EMPTY,
+                R.string.validation_name_not_empty);
+        mAwesomeValidation.addValidation(activity, R.id.tilPassword, RegexTemplate.NOT_EMPTY,
+                R.string.validation_password_not_empty);
+
+        return mAwesomeValidation.validate();
     }
 
     @OnCheckedChanged(R.id.rbLoginWithPhoneNumber)
@@ -266,18 +244,7 @@ public class LoginFragment extends BaseFragment<LoginActivity, LoginContract.Pre
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
 
-        AwesomeValidation mAwesomeValidation = new AwesomeValidation(TEXT_INPUT_LAYOUT);
-        if (rbLoginWithPhoneNumber.isChecked()) {
-            mAwesomeValidation.addValidation(activity, R.id.tilPhoneNumber, Patterns.PHONE, R.string.validation_phone_valid);
-            mAwesomeValidation.addValidation(activity, R.id.tilPhoneNumber, RegexTemplate.NOT_EMPTY, R.string.validation_phone_not_empty);
-        } else if (rbLoginWithEmailAddress.isChecked()) {
-            mAwesomeValidation.addValidation(activity, R.id.tilEmailAddress, Patterns.EMAIL_ADDRESS, R.string.validation_email_valid);
-            mAwesomeValidation.addValidation(activity, R.id.tilEmailAddress, RegexTemplate.NOT_EMPTY, R.string.validation_email_not_empty);
-        }
-        mAwesomeValidation.addValidation(activity, R.id.tilName, RegexTemplate.NOT_EMPTY, R.string.validation_name_not_empty);
-        mAwesomeValidation.addValidation(activity, R.id.tilPassword, RegexTemplate.NOT_EMPTY, R.string.validation_password_not_empty);
-
-        if (mAwesomeValidation.validate()) {
+        if (validateLoginForm()) {
             Map<String, String> params = new HashMap<>();
             if (rbLoginWithPhoneNumber.isChecked()) {
                 params.put("phone", etPhoneNumber.getText().toString());
@@ -285,7 +252,8 @@ public class LoginFragment extends BaseFragment<LoginActivity, LoginContract.Pre
                 params.put("email", etEmailAddress.getText().toString());
             }
             params.put("password", etPassword.getText().toString());
-            params.put("deviceSecretId", Settings.Secure.getString(getActivity().getContentResolver(), Settings.Secure.ANDROID_ID));
+            params.put("deviceSecretId", Settings.Secure.getString(getActivity().getContentResolver(),
+                    Settings.Secure.ANDROID_ID));
 
             mPresenter.login(params);
         }
@@ -293,13 +261,11 @@ public class LoginFragment extends BaseFragment<LoginActivity, LoginContract.Pre
 
     @OnClick(R.id.cvLoginWithFacebook)
     public void cvLoginWithFacebook() {
-        Log.v("cvLoginWithFacebook", "Clicked!");
         loginFacebook.performClick();
     }
 
     @OnClick(R.id.cvLoginWithGoogle)
     public void cvLoginWithGoogle() {
-        Log.v("cvLoginWithGoogle", "Clicked!");
         Auth.GoogleSignInApi.revokeAccess(mGoogleApiClient).setResultCallback(
                 new ResultCallback<Status>() {
                     @Override

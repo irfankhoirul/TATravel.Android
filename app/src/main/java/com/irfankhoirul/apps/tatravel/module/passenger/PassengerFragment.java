@@ -9,7 +9,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +28,6 @@ import com.irfankhoirul.apps.tatravel.module.passenger.creator.PassengerCreatorP
 
 import org.parceler.Parcels;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,8 +58,6 @@ public class PassengerFragment extends BaseFragment<PassengerActivity, Passenger
     PassengerCreatorDialogPresenter passengerCreatorDialogPresenter;
 
     private PassengerAdapter passengerAdapter;
-    private List<Penumpang> passengers = new ArrayList<>();
-    private List<Penumpang> selectedPassengers = new ArrayList<>();
 
     public PassengerFragment() {
         // Required empty public constructor
@@ -87,22 +83,12 @@ public class PassengerFragment extends BaseFragment<PassengerActivity, Passenger
         fragmentView = inflater.inflate(R.layout.fragment_passenger, container, false);
         unbinder = ButterKnife.bind(this, fragmentView);
 
-        selectedPassengers = Parcels.unwrap(getArguments().getParcelable("selectedPassengers"));
+        mPresenter.setSelectedPassenger((List<Penumpang>) Parcels.unwrap(getArguments().getParcelable("selectedPassengers")));
 
-        passengerAdapter = new PassengerAdapter(passengers, new PassengerAdapter.OnSpecificItemClick() {
+        passengerAdapter = new PassengerAdapter(mPresenter.getPassenger(), new PassengerAdapter.OnSpecificItemClick() {
             @Override
             public void onItemClick(Penumpang passenger, boolean isSelected) {
-                if (!selectedPassengers.contains(passenger)) {
-                    if (isSelected) {
-                        selectedPassengers.add(passenger);
-                    } else {
-                        for (int i = 0; i < selectedPassengers.size(); i++) {
-                            if (selectedPassengers.get(i).getId() == passenger.getId()) {
-                                selectedPassengers.remove(i);
-                            }
-                        }
-                    }
-                }
+                mPresenter.onPassengerItemClick(passenger, isSelected);
             }
 
             @Override
@@ -117,7 +103,7 @@ public class PassengerFragment extends BaseFragment<PassengerActivity, Passenger
                         builder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                mPresenter.deletePassenger(passenger.getId(), position, passengers);
+                                mPresenter.deletePassenger(passenger.getId(), position, mPresenter.getPassenger());
                             }
                         });
                         builder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
@@ -170,33 +156,23 @@ public class PassengerFragment extends BaseFragment<PassengerActivity, Passenger
     @OnClick(R.id.btSetPassenger)
     public void btSetPassenger() {
         Intent intent = new Intent();
-        intent.putExtra("selectedPassengers", Parcels.wrap(selectedPassengers));
+        intent.putExtra("selectedPassengers", Parcels.wrap(mPresenter.getSelectedPassengers()));
         activity.setResult(ConstantUtils.REQUEST_RESULT_SUCCESS, intent);
         activity.finish();
     }
 
     @Override
     public void updatePassengerList(List<Penumpang> passengers, final DataPage dataPage, final Map<String, String> params) {
-        this.passengers.addAll(passengers);
-        for (int i = 0; i < this.passengers.size(); i++) {
-            for (int j = 0; j < this.selectedPassengers.size(); j++) {
-                if (this.passengers.get(i).getId() == selectedPassengers.get(j).getId()) {
-                    this.passengers.get(i).setSelected(true);
-                }
-            }
-        }
+        mPresenter.getPassenger().addAll(passengers);
         passengerAdapter.notifyDataSetChanged();
 
         int toolbarHeight = DisplayMetricUtils.convertDpToPixel(56);
         int btSetPassengerHeightAndPassing = DisplayMetricUtils.convertDpToPixel(btSetPassenger.getHeight()) + DisplayMetricUtils.convertDpToPixel(16 + 16);
         int rvPassengerMaxHeight = DisplayMetricUtils.getDeviceHeight(activity) - toolbarHeight - btSetPassengerHeightAndPassing;
-        Log.v("rvPassengerMaxHeight", String.valueOf(rvPassengerMaxHeight));
 
         int rvPassengerHeight = rvPassenger.getHeight();
-        Log.v("rvPassengerHeight", String.valueOf(rvPassengerHeight));
         if (rvPassengerHeight < rvPassengerMaxHeight && dataPage.getCurrentPage() < dataPage.getTotalPage()
                 && passengers.size() < ConstantUtils.PAGINATION_LIMIT * 2 && dataPage.getNextPage() != -1) {
-            Log.v("RequestPageFillingSpace", String.valueOf(dataPage.getNextPage()));
             mPresenter.listPassenger(params);
         }
 
@@ -205,10 +181,7 @@ public class PassengerFragment extends BaseFragment<PassengerActivity, Passenger
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 if (DisplayMetricUtils.isMaxScrollReached(rvPassenger) && dataPage.getNextPage() != -1) {
-                    if (dataPage.getCurrentPage() < dataPage.getTotalPage() && !isLoading()/* &&
-                            dataPage.getCurrentPage() + 1 < dataPage.getNextPage()*/) {
-                        Log.v("RequestPage", String.valueOf(dataPage.getNextPage()));
-                        Log.v("CurrentPage", String.valueOf(dataPage.getCurrentPage()));
+                    if (dataPage.getCurrentPage() < dataPage.getTotalPage() && !isLoading()) {
                         mPresenter.listPassenger(params);
                     }
                 }
@@ -219,7 +192,6 @@ public class PassengerFragment extends BaseFragment<PassengerActivity, Passenger
 
     @Override
     public void onCreatePassengerClick() {
-        // Show Dialog
         PassengerCreatorDialog passengerCreatorDialog = new PassengerCreatorDialog();
         passengerCreatorDialog.setListener(this);
         passengerCreatorDialog.show(getFragmentManager(), "passengerCreatorDialog");
@@ -231,31 +203,16 @@ public class PassengerFragment extends BaseFragment<PassengerActivity, Passenger
 
     @Override
     public void removePassengerItem(int position) {
-        Penumpang tmpPassenger = passengers.get(position);
-        for (int i = 0; i < selectedPassengers.size(); i++) {
-            if (selectedPassengers.get(i).getId() == tmpPassenger.getId()) {
-                selectedPassengers.remove(i);
-            }
-        }
-        passengers.remove(position);
         passengerAdapter.notifyItemRemoved(position);
     }
 
     @Override
-    public void updatePassengerItem(int position, Penumpang passenger) {
-        Penumpang tmpPassenger = passengers.get(position);
-        for (int i = 0; i < selectedPassengers.size(); i++) {
-            if (selectedPassengers.get(i).getId() == tmpPassenger.getId()) {
-                selectedPassengers.set(i, passenger);
-            }
-        }
-        passengers.set(position, passenger);
+    public void updatePassengerItem(int position) {
         passengerAdapter.notifyItemChanged(position);
     }
 
     @Override
-    public void addPassengerItem(Penumpang passenger) {
-        passengers.add(passenger);
+    public void addPassengerItem() {
         passengerAdapter.notifyDataSetChanged();
     }
 

@@ -30,6 +30,7 @@ public class SchedulePresenter implements ScheduleContract.Presenter {
     private final ScheduleRepository scheduleRepository;
     private final SessionRepository sessionRepository;
     private final CartRepository cartRepository;
+    private List<JadwalPerjalanan> schedules = new ArrayList<>();
 
     @Inject
     public SchedulePresenter(SessionRepository sessionRepository,
@@ -111,5 +112,17 @@ public class SchedulePresenter implements ScheduleContract.Presenter {
                 view.showStatus(ConstantUtils.STATUS_ERROR, "Terjadi kesalahan");
             }
         }, Integer.parseInt(cartRepository.getDeparture().get("operatorTravelId")), params);
+    }
+
+    @Override
+    public void handleOnActivityResult(int requestCode, int resultCode) {
+        if (requestCode == ConstantUtils.ACTIVITY_REQUEST_CODE_SEAT && resultCode == ConstantUtils.REQUEST_RESULT_SUCCESS) {
+            view.finishActivity();
+        }
+    }
+
+    @Override
+    public List<JadwalPerjalanan> getSchedules() {
+        return schedules;
     }
 }

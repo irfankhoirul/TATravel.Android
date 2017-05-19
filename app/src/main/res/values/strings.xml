@@ -3,7 +3,6 @@
     <string name="facebook_app_id">1476661712378307</string>
     <string name="fb_login_protocol_scheme">fbAPP_ID</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="label_verify_phone_number">Silakan masukkan kode verifikasi yang kami kirimkan ke nomor handphone anda.</string>
     <string name="label_hint_verification_code">Kode Verifikasi</string>

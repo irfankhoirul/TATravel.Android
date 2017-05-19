@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,14 +12,9 @@ import android.widget.LinearLayout;
 
 import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.core.base.BaseDialog;
-import com.irfankhoirul.apps.tatravel.data.pojo.Lokasi;
 import com.irfankhoirul.apps.tatravel.data.pojo.Penumpang;
-import com.irfankhoirul.apps.tatravel.module.departure.travel_choice.TravelChoiceAdapter;
 
 import org.parceler.Parcels;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,9 +35,6 @@ public class PassengerCreatorDialog extends BaseDialog implements PassengerCreat
     PassengerCreatorDialogContract.Presenter mPresenter;
     private Penumpang passenger;
     private DialogListener listener;
-
-    private TravelChoiceAdapter cityAdapter;
-    private List<Lokasi> lokasiList = new ArrayList<>();
 
     public PassengerCreatorDialog() {
         // Empty constructor required for DialogFragment
@@ -101,7 +92,6 @@ public class PassengerCreatorDialog extends BaseDialog implements PassengerCreat
     public void btSave() {
         if (getArguments() != null && getArguments().getParcelable("passenger") != null) {
             passenger.setNama(etPassengerName.getText().toString());
-            Log.v("UpdatedPosition3", String.valueOf(getArguments().getInt("position")));
             listener.onPassengerUpdated(getArguments().getInt("position"), passenger);
         } else {
             listener.onPassengerCreated(etPassengerName.getText().toString());

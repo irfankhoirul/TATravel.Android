@@ -14,6 +14,8 @@ public interface ScheduleDetailDialogContract {
     }
 
     interface Presenter extends IBasePresenter {
+        JadwalPerjalanan getSchedule();
+
         void setSchedule(JadwalPerjalanan schedule);
     }
 }

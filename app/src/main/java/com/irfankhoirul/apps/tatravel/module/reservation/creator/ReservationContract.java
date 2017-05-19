@@ -12,6 +12,8 @@ import java.util.Map;
 public interface ReservationContract {
     interface View extends IBaseView<Presenter> {
         void showDetailReservation(Map<String, String> reservationData);
+
+        void finishActivity();
     }
 
     interface Presenter extends IBasePresenter {

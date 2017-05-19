@@ -22,6 +22,8 @@ public class DeparturePresenter implements DepartureContract.Presenter {
 
     private final DepartureContract.View view;
     private final ScheduleRepository scheduleRepository;
+    private boolean gotLocation = false;
+    private List<Lokasi> lokasiList = new ArrayList<>();
 
     @Inject
     public DeparturePresenter(ScheduleRepository scheduleRepository, DepartureContract.View view) {
@@ -116,6 +118,26 @@ public class DeparturePresenter implements DepartureContract.Presenter {
 
         return availableOperatorTravel;
 
+    }
+
+    @Override
+    public boolean isGotLocation() {
+        return gotLocation;
+    }
+
+    @Override
+    public void setGotLocation(boolean gotLocation) {
+        this.gotLocation = gotLocation;
+    }
+
+    @Override
+    public List<Lokasi> getLocationList() {
+        return lokasiList;
+    }
+
+    @Override
+    public void setLocationList(List<Lokasi> locationList) {
+        lokasiList = locationList;
     }
 
 

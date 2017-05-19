@@ -17,6 +17,8 @@ public interface SeatContract {
 
         void redirectToReservationDetail();
 
+        void finishActivity();
+
         void setup5Seats();
 
         void setup6Seats();
@@ -31,8 +33,14 @@ public interface SeatContract {
     interface Presenter extends IBasePresenter {
         void getCarSeats(int scheduleId);
 
-        void bookSeat(List<KursiPerjalanan> seats);
+        void bookSeat();
 
         CartRepository getCart();
+
+        List<KursiPerjalanan> getSelectedSeats();
+
+        boolean checkCountSelectedSeatMatch();
+
+        void handleActivityResult(int requestCode, int resultCode);
     }
 }

@@ -13,7 +13,7 @@ public class LoginOrRegisterPresenter implements LoginOrRegisterContract.Present
     private final LoginOrRegisterContract.View view;
 
     @Inject
-    public LoginOrRegisterPresenter(LoginOrRegisterContract.View view) {
+    LoginOrRegisterPresenter(LoginOrRegisterContract.View view) {
         this.view = view;
     }
 

@@ -22,7 +22,7 @@ public class ProfilePresenter implements ProfileContract.Presenter {
     private final SessionRepository sessionRepository;
 
     @Inject
-    public ProfilePresenter(SessionRepository sessionRepository, UserRepository userRepository, ProfileContract.View view) {
+    ProfilePresenter(SessionRepository sessionRepository, UserRepository userRepository, ProfileContract.View view) {
         this.view = view;
         this.userRepository = userRepository;
         this.sessionRepository = sessionRepository;

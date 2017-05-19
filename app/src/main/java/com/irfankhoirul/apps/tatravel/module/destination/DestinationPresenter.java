@@ -21,6 +21,7 @@ public class DestinationPresenter implements DestinationContract.Presenter {
     private final DestinationContract.View view;
     private final ScheduleRepository scheduleRepository;
     private List<Integer> operatorTravelLocationIds = new ArrayList<>();
+    private boolean gotLocation = false;
 
     @Inject
     public DestinationPresenter(ScheduleRepository scheduleRepository, DestinationContract.View view) {
@@ -70,6 +71,16 @@ public class DestinationPresenter implements DestinationContract.Presenter {
     @Override
     public List<Integer> getTravelLocationIds() {
         return operatorTravelLocationIds;
+    }
+
+    @Override
+    public boolean isGotLocation() {
+        return gotLocation;
+    }
+
+    @Override
+    public void setGotLocation(boolean gotLocation) {
+        this.gotLocation = gotLocation;
     }
 
 }

@@ -19,9 +19,15 @@ public interface ScheduleContract {
         void showDataNotExist();
 
         void showDataExist();
+
+        void finishActivity();
     }
 
     interface Presenter extends IBasePresenter {
         void searchSchedules(Map<String, String> params);
+
+        void handleOnActivityResult(int requestCode, int resultCode);
+
+        List<JadwalPerjalanan> getSchedules();
     }
 }

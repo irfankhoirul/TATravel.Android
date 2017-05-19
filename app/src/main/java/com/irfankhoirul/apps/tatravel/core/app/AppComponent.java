@@ -1,5 +1,6 @@
 package com.irfankhoirul.apps.tatravel.core.app;
 
+import com.irfankhoirul.apps.tatravel.core.components.util.FormValidation;
 import com.irfankhoirul.apps.tatravel.data.source.locale.cart.CartRepository;
 import com.irfankhoirul.apps.tatravel.data.source.locale.session.SessionRepository;
 import com.irfankhoirul.apps.tatravel.data.source.remote.passenger.PassengerRepository;
@@ -34,4 +35,6 @@ public interface AppComponent {
     SeatRepository seatRepository();
 
     ReservationRepository reservationRepository();
+
+    FormValidation validation();
 }

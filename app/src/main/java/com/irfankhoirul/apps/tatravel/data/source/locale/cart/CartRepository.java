@@ -2,6 +2,7 @@ package com.irfankhoirul.apps.tatravel.data.source.locale.cart;
 
 import com.irfankhoirul.apps.tatravel.data.pojo.JadwalPerjalanan;
 import com.irfankhoirul.apps.tatravel.data.pojo.KursiPerjalanan;
+import com.irfankhoirul.apps.tatravel.data.pojo.Pemesanan;
 import com.irfankhoirul.apps.tatravel.data.pojo.Penumpang;
 
 import java.util.List;
@@ -65,4 +66,7 @@ public interface CartRepository {
 
     void clearSeatSetTime();
 
+    Pemesanan getLastReservation();
+
+    void setLastReservation(Pemesanan reservation);
 }

@@ -101,7 +101,7 @@ public abstract class BaseFragment<T extends FragmentActivity, U extends IBasePr
             loadingDialog.setCancelable(false);
             loadingDialog.show();
         } else {
-            if (loadingDialog != null) {
+            if (loadingDialog != null && loadingDialog.isShowing()) {
                 loadingDialog.dismiss();
             }
         }

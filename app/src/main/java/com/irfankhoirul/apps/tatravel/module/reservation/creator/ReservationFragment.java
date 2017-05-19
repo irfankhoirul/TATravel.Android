@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.core.base.BaseFragment;
+import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
 
 import java.util.Map;
 
@@ -25,8 +26,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * A simple {@link Fragment} subclass.
  */
 
-public class ReservationFragment extends BaseFragment<ReservationActivity, ReservationContract.Presenter> implements
-        ReservationContract.View {
+public class ReservationFragment extends BaseFragment<ReservationActivity, ReservationContract.Presenter>
+        implements ReservationContract.View {
 
     @BindView(R.id.tvDepartureLocation)
     TextView tvDepartureLocation;
@@ -121,6 +122,12 @@ public class ReservationFragment extends BaseFragment<ReservationActivity, Reser
         tvBuyerName.setText(reservationData.get("buyerName"));
         tvBuyerPhoneNumber.setText(reservationData.get("buyerPhoneNumber"));
         tvBuyerEmail.setText(reservationData.get("buyerEmail"));
+    }
+
+    @Override
+    public void finishActivity() {
+        activity.setResult(ConstantUtils.REQUEST_RESULT_SUCCESS);
+        activity.finish();
     }
 
     @OnClick(R.id.btMakeReservation)

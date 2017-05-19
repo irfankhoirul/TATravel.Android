@@ -15,14 +15,16 @@ public interface DestinationContract {
 
     interface View extends IBaseView<Presenter> {
         void updateMap(List<Lokasi> locations);
-
-        void redirectToSearchFragment();
     }
 
     interface Presenter extends IBasePresenter {
         void checkLocationAvailability(Map<String, String> params);
 
         List<Integer> getTravelLocationIds();
+
+        boolean isGotLocation();
+
+        void setGotLocation(boolean gotLocation);
     }
 
 }

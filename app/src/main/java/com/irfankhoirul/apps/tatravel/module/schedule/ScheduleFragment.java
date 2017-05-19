@@ -1,5 +1,6 @@
 package com.irfankhoirul.apps.tatravel.module.schedule;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -26,7 +27,6 @@ import com.irfankhoirul.apps.tatravel.module.schedule.detail.ScheduleDetailDialo
 import com.irfankhoirul.apps.tatravel.module.schedule.detail.ScheduleDetailDialogPresenter;
 import com.irfankhoirul.apps.tatravel.module.schedule.detail.ScheduleDetailPresenterModule;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -53,7 +53,6 @@ public class ScheduleFragment extends BaseFragment<LoginActivity, ScheduleContra
     @Inject
     ScheduleDetailDialogPresenter scheduleDetailDialogPresenter;
 
-    private List<JadwalPerjalanan> schedules = new ArrayList<>();
     private ScheduleAdapter scheduleAdapter;
 
     public ScheduleFragment() {
@@ -71,7 +70,7 @@ public class ScheduleFragment extends BaseFragment<LoginActivity, ScheduleContra
         fragmentView = inflater.inflate(R.layout.fragment_schedule, container, false);
         unbinder = ButterKnife.bind(this, fragmentView);
 
-        scheduleAdapter = new ScheduleAdapter(schedules, new ScheduleAdapter.OnSpecificItemClick() {
+        scheduleAdapter = new ScheduleAdapter(mPresenter.getSchedules(), new ScheduleAdapter.OnSpecificItemClick() {
             @Override
             public void onItemClick(JadwalPerjalanan schedule) {
                 // Show dialog detail & konfirmasi
@@ -93,6 +92,11 @@ public class ScheduleFragment extends BaseFragment<LoginActivity, ScheduleContra
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        mPresenter.handleOnActivityResult(requestCode, resultCode);
+    }
+
+    @Override
     public void setPresenter(ScheduleContract.Presenter presenter) {
         mPresenter = checkNotNull(presenter);
     }
@@ -109,7 +113,7 @@ public class ScheduleFragment extends BaseFragment<LoginActivity, ScheduleContra
 
     @Override
     public void updateScheduleList(List<JadwalPerjalanan> schedules, final DataPage dataPage, final Map<String, String> params) {
-        this.schedules.addAll(schedules);
+        mPresenter.getSchedules().addAll(schedules);
         scheduleAdapter.notifyDataSetChanged();
 
         int rvScheduleMaxHeight = rlContainer.getHeight();
@@ -144,5 +148,11 @@ public class ScheduleFragment extends BaseFragment<LoginActivity, ScheduleContra
     public void showDataExist() {
         llEmptyMessage.setVisibility(View.GONE);
         rvSchedule.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void finishActivity() {
+        activity.setResult(ConstantUtils.REQUEST_RESULT_SUCCESS);
+        activity.finish();
     }
 }

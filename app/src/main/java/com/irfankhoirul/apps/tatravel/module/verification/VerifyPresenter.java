@@ -24,7 +24,7 @@ public class VerifyPresenter implements VerifyContract.Presenter {
     private final SessionRepository sessionRepository;
 
     @Inject
-    public VerifyPresenter(SessionRepository sessionRepository, UserRepository userRepository, VerifyContract.View view) {
+    VerifyPresenter(SessionRepository sessionRepository, UserRepository userRepository, VerifyContract.View view) {
         this.view = view;
         this.userRepository = userRepository;
         this.sessionRepository = sessionRepository;
@@ -40,29 +40,21 @@ public class VerifyPresenter implements VerifyContract.Presenter {
         // Do Nothing; Tidak ada yg perlu dilakukan otomatis
     }
 
-    @Override
-    public void initializeSession(User user) {
+    private void initializeSession(User user) {
         sessionRepository.initialize(user);
     }
 
     @Override
-    public User getSessionData() {
-        return sessionRepository.getSessionData();
-    }
-
-    @Override
-    public void verify(Map<String, String> param) {
+    public void verifyUser(Map<String, String> param) {
         view.setLoadingDialog(true, "Sedang melakukan verifikasi");
         userRepository.verify(new IRequestResponseListener<User>() {
             @Override
             public void onSuccess(DataResult<User> result) {
                 if (result.getCode() == ConstantUtils.REQUEST_RESULT_SUCCESS) {
-
                     initializeSession(result.getData());
                     Map<String, String> params = new HashMap<>();
                     params.put("token", sessionRepository.getSessionData().getUserToken().getToken());
                     params.put("FCMToken", FirebaseInstanceId.getInstance().getToken());
-
                     updateFcmToken(params);
                     view.showStatus(ConstantUtils.STATUS_SUCCESS, result.getMessage());
                 } else {
@@ -79,8 +71,7 @@ public class VerifyPresenter implements VerifyContract.Presenter {
         }, param);
     }
 
-    @Override
-    public void updateFcmToken(Map<String, String> param) {
+    private void updateFcmToken(Map<String, String> param) {
         userRepository.updateFcmToken(new IRequestResponseListener<User>() {
             @Override
             public void onSuccess(DataResult<User> result) {

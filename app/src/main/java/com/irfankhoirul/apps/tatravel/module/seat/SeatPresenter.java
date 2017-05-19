@@ -28,6 +28,7 @@ public class SeatPresenter implements SeatContract.Presenter {
     private final SessionRepository sessionRepository;
     private final SeatRepository seatRepository;
     private final CartRepository cartRepository;
+    private List<KursiPerjalanan> selectedSeats = new ArrayList<>();
 
     @Inject
     public SeatPresenter(SessionRepository sessionRepository, CartRepository cartRepository,
@@ -79,13 +80,13 @@ public class SeatPresenter implements SeatContract.Presenter {
     }
 
     @Override
-    public void bookSeat(List<KursiPerjalanan> seats) {
-        cartRepository.setSeat(seats);
+    public void bookSeat() {
+        cartRepository.setSeat(selectedSeats);
         view.setLoadingDialog(true, "Membooking kursi...");
 
         List<Integer> seatIds = new ArrayList<>();
-        for (int i = 0; i < seats.size(); i++) {
-            seatIds.add(seats.get(i).getId());
+        for (int i = 0; i < selectedSeats.size(); i++) {
+            seatIds.add(selectedSeats.get(i).getId());
         }
 
         Map<String, String> params = new HashMap<>();
@@ -120,5 +121,32 @@ public class SeatPresenter implements SeatContract.Presenter {
     @Override
     public CartRepository getCart() {
         return cartRepository;
+    }
+
+    @Override
+    public List<KursiPerjalanan> getSelectedSeats() {
+        return selectedSeats;
+    }
+
+    @Override
+    public boolean checkCountSelectedSeatMatch() {
+        if (selectedSeats != null && selectedSeats.size() > 0) {
+            if (selectedSeats.size() != cartRepository.getPenumpang().size()) {
+                view.showStatus(ConstantUtils.STATUS_ERROR, "Anda hanya bisa memilih " + cartRepository.getPenumpang().size() + " kursi");
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            view.showStatus(ConstantUtils.STATUS_ERROR, "Anda belum memilih kursi");
+            return false;
+        }
+    }
+
+    @Override
+    public void handleActivityResult(int requestCode, int resultCode) {
+        if (requestCode == ConstantUtils.ACTIVITY_REQUEST_CODE_RESERVATION && resultCode == ConstantUtils.REQUEST_RESULT_SUCCESS) {
+            view.finishActivity();
+        }
     }
 }

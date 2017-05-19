@@ -18,5 +18,7 @@ public interface RegisterContract {
 
     interface Presenter extends IBasePresenter {
         void register(Map<String, String> param);
+
+        void handleSocialRegister(String email, String name, String firebaseInstanceId);
     }
 }

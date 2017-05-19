@@ -9,7 +9,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +16,6 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.Toast;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.utility.RegexTemplate;
@@ -38,7 +36,6 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
-import com.google.common.hash.Hashing;
 import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.core.base.BaseFragment;
 import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
@@ -47,7 +44,6 @@ import com.irfankhoirul.apps.tatravel.module.verification.VerifyActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -57,7 +53,6 @@ import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 
 import static com.basgeekball.awesomevalidation.ValidationStyle.TEXT_INPUT_LAYOUT;
-import static com.facebook.FacebookSdk.getApplicationContext;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils.REGISTER_GOOGLE_REQUEST;
 
@@ -131,13 +126,11 @@ public class RegisterFragment extends BaseFragment<RegisterActivity, RegisterCon
         registerFacebook.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Log.v("LoginWithFacebook", "onSuccess");
                 handleFacebookResult(loginResult.getAccessToken());
             }
 
             @Override
             public void onCancel() {
-                Log.v("LoginWithFacebook", "onCancel");
             }
 
             @Override
@@ -151,29 +144,10 @@ public class RegisterFragment extends BaseFragment<RegisterActivity, RegisterCon
             @Override
             public void onCompleted(JSONObject object, GraphResponse response) {
                 try {
-                    String email = object.getString("email");
-                    String name = object.getString("name");
-                    String token = accessToken.getToken();
-
-                    String hashedPassword1 = Hashing.md5()
-                            .hashString(email, Charset.forName("UTF-8"))
-                            .toString();
-                    String hashedPassword2 = Hashing.sha1()
-                            .hashString(hashedPassword1, Charset.forName("UTF-8"))
-                            .toString();
-                    String hashedPassword3 = Hashing.sha256()
-                            .hashString(hashedPassword2, Charset.forName("UTF-8"))
-                            .toString();
-
-                    Map<String, String> params = new HashMap<>();
-                    params.put("name", name);
-                    params.put("email", email);
-                    params.put("password", hashedPassword3);
-                    params.put("deviceSecretId", Settings.Secure.getString(getActivity().getContentResolver(), Settings.Secure.ANDROID_ID));
-                    params.put("socialMedia", "TRUE");
-                    mPresenter.register(params);
+                    mPresenter.handleSocialRegister(object.getString("email"), object.getString("name"),
+                            Settings.Secure.getString(getActivity().getContentResolver(), Settings.Secure.ANDROID_ID));
                 } catch (JSONException e) {
-                    Toast.makeText(getApplicationContext(), "graph request error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    showStatus(ConstantUtils.STATUS_ERROR, "Registrasi Gagal");
                 }
             }
         });
@@ -197,27 +171,9 @@ public class RegisterFragment extends BaseFragment<RegisterActivity, RegisterCon
     private void handleGoogleResult(GoogleSignInResult result) {
         if (result.isSuccess()) {
             GoogleSignInAccount account = result.getSignInAccount();
-            String email = account.getEmail();
-            String name = account.getDisplayName();
-
-            if (email != null && name != null) {
-                String hashedPassword1 = Hashing.md5()
-                        .hashString(email, Charset.forName("UTF-8"))
-                        .toString();
-                String hashedPassword2 = Hashing.sha1()
-                        .hashString(hashedPassword1, Charset.forName("UTF-8"))
-                        .toString();
-                String hashedPassword3 = Hashing.sha256()
-                        .hashString(hashedPassword2, Charset.forName("UTF-8"))
-                        .toString();
-
-                Map<String, String> params = new HashMap<>();
-                params.put("name", name);
-                params.put("email", email);
-                params.put("password", hashedPassword3);
-                params.put("deviceSecretId", Settings.Secure.getString(getActivity().getContentResolver(), Settings.Secure.ANDROID_ID));
-                params.put("socialMedia", "TRUE");
-                mPresenter.register(params);
+            if (account != null) {
+                mPresenter.handleSocialRegister(account.getEmail(), account.getDisplayName(),
+                        Settings.Secure.getString(getActivity().getContentResolver(), Settings.Secure.ANDROID_ID));
             } else {
                 showStatus(ConstantUtils.STATUS_ERROR, "Registrasi Gagal");
             }
@@ -243,6 +199,21 @@ public class RegisterFragment extends BaseFragment<RegisterActivity, RegisterCon
         } else {
             callbackManager.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    private boolean validateRegisterForm() {
+        AwesomeValidation mAwesomeValidation = new AwesomeValidation(TEXT_INPUT_LAYOUT);
+        if (rbRegisterWithPhoneNumber.isChecked()) {
+            mAwesomeValidation.addValidation(activity, R.id.tilPhoneNumber, Patterns.PHONE, R.string.validation_phone_valid);
+            mAwesomeValidation.addValidation(activity, R.id.tilPhoneNumber, RegexTemplate.NOT_EMPTY, R.string.validation_phone_not_empty);
+        } else if (rbRegisterWithEmailAddress.isChecked()) {
+            mAwesomeValidation.addValidation(activity, R.id.tilEmailAddress, Patterns.EMAIL_ADDRESS, R.string.validation_email_valid);
+            mAwesomeValidation.addValidation(activity, R.id.tilEmailAddress, RegexTemplate.NOT_EMPTY, R.string.validation_email_not_empty);
+        }
+        mAwesomeValidation.addValidation(activity, R.id.tilName, RegexTemplate.NOT_EMPTY, R.string.validation_name_not_empty);
+        mAwesomeValidation.addValidation(activity, R.id.tilPassword, RegexTemplate.NOT_EMPTY, R.string.validation_password_not_empty);
+
+        return mAwesomeValidation.validate();
     }
 
     @OnCheckedChanged(R.id.rbRegisterWithPhoneNumber)
@@ -273,18 +244,7 @@ public class RegisterFragment extends BaseFragment<RegisterActivity, RegisterCon
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
 
-        AwesomeValidation mAwesomeValidation = new AwesomeValidation(TEXT_INPUT_LAYOUT);
-        if (rbRegisterWithPhoneNumber.isChecked()) {
-            mAwesomeValidation.addValidation(activity, R.id.tilPhoneNumber, Patterns.PHONE, R.string.validation_phone_valid);
-            mAwesomeValidation.addValidation(activity, R.id.tilPhoneNumber, RegexTemplate.NOT_EMPTY, R.string.validation_phone_not_empty);
-        } else if (rbRegisterWithEmailAddress.isChecked()) {
-            mAwesomeValidation.addValidation(activity, R.id.tilEmailAddress, Patterns.EMAIL_ADDRESS, R.string.validation_email_valid);
-            mAwesomeValidation.addValidation(activity, R.id.tilEmailAddress, RegexTemplate.NOT_EMPTY, R.string.validation_email_not_empty);
-        }
-        mAwesomeValidation.addValidation(activity, R.id.tilName, RegexTemplate.NOT_EMPTY, R.string.validation_name_not_empty);
-        mAwesomeValidation.addValidation(activity, R.id.tilPassword, RegexTemplate.NOT_EMPTY, R.string.validation_password_not_empty);
-
-        if (mAwesomeValidation.validate()) {
+        if (validateRegisterForm()) {
             Map<String, String> params = new HashMap<>();
             params.put("name", etName.getText().toString());
             if (rbRegisterWithEmailAddress.isChecked()) {
@@ -293,7 +253,8 @@ public class RegisterFragment extends BaseFragment<RegisterActivity, RegisterCon
                 params.put("phone", etPhoneNumber.getText().toString());
             }
             params.put("password", etPassword.getText().toString());
-            params.put("deviceSecretId", Settings.Secure.getString(getActivity().getContentResolver(), Settings.Secure.ANDROID_ID));
+            params.put("deviceSecretId", Settings.Secure.getString(getActivity().getContentResolver(),
+                    Settings.Secure.ANDROID_ID));
 
             mPresenter.register(params);
         }

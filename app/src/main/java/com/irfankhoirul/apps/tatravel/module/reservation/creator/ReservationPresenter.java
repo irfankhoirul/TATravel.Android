@@ -131,6 +131,8 @@ public class ReservationPresenter implements ReservationContract.Presenter {
                 if (result.getCode() == ConstantUtils.REQUEST_RESULT_SUCCESS) {
                     view.showStatus(ConstantUtils.STATUS_SUCCESS, result.getMessage());
                     // Redirect ke Detail Order Activity
+                    // Todo : dapatkan kembalian object reservation dari server, lalu simpan ke cart repository
+                    view.finishActivity();
                 } else {
                     view.showStatus(ConstantUtils.STATUS_ERROR, result.getMessage());
                 }

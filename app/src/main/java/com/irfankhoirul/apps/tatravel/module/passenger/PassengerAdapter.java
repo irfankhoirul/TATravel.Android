@@ -1,7 +1,6 @@
 package com.irfankhoirul.apps.tatravel.module.passenger;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,12 +49,10 @@ public class PassengerAdapter extends RecyclerView.Adapter<PassengerAdapter.Sche
                     holder.cbPassengerSelected.setChecked(false);
                     passengers.get(holder.getAdapterPosition()).setSelected(false);
                     mListener.onItemClick(passengers.get(holder.getAdapterPosition()), false);
-                    Log.v("onClicked", holder.getAdapterPosition() + "True >> False");
                 } else {
                     holder.cbPassengerSelected.setChecked(true);
                     passengers.get(holder.getAdapterPosition()).setSelected(true);
                     mListener.onItemClick(passengers.get(holder.getAdapterPosition()), true);
-                    Log.v("onClicked", holder.getAdapterPosition() + "False >> True");
                 }
             }
         });
@@ -66,7 +63,6 @@ public class PassengerAdapter extends RecyclerView.Adapter<PassengerAdapter.Sche
                 return true;
             }
         });
-
     }
 
     @Override

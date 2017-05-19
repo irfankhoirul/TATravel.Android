@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.irfankhoirul.apps.tatravel.data.pojo.JadwalPerjalanan;
 import com.irfankhoirul.apps.tatravel.data.pojo.KursiPerjalanan;
+import com.irfankhoirul.apps.tatravel.data.pojo.Pemesanan;
 import com.irfankhoirul.apps.tatravel.data.pojo.Penumpang;
 
 import java.util.List;
@@ -211,6 +212,20 @@ public class Cart implements CartRepository {
     @Override
     public void clearSeatSetTime() {
         editor.remove("seatSetTime");
+        editor.apply();
+    }
+
+    @Override
+    public Pemesanan getLastReservation() {
+        if (sharedPref.getString("reservation", null) != null) {
+            return new Gson().fromJson(sharedPref.getString("reservation", null), Pemesanan.class);
+        }
+        return null;
+    }
+
+    @Override
+    public void setLastReservation(Pemesanan reservation) {
+        editor.putString("reservation", new Gson().toJson(reservation));
         editor.apply();
     }
 

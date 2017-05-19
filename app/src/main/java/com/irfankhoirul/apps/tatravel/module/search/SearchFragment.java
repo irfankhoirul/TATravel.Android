@@ -31,6 +31,7 @@ import com.irfankhoirul.apps.tatravel.data.pojo.Penumpang;
 import com.irfankhoirul.apps.tatravel.module.departure.DepartureActivity;
 import com.irfankhoirul.apps.tatravel.module.destination.DestinationActivity;
 import com.irfankhoirul.apps.tatravel.module.passenger.PassengerActivity;
+import com.irfankhoirul.apps.tatravel.module.reservation.detail.ReservationDetailActivity;
 import com.irfankhoirul.apps.tatravel.module.schedule.ScheduleActivity;
 
 import org.parceler.Parcels;
@@ -239,6 +240,10 @@ public class SearchFragment extends BaseFragment<MainActivity, SearchContract.Pr
             } else {
                 resetPassengerView();
             }
+        } else if (requestCode == ConstantUtils.ACTIVITY_REQUEST_CODE_SCHEDULE && resultCode == ConstantUtils.REQUEST_RESULT_SUCCESS) {
+            // Todo : Redirect ke detail pemesanan
+            Intent intent = new Intent(activity, ReservationDetailActivity.class);
+            startActivity(intent);
         }
     }
 

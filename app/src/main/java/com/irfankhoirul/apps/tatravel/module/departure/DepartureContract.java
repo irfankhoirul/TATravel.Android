@@ -16,14 +16,20 @@ public interface DepartureContract {
 
     interface View extends IBaseView<Presenter> {
         void updateMap(List<Lokasi> locations);
-
-        void redirectToSearchFragment();
     }
 
     interface Presenter extends IBasePresenter {
         void checkLocationAvailability(Map<String, String> params);
 
         List<OperatorTravel> prepareOperatorTraveldata(List<Lokasi> lokasiList);
+
+        boolean isGotLocation();
+
+        void setGotLocation(boolean gotLocation);
+
+        List<Lokasi> getLocationList();
+
+        void setLocationList(List<Lokasi> locationList);
     }
 
 }

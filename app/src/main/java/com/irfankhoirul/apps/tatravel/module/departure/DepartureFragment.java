@@ -14,7 +14,6 @@ import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -97,16 +96,9 @@ public class DepartureFragment extends BaseFragment<MainActivity, DepartureContr
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
     private LatLng latLng;
-    private boolean gotLocation = false;
-    private View fragmentView;
-    private List<Lokasi> lokasiList;
 
     public DepartureFragment() {
         // Required empty public constructor
-    }
-
-    public void sort() {
-
     }
 
     @Override
@@ -148,7 +140,7 @@ public class DepartureFragment extends BaseFragment<MainActivity, DepartureContr
 
     @OnClick(R.id.btSetDeparture)
     public void btSetDeparture() {
-        TravelChoiceDialog travelChoiceDialog = TravelChoiceDialog.newInstance(lokasiList);
+        TravelChoiceDialog travelChoiceDialog = TravelChoiceDialog.newInstance(mPresenter.getLocationList());
         travelChoiceDialog.setListener(this);
         travelChoiceDialog.show(getFragmentManager(), "travelChoiceDialog");
 
@@ -168,7 +160,6 @@ public class DepartureFragment extends BaseFragment<MainActivity, DepartureContr
     @Override
     public void onMapReady(GoogleMap googleMap) {
         departureMap = googleMap;
-
         if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             String[] locationPermissions = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
             requestPermissions(locationPermissions, ConstantUtils.PERMISSION_REQUEST_LOCATIONS);
@@ -234,7 +225,6 @@ public class DepartureFragment extends BaseFragment<MainActivity, DepartureContr
                     btSetDeparture.setBackgroundColor(ContextCompat.getColor(activity, R.color.grey_300));
                 }
             });
-
         }
     }
 
@@ -253,15 +243,14 @@ public class DepartureFragment extends BaseFragment<MainActivity, DepartureContr
         latLng = new LatLng(location.getLatitude(), location.getLongitude());
 
         //zoom to current position:
-        if (!gotLocation) {
-            Log.v("OnLocationChanged", location.getLatitude() + "; " + location.getLongitude());
+        if (!mPresenter.isGotLocation()) {
             CameraPosition cameraPosition = new CameraPosition.Builder()
                     .target(latLng).zoom(16).build();
 
             departureMap.animateCamera(CameraUpdateFactory
                     .newCameraPosition(cameraPosition));
 
-            gotLocation = true;
+            mPresenter.setGotLocation(true);
         }
 
     }
@@ -283,7 +272,7 @@ public class DepartureFragment extends BaseFragment<MainActivity, DepartureContr
 
     @Override
     public void updateMap(List<Lokasi> locations) {
-        lokasiList = locations;
+        mPresenter.setLocationList(locations);
         departureMap.clear();
         if (locations.size() > 0) {
             showStatus(ConstantUtils.STATUS_INFO, mPresenter.prepareOperatorTraveldata(locations).size() + " Operator Travel tersedia");
@@ -303,11 +292,6 @@ public class DepartureFragment extends BaseFragment<MainActivity, DepartureContr
     }
 
     @Override
-    public void redirectToSearchFragment() {
-
-    }
-
-    @Override
     public void onOperatorTravelChoose(final TravelChoiceDialog travelChoiceDialog, final OperatorTravel operatorTravel, final List<Integer> operatorTravelLocationIds) {
         final double tmpLat = departureMap.getCameraPosition().target.latitude;
         final double tmpLon = departureMap.getCameraPosition().target.longitude;
@@ -324,33 +308,26 @@ public class DepartureFragment extends BaseFragment<MainActivity, DepartureContr
                     e.printStackTrace();
                 }
 
-                if (addresses != null) {
-                    for (Address address : addresses) {
-                        Log.v("Address", address.toString());
-                    }
-                    if (addresses.get(0) != null) {
-                        Address address = addresses.get(0);
-                        Intent intent = new Intent();
-                        intent.putExtra("latitude", address.getLatitude()); // Double
-                        intent.putExtra("longitude", address.getLongitude()); // Double
-                        intent.putExtra("thoroughfare", address.getThoroughfare());
-                        intent.putExtra("locality", address.getLocality());
-                        intent.putExtra("sub_admin", address.getSubAdminArea());
-                        intent.putExtra("admin", address.getAdminArea());
-                        intent.putExtra("id_operator_travel", operatorTravel.getId());
-                        intent.putExtra("operatorTravelLocationIds", Parcels.wrap(operatorTravelLocationIds));
-                        setLoadingDialog(false, null);
-                        travelChoiceDialog.dismiss();
-                        activity.setResult(ConstantUtils.REQUEST_RESULT_SUCCESS, intent);
-                        activity.finish();
-                    }
+                setLoadingDialog(false, null);
+                if (addresses != null && addresses.get(0) != null) {
+                    Address address = addresses.get(0);
+                    Intent intent = new Intent();
+                    intent.putExtra("latitude", address.getLatitude()); // Double
+                    intent.putExtra("longitude", address.getLongitude()); // Double
+                    intent.putExtra("thoroughfare", address.getThoroughfare());
+                    intent.putExtra("locality", address.getLocality());
+                    intent.putExtra("sub_admin", address.getSubAdminArea());
+                    intent.putExtra("admin", address.getAdminArea());
+                    intent.putExtra("id_operator_travel", operatorTravel.getId());
+                    intent.putExtra("operatorTravelLocationIds", Parcels.wrap(operatorTravelLocationIds));
+                    travelChoiceDialog.dismiss();
+                    activity.setResult(ConstantUtils.REQUEST_RESULT_SUCCESS, intent);
+                    activity.finish();
                 } else {
                     showToast(ConstantUtils.STATUS_ERROR, "Gagal mendapatkan lokasi");
                 }
-                setLoadingDialog(false, null);
             }
         };
         new Thread(runnable).start();
-
     }
 }

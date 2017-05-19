@@ -72,8 +72,6 @@ public class ReservationDetailFragment extends BaseFragment<MainActivity, Reserv
     @BindView(R.id.tvBuyerEmail)
     TextView tvBuyerEmail;
 
-    private Pemesanan reservation;
-
     public ReservationDetailFragment() {
         // Required empty public constructor
     }
@@ -98,13 +96,17 @@ public class ReservationDetailFragment extends BaseFragment<MainActivity, Reserv
         fragmentView = inflater.inflate(R.layout.fragment_reservation_detail, container, false);
         unbinder = ButterKnife.bind(this, fragmentView);
 
-        reservation = Parcels.unwrap(getArguments().getParcelable("reservation"));
-        showReservationDetail();
+        if (getArguments().getParcelable("reservation") != null) {
+            showReservationDetail((Pemesanan) Parcels.unwrap(getArguments().getParcelable("reservation")));
+        } else {
+            mPresenter.getReservationDetail();
+        }
 
         return fragmentView;
     }
 
-    public void showReservationDetail() {
+    @Override
+    public void showReservationDetail(Pemesanan reservation) {
         if (!reservation.getPembayaran().getStatus().equalsIgnoreCase(Pembayaran.PAYMENT_STATUS_UNPAID)) {
             btPay.setVisibility(View.GONE);
         }
@@ -173,4 +175,5 @@ public class ReservationDetailFragment extends BaseFragment<MainActivity, Reserv
     public void btPay() {
 
     }
+
 }

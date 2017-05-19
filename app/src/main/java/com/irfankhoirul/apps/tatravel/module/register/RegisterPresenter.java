@@ -1,5 +1,6 @@
 package com.irfankhoirul.apps.tatravel.module.register;
 
+import com.google.common.hash.Hashing;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.core.data.DataResult;
@@ -8,6 +9,7 @@ import com.irfankhoirul.apps.tatravel.data.pojo.User;
 import com.irfankhoirul.apps.tatravel.data.source.locale.session.SessionRepository;
 import com.irfankhoirul.apps.tatravel.data.source.remote.user.UserRepository;
 
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -71,6 +73,31 @@ public class RegisterPresenter implements RegisterContract.Presenter {
                 view.showStatus(ConstantUtils.STATUS_ERROR, "Gagal melakukan registrasi");
             }
         }, param);
+    }
+
+    @Override
+    public void handleSocialRegister(String email, String name, String firebaseInstanceId) {
+        if (email == null || name == null) {
+            view.showStatus(ConstantUtils.STATUS_ERROR, "Registrasi Gagal");
+        } else {
+            String hashedPassword1 = Hashing.md5()
+                    .hashString(email, Charset.forName("UTF-8"))
+                    .toString();
+            String hashedPassword2 = Hashing.sha1()
+                    .hashString(hashedPassword1, Charset.forName("UTF-8"))
+                    .toString();
+            String hashedPassword3 = Hashing.sha256()
+                    .hashString(hashedPassword2, Charset.forName("UTF-8"))
+                    .toString();
+
+            Map<String, String> params = new HashMap<>();
+            params.put("name", name);
+            params.put("email", email);
+            params.put("password", hashedPassword3);
+            params.put("deviceSecretId", firebaseInstanceId);
+            params.put("socialMedia", "TRUE");
+            register(params);
+        }
     }
 
     private void loginSocialMedia(Map<String, String> param) {

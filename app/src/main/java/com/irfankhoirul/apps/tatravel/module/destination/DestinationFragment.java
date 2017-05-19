@@ -86,8 +86,6 @@ public class DestinationFragment extends BaseFragment<MainActivity, DestinationC
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
     private LatLng latLng;
-    private boolean gotLocation = false;
-    private View fragmentView;
 
     public DestinationFragment() {
         // Required empty public constructor
@@ -166,11 +164,9 @@ public class DestinationFragment extends BaseFragment<MainActivity, DestinationC
         if (requestCode == ConstantUtils.PERMISSION_REQUEST_LOCATIONS) {
             if (grantResults.length == 2 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
                 if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
+                    destinationMap.setMyLocationEnabled(true);
                 }
                 destinationMap.setMyLocationEnabled(true);
-            } else {
-
             }
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -230,7 +226,7 @@ public class DestinationFragment extends BaseFragment<MainActivity, DestinationC
         latLng = new LatLng(location.getLatitude(), location.getLongitude());
 
         //zoom to current position:
-        if (!gotLocation) {
+        if (!mPresenter.isGotLocation()) {
             Log.v("OnLocationChanged", location.getLatitude() + "; " + location.getLongitude());
             CameraPosition cameraPosition = new CameraPosition.Builder()
                     .target(latLng).zoom(16).build();
@@ -238,7 +234,7 @@ public class DestinationFragment extends BaseFragment<MainActivity, DestinationC
             destinationMap.animateCamera(CameraUpdateFactory
                     .newCameraPosition(cameraPosition));
 
-            gotLocation = true;
+            mPresenter.setGotLocation(true);
         }
 
     }
@@ -278,11 +274,6 @@ public class DestinationFragment extends BaseFragment<MainActivity, DestinationC
         }
     }
 
-    @Override
-    public void redirectToSearchFragment() {
-
-    }
-
     @OnClick(R.id.btSetDestination)
     public void btSetDestination() {
         final double tmpLat = destinationMap.getCameraPosition().target.latitude;
@@ -299,7 +290,8 @@ public class DestinationFragment extends BaseFragment<MainActivity, DestinationC
                     e.printStackTrace();
                 }
 
-                if (addresses.get(0) != null) {
+                setLoadingDialog(false, null);
+                if (addresses != null && addresses.get(0) != null) {
                     Address address = addresses.get(0);
                     Intent intent = new Intent();
                     intent.putExtra("latitude", address.getLatitude()); // Double
@@ -309,9 +301,10 @@ public class DestinationFragment extends BaseFragment<MainActivity, DestinationC
                     intent.putExtra("sub_admin", address.getSubAdminArea());
                     intent.putExtra("admin", address.getAdminArea());
                     intent.putExtra("operatorTravelLocationIds", Parcels.wrap(mPresenter.getTravelLocationIds()));
-                    setLoadingDialog(false, null);
                     activity.setResult(ConstantUtils.REQUEST_RESULT_SUCCESS, intent);
                     activity.finish();
+                } else {
+                    showToast(ConstantUtils.STATUS_ERROR, "Gagal mendapatkan lokasi");
                 }
             }
         }).start();

@@ -1,7 +1,5 @@
 package com.irfankhoirul.apps.tatravel.module.passenger;
 
-import android.util.Log;
-
 import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.core.data.DataResult;
 import com.irfankhoirul.apps.tatravel.core.data.IRequestResponseListener;
@@ -9,6 +7,7 @@ import com.irfankhoirul.apps.tatravel.data.pojo.Penumpang;
 import com.irfankhoirul.apps.tatravel.data.source.locale.session.SessionRepository;
 import com.irfankhoirul.apps.tatravel.data.source.remote.passenger.PassengerRepository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +23,8 @@ public class PassengerPresenter implements PassengerContract.Presenter {
     private final PassengerContract.View view;
     private final PassengerRepository passengerRepository;
     private final SessionRepository sessionRepository;
-    private boolean loading;
+    private List<Penumpang> selectedPassengers = new ArrayList<>();
+    private List<Penumpang> passengers = new ArrayList<>();
 
     @Inject
     public PassengerPresenter(SessionRepository sessionRepository, PassengerRepository passengerRepository, PassengerContract.View view) {
@@ -55,7 +55,8 @@ public class PassengerPresenter implements PassengerContract.Presenter {
                 view.setLoadingDialog(false, null);
                 if (result.getCode() == ConstantUtils.REQUEST_RESULT_SUCCESS) {
                     view.showDataExist();
-                    view.addPassengerItem(result.getData());
+                    passengers.add(result.getData());
+                    view.addPassengerItem();
                     view.showStatus(ConstantUtils.STATUS_SUCCESS, result.getMessage());
                 } else {
                     view.showStatus(ConstantUtils.STATUS_ERROR, result.getMessage());
@@ -79,8 +80,14 @@ public class PassengerPresenter implements PassengerContract.Presenter {
             public void onSuccess(DataResult result) {
                 view.setLoadingDialog(false, null);
                 if (result.getCode() == ConstantUtils.REQUEST_RESULT_SUCCESS) {
-                    Log.v("UpdatedPosition1", String.valueOf(position));
-                    view.updatePassengerItem(position, passenger);
+                    Penumpang tmpPassenger = passengers.get(position);
+                    for (int i = 0; i < selectedPassengers.size(); i++) {
+                        if (selectedPassengers.get(i).getId() == tmpPassenger.getId()) {
+                            selectedPassengers.set(i, passenger);
+                        }
+                    }
+                    passengers.set(position, passenger);
+                    view.updatePassengerItem(position);
                     view.showStatus(ConstantUtils.STATUS_SUCCESS, result.getMessage());
                 } else {
                     view.showStatus(ConstantUtils.STATUS_ERROR, result.getMessage());
@@ -105,6 +112,13 @@ public class PassengerPresenter implements PassengerContract.Presenter {
             public void onSuccess(DataResult result) {
                 view.setLoadingDialog(false, null);
                 if (result.getCode() == ConstantUtils.REQUEST_RESULT_SUCCESS) {
+                    Penumpang tmpPassenger = passengers.get(position);
+                    for (int i = 0; i < selectedPassengers.size(); i++) {
+                        if (selectedPassengers.get(i).getId() == tmpPassenger.getId()) {
+                            selectedPassengers.remove(i);
+                        }
+                    }
+                    passengers.remove(position);
                     view.removePassengerItem(position);
                     if (passengers.size() == 0) {
                         view.showDataNotExist();
@@ -142,6 +156,13 @@ public class PassengerPresenter implements PassengerContract.Presenter {
                 if (result.getCode() == ConstantUtils.REQUEST_RESULT_SUCCESS) {
                     if (result.getDatas() != null && result.getDatas().size() > 0) {
                         view.showDataExist();
+                        for (int i = 0; i < result.getDatas().size(); i++) {
+                            for (int j = 0; j < selectedPassengers.size(); j++) {
+                                if (result.getDatas().get(i).getId() == selectedPassengers.get(j).getId()) {
+                                    result.getDatas().get(i).setSelected(true);
+                                }
+                            }
+                        }
                         view.updatePassengerList(result.getDatas(), result.getDataPage(), params);
                     } else {
                         view.showDataNotExist();
@@ -158,5 +179,35 @@ public class PassengerPresenter implements PassengerContract.Presenter {
                 view.showStatus(ConstantUtils.STATUS_ERROR, "Terjadi kesalahan");
             }
         }, sessionRepository.getSessionData().getId(), params);
+    }
+
+    @Override
+    public void setSelectedPassenger(List<Penumpang> passengers) {
+        selectedPassengers = passengers;
+    }
+
+    @Override
+    public List<Penumpang> getSelectedPassengers() {
+        return selectedPassengers;
+    }
+
+    @Override
+    public void onPassengerItemClick(Penumpang passenger, boolean isSelected) {
+        if (!selectedPassengers.contains(passenger)) {
+            if (isSelected) {
+                selectedPassengers.add(passenger);
+            } else {
+                for (int i = 0; i < selectedPassengers.size(); i++) {
+                    if (selectedPassengers.get(i).getId() == passenger.getId()) {
+                        selectedPassengers.remove(i);
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
+    public List<Penumpang> getPassenger() {
+        return passengers;
     }
 }

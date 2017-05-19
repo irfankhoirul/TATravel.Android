@@ -40,9 +40,8 @@ public class SeatFragment extends BaseFragment<SeatActivity, SeatContract.Presen
     @BindView(R.id.tvSeatCount)
     TextView tvSeatCount;
 
-    private View layout;
+    private View carLayout;
     private List<ImageView> seatViews = new ArrayList<>();
-    private List<KursiPerjalanan> selectedSeats = new ArrayList<>();
 
     public SeatFragment() {
         // Required empty public constructor
@@ -90,34 +89,33 @@ public class SeatFragment extends BaseFragment<SeatActivity, SeatContract.Presen
         super.showStatus(type, message);
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        mPresenter.handleActivityResult(requestCode, resultCode);
+    }
+
     @OnClick(R.id.btSetSeat)
     public void btSetSeat() {
-        if (selectedSeats != null && selectedSeats.size() > 0) {
-            if (selectedSeats.size() != mPresenter.getCart().getPenumpang().size()) {
-                showStatus(ConstantUtils.STATUS_ERROR, "Anda hanya bisa memilih " + mPresenter.getCart().getPenumpang().size() + " kursi");
-            } else {
-                AlertDialog.Builder builder = createAlert("Perhatian",
-                        "Setelah memilih kursi, Anda memiliki waktu 5 menit untuk menyelesaikan " +
-                                "pemesanan sebelum anda harus melakukan pembayaran. Jika dalam jangka " +
-                                "waktu tersebut Anda tidak menyelesaikan pesanan Anda, kursi yang anda " +
-                                "pilih dapat digunakan oleh orang lain.");
-                builder.setCancelable(false);
-                builder.setPositiveButton("Setuju", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        mPresenter.bookSeat(selectedSeats);
-                    }
-                });
-                builder.setNegativeButton("Batal", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                builder.create().show();
-            }
-        } else {
-            showStatus(ConstantUtils.STATUS_ERROR, "Anda belum memilih kursi");
+        if (mPresenter.checkCountSelectedSeatMatch()) {
+            AlertDialog.Builder builder = createAlert("Perhatian",
+                    "Setelah memilih kursi, Anda memiliki waktu 5 menit untuk menyelesaikan " +
+                            "pemesanan sebelum anda harus melakukan pembayaran. Jika dalam jangka " +
+                            "waktu tersebut Anda tidak menyelesaikan pesanan Anda, kursi yang anda " +
+                            "pilih dapat digunakan oleh orang lain.");
+            builder.setCancelable(false);
+            builder.setPositiveButton("Setuju", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    mPresenter.bookSeat();
+                }
+            });
+            builder.setNegativeButton("Batal", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            builder.create().show();
         }
     }
 
@@ -125,32 +123,32 @@ public class SeatFragment extends BaseFragment<SeatActivity, SeatContract.Presen
     public void showSeats(List<KursiPerjalanan> seats) {
         switch (seats.size()) {
             case 5:
-                layout = activity.getLayoutInflater().inflate(R.layout.car_5_seat, null);
-                llSeatLayout.addView(layout);
+                carLayout = activity.getLayoutInflater().inflate(R.layout.car_5_seat, null);
+                llSeatLayout.addView(carLayout);
                 setup5Seats();
                 handelSeatClick(seats);
                 break;
             case 6:
-                layout = activity.getLayoutInflater().inflate(R.layout.car_6_seat, null);
-                llSeatLayout.addView(layout);
+                carLayout = activity.getLayoutInflater().inflate(R.layout.car_6_seat, null);
+                llSeatLayout.addView(carLayout);
                 setup6Seats();
                 handelSeatClick(seats);
                 break;
             case 10:
-                layout = activity.getLayoutInflater().inflate(R.layout.car_10_seat, null);
-                llSeatLayout.addView(layout);
+                carLayout = activity.getLayoutInflater().inflate(R.layout.car_10_seat, null);
+                llSeatLayout.addView(carLayout);
                 setup10Seats();
                 handelSeatClick(seats);
                 break;
             case 14:
-                layout = activity.getLayoutInflater().inflate(R.layout.car_14_seat, null);
-                llSeatLayout.addView(layout);
+                carLayout = activity.getLayoutInflater().inflate(R.layout.car_14_seat, null);
+                llSeatLayout.addView(carLayout);
                 setup14Seats();
                 handelSeatClick(seats);
                 break;
             case 19:
-                layout = activity.getLayoutInflater().inflate(R.layout.car_19_seat, null);
-                llSeatLayout.addView(layout);
+                carLayout = activity.getLayoutInflater().inflate(R.layout.car_19_seat, null);
+                llSeatLayout.addView(carLayout);
                 setup19Seats();
                 handelSeatClick(seats);
                 break;
@@ -159,112 +157,108 @@ public class SeatFragment extends BaseFragment<SeatActivity, SeatContract.Presen
 
     @Override
     public void redirectToReservationDetail() {
-        // Intent ke detail order
         Intent intent = new Intent(activity, ReservationActivity.class);
         startActivityForResult(intent, ConstantUtils.ACTIVITY_REQUEST_CODE_RESERVATION);
     }
 
     @Override
+    public void finishActivity() {
+        activity.setResult(ConstantUtils.REQUEST_RESULT_SUCCESS);
+        activity.finish();
+    }
+
+    @Override
     public void setup5Seats() {
         seatViews.clear();
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat1));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat2));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat3));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat4));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat5));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat1));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat2));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat3));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat4));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat5));
     }
 
     @Override
     public void setup6Seats() {
         seatViews.clear();
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat1));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat2));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat3));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat4));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat5));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat6));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat1));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat2));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat3));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat4));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat5));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat6));
     }
 
     @Override
     public void setup10Seats() {
         seatViews.clear();
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat1));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat2));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat3));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat4));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat5));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat6));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat7));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat8));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat9));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat10));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat1));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat2));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat3));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat4));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat5));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat6));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat7));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat8));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat9));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat10));
     }
 
     @Override
     public void setup14Seats() {
         seatViews.clear();
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat1));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat2));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat3));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat4));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat5));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat6));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat7));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat8));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat9));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat10));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat11));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat12));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat13));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat14));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat1));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat2));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat3));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat4));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat5));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat6));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat7));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat8));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat9));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat10));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat11));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat12));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat13));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat14));
     }
 
     @Override
     public void setup19Seats() {
         seatViews.clear();
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat1));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat2));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat3));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat4));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat5));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat6));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat7));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat8));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat9));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat10));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat11));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat12));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat13));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat14));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat15));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat16));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat17));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat18));
-        seatViews.add((ImageView) layout.findViewById(R.id.ivSeat19));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat1));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat2));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat3));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat4));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat5));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat6));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat7));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat8));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat9));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat10));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat11));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat12));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat13));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat14));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat15));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat16));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat17));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat18));
+        seatViews.add((ImageView) carLayout.findViewById(R.id.ivSeat19));
     }
 
     public void handelSeatClick(final List<KursiPerjalanan> seats) {
-        final int[] selectCounter = {0};
         for (int i = 0; i < seatViews.size(); i++) {
             if (seats.get(i).getStatus().equalsIgnoreCase("A")) {
                 final int finalI = i;
                 seatViews.get(i).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                        selectedSeats = null;
-//                        for (int j = 0; j < seatViews.size(); j++) {
-//                            if (j != finalI) {
-//                                seatViews.get(j).setImageResource(R.drawable.ic_car_seat_available);
-//                                seats.get(finalI).setSelected(false);
-//                            }
-//                        }
-
                         if (!seats.get(finalI).isSelected()) {
-                            selectedSeats.add(seats.get(finalI));
+                            mPresenter.getSelectedSeats().add(seats.get(finalI));
                             seatViews.get(finalI).setImageResource(R.drawable.ic_car_seat_selected);
                             seats.get(finalI).setSelected(true);
                         } else {
-                            selectedSeats.remove(seats.get(finalI));
+                            mPresenter.getSelectedSeats().remove(seats.get(finalI));
                             seatViews.get(finalI).setImageResource(R.drawable.ic_car_seat_available);
                             seats.get(finalI).setSelected(false);
                         }
