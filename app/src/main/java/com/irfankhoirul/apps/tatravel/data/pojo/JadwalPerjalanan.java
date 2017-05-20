@@ -106,6 +106,10 @@ public class JadwalPerjalanan extends BaseModel {
     @Expose
     protected double jarakPengantaran;
 
+    @SerializedName("quota")
+    @Expose
+    protected int quota;
+
     public int getIdAdmin() {
         return idAdmin;
     }
@@ -288,6 +292,14 @@ public class JadwalPerjalanan extends BaseModel {
 
     public void setTanggalKedatangan(String tanggalKedatangan) {
         this.tanggalKedatangan = tanggalKedatangan;
+    }
+
+    public int getQuota() {
+        return quota;
+    }
+
+    public void setQuota(int quota) {
+        this.quota = quota;
     }
 
     @Override

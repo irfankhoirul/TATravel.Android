@@ -35,7 +35,7 @@ public interface IPemesananEndPoints {
      */
     @FormUrlEncoded
     @POST(DO_RESERVATION)
-    Call<DataResult> reservasi(@FieldMap Map<String, String> param);
+    Call<DataResult<Pemesanan>> reservasi(@FieldMap Map<String, String> param);
 
     /**
      * Param

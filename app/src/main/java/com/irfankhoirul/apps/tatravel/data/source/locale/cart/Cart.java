@@ -32,6 +32,11 @@ public class Cart implements CartRepository {
     }
 
     @Override
+    public void clearCart() {
+        editor.clear().apply();
+    }
+
+    @Override
     public Map<String, String> getDeparture() {
         if (sharedPref.getString("departure", null) != null) {
             return new Gson().fromJson(sharedPref.getString("departure", null), new TypeToken<Map<String, String>>() {

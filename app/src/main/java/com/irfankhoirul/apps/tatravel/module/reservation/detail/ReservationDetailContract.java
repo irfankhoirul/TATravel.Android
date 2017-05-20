@@ -14,6 +14,8 @@ public interface ReservationDetailContract {
     }
 
     interface Presenter extends IBasePresenter {
-        void getReservationDetail();
+        void getLastReservationDetail();
+
+        void clearCart();
     }
 }

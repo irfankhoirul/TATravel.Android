@@ -17,7 +17,7 @@ public interface SeatContract {
 
         void redirectToReservationDetail();
 
-        void finishActivity();
+        void finishActivity(int resultCode);
 
         void setup5Seats();
 

@@ -18,5 +18,7 @@ public interface ReservationContract {
 
     interface Presenter extends IBasePresenter {
         void makeReservation();
+
+        boolean isTimeAvailable();
     }
 }

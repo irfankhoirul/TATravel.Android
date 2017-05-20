@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.irfankhoirul.apps.tatravel.R;
-import com.irfankhoirul.apps.tatravel.core.activity.MainActivity;
 import com.irfankhoirul.apps.tatravel.core.base.BaseFragment;
 import com.irfankhoirul.apps.tatravel.core.components.util.CurrencyUtils;
 import com.irfankhoirul.apps.tatravel.data.pojo.Pembayaran;
@@ -28,7 +27,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * A simple {@link Fragment} subclass.
  */
 
-public class ReservationDetailFragment extends BaseFragment<MainActivity, ReservationDetailContract.Presenter>
+public class ReservationDetailFragment extends BaseFragment<ReservationDetailActivity, ReservationDetailContract.Presenter>
         implements ReservationDetailContract.View {
 
     @BindView(R.id.btPay)
@@ -99,7 +98,7 @@ public class ReservationDetailFragment extends BaseFragment<MainActivity, Reserv
         if (getArguments().getParcelable("reservation") != null) {
             showReservationDetail((Pemesanan) Parcels.unwrap(getArguments().getParcelable("reservation")));
         } else {
-            mPresenter.getReservationDetail();
+            mPresenter.getLastReservationDetail();
         }
 
         return fragmentView;

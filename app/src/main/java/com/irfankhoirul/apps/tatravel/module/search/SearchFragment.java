@@ -228,7 +228,6 @@ public class SearchFragment extends BaseFragment<MainActivity, SearchContract.Pr
             mPresenter.clearPassenger();
             if (data.getParcelableExtra("selectedPassengers") != null) {
                 mPresenter.setSelectedPassengers((List<Penumpang>) Parcels.unwrap(data.getParcelableExtra("selectedPassengers")));
-//                mPresenter.setPassenger(selectedPassengers);
                 if (mPresenter.getSelectedPassengers().size() > 0) {
                     setPassengerView(mPresenter.getSelectedPassengers());
                 } else {
@@ -237,10 +236,18 @@ public class SearchFragment extends BaseFragment<MainActivity, SearchContract.Pr
             } else {
                 resetPassengerView();
             }
-        } else if (requestCode == ConstantUtils.ACTIVITY_REQUEST_CODE_SCHEDULE && resultCode == ConstantUtils.REQUEST_RESULT_SUCCESS) {
-            // Todo : Redirect ke detail pemesanan
-            Intent intent = new Intent(activity, ReservationDetailActivity.class);
-            startActivity(intent);
+        } else if (requestCode == ConstantUtils.ACTIVITY_REQUEST_CODE_SCHEDULE) {
+            if (resultCode == ConstantUtils.REQUEST_RESULT_SUCCESS) {
+                resetDepartureView();
+                resetDestinationView();
+                resetDateView();
+                resetPassengerView();
+                mPresenter.start();
+                Intent intent = new Intent(activity, ReservationDetailActivity.class);
+                startActivityForResult(intent, ConstantUtils.ACTIVITY_REQUEST_CODE_DETAIL_RESERVATION);
+            }
+        } else if (requestCode == ConstantUtils.ACTIVITY_REQUEST_CODE_DETAIL_RESERVATION) {
+
         }
     }
 
@@ -278,21 +285,28 @@ public class SearchFragment extends BaseFragment<MainActivity, SearchContract.Pr
         llDepartureDate.setBackgroundColor(ContextCompat.getColor(activity, R.color.grey_50));
     }
 
-    public void resetDestinationView() {
+    private void resetDepartureView() {
+        llDepartureDate.setBackgroundColor(ContextCompat.getColor(activity, R.color.red_50));
+        tvDeparture.setText("Pilih Lokasi Keberangkatan");
+        tvDeparture.setTextColor(ContextCompat.getColor(activity, R.color.font_black_disabled));
+        mPresenter.clearDestination();
+    }
+
+    private void resetDestinationView() {
         llDestination.setBackgroundColor(ContextCompat.getColor(activity, R.color.red_50));
         tvDestination.setText("Pilih Lokasi Tujuan");
         tvDestination.setTextColor(ContextCompat.getColor(activity, R.color.font_black_disabled));
         mPresenter.clearDestination();
     }
 
-    public void resetDateView() {
+    private void resetDateView() {
         llDepartureDate.setBackgroundColor(ContextCompat.getColor(activity, R.color.red_50));
         tvDateGo.setText("Pilih Tanggal Keberangkatan");
         tvDateGo.setTextColor(ContextCompat.getColor(activity, R.color.font_black_disabled));
         mPresenter.clearDate();
     }
 
-    public void resetPassengerView() {
+    private void resetPassengerView() {
         tvPassenger.setText("Tambahkan Penumpang");
         tvPassenger.setTextColor(ContextCompat.getColor(activity, R.color.font_black_disabled));
         llPassenger.setBackgroundColor(ContextCompat.getColor(activity, R.color.red_50));

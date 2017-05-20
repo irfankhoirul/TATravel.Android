@@ -20,7 +20,7 @@ public interface ScheduleContract {
 
         void showDataExist();
 
-        void finishActivity();
+        void finishActivity(int resultCode);
     }
 
     interface Presenter extends IBasePresenter {

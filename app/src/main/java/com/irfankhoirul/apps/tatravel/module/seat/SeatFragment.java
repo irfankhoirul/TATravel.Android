@@ -162,8 +162,8 @@ public class SeatFragment extends BaseFragment<SeatActivity, SeatContract.Presen
     }
 
     @Override
-    public void finishActivity() {
-        activity.setResult(ConstantUtils.REQUEST_RESULT_SUCCESS);
+    public void finishActivity(int resultCode) {
+        activity.setResult(resultCode);
         activity.finish();
     }
 

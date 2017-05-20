@@ -1,5 +1,6 @@
 package com.irfankhoirul.apps.tatravel.module.schedule;
 
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,6 +61,17 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
 
         holder.tvPrice.setText(CurrencyUtils.formatRupiah(item.getHarga()) + "*");
 
+        if (item.getQuota() == 0) {
+            holder.tvQuota.setText("Kursi Habis!");
+            holder.tvQuota.setTextColor(ContextCompat.getColor(holder.tvQuota.getContext(), R.color.alizarin));
+        } else if (item.getQuota() > 0 && item.getQuota() <= 3) {
+            holder.tvQuota.setText("Tersedia " + item.getQuota() + " Kursi");
+            holder.tvQuota.setTextColor(ContextCompat.getColor(holder.tvQuota.getContext(), R.color.alizarin));
+        } else {
+            holder.tvQuota.setText("Tersedia " + item.getQuota() + " Kursi");
+            holder.tvQuota.setTextColor(ContextCompat.getColor(holder.tvQuota.getContext(), R.color.colorPrimary));
+        }
+
     }
 
     @Override
@@ -83,6 +95,8 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
         TextView tvDestinationLocation;
         @BindView(R.id.tvDestinationTime)
         TextView tvDestinationTime;
+        @BindView(R.id.tvQuota)
+        TextView tvQuota;
 
         public ScheduleViewHolder(View view) {
             super(view);

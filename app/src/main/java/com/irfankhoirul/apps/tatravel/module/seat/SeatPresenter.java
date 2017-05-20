@@ -145,8 +145,8 @@ public class SeatPresenter implements SeatContract.Presenter {
 
     @Override
     public void handleActivityResult(int requestCode, int resultCode) {
-        if (requestCode == ConstantUtils.ACTIVITY_REQUEST_CODE_RESERVATION && resultCode == ConstantUtils.REQUEST_RESULT_SUCCESS) {
-            view.finishActivity();
+        if (requestCode == ConstantUtils.ACTIVITY_REQUEST_CODE_RESERVATION) {
+            view.finishActivity(resultCode);
         }
     }
 }

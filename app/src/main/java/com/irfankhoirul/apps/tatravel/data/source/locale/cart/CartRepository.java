@@ -14,6 +14,8 @@ import java.util.Map;
 
 public interface CartRepository {
 
+    void clearCart();
+
     Map<String, String> getDeparture();
 
     void setDeparture(Map<String, String> departureData);

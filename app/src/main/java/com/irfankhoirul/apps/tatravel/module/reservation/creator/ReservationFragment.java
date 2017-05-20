@@ -132,23 +132,29 @@ public class ReservationFragment extends BaseFragment<ReservationActivity, Reser
 
     @OnClick(R.id.btMakeReservation)
     public void btMakeReservation() {
-        AlertDialog.Builder builder = createAlert("Perhatian", "Setelah melakukan pemesanan, anda " +
-                "memiliki waktu 5 jam untuk melakukan pembayaran. Jika Anda tidak melakukan pembayaran " +
-                "hingga 5 jam setelah melakukan pemesanan, pesanan Anda akan dibatalkan.");
-        builder.setCancelable(false);
-        builder.setPositiveButton("Setuju", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                mPresenter.makeReservation();
-            }
-        });
-        builder.setNegativeButton("Batal", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        builder.create().show();
+        if (mPresenter.isTimeAvailable()) {
+            AlertDialog.Builder builder = createAlert("Perhatian", "Setelah melakukan pemesanan, anda " +
+                    "memiliki waktu 5 jam untuk melakukan pembayaran. Jika Anda tidak melakukan pembayaran " +
+                    "hingga 5 jam setelah melakukan pemesanan, pesanan Anda akan dibatalkan.");
+            builder.setCancelable(false);
+            builder.setPositiveButton("Setuju", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    mPresenter.makeReservation();
+                }
+            });
+            builder.setNegativeButton("Batal", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            builder.create().show();
+        } else {
+            showStatus(ConstantUtils.STATUS_ERROR, "Waktu pemesanan habis. Silakan ulangi lagi.");
+            activity.setResult(ConstantUtils.REQUEST_RESULT_ERROR);
+            activity.finish();
+        }
     }
 
 }

@@ -21,11 +21,11 @@ import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.core.components.util.DisplayMetricUtils;
 import com.irfankhoirul.apps.tatravel.core.data.DataPage;
 import com.irfankhoirul.apps.tatravel.data.pojo.JadwalPerjalanan;
-import com.irfankhoirul.apps.tatravel.module.login.LoginActivity;
 import com.irfankhoirul.apps.tatravel.module.schedule.detail.DaggerScheduleDetailComponent;
 import com.irfankhoirul.apps.tatravel.module.schedule.detail.ScheduleDetailDialog;
 import com.irfankhoirul.apps.tatravel.module.schedule.detail.ScheduleDetailDialogPresenter;
 import com.irfankhoirul.apps.tatravel.module.schedule.detail.ScheduleDetailPresenterModule;
+import com.irfankhoirul.apps.tatravel.module.seat.SeatActivity;
 
 import java.util.List;
 import java.util.Map;
@@ -41,7 +41,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * A simple {@link Fragment} subclass.
  */
 
-public class ScheduleFragment extends BaseFragment<LoginActivity, ScheduleContract.Presenter> implements ScheduleContract.View {
+public class ScheduleFragment extends BaseFragment<ScheduleActivity, ScheduleContract.Presenter>
+        implements ScheduleContract.View, ScheduleDetailDialog.DialogListener {
 
     @BindView(R.id.rlContainer)
     RelativeLayout rlContainer;
@@ -73,14 +74,19 @@ public class ScheduleFragment extends BaseFragment<LoginActivity, ScheduleContra
         scheduleAdapter = new ScheduleAdapter(mPresenter.getSchedules(), new ScheduleAdapter.OnSpecificItemClick() {
             @Override
             public void onItemClick(JadwalPerjalanan schedule) {
-                // Show dialog detail & konfirmasi
-                ScheduleDetailDialog scheduleDetailDialog = ScheduleDetailDialog.newInstance(schedule);
-                scheduleDetailDialog.show(getFragmentManager(), "passengerCreatorDialog");
+                if (schedule.getQuota() > 0) {
+                    // Show dialog detail & konfirmasi
+                    ScheduleDetailDialog scheduleDetailDialog = ScheduleDetailDialog.newInstance(schedule);
+                    scheduleDetailDialog.setListener(ScheduleFragment.this);
+                    scheduleDetailDialog.show(getFragmentManager(), "passengerCreatorDialog");
 
-                DaggerScheduleDetailComponent.builder()
-                        .appComponent(((TAApplication) activity.getApplication()).getAppComponent())
-                        .scheduleDetailPresenterModule(new ScheduleDetailPresenterModule(scheduleDetailDialog))
-                        .build().inject(ScheduleFragment.this);
+                    DaggerScheduleDetailComponent.builder()
+                            .appComponent(((TAApplication) activity.getApplication()).getAppComponent())
+                            .scheduleDetailPresenterModule(new ScheduleDetailPresenterModule(scheduleDetailDialog))
+                            .build().inject(ScheduleFragment.this);
+                } else {
+                    showStatus(ConstantUtils.STATUS_ERROR, "Tidak ada kursi tersisa!");
+                }
             }
         });
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(activity);
@@ -89,6 +95,12 @@ public class ScheduleFragment extends BaseFragment<LoginActivity, ScheduleContra
         rvSchedule.setAdapter(scheduleAdapter);
 
         return fragmentView;
+    }
+
+    @Override
+    public void onResume() {
+        mPresenter.getSchedules().clear();
+        super.onResume();
     }
 
     @Override
@@ -151,8 +163,16 @@ public class ScheduleFragment extends BaseFragment<LoginActivity, ScheduleContra
     }
 
     @Override
-    public void finishActivity() {
-        activity.setResult(ConstantUtils.REQUEST_RESULT_SUCCESS);
+    public void finishActivity(int resultCode) {
+        activity.setResult(resultCode);
         activity.finish();
+    }
+
+    @Override
+    public void onNext(JadwalPerjalanan schedule) {
+        // Intent ke activity seat
+        Intent intent = new Intent(activity, SeatActivity.class);
+        intent.putExtra("scheduleId", schedule.getId());
+        startActivityForResult(intent, ConstantUtils.ACTIVITY_REQUEST_CODE_SEAT);
     }
 }

@@ -22,7 +22,7 @@ public class ReservationRepositoryImpl extends BaseRemoteDataSource implements R
 
     @Override
     public void makeReservation(IRequestResponseListener listener, Map<String, String> param) {
-        Call<DataResult> call = ((IPemesananEndPoints) endPoint).reservasi(param);
+        Call<DataResult<Pemesanan>> call = ((IPemesananEndPoints) endPoint).reservasi(param);
         execute(call, listener);
     }
 

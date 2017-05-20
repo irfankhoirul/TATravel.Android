@@ -26,4 +26,9 @@ public class ReservationDetailActivity extends BaseFragmentHolderActivity {
                 .build().inject(this);
     }
 
+    @Override
+    public void onBackPressed() {
+        mPresenter.clearCart();
+        super.onBackPressed();
+    }
 }

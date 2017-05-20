@@ -7,11 +7,13 @@ import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.core.components.util.CurrencyUtils;
 import com.irfankhoirul.apps.tatravel.core.data.DataResult;
 import com.irfankhoirul.apps.tatravel.core.data.IRequestResponseListener;
+import com.irfankhoirul.apps.tatravel.data.pojo.Pemesanan;
 import com.irfankhoirul.apps.tatravel.data.source.locale.cart.CartRepository;
 import com.irfankhoirul.apps.tatravel.data.source.locale.session.SessionRepository;
 import com.irfankhoirul.apps.tatravel.data.source.remote.reservation.ReservationRepository;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -124,14 +126,14 @@ public class ReservationPresenter implements ReservationContract.Presenter {
             String value = entry.getValue();
             Log.v(key, value);
         }
-        reservationRepository.makeReservation(new IRequestResponseListener() {
+        reservationRepository.makeReservation(new IRequestResponseListener<Pemesanan>() {
             @Override
-            public void onSuccess(DataResult result) {
+            public void onSuccess(DataResult<Pemesanan> result) {
                 view.setLoadingDialog(false, null);
                 if (result.getCode() == ConstantUtils.REQUEST_RESULT_SUCCESS) {
                     view.showStatus(ConstantUtils.STATUS_SUCCESS, result.getMessage());
                     // Redirect ke Detail Order Activity
-                    // Todo : dapatkan kembalian object reservation dari server, lalu simpan ke cart repository
+                    cartRepository.setLastReservation(result.getData());
                     view.finishActivity();
                 } else {
                     view.showStatus(ConstantUtils.STATUS_ERROR, result.getMessage());
@@ -144,5 +146,13 @@ public class ReservationPresenter implements ReservationContract.Presenter {
                 view.showStatus(ConstantUtils.STATUS_ERROR, "Terjadi kesalahan");
             }
         }, params);
+    }
+
+    @Override
+    public boolean isTimeAvailable() {
+        if (Calendar.getInstance().getTimeInMillis() - cartRepository.getSeatSetTime() < 300000) {
+            return true;
+        }
+        return false;
     }
 }

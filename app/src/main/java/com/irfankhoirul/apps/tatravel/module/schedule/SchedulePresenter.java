@@ -116,8 +116,8 @@ public class SchedulePresenter implements ScheduleContract.Presenter {
 
     @Override
     public void handleOnActivityResult(int requestCode, int resultCode) {
-        if (requestCode == ConstantUtils.ACTIVITY_REQUEST_CODE_SEAT && resultCode == ConstantUtils.REQUEST_RESULT_SUCCESS) {
-            view.finishActivity();
+        if (requestCode == ConstantUtils.ACTIVITY_REQUEST_CODE_SEAT) {
+            view.finishActivity(resultCode);
         }
     }
 

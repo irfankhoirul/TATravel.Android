@@ -1,5 +1,6 @@
 package com.irfankhoirul.apps.tatravel.module.reservation.detail;
 
+import com.irfankhoirul.apps.tatravel.data.source.locale.cart.CartRepository;
 import com.irfankhoirul.apps.tatravel.data.source.locale.session.SessionRepository;
 import com.irfankhoirul.apps.tatravel.data.source.remote.reservation.ReservationRepository;
 
@@ -14,14 +15,17 @@ public class ReservationDetailPresenter implements ReservationDetailContract.Pre
     private final ReservationDetailContract.View view;
     private final ReservationRepository reservationRepository;
     private final SessionRepository sessionRepository;
+    private final CartRepository cartRepository;
 
     @Inject
     public ReservationDetailPresenter(SessionRepository sessionRepository,
+                                      CartRepository cartRepository,
                                       ReservationRepository reservationRepository,
                                       ReservationDetailContract.View view) {
         this.view = view;
         this.reservationRepository = reservationRepository;
         this.sessionRepository = sessionRepository;
+        this.cartRepository = cartRepository;
     }
 
     @Inject
@@ -35,7 +39,12 @@ public class ReservationDetailPresenter implements ReservationDetailContract.Pre
     }
 
     @Override
-    public void getReservationDetail() {
-        // Todo : get reservation detail dari cart repository, lalu show view reservation detail
+    public void getLastReservationDetail() {
+        view.showReservationDetail(cartRepository.getLastReservation());
+    }
+
+    @Override
+    public void clearCart() {
+        cartRepository.clearCart();
     }
 }

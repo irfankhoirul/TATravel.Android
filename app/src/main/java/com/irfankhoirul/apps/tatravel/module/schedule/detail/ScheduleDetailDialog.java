@@ -1,7 +1,6 @@
 package com.irfankhoirul.apps.tatravel.module.schedule.detail;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -14,10 +13,8 @@ import android.widget.TextView;
 
 import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.core.base.BaseDialog;
-import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.core.components.util.CurrencyUtils;
 import com.irfankhoirul.apps.tatravel.data.pojo.JadwalPerjalanan;
-import com.irfankhoirul.apps.tatravel.module.seat.SeatActivity;
 
 import org.parceler.Parcels;
 
@@ -55,6 +52,7 @@ public class ScheduleDetailDialog extends BaseDialog implements ScheduleDetailDi
     Button btNext;
 
     ScheduleDetailDialogContract.Presenter mPresenter;
+    private DialogListener listener;
 
     public ScheduleDetailDialog() {
         // Empty constructor required for DialogFragment
@@ -67,6 +65,10 @@ public class ScheduleDetailDialog extends BaseDialog implements ScheduleDetailDi
         scheduleDetailDialog.setArguments(bundle);
 
         return scheduleDetailDialog;
+    }
+
+    public void setListener(DialogListener listener) {
+        this.listener = listener;
     }
 
     @Override
@@ -109,10 +111,7 @@ public class ScheduleDetailDialog extends BaseDialog implements ScheduleDetailDi
 
     @OnClick(R.id.btNext)
     public void btNext() {
-        // Intent ke activity seat
-        Intent intent = new Intent(activity, SeatActivity.class);
-        intent.putExtra("scheduleId", mPresenter.getSchedule().getId());
-        startActivityForResult(intent, ConstantUtils.ACTIVITY_REQUEST_CODE_SEAT);
+        listener.onNext(mPresenter.getSchedule());
         ScheduleDetailDialog.this.dismiss();
     }
 
@@ -146,4 +145,7 @@ public class ScheduleDetailDialog extends BaseDialog implements ScheduleDetailDi
         super.showStatus(type, message);
     }
 
+    public interface DialogListener {
+        void onNext(JadwalPerjalanan schedule);
+    }
 }
