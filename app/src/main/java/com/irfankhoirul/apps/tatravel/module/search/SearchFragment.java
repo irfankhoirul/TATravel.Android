@@ -32,7 +32,7 @@ import com.irfankhoirul.apps.tatravel.data.pojo.Penumpang;
 import com.irfankhoirul.apps.tatravel.module.departure.DepartureActivity;
 import com.irfankhoirul.apps.tatravel.module.destination.DestinationActivity;
 import com.irfankhoirul.apps.tatravel.module.passenger.PassengerActivity;
-import com.irfankhoirul.apps.tatravel.module.reservation.detail.ReservationDetailActivity;
+import com.irfankhoirul.apps.tatravel.module.reservation_detail.ReservationDetailActivity;
 import com.irfankhoirul.apps.tatravel.module.schedule.ScheduleActivity;
 
 import org.parceler.Parcels;

@@ -13,19 +13,19 @@ import android.widget.TextView;
 import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.core.app.TAApplication;
 import com.irfankhoirul.apps.tatravel.core.base.BaseActivity;
-import com.irfankhoirul.apps.tatravel.module.reservation.history.ReservationHistoryFragment;
-import com.irfankhoirul.apps.tatravel.module.reservation.history.ReservationHistoryPresenter;
-import com.irfankhoirul.apps.tatravel.module.reservation.history.ReservationHistoryPresenterModule;
+import com.irfankhoirul.apps.tatravel.module.login_or_register.LoginOrRegisterFragment;
+import com.irfankhoirul.apps.tatravel.module.login_or_register.LoginOrRegisterPresenter;
+import com.irfankhoirul.apps.tatravel.module.login_or_register.LoginOrRegisterPresenterModule;
+import com.irfankhoirul.apps.tatravel.module.profile.ProfileFragment;
+import com.irfankhoirul.apps.tatravel.module.profile.ProfilePresenter;
+import com.irfankhoirul.apps.tatravel.module.profile.ProfilePresenterModule;
+import com.irfankhoirul.apps.tatravel.module.reservation_history.ReservationHistoryFragment;
+import com.irfankhoirul.apps.tatravel.module.reservation_history.ReservationHistoryPresenter;
+import com.irfankhoirul.apps.tatravel.module.reservation_history.ReservationHistoryPresenterModule;
 import com.irfankhoirul.apps.tatravel.module.search.DaggerSearchComponent;
 import com.irfankhoirul.apps.tatravel.module.search.SearchFragment;
 import com.irfankhoirul.apps.tatravel.module.search.SearchPresenter;
 import com.irfankhoirul.apps.tatravel.module.search.SearchPresenterModule;
-import com.irfankhoirul.apps.tatravel.module.user.ProfileFragment;
-import com.irfankhoirul.apps.tatravel.module.user.ProfilePresenter;
-import com.irfankhoirul.apps.tatravel.module.user.ProfilePresenterModule;
-import com.irfankhoirul.apps.tatravel.module.user.login_or_register.LoginOrRegisterFragment;
-import com.irfankhoirul.apps.tatravel.module.user.login_or_register.LoginOrRegisterPresenter;
-import com.irfankhoirul.apps.tatravel.module.user.login_or_register.LoginOrRegisterPresenterModule;
 
 import javax.inject.Inject;
 

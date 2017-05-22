@@ -21,10 +21,10 @@ import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.core.components.util.DisplayMetricUtils;
 import com.irfankhoirul.apps.tatravel.core.data.DataPage;
 import com.irfankhoirul.apps.tatravel.data.pojo.JadwalPerjalanan;
-import com.irfankhoirul.apps.tatravel.module.schedule.detail.DaggerScheduleDetailComponent;
-import com.irfankhoirul.apps.tatravel.module.schedule.detail.ScheduleDetailDialog;
-import com.irfankhoirul.apps.tatravel.module.schedule.detail.ScheduleDetailDialogPresenter;
-import com.irfankhoirul.apps.tatravel.module.schedule.detail.ScheduleDetailPresenterModule;
+import com.irfankhoirul.apps.tatravel.module.schedule_detail.DaggerScheduleDetailComponent;
+import com.irfankhoirul.apps.tatravel.module.schedule_detail.ScheduleDetailDialog;
+import com.irfankhoirul.apps.tatravel.module.schedule_detail.ScheduleDetailDialogPresenter;
+import com.irfankhoirul.apps.tatravel.module.schedule_detail.ScheduleDetailPresenterModule;
 import com.irfankhoirul.apps.tatravel.module.seat.SeatActivity;
 
 import java.util.List;

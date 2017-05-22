@@ -42,10 +42,10 @@ import com.irfankhoirul.apps.tatravel.core.base.BaseFragment;
 import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.data.pojo.Lokasi;
 import com.irfankhoirul.apps.tatravel.data.pojo.OperatorTravel;
-import com.irfankhoirul.apps.tatravel.module.departure.travel_choice.DaggerTravelChoiceComponent;
-import com.irfankhoirul.apps.tatravel.module.departure.travel_choice.TravelChoiceDialog;
-import com.irfankhoirul.apps.tatravel.module.departure.travel_choice.TravelChoiceDialogPresenter;
-import com.irfankhoirul.apps.tatravel.module.departure.travel_choice.TravelChoicePresenterModule;
+import com.irfankhoirul.apps.tatravel.module.travel_choice.DaggerTravelChoiceComponent;
+import com.irfankhoirul.apps.tatravel.module.travel_choice.TravelChoiceDialog;
+import com.irfankhoirul.apps.tatravel.module.travel_choice.TravelChoiceDialogPresenter;
+import com.irfankhoirul.apps.tatravel.module.travel_choice.TravelChoicePresenterModule;
 
 import org.parceler.Parcels;
 

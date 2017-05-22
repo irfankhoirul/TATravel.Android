@@ -21,10 +21,10 @@ import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.core.components.util.DisplayMetricUtils;
 import com.irfankhoirul.apps.tatravel.core.data.DataPage;
 import com.irfankhoirul.apps.tatravel.data.pojo.Penumpang;
-import com.irfankhoirul.apps.tatravel.module.passenger.creator.DaggerPassengerCreatorDialogComponent;
-import com.irfankhoirul.apps.tatravel.module.passenger.creator.PassengerCreatorDialog;
-import com.irfankhoirul.apps.tatravel.module.passenger.creator.PassengerCreatorDialogPresenter;
-import com.irfankhoirul.apps.tatravel.module.passenger.creator.PassengerCreatorPresenterModule;
+import com.irfankhoirul.apps.tatravel.module.passenger_creator.DaggerPassengerCreatorDialogComponent;
+import com.irfankhoirul.apps.tatravel.module.passenger_creator.PassengerCreatorDialog;
+import com.irfankhoirul.apps.tatravel.module.passenger_creator.PassengerCreatorDialogPresenter;
+import com.irfankhoirul.apps.tatravel.module.passenger_creator.PassengerCreatorPresenterModule;
 
 import org.parceler.Parcels;
 

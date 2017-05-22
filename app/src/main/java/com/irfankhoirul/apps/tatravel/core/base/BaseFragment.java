@@ -35,7 +35,7 @@ public abstract class BaseFragment<T extends FragmentActivity, U extends IBasePr
     protected AlertDialog loadingDialog;
     protected View fragmentView;
     protected U mPresenter;
-    private FragmentListener fragmentListener;
+    protected FragmentListener fragmentListener;
     private boolean loading;
 
     protected abstract void setTitle();
@@ -67,12 +67,12 @@ public abstract class BaseFragment<T extends FragmentActivity, U extends IBasePr
         this.fragmentListener = (FragmentListener) context;
     }
 
-    @Override
-    public void onDetach() {
-        this.activity = null;
-        this.fragmentListener = null;
-        super.onDetach();
-    }
+//    @Override
+//    public void onDetach() {
+//        this.activity = null;
+//        this.fragmentListener = null;
+//        super.onDetach();
+//    }
 
     @Override
     public void onDestroyView() {

@@ -1,13 +1,12 @@
-package com.irfankhoirul.apps.tatravel.module.search;
+package com.irfankhoirul.apps.tatravel.module.reservation_history;
 
 import com.irfankhoirul.apps.tatravel.core.activity.MainActivity;
 import com.irfankhoirul.apps.tatravel.core.app.AppComponent;
 import com.irfankhoirul.apps.tatravel.core.components.FragmentScoped;
-import com.irfankhoirul.apps.tatravel.data.source.locale.cart.CartRepository;
 import com.irfankhoirul.apps.tatravel.data.source.locale.session.SessionRepository;
 import com.irfankhoirul.apps.tatravel.module.login_or_register.LoginOrRegisterPresenterModule;
 import com.irfankhoirul.apps.tatravel.module.profile.ProfilePresenterModule;
-import com.irfankhoirul.apps.tatravel.module.reservation_history.ReservationHistoryPresenterModule;
+import com.irfankhoirul.apps.tatravel.module.search.SearchPresenterModule;
 
 import dagger.Component;
 
@@ -20,11 +19,10 @@ import dagger.Component;
                 ProfilePresenterModule.class,
                 LoginOrRegisterPresenterModule.class,
                 ReservationHistoryPresenterModule.class})
-public interface SearchComponent {
+public interface ReservationHistoryComponent {
 
-    void inject(MainActivity searchFragment);
+    void inject(MainActivity mainActivity);
 
     SessionRepository session();
 
-    CartRepository cart();
 }

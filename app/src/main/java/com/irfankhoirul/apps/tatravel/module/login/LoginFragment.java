@@ -107,6 +107,21 @@ public class LoginFragment extends BaseFragment<LoginActivity, LoginContract.Pre
         return fragmentView;
     }
 
+//    @SuppressWarnings("unchecked")
+//    @Override
+//    public void onAttach(Context context) {
+//        super.onAttach(context);
+//        this.activity = (LoginActivity) context;
+//        this.fragmentListener = (FragmentListener) context;
+//    }
+//
+//    @Override
+//    public void onDetach() {
+////        this.activity = null;
+//        this.fragmentListener = null;
+//        super.onDetach();
+//    }
+
     @Override
     public void onResume() {
         super.onResume();

@@ -17,7 +17,7 @@ import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.core.base.BaseFragment;
 import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.data.pojo.KursiPerjalanan;
-import com.irfankhoirul.apps.tatravel.module.reservation.creator.ReservationActivity;
+import com.irfankhoirul.apps.tatravel.module.reservation_creator.ReservationActivity;
 
 import java.util.ArrayList;
 import java.util.List;
