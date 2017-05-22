@@ -23,5 +23,7 @@ public interface ProfileContract {
         void destroySession();
 
         void logout(Map<String, String> param);
+
+        void handleActivityResult(int requestCode, int resultCode);
     }
 }

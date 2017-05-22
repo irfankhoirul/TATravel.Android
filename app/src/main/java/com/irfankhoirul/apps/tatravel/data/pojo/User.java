@@ -70,6 +70,10 @@ public class User extends BaseModel {
     @Expose
     protected UserToken userToken;
 
+    @SerializedName("use_social_login")
+    @Expose
+    protected boolean useSocialLogin;
+
     public String getNama() {
         return nama;
     }
@@ -180,5 +184,13 @@ public class User extends BaseModel {
 
     public void setUserToken(UserToken userToken) {
         this.userToken = userToken;
+    }
+
+    public boolean isUseSocialLogin() {
+        return useSocialLogin;
+    }
+
+    public void setUseSocialLogin(boolean useSocialLogin) {
+        this.useSocialLogin = useSocialLogin;
     }
 }

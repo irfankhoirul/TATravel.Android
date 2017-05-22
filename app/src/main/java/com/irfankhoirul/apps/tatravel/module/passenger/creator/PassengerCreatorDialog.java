@@ -58,7 +58,6 @@ public class PassengerCreatorDialog extends BaseDialog implements PassengerCreat
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         fragmentView = inflater.inflate(R.layout.dialog_passenger_creator, container);
         unbinder = ButterKnife.bind(this, fragmentView);
-        mPresenter.start();
 
         if (getArguments() != null && getArguments().getParcelable("passenger") != null) {
             passenger = Parcels.unwrap(getArguments().getParcelable("passenger"));
@@ -76,6 +75,8 @@ public class PassengerCreatorDialog extends BaseDialog implements PassengerCreat
         getDialog().getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
 
         super.onResume();
+
+        mPresenter.start();
     }
 
     @Override

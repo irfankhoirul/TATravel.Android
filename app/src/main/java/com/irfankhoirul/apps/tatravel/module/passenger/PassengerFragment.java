@@ -139,6 +139,12 @@ public class PassengerFragment extends BaseFragment<PassengerActivity, Passenger
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.start();
+    }
+
+    @Override
     public void setPresenter(PassengerContract.Presenter presenter) {
         mPresenter = checkNotNull(presenter);
     }

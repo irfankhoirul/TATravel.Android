@@ -85,6 +85,12 @@ public class ReservationHistoryFragment extends BaseFragment<MainActivity, Reser
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.start();
+    }
+
+    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         listener = (FragmentListener) context;

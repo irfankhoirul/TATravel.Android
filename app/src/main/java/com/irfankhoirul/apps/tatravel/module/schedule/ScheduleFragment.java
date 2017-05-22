@@ -101,6 +101,8 @@ public class ScheduleFragment extends BaseFragment<ScheduleActivity, ScheduleCon
     public void onResume() {
         mPresenter.getSchedules().clear();
         super.onResume();
+
+        mPresenter.start();
     }
 
     @Override

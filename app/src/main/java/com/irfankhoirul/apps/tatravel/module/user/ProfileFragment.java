@@ -1,6 +1,7 @@
 package com.irfankhoirul.apps.tatravel.module.user;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
@@ -8,13 +9,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 
 import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.core.activity.MainActivity;
 import com.irfankhoirul.apps.tatravel.core.base.BaseFragment;
+import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.data.pojo.User;
+import com.irfankhoirul.apps.tatravel.module.user.editor.EditProfileActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -53,8 +55,6 @@ public class ProfileFragment extends BaseFragment<MainActivity, ProfileContract.
     TextInputLayout tilProvince;
     @BindView(R.id.etProvince)
     EditText etProvince;
-    @BindView(R.id.btChangeProfile)
-    Button btChangeProfile;
 
     private FragmentListener listener;
 
@@ -87,6 +87,12 @@ public class ProfileFragment extends BaseFragment<MainActivity, ProfileContract.
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.start();
+    }
+
+    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         listener = (FragmentListener) context;
@@ -96,6 +102,11 @@ public class ProfileFragment extends BaseFragment<MainActivity, ProfileContract.
     public void onDetach() {
         super.onDetach();
         listener = null;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        mPresenter.handleActivityResult(requestCode, resultCode);
     }
 
     @Override
@@ -145,6 +156,11 @@ public class ProfileFragment extends BaseFragment<MainActivity, ProfileContract.
         Map<String, String> param = new HashMap<>();
         param.put("token", loggedInUser.getUserToken().getToken());
         mPresenter.logout(param);
+    }
+
+    public void doUpdateProfile() {
+        Intent intent = new Intent(activity, EditProfileActivity.class);
+        startActivityForResult(intent, ConstantUtils.ACTIVITY_REQUEST_CODE_EDIT_PROFILE);
     }
 
     @Override

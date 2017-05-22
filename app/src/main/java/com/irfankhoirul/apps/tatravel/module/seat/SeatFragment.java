@@ -75,6 +75,12 @@ public class SeatFragment extends BaseFragment<SeatActivity, SeatContract.Presen
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.start();
+    }
+
+    @Override
     public void setPresenter(SeatContract.Presenter presenter) {
         mPresenter = checkNotNull(presenter);
     }

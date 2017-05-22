@@ -130,6 +130,12 @@ public class DestinationFragment extends BaseFragment<MainActivity, DestinationC
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.start();
+    }
+
+    @Override
     public void onDetach() {
         super.onDetach();
         if (mGoogleApiClient != null) {

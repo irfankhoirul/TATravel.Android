@@ -62,15 +62,16 @@ public class VerifyFragment extends BaseFragment<VerifyActivity, VerifyContract.
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.start();
+    }
+
+    @Override
     public void redirectToProfile() {
         activity.setResult(ConstantUtils.STATUS_SUCCESS);
         activity.setResult(ConstantUtils.STATUS_SUCCESS);
         activity.finish();
-    }
-
-    @Override
-    public boolean isActive() {
-        return isAdded();
     }
 
     @Override

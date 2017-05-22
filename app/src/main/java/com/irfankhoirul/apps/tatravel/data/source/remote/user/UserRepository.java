@@ -21,4 +21,9 @@ public interface UserRepository {
 
     void updateFcmToken(IRequestResponseListener listener, Map<String, String> param);
 
+    void getListCity(IRequestResponseListener listener, int provinceId, Map<String, String> param);
+
+    void getListProvince(IRequestResponseListener listener, Map<String, String> param);
+
+    void updateProfile(IRequestResponseListener listener, int provinceId, Map<String, String> param);
 }

@@ -82,7 +82,7 @@ public class MainActivity extends BaseActivity implements
 
     @Inject
     SearchPresenter searchPresenter;
-
+    int lastActiveFragment = 0;
     private SearchFragment searchFragment;
     private ReservationHistoryFragment reservationHistoryFragment;
     private LoginOrRegisterFragment loginOrRegisterFragment;
@@ -90,29 +90,38 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     protected void initializeFragment() {
-        searchFragment = new SearchFragment();
-        currentFragment = searchFragment;
-        setCurrentFragment(currentFragment, false);
+        if (lastActiveFragment == 1) {
+            llSearch();
+        } else if (lastActiveFragment == 2) {
+            llOrder();
+        } else if (lastActiveFragment == 3) {
+            llProfile();
+        } else {
+            searchFragment = new SearchFragment();
+            lastActiveFragment = 1;
+            currentFragment = searchFragment;
+            setCurrentFragment(currentFragment, false);
 
-        if (profileFragment == null) {
-            profileFragment = new ProfileFragment();
+            if (profileFragment == null) {
+                profileFragment = new ProfileFragment();
+            }
+
+            if (loginOrRegisterFragment == null) {
+                loginOrRegisterFragment = new LoginOrRegisterFragment();
+            }
+
+            if (reservationHistoryFragment == null) {
+                reservationHistoryFragment = new ReservationHistoryFragment();
+            }
+
+            DaggerSearchComponent.builder()
+                    .profilePresenterModule(new ProfilePresenterModule(profileFragment))
+                    .searchPresenterModule(new SearchPresenterModule(searchFragment))
+                    .loginOrRegisterPresenterModule(new LoginOrRegisterPresenterModule(loginOrRegisterFragment))
+                    .reservationHistoryPresenterModule(new ReservationHistoryPresenterModule(reservationHistoryFragment))
+                    .appComponent(((TAApplication) getApplication()).getAppComponent())
+                    .build().inject(this);
         }
-
-        if (loginOrRegisterFragment == null) {
-            loginOrRegisterFragment = new LoginOrRegisterFragment();
-        }
-
-        if (reservationHistoryFragment == null) {
-            reservationHistoryFragment = new ReservationHistoryFragment();
-        }
-
-        DaggerSearchComponent.builder()
-                .profilePresenterModule(new ProfilePresenterModule(profileFragment))
-                .searchPresenterModule(new SearchPresenterModule(searchFragment))
-                .loginOrRegisterPresenterModule(new LoginOrRegisterPresenterModule(loginOrRegisterFragment))
-                .reservationHistoryPresenterModule(new ReservationHistoryPresenterModule(reservationHistoryFragment))
-                .appComponent(((TAApplication) getApplication()).getAppComponent())
-                .build().inject(this);
     }
 
     @Override
@@ -125,6 +134,8 @@ public class MainActivity extends BaseActivity implements
 
     @OnClick(R.id.llSearch)
     public void llSearch() {
+        btOptionMenu.setVisibility(View.GONE);
+        lastActiveFragment = 1;
         if (!(currentFragment instanceof SearchFragment)) {
             if (searchFragment != null) {
                 setCurrentFragment(searchFragment, false);
@@ -140,6 +151,8 @@ public class MainActivity extends BaseActivity implements
 
     @OnClick(R.id.llOrder)
     public void llOrder() {
+        btOptionMenu.setVisibility(View.GONE);
+        lastActiveFragment = 2;
         if (!(currentFragment instanceof ReservationHistoryFragment)) {
             if (reservationHistoryFragment != null) {
                 setCurrentFragment(reservationHistoryFragment, false);
@@ -155,6 +168,7 @@ public class MainActivity extends BaseActivity implements
 
     @OnClick(R.id.llProfile)
     public void llProfile() {
+        lastActiveFragment = 3;
         if (!(currentFragment instanceof ProfileFragment)) {
             if (profilePresenter.getSessionData() != null) {
                 // Load profile
@@ -175,6 +189,7 @@ public class MainActivity extends BaseActivity implements
                             public boolean onMenuItemClick(MenuItem item) {
                                 switch (item.getItemId()) {
                                     case R.id.menu_change_profile:
+                                        profileFragment.doUpdateProfile();
                                         break;
                                     case R.id.menu_logout:
                                         profileFragment.doLogout();

@@ -3,7 +3,6 @@ package com.irfankhoirul.apps.tatravel.module.login;
 import com.google.common.hash.Hashing;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
-import com.irfankhoirul.apps.tatravel.core.components.util.FormValidation;
 import com.irfankhoirul.apps.tatravel.core.data.DataResult;
 import com.irfankhoirul.apps.tatravel.core.data.IRequestResponseListener;
 import com.irfankhoirul.apps.tatravel.data.pojo.User;
@@ -25,17 +24,14 @@ public class LoginPresenter implements LoginContract.Presenter {
     private final LoginContract.View view;
     private final UserRepository userRepository;
     private final SessionRepository sessionRepository;
-    private final FormValidation formValidation;
 
     @Inject
     public LoginPresenter(SessionRepository sessionRepository,
                           UserRepository userRepository,
-                          FormValidation formValidation,
                           LoginContract.View view) {
         this.view = view;
         this.userRepository = userRepository;
         this.sessionRepository = sessionRepository;
-        this.formValidation = formValidation;
     }
 
     @Inject

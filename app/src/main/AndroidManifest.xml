@@ -100,6 +100,7 @@
         <activity android:name=".module.seat.SeatActivity" />
         <activity android:name=".module.reservation.creator.ReservationActivity" />
         <activity android:name=".module.reservation.detail.ReservationDetailActivity" />
+        <activity android:name=".module.user.editor.EditProfileActivity" />
     </application>
 
 </manifest>

@@ -8,7 +8,7 @@ package com.irfankhoirul.apps.tatravel.core.components.util;
  */
 
 public class ConstantUtils {
-    public static final String BASE_API_URL = "http://192.168.8.101/api/";
+    public static final String BASE_API_URL = "http://192.168.8.100/api/";
     public static final int PAGINATION_LIMIT = 10;
     public static final int INITIAL_PAGE = 1;
 
@@ -30,6 +30,7 @@ public class ConstantUtils {
     public static final int ACTIVITY_REQUEST_CODE_SEAT = 1004;
     public static final int ACTIVITY_REQUEST_CODE_RESERVATION = 1005;
     public static final int ACTIVITY_REQUEST_CODE_DETAIL_RESERVATION = 1005;
+    public static final int ACTIVITY_REQUEST_CODE_EDIT_PROFILE = 1006;
 
 
     public static final int DIALOG_CITY_REQUEST_CODE = 2000;
@@ -38,7 +39,6 @@ public class ConstantUtils {
     public static final int DIALOG_LOCATION_RESULT_CODE = 2003;
 
     public static final int REGISTER_GOOGLE_REQUEST = 3000;
-    public static final String INTENT_SEARCH_FRAGMENT_DEPARTURE_CITY = "departure";
 
     public static final int INTENT_REQUEST_REGISTER_TO_VALIDATION = 4000;
     public static final int INTENT_REQUEST_LOGIN_OR_REGISTER_TO_REGISTER = 4001;

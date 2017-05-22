@@ -1,6 +1,8 @@
 package com.irfankhoirul.apps.tatravel.data.source.remote.user;
 
 import com.irfankhoirul.apps.tatravel.core.data.DataResult;
+import com.irfankhoirul.apps.tatravel.data.pojo.Kota;
+import com.irfankhoirul.apps.tatravel.data.pojo.Provinsi;
 import com.irfankhoirul.apps.tatravel.data.pojo.User;
 
 import java.util.Map;
@@ -17,6 +19,8 @@ import static com.irfankhoirul.apps.tatravel.data.source.remote.EndPoints.DO_LOG
 import static com.irfankhoirul.apps.tatravel.data.source.remote.EndPoints.DO_REGISTER;
 import static com.irfankhoirul.apps.tatravel.data.source.remote.EndPoints.DO_VERIFY;
 import static com.irfankhoirul.apps.tatravel.data.source.remote.EndPoints.GET_PROFILE;
+import static com.irfankhoirul.apps.tatravel.data.source.remote.EndPoints.LIST_KOTA;
+import static com.irfankhoirul.apps.tatravel.data.source.remote.EndPoints.LIST_PROVINSI;
 import static com.irfankhoirul.apps.tatravel.data.source.remote.EndPoints.UPDATE_FCM_TOKEN;
 import static com.irfankhoirul.apps.tatravel.data.source.remote.EndPoints.UPDATE_PROFILE;
 
@@ -98,7 +102,7 @@ public interface IUserEndPoints {
      */
     @FormUrlEncoded
     @POST(UPDATE_PROFILE)
-    Call<DataResult<User>> updateProfile(@Path("id") String id, @FieldMap Map<String, String> param);
+    Call<DataResult<User>> updateProfile(@Path("id") int id, @FieldMap Map<String, String> param);
 
     /**
      * Param
@@ -120,4 +124,21 @@ public interface IUserEndPoints {
     @POST(UPDATE_FCM_TOKEN)
     Call<DataResult> updateFcmToken(@FieldMap Map<String, String> param);
 
+    /**
+     * Param
+     *
+     * @param param - token
+     */
+    @FormUrlEncoded
+    @POST(LIST_KOTA)
+    Call<DataResult<Kota>> listKota(@Path("id") int id, @FieldMap Map<String, String> param);
+
+    /**
+     * Param
+     *
+     * @param param - token
+     */
+    @FormUrlEncoded
+    @POST(LIST_PROVINSI)
+    Call<DataResult<Provinsi>> listProvinsi(@FieldMap Map<String, String> param);
 }

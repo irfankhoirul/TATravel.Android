@@ -48,12 +48,6 @@ public abstract class BaseFragment<T extends FragmentActivity, U extends IBasePr
         return loading;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        mPresenter.start();
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

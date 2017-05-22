@@ -107,6 +107,20 @@ public class LoginFragment extends BaseFragment<LoginActivity, LoginContract.Pre
         return fragmentView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.start();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        mGoogleApiClient.stopAutoManage(activity);
+        mGoogleApiClient.disconnect();
+    }
+
     private void setupFacebook() {
         if (AccessToken.getCurrentAccessToken() != null) {
             loginFacebook.performClick();
@@ -137,7 +151,7 @@ public class LoginFragment extends BaseFragment<LoginActivity, LoginContract.Pre
             public void onCompleted(JSONObject object, GraphResponse response) {
                 try {
                     mPresenter.handleSocialLogin(object.getString("email"), Settings.Secure.getString(
-                            getActivity().getContentResolver(), Settings.Secure.ANDROID_ID));
+                            activity.getContentResolver(), Settings.Secure.ANDROID_ID));
                 } catch (JSONException e) {
                     showStatus(ConstantUtils.STATUS_ERROR, "Terjadi Kesalahan");
                 }
@@ -165,7 +179,7 @@ public class LoginFragment extends BaseFragment<LoginActivity, LoginContract.Pre
         if (result.isSuccess()) {
             GoogleSignInAccount account = result.getSignInAccount();
             if (account != null) {
-                mPresenter.handleSocialLogin(account.getEmail(), Settings.Secure.getString(getActivity()
+                mPresenter.handleSocialLogin(account.getEmail(), Settings.Secure.getString(activity
                         .getContentResolver(), Settings.Secure.ANDROID_ID));
             } else {
                 showStatus(ConstantUtils.STATUS_ERROR, "Gagal Login");

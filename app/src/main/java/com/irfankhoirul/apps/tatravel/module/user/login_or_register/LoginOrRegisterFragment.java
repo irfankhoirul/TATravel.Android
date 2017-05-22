@@ -43,6 +43,12 @@ public class LoginOrRegisterFragment extends BaseFragment<MainActivity, LoginOrR
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.start();
+    }
+
+    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         listener = (FragmentListener) context;

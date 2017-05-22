@@ -75,7 +75,6 @@ public class ScheduleDetailDialog extends BaseDialog implements ScheduleDetailDi
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         fragmentView = inflater.inflate(R.layout.dialog_schedule_detail, container);
         unbinder = ButterKnife.bind(this, fragmentView);
-        mPresenter.start();
 
         mPresenter.setSchedule((JadwalPerjalanan) Parcels.unwrap(getArguments().getParcelable("schedule")));
         showScheduleDetail(mPresenter.getSchedule());
@@ -123,6 +122,8 @@ public class ScheduleDetailDialog extends BaseDialog implements ScheduleDetailDi
         getDialog().getWindow().setAttributes((WindowManager.LayoutParams) params);
 
         super.onResume();
+
+        mPresenter.start();
     }
 
     @Override

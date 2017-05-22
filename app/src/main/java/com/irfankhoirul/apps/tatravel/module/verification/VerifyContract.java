@@ -12,8 +12,6 @@ import java.util.Map;
 public interface VerifyContract {
     interface View extends IBaseView<Presenter> {
         void redirectToProfile();
-
-        boolean isActive();
     }
 
     interface Presenter extends IBasePresenter {

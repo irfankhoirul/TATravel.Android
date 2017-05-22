@@ -70,4 +70,11 @@ public class ProfilePresenter implements ProfileContract.Presenter {
             }
         }, param);
     }
+
+    @Override
+    public void handleActivityResult(int requestCode, int resultCode) {
+        if (requestCode == ConstantUtils.ACTIVITY_REQUEST_CODE_EDIT_PROFILE && resultCode == ConstantUtils.REQUEST_RESULT_SUCCESS) {
+            view.showProfile();
+        }
+    }
 }

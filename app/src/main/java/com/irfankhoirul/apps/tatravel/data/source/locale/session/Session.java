@@ -44,9 +44,10 @@ public class Session implements SessionRepository {
     }
 
     @Override
-    public void setSessionData(User sessionData) {
+    public void setSessionData(User newSessionData) {
+        newSessionData.setUserToken(getSessionData().getUserToken());
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString(USER_TOKEN, new Gson().toJson(sessionData));
+        editor.putString(USER_TOKEN, new Gson().toJson(newSessionData));
         editor.apply();
     }
 

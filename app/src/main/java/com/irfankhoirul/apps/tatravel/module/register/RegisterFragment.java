@@ -115,6 +115,20 @@ public class RegisterFragment extends BaseFragment<RegisterActivity, RegisterCon
         return fragmentView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.start();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        mGoogleApiClient.stopAutoManage(activity);
+        mGoogleApiClient.disconnect();
+    }
+
     private void setupFacebook() {
         if (AccessToken.getCurrentAccessToken() != null) {
             registerFacebook.performClick();
@@ -145,7 +159,7 @@ public class RegisterFragment extends BaseFragment<RegisterActivity, RegisterCon
             public void onCompleted(JSONObject object, GraphResponse response) {
                 try {
                     mPresenter.handleSocialRegister(object.getString("email"), object.getString("name"),
-                            Settings.Secure.getString(getActivity().getContentResolver(), Settings.Secure.ANDROID_ID));
+                            Settings.Secure.getString(activity.getContentResolver(), Settings.Secure.ANDROID_ID));
                 } catch (JSONException e) {
                     showStatus(ConstantUtils.STATUS_ERROR, "Registrasi Gagal");
                 }
@@ -173,7 +187,7 @@ public class RegisterFragment extends BaseFragment<RegisterActivity, RegisterCon
             GoogleSignInAccount account = result.getSignInAccount();
             if (account != null) {
                 mPresenter.handleSocialRegister(account.getEmail(), account.getDisplayName(),
-                        Settings.Secure.getString(getActivity().getContentResolver(), Settings.Secure.ANDROID_ID));
+                        Settings.Secure.getString(activity.getContentResolver(), Settings.Secure.ANDROID_ID));
             } else {
                 showStatus(ConstantUtils.STATUS_ERROR, "Registrasi Gagal");
             }
@@ -253,7 +267,7 @@ public class RegisterFragment extends BaseFragment<RegisterActivity, RegisterCon
                 params.put("phone", etPhoneNumber.getText().toString());
             }
             params.put("password", etPassword.getText().toString());
-            params.put("deviceSecretId", Settings.Secure.getString(getActivity().getContentResolver(),
+            params.put("deviceSecretId", Settings.Secure.getString(activity.getContentResolver(),
                     Settings.Secure.ANDROID_ID));
 
             mPresenter.register(params);

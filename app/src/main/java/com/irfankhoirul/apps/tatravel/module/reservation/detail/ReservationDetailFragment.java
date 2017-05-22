@@ -105,6 +105,12 @@ public class ReservationDetailFragment extends BaseFragment<ReservationDetailAct
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.start();
+    }
+
+    @Override
     public void showReservationDetail(Pemesanan reservation) {
         if (!reservation.getPembayaran().getStatus().equalsIgnoreCase(Pembayaran.PAYMENT_STATUS_UNPAID)) {
             btPay.setVisibility(View.GONE);

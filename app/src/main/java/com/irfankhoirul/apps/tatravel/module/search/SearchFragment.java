@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -87,15 +88,22 @@ public class SearchFragment extends BaseFragment<MainActivity, SearchContract.Pr
         title = getString(R.string.app_name);
     }
 
+    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         unbinder = ButterKnife.bind(this, view);
-        setRetainInstance(true);
+//        setRetainInstance(true);
 
-        mPresenter.getPromo();
+//        mPresenter.getPromo();
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.start();
     }
 
     @Override
@@ -313,7 +321,7 @@ public class SearchFragment extends BaseFragment<MainActivity, SearchContract.Pr
     }
 
     @Override
-    public void setPresenter(SearchContract.Presenter presenter) {
+    public void setPresenter(@NonNull SearchContract.Presenter presenter) {
         mPresenter = checkNotNull(presenter);
     }
 

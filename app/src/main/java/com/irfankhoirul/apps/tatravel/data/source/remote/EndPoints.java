@@ -29,7 +29,10 @@ public class EndPoints {
     public static final String LIST_PENUMPANG = "user/{userId}/penumpang/list";
 
     // Kota End Point
-    public static final String LIST_KOTA = "city/list";
+    public static final String LIST_KOTA = "province/{id}/city/list";
+
+    // Provinsi End Point
+    public static final String LIST_PROVINSI = "province/list";
 
     // Operator Travel End Point
     public static final String LIST_OPERATOR_TRAVEL = "operator-travel/list";

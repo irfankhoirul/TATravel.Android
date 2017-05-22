@@ -87,6 +87,12 @@ public class ReservationFragment extends BaseFragment<ReservationActivity, Reser
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.start();
+    }
+
+    @Override
     public void setPresenter(ReservationContract.Presenter presenter) {
         mPresenter = checkNotNull(presenter);
     }
