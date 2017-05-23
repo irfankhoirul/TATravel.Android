@@ -195,9 +195,22 @@ public class SearchFragment extends BaseFragment<MainActivity, SearchContract.Pr
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == ConstantUtils.ACTIVITY_REQUEST_CODE_DEPARTURE && resultCode == ConstantUtils.REQUEST_RESULT_SUCCESS) {
-            String departureLocation = data.getStringExtra("thoroughfare") + ",  " +
-                    data.getStringExtra("locality") + ", " +
-                    data.getStringExtra("sub_admin");
+            String departureLocation = "";
+            if (data.getStringExtra("thoroughfare") == null && data.getStringExtra("locality") == null &&
+                    data.getStringExtra("sub_admin") == null) {
+                departureLocation += String.valueOf(data.getDoubleExtra("latitude", 0)) + ", " +
+                        String.valueOf(data.getDoubleExtra("longitude", 0));
+            } else {
+                if (data.getStringExtra("thoroughfare") != null) {
+                    departureLocation += data.getStringExtra("thoroughfare");
+                }
+                if (data.getStringExtra("locality") != null) {
+                    departureLocation += ", " + data.getStringExtra("locality");
+                }
+                if (data.getStringExtra("sub_admin") != null) {
+                    departureLocation += ", " + data.getStringExtra("sub_admin");
+                }
+            }
 
             Map<String, String> departureData = new HashMap<>();
             departureData.put("address", departureLocation);
@@ -216,10 +229,22 @@ public class SearchFragment extends BaseFragment<MainActivity, SearchContract.Pr
             // Reset tanggal keberangkatan karena destination berubah / departure berubah
             resetDateView();
         } else if (requestCode == ConstantUtils.ACTIVITY_REQUEST_CODE_DESTINATION && resultCode == ConstantUtils.REQUEST_RESULT_SUCCESS) {
-            String destinationLocation = data.getStringExtra("thoroughfare") + ",  " +
-                    data.getStringExtra("locality") + ", " +
-                    data.getStringExtra("sub_admin");
-
+            String destinationLocation = "";
+            if (data.getStringExtra("thoroughfare") == null && data.getStringExtra("locality") == null &&
+                    data.getStringExtra("sub_admin") == null) {
+                destinationLocation += String.valueOf(data.getDoubleExtra("latitude", 0)) + ", " +
+                        String.valueOf(data.getDoubleExtra("longitude", 0));
+            } else {
+                if (data.getStringExtra("thoroughfare") != null) {
+                    destinationLocation += data.getStringExtra("thoroughfare");
+                }
+                if (data.getStringExtra("locality") != null) {
+                    destinationLocation += ", " + data.getStringExtra("locality");
+                }
+                if (data.getStringExtra("sub_admin") != null) {
+                    destinationLocation += ", " + data.getStringExtra("sub_admin");
+                }
+            }
             setDestinationView(destinationLocation);
 
             Map<String, String> destinationData = new HashMap<>();

@@ -24,10 +24,16 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.Places;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -55,6 +61,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static android.app.Activity.RESULT_CANCELED;
+import static android.app.Activity.RESULT_OK;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
@@ -81,6 +89,8 @@ public class DestinationFragment extends BaseFragment<MainActivity, DestinationC
     MapView mapViewDestination;
     @BindView(R.id.btSetDestination)
     Button btSetDestination;
+    @BindView(R.id.tvAutocompletePlace)
+    TextView tvAutocompletePlace;
 
     private GoogleMap destinationMap;
     private GoogleApiClient mGoogleApiClient;
@@ -111,20 +121,7 @@ public class DestinationFragment extends BaseFragment<MainActivity, DestinationC
         fragmentView = inflater.inflate(R.layout.fragment_destination, container, false);
         unbinder = ButterKnife.bind(this, fragmentView);
 
-        mapViewDestination.onCreate(savedInstanceState);
-        mapViewDestination.onResume(); // needed to get the map to display immediately
-        mapViewDestination.getMapAsync(this);
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    MapsInitializer.initialize(activity);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
+        setupMap(savedInstanceState);
 
         return fragmentView;
     }
@@ -143,6 +140,23 @@ public class DestinationFragment extends BaseFragment<MainActivity, DestinationC
         }
     }
 
+    private void setupMap(Bundle savedInstanceState) {
+        mapViewDestination.onCreate(savedInstanceState);
+        mapViewDestination.onResume(); // needed to get the map to display immediately
+        mapViewDestination.getMapAsync(this);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    MapsInitializer.initialize(activity);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         destinationMap = googleMap;
@@ -157,12 +171,55 @@ public class DestinationFragment extends BaseFragment<MainActivity, DestinationC
         }
     }
 
+    @OnClick(R.id.fabCurrentLocation)
+    public void fabCurrentLocation() {
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(latLng).zoom(16).build();
+
+        destinationMap.animateCamera(CameraUpdateFactory
+                .newCameraPosition(cameraPosition));
+    }
+
+    @OnClick(R.id.tvAutocompletePlace)
+    public void tvAutocompletePlace() {
+        try {
+            Intent intent = new PlaceAutocomplete
+                    .IntentBuilder(PlaceAutocomplete.MODE_OVERLAY)
+                    .build(activity);
+            startActivityForResult(intent, ConstantUtils.PLACE_AUTOCOMPLETE_REQUEST_CODE);
+        } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
+            e.printStackTrace();
+        }
+    }
+
     protected synchronized void buildGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(activity)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
+                .addApi(Places.GEO_DATA_API)
+                .addApi(Places.PLACE_DETECTION_API)
                 .addApi(LocationServices.API)
                 .build();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == ConstantUtils.PLACE_AUTOCOMPLETE_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                Place place = PlaceAutocomplete.getPlace(activity, data);
+                Log.v("GooglePlace", "Do! " + place.getName().toString());
+                CameraPosition cameraPosition = new CameraPosition.Builder()
+                        .target(place.getLatLng()).zoom(16).build();
+                tvAutocompletePlace.setText(place.getName());
+                destinationMap.animateCamera(CameraUpdateFactory
+                        .newCameraPosition(cameraPosition));
+            } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+                Status status = PlaceAutocomplete.getStatus(activity, data);
+                Log.v("GooglePlace", "Do! " + status.getStatusMessage());
+            } else if (resultCode == RESULT_CANCELED) {
+                Log.v("GooglePlace", "Do! " + "Canceled!");
+            }
+        }
     }
 
     @Override
@@ -233,7 +290,6 @@ public class DestinationFragment extends BaseFragment<MainActivity, DestinationC
 
         //zoom to current position:
         if (!mPresenter.isGotLocation()) {
-            Log.v("OnLocationChanged", location.getLatitude() + "; " + location.getLongitude());
             CameraPosition cameraPosition = new CameraPosition.Builder()
                     .target(latLng).zoom(16).build();
 
@@ -267,12 +323,14 @@ public class DestinationFragment extends BaseFragment<MainActivity, DestinationC
             showStatus(ConstantUtils.STATUS_INFO, "Operator Travel tersedia");
             btSetDestination.setEnabled(true);
             btSetDestination.setBackgroundColor(ContextCompat.getColor(activity, R.color.colorAccent));
+/*
             for (int i = 0; i < locations.size(); i++) {
                 destinationMap.addMarker(new MarkerOptions()
                         .position(new LatLng(Double.parseDouble(locations.get(i).getLatitude()),
                                 Double.parseDouble(locations.get(i).getLongitude())))
                         .title(locations.get(i).getOperatorTravel().getNama() + " - " + locations.get(i).getNama()));
             }
+*/
         } else {
             showStatus(ConstantUtils.STATUS_WARNING, "Operator Travel tidak ditemukan");
             btSetDestination.setEnabled(false);
@@ -285,7 +343,8 @@ public class DestinationFragment extends BaseFragment<MainActivity, DestinationC
         final double tmpLat = destinationMap.getCameraPosition().target.latitude;
         final double tmpLon = destinationMap.getCameraPosition().target.longitude;
         setLoadingDialog(true, "Tunggu sebentar...");
-        new Thread(new Runnable() {
+
+        Runnable runnable = new Runnable() {
             @Override
             public void run() {
                 List<Address> addresses = null;
@@ -313,7 +372,15 @@ public class DestinationFragment extends BaseFragment<MainActivity, DestinationC
                     showToast(ConstantUtils.STATUS_ERROR, "Gagal mendapatkan lokasi");
                 }
             }
-        }).start();
+        };
+        Thread thread = new Thread(runnable);
+        thread.setUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+            @Override
+            public void uncaughtException(Thread t, Throwable e) {
+                showToast(ConstantUtils.STATUS_ERROR, "Gagal mendapatkan lokasi");
+            }
+        });
+        thread.start();
     }
 
     @OnClick(R.id.btCheckAvailability)

@@ -14,6 +14,7 @@ import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,10 +24,16 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.Places;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -61,6 +68,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static android.app.Activity.RESULT_CANCELED;
+import static android.app.Activity.RESULT_OK;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
@@ -88,6 +97,8 @@ public class DepartureFragment extends BaseFragment<MainActivity, DepartureContr
     MapView mapViewDeparture;
     @BindView(R.id.btSetDeparture)
     Button btSetDeparture;
+    @BindView(R.id.tvAutocompletePlace)
+    TextView tvAutocompletePlace;
 
     @Inject
     TravelChoiceDialogPresenter travelChoiceDialogPresenter;
@@ -112,20 +123,7 @@ public class DepartureFragment extends BaseFragment<MainActivity, DepartureContr
         fragmentView = inflater.inflate(R.layout.fragment_departure, container, false);
         unbinder = ButterKnife.bind(this, fragmentView);
 
-        mapViewDeparture.onCreate(savedInstanceState);
-        mapViewDeparture.onResume(); // needed to get the map to display immediately
-        mapViewDeparture.getMapAsync(this);
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    MapsInitializer.initialize(activity);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
+        setupMap(savedInstanceState);
 
         return fragmentView;
     }
@@ -141,6 +139,44 @@ public class DepartureFragment extends BaseFragment<MainActivity, DepartureContr
         super.onDetach();
         if (mGoogleApiClient != null) {
             mGoogleApiClient.disconnect();
+        }
+    }
+
+    private void setupMap(Bundle savedInstanceState) {
+        mapViewDeparture.onCreate(savedInstanceState);
+        mapViewDeparture.onResume(); // needed to get the map to display immediately
+        mapViewDeparture.getMapAsync(this);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    MapsInitializer.initialize(activity);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    @OnClick(R.id.fabCurrentLocation)
+    public void fabCurrentLocation() {
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(latLng).zoom(16).build();
+
+        departureMap.animateCamera(CameraUpdateFactory
+                .newCameraPosition(cameraPosition));
+    }
+
+    @OnClick(R.id.tvAutocompletePlace)
+    public void tvAutocompletePlace() {
+        try {
+            Intent intent = new PlaceAutocomplete
+                    .IntentBuilder(PlaceAutocomplete.MODE_OVERLAY)
+                    .build(activity);
+            startActivityForResult(intent, ConstantUtils.PLACE_AUTOCOMPLETE_REQUEST_CODE);
+        } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
+            e.printStackTrace();
         }
     }
 
@@ -164,6 +200,26 @@ public class DepartureFragment extends BaseFragment<MainActivity, DepartureContr
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == ConstantUtils.PLACE_AUTOCOMPLETE_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                Place place = PlaceAutocomplete.getPlace(activity, data);
+                Log.v("GooglePlace", "Do! " + place.getName().toString());
+                CameraPosition cameraPosition = new CameraPosition.Builder()
+                        .target(place.getLatLng()).zoom(16).build();
+                tvAutocompletePlace.setText(place.getName());
+                departureMap.animateCamera(CameraUpdateFactory
+                        .newCameraPosition(cameraPosition));
+            } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+                Status status = PlaceAutocomplete.getStatus(activity, data);
+                Log.v("GooglePlace", "Do! " + status.getStatusMessage());
+            } else if (resultCode == RESULT_CANCELED) {
+                Log.v("GooglePlace", "Do! " + "Canceled!");
+            }
+        }
+    }
+
+    @Override
     public void onMapReady(GoogleMap googleMap) {
         departureMap = googleMap;
         if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -177,9 +233,12 @@ public class DepartureFragment extends BaseFragment<MainActivity, DepartureContr
     }
 
     protected synchronized void buildGoogleApiClient() {
-        mGoogleApiClient = new GoogleApiClient.Builder(activity)
+        mGoogleApiClient = new GoogleApiClient
+                .Builder(activity)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
+                .addApi(Places.GEO_DATA_API)
+                .addApi(Places.PLACE_DETECTION_API)
                 .addApi(LocationServices.API)
                 .build();
     }
@@ -284,12 +343,14 @@ public class DepartureFragment extends BaseFragment<MainActivity, DepartureContr
             showStatus(ConstantUtils.STATUS_INFO, mPresenter.prepareOperatorTraveldata(locations).size() + " Operator Travel tersedia");
             btSetDeparture.setEnabled(true);
             btSetDeparture.setBackgroundColor(ContextCompat.getColor(activity, R.color.colorAccent));
+/*
             for (int i = 0; i < locations.size(); i++) {
                 departureMap.addMarker(new MarkerOptions()
                         .position(new LatLng(Double.parseDouble(locations.get(i).getLatitude()),
                                 Double.parseDouble(locations.get(i).getLongitude())))
                         .title(locations.get(i).getOperatorTravel().getNama() + " - " + locations.get(i).getNama()));
             }
+*/
         } else {
             showStatus(ConstantUtils.STATUS_WARNING, "Operator Travel tidak ditemukan");
             btSetDeparture.setEnabled(false);
@@ -334,6 +395,13 @@ public class DepartureFragment extends BaseFragment<MainActivity, DepartureContr
                 }
             }
         };
-        new Thread(runnable).start();
+        Thread thread = new Thread(runnable);
+        thread.setUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+            @Override
+            public void uncaughtException(Thread t, Throwable e) {
+                showToast(ConstantUtils.STATUS_ERROR, "Gagal mendapatkan lokasi");
+            }
+        });
+        thread.start();
     }
 }

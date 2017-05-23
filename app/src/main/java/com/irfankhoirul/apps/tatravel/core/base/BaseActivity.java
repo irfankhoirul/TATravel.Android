@@ -29,11 +29,6 @@ public abstract class BaseActivity extends FragmentActivity implements BaseFragm
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initializeView();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
         initializeFragment();
     }
 
