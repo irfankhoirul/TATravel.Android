@@ -8,7 +8,7 @@ import android.app.Application;
 
 public class TAApplication extends Application {
 
-    AppComponent appComponent;
+    private AppComponent appComponent;
 
     @Override
     public void onCreate() {
@@ -17,7 +17,7 @@ public class TAApplication extends Application {
         appComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(getApplicationContext()))
                 .build();
-        appComponent.inject(this);
+//        appComponent.inject(this);
     }
 
     public AppComponent getAppComponent() {

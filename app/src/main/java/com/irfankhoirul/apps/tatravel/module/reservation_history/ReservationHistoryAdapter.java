@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.irfankhoirul.apps.tatravel.R;
+import com.irfankhoirul.apps.tatravel.core.components.util.DateUtils;
 import com.irfankhoirul.apps.tatravel.data.pojo.Pemesanan;
 import com.squareup.picasso.Picasso;
 
@@ -17,6 +18,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -56,6 +58,28 @@ public class ReservationHistoryAdapter extends RecyclerView.Adapter<ReservationH
             }
         });
 
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
+            Date date = dateFormat.parse(item.getCreatedAt());
+            holder.tvOrderDate.setText(DateUtils.getStandardDayFormat(date.getTime()));
+            holder.tvOrderDate.setVisibility(View.VISIBLE);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            holder.tvOrderDate.setVisibility(View.GONE);
+        }
+
+//        String dateCreated = item.getCreatedAt().substring(0, 9);
+//        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+//        Date date;
+//        try {
+//            date = df.parse(dateCreated);
+//            holder.tvOrderDate.setText(DateUtils.getStandardDayFormat(date.getTime()));
+//            holder.tvOrderDate.setVisibility(View.VISIBLE);
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//            holder.tvOrderDate.setVisibility(View.GONE);
+//        }
+
         if (item.getJadwalPerjalanan().getOperatorTravel().getLogo() != null) {
             Picasso.with(holder.ivTravelLogo.getContext())
                     .load(item.getJadwalPerjalanan().getOperatorTravel().getLogo())
@@ -70,16 +94,25 @@ public class ReservationHistoryAdapter extends RecyclerView.Adapter<ReservationH
         try {
             Calendar scheduleCalendar = Calendar.getInstance();
             scheduleCalendar.setTimeInMillis(format.parse(item.getJadwalPerjalanan().getTanggalKeberangkatan()).getTime());
-            if (scheduleCalendar.after(today)) {
+            if (item.getPembayaran().getStatus().equalsIgnoreCase("O")) {
                 holder.llReservationHistoryContainer.setBackgroundColor(
-                        ContextCompat.getColor(holder.llReservationHistoryContainer.getContext(), R.color.green_50));
-            } else if (scheduleCalendar.get(Calendar.DAY_OF_YEAR) == today.get(Calendar.DAY_OF_YEAR)
-                    && scheduleCalendar.get(Calendar.YEAR) == today.get(Calendar.YEAR)) {
-                holder.llReservationHistoryContainer.setBackgroundColor(
-                        ContextCompat.getColor(holder.llReservationHistoryContainer.getContext(), R.color.blue_50));
+                        ContextCompat.getColor(holder.llReservationHistoryContainer.getContext(),
+                                R.color.red_50));
             } else {
-                holder.llReservationHistoryContainer.setBackgroundColor(
-                        ContextCompat.getColor(holder.llReservationHistoryContainer.getContext(), R.color.grey_100));
+                if (scheduleCalendar.after(today)) {
+                    holder.llReservationHistoryContainer.setBackgroundColor(
+                            ContextCompat.getColor(holder.llReservationHistoryContainer.getContext(),
+                                    R.color.green_50));
+                } else if (scheduleCalendar.get(Calendar.DAY_OF_YEAR) == today.get(Calendar.DAY_OF_YEAR)
+                        && scheduleCalendar.get(Calendar.YEAR) == today.get(Calendar.YEAR)) {
+                    holder.llReservationHistoryContainer.setBackgroundColor(
+                            ContextCompat.getColor(holder.llReservationHistoryContainer.getContext(),
+                                    R.color.blue_50));
+                } else {
+                    holder.llReservationHistoryContainer.setBackgroundColor(
+                            ContextCompat.getColor(holder.llReservationHistoryContainer.getContext(),
+                                    R.color.grey_100));
+                }
             }
         } catch (ParseException e) {
             e.printStackTrace();
@@ -88,10 +121,19 @@ public class ReservationHistoryAdapter extends RecyclerView.Adapter<ReservationH
         holder.tvTravelName.setText(item.getJadwalPerjalanan().getOperatorTravel().getNama());
         if (item.getPembayaran().getStatus().equalsIgnoreCase("P")) {
             holder.tvStatus.setText("Sudah Dibayar");
+            holder.tvStatus.setTextColor(
+                    ContextCompat.getColor(holder.llReservationHistoryContainer.getContext(),
+                            R.color.colorPrimary));
         } else if (item.getPembayaran().getStatus().equalsIgnoreCase("U")) {
             holder.tvStatus.setText("Belum Dibayar");
+            holder.tvStatus.setTextColor(
+                    ContextCompat.getColor(holder.llReservationHistoryContainer.getContext(),
+                            R.color.colorAccent));
         } else if (item.getPembayaran().getStatus().equalsIgnoreCase("O")) {
             holder.tvStatus.setText("Waktu Pembayaran Habis");
+            holder.tvStatus.setTextColor(
+                    ContextCompat.getColor(holder.llReservationHistoryContainer.getContext(),
+                            R.color.alizarin));
         }
 
         holder.tvDepartureLocation.setText(item.getJadwalPerjalanan().getLokasiPemberangkatan().getNama() + ", " +
@@ -131,6 +173,8 @@ public class ReservationHistoryAdapter extends RecyclerView.Adapter<ReservationH
         TextView tvDestinationLocation;
         @BindView(R.id.tvDestinationTime)
         TextView tvDestinationTime;
+        @BindView(R.id.tvOrderDate)
+        TextView tvOrderDate;
 
         public ScheduleViewHolder(View view) {
             super(view);

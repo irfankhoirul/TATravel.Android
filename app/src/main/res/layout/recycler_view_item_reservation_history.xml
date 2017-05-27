@@ -37,12 +37,19 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tvOrderDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Senin, 27 April 2017" />
+
+                <TextView
                     android:id="@+id/tvTravelName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-medium"
                     android:text="Nama Travel Pilihan Anda"
-                    android:textColor="@color/font_black_primary" />
+                    android:textColor="@color/font_black_primary"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/tvStatus"

@@ -15,7 +15,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils.BASE_API_URL;
+import static com.irfankhoirul.apps.tatravel.data.source.remote.EndPoints.BASE_API_URL;
 
 /**
  * Interactor merupakan bagian dari data layer yang berfungsi untuk fetching data

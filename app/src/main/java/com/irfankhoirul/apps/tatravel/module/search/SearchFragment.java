@@ -271,11 +271,11 @@ public class SearchFragment extends BaseFragment<MainActivity, SearchContract.Pr
             }
         } else if (requestCode == ConstantUtils.ACTIVITY_REQUEST_CODE_SCHEDULE) {
             if (resultCode == ConstantUtils.REQUEST_RESULT_SUCCESS) {
-                resetDepartureView();
-                resetDestinationView();
-                resetDateView();
-                resetPassengerView();
-                mPresenter.start();
+//                resetDepartureView();
+//                resetDestinationView();
+//                resetDateView();
+//                resetPassengerView();
+//                mPresenter.start();
                 Intent intent = new Intent(activity, ReservationDetailActivity.class);
                 startActivityForResult(intent, ConstantUtils.ACTIVITY_REQUEST_CODE_DETAIL_RESERVATION);
             }
@@ -423,12 +423,19 @@ public class SearchFragment extends BaseFragment<MainActivity, SearchContract.Pr
 
     @OnClick(R.id.btSearchSchedule)
     public void btSearchSchedule() {
-        if (mPresenter.isDepartureSet() && mPresenter.isDestinationSet() &&
-                mPresenter.isDateSet() && mPresenter.isPassengerSet()) {
+        if (!mPresenter.isDepartureSet()) {
+            showStatus(ConstantUtils.STATUS_ERROR, "Anda belum memilih lokasi keberangkatan");
+        } else if (!mPresenter.isDestinationSet()) {
+            showStatus(ConstantUtils.STATUS_ERROR, "Anda belum memilih lokasi tujuan");
+        } else if (!mPresenter.isDateSet()) {
+            showStatus(ConstantUtils.STATUS_ERROR, "Anda belum memilih tanggal keberangkatan");
+        } else if (!mPresenter.isPassengerSet()) {
+            showStatus(ConstantUtils.STATUS_ERROR, "Anda belum menambahkan penumpang");
+        } else if (!mPresenter.isLoggedIn()) {
+            redirectToLoginOrRegister();
+        } else {
             Intent intent = new Intent(activity, ScheduleActivity.class);
             startActivityForResult(intent, ConstantUtils.ACTIVITY_REQUEST_CODE_SCHEDULE);
-        } else {
-            showStatus(ConstantUtils.STATUS_ERROR, "Anda belum menambahkan penumpang");
         }
     }
 

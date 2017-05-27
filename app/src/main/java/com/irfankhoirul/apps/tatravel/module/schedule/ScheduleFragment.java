@@ -174,7 +174,9 @@ public class ScheduleFragment extends BaseFragment<ScheduleActivity, ScheduleCon
     public void onNext(JadwalPerjalanan schedule) {
         // Intent ke activity seat
         Intent intent = new Intent(activity, SeatActivity.class);
-        intent.putExtra("scheduleId", schedule.getId());
+        Bundle bundle = new Bundle();
+        bundle.putInt("scheduleId", schedule.getId());
+        intent.putExtras(bundle);
         startActivityForResult(intent, ConstantUtils.ACTIVITY_REQUEST_CODE_SEAT);
     }
 }

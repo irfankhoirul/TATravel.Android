@@ -20,7 +20,7 @@ import dagger.Component;
 @Singleton
 @Component(modules = {AppModule.class})
 public interface AppComponent {
-    void inject(TAApplication taApplication);
+//    void inject(TAApplication taApplication);
 
     SessionRepository session();
 

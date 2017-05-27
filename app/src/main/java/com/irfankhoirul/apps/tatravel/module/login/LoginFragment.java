@@ -101,26 +101,12 @@ public class LoginFragment extends BaseFragment<LoginActivity, LoginContract.Pre
         super.onCreateView(inflater, container, savedInstanceState);
         fragmentView = inflater.inflate(R.layout.fragment_login, container, false);
         unbinder = ButterKnife.bind(this, fragmentView);
+
         setupFacebook();
         setupGoogle();
 
         return fragmentView;
     }
-
-//    @SuppressWarnings("unchecked")
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        this.activity = (LoginActivity) context;
-//        this.fragmentListener = (FragmentListener) context;
-//    }
-//
-//    @Override
-//    public void onDetach() {
-////        this.activity = null;
-//        this.fragmentListener = null;
-//        super.onDetach();
-//    }
 
     @Override
     public void onResume() {
@@ -131,9 +117,19 @@ public class LoginFragment extends BaseFragment<LoginActivity, LoginContract.Pre
     @Override
     public void onPause() {
         super.onPause();
+        if (mGoogleApiClient != null) {
+            mGoogleApiClient.stopAutoManage(activity);
+            mGoogleApiClient.disconnect();
+        }
+    }
 
-        mGoogleApiClient.stopAutoManage(activity);
-        mGoogleApiClient.disconnect();
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mGoogleApiClient != null) {
+            mGoogleApiClient.stopAutoManage(activity);
+            mGoogleApiClient.disconnect();
+        }
     }
 
     private void setupFacebook() {

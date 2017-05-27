@@ -1,12 +1,14 @@
 package com.irfankhoirul.apps.tatravel.core.base;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +48,20 @@ public abstract class BaseFragment<T extends FragmentActivity, U extends IBasePr
 
     public boolean isLoading() {
         return loading;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (mPresenter == null) {
+            Log.v("mPresenter", "Null");
+            Intent intent = new Intent(activity, activity.getClass());
+            if (getArguments() != null) {
+                intent.putExtras(getArguments());
+            }
+            startActivity(intent);
+            activity.finish();
+        }
     }
 
     @Nullable

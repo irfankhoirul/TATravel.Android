@@ -72,7 +72,9 @@ public class ReservationHistoryPresenter implements ReservationHistoryContract.P
                             view.showDataExist();
                             view.updateReservationList(result.getDatas(), result.getDataPage(), params);
                         } else {
-                            view.showDataNotExist();
+                            if (result.getDataPage().getCurrentPage() == 1) {
+                                view.showDataNotExist();
+                            }
                         }
                     } else {
                         view.setLoadingDialog(false, null);

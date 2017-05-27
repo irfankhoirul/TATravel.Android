@@ -124,9 +124,19 @@ public class RegisterFragment extends BaseFragment<RegisterActivity, RegisterCon
     @Override
     public void onPause() {
         super.onPause();
+        if (mGoogleApiClient != null) {
+            mGoogleApiClient.stopAutoManage(activity);
+            mGoogleApiClient.disconnect();
+        }
+    }
 
-        mGoogleApiClient.stopAutoManage(activity);
-        mGoogleApiClient.disconnect();
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mGoogleApiClient != null) {
+            mGoogleApiClient.stopAutoManage(activity);
+            mGoogleApiClient.disconnect();
+        }
     }
 
     private void setupFacebook() {

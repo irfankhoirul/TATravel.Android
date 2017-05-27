@@ -20,20 +20,16 @@ import java.util.Map;
 public class Cart implements CartRepository {
 
     private static String SHARED_PREFERENCE_NAME = "Cart";
-    SharedPreferences sharedPref;
-    SharedPreferences.Editor editor;
+    private SharedPreferences sharedPref;
     private Cart cart;
 
     public Cart(Context mContext) {
         sharedPref = mContext.getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
-        editor = sharedPref.edit();
-        editor.clear();
-        editor.apply();
     }
 
     @Override
     public void clearCart() {
-        editor.clear().apply();
+        sharedPref.edit().clear().apply();
     }
 
     @Override
@@ -55,12 +51,14 @@ public class Cart implements CartRepository {
      */
     @Override
     public void setDeparture(Map<String, String> departureData) {
+        SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString("departure", new Gson().toJson(departureData));
         editor.apply();
     }
 
     @Override
     public void clearDeparture() {
+        SharedPreferences.Editor editor = sharedPref.edit();
         editor.remove("departure");
         editor.apply();
     }
@@ -83,12 +81,14 @@ public class Cart implements CartRepository {
      */
     @Override
     public void setDestination(Map<String, String> destinationData) {
+        SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString("destination", new Gson().toJson(destinationData));
         editor.apply();
     }
 
     @Override
     public void clearDestination() {
+        SharedPreferences.Editor editor = sharedPref.edit();
         editor.remove("destination");
         editor.apply();
     }
@@ -100,12 +100,14 @@ public class Cart implements CartRepository {
 
     @Override
     public void setTanggalKeberangkatan(long date) {
+        SharedPreferences.Editor editor = sharedPref.edit();
         editor.putLong("tanggalKeberangkatan", date);
         editor.apply();
     }
 
     @Override
     public void clearTanggalKeberangkatan() {
+        SharedPreferences.Editor editor = sharedPref.edit();
         editor.remove("tanggalKeberangkatan");
         editor.apply();
     }
@@ -117,6 +119,7 @@ public class Cart implements CartRepository {
 
     @Override
     public void setPulangPergi(boolean isPulangPergi) {
+        SharedPreferences.Editor editor = sharedPref.edit();
         editor.putBoolean("pulangPergi", isPulangPergi);
         editor.apply();
     }
@@ -128,12 +131,14 @@ public class Cart implements CartRepository {
 
     @Override
     public void setTanggalKepulangan(long date) {
+        SharedPreferences.Editor editor = sharedPref.edit();
         editor.putLong("tanggalKepulangan", date);
         editor.apply();
     }
 
     @Override
     public void clearTanggalKepulangan() {
+        SharedPreferences.Editor editor = sharedPref.edit();
         editor.remove("tanggalKepulangan");
         editor.apply();
     }
@@ -152,12 +157,14 @@ public class Cart implements CartRepository {
      */
     @Override
     public void setPenumpang(List<Penumpang> penumpangList) {
+        SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString("penumpang", new Gson().toJson(penumpangList));
         editor.apply();
     }
 
     @Override
     public void clearPenumpang() {
+        SharedPreferences.Editor editor = sharedPref.edit();
         editor.remove("penumpang");
         editor.apply();
     }
@@ -172,12 +179,14 @@ public class Cart implements CartRepository {
 
     @Override
     public void setSchedule(JadwalPerjalanan schedule) {
+        SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString("jadwalPerjalanan", new Gson().toJson(schedule));
         editor.apply();
     }
 
     @Override
     public void clearSchedule() {
+        SharedPreferences.Editor editor = sharedPref.edit();
         editor.remove("jadwalPerjalanan");
         editor.apply();
     }
@@ -193,12 +202,14 @@ public class Cart implements CartRepository {
 
     @Override
     public void setSeat(List<KursiPerjalanan> seats) {
+        SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString("kursiPerjalanan", new Gson().toJson(seats));
         editor.apply();
     }
 
     @Override
     public void clearSeat() {
+        SharedPreferences.Editor editor = sharedPref.edit();
         editor.remove("kursiPerjalanan");
         editor.apply();
     }
@@ -210,12 +221,14 @@ public class Cart implements CartRepository {
 
     @Override
     public void setSeatSetTime(long seatSetTime) {
+        SharedPreferences.Editor editor = sharedPref.edit();
         editor.putLong("seatSetTime", seatSetTime);
         editor.apply();
     }
 
     @Override
     public void clearSeatSetTime() {
+        SharedPreferences.Editor editor = sharedPref.edit();
         editor.remove("seatSetTime");
         editor.apply();
     }
@@ -230,6 +243,7 @@ public class Cart implements CartRepository {
 
     @Override
     public void setLastReservation(Pemesanan reservation) {
+        SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString("reservation", new Gson().toJson(reservation));
         editor.apply();
     }

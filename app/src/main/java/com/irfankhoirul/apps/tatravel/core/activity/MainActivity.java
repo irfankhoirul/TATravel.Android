@@ -2,7 +2,6 @@ package com.irfankhoirul.apps.tatravel.core.activity;
 
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.PopupMenu;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -82,6 +81,7 @@ public class MainActivity extends BaseActivity implements
 
     @Inject
     SearchPresenter searchPresenter;
+
     int lastActiveFragment = 0;
     private SearchFragment searchFragment;
     private ReservationHistoryFragment reservationHistoryFragment;
@@ -98,7 +98,6 @@ public class MainActivity extends BaseActivity implements
             llProfile();
         } else {
             searchFragment = new SearchFragment();
-            lastActiveFragment = 1;
             currentFragment = searchFragment;
             setCurrentFragment(currentFragment, false);
 
@@ -241,7 +240,6 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     public void onLogoutSuccess() {
-        Log.v("Logout", "Success");
         resetOptionMenu();
         if (loginOrRegisterFragment != null) {
             setCurrentFragment(loginOrRegisterFragment, false);

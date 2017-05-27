@@ -43,20 +43,22 @@ public class SearchPresenter implements SearchContract.Presenter {
 
     @Override
     public void start() {
-        if (cartRepository.getDeparture() != null) {
-            view.setDepartureView(cartRepository.getDeparture().get("address"));
-        }
+        if (isLoggedIn()) {
+            if (cartRepository.getDeparture() != null) {
+                view.setDepartureView(cartRepository.getDeparture().get("address"));
+            }
 
-        if (cartRepository.getDestination() != null) {
-            view.setDestinationView(cartRepository.getDestination().get("address"));
-        }
+            if (cartRepository.getDestination() != null) {
+                view.setDestinationView(cartRepository.getDestination().get("address"));
+            }
 
-        if (cartRepository.getTanggalKeberangkatan() != 0) {
-            view.setDateView(cartRepository.getTanggalKeberangkatan());
-        }
+            if (cartRepository.getTanggalKeberangkatan() != 0) {
+                view.setDateView(cartRepository.getTanggalKeberangkatan());
+            }
 
-        if (cartRepository.getPenumpang() != null && cartRepository.getPenumpang().size() > 0) {
-            view.setPassengerView(cartRepository.getPenumpang());
+            if (cartRepository.getPenumpang() != null && cartRepository.getPenumpang().size() > 0) {
+                view.setPassengerView(cartRepository.getPenumpang());
+            }
         }
     }
 
