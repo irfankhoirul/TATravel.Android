@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.app.TAApplication;
-import com.irfankhoirul.apps.tatravel.core.base.BaseActivity;
 import com.irfankhoirul.apps.tatravel.module.login_or_register.LoginOrRegisterFragment;
 import com.irfankhoirul.apps.tatravel.module.login_or_register.LoginOrRegisterPresenter;
 import com.irfankhoirul.apps.tatravel.module.login_or_register.LoginOrRegisterPresenterModule;
@@ -27,6 +26,7 @@ import com.irfankhoirul.apps.tatravel.module.search.DaggerSearchComponent;
 import com.irfankhoirul.apps.tatravel.module.search.SearchFragment;
 import com.irfankhoirul.apps.tatravel.module.search.SearchPresenter;
 import com.irfankhoirul.apps.tatravel.module.search.SearchPresenterModule;
+import com.irfankhoirul.mvp_core.base.BaseActivity;
 
 import javax.inject.Inject;
 
@@ -45,10 +45,8 @@ public class MainActivity extends BaseActivity implements
         SearchFragment.FragmentListener,
         ProfileFragment.FragmentListener {
 
-    @BindView(R.id.tvToolbarTitle)
-    protected TextView tvToolbarTitle;
     @BindView(R.id.btOptionMenu)
-    protected ImageButton btOptionMenu;
+    ImageButton btOptionMenu;
     @BindView(R.id.flFragmentContainer)
     FrameLayout flFragmentContainer;
     @BindView(R.id.btBack)
@@ -135,11 +133,6 @@ public class MainActivity extends BaseActivity implements
         ButterKnife.bind(this);
         btBack.setVisibility(View.GONE);
         ivIcon.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    protected TextView getTvToolbarTitle() {
-        return tvToolbarTitle;
     }
 
     @OnClick(R.id.llSearch)
@@ -272,5 +265,10 @@ public class MainActivity extends BaseActivity implements
     @OnClick(R.id.btBack)
     public void btBack() {
         onBackPressed();
+    }
+
+    @Override
+    public void setTitle(String title) {
+        tvToolbarTitle.setText(title);
     }
 }

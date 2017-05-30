@@ -11,8 +11,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.irfankhoirul.apps.tatravel.R;
-import com.irfankhoirul.apps.tatravel.core.base.BaseDialog;
 import com.irfankhoirul.apps.tatravel.data.pojo.Penumpang;
+import com.irfankhoirul.apps.tatravel.module.passenger.PassengerActivity;
+import com.irfankhoirul.mvp_core.base.BaseDialog;
 
 import org.parceler.Parcels;
 
@@ -26,13 +27,14 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * Created by Irfan Khoirul on 12/25/2016.
  */
 
-public class PassengerCreatorDialog extends BaseDialog implements PassengerCreatorDialogContract.View {
+public class PassengerCreatorDialog extends BaseDialog<PassengerActivity, PassengerCreatorDialogContract.Presenter>
+        implements PassengerCreatorDialogContract.View {
 
     @BindView(R.id.tilPassengerName)
     TextInputLayout tilPassengerName;
     @BindView(R.id.etPassengerName)
     EditText etPassengerName;
-    PassengerCreatorDialogContract.Presenter mPresenter;
+
     private Penumpang passenger;
     private DialogListener listener;
 

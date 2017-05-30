@@ -1,13 +1,13 @@
 package com.irfankhoirul.apps.tatravel.module.profile_editor;
 
-import com.irfankhoirul.apps.tatravel.core.data.DataResult;
-import com.irfankhoirul.apps.tatravel.core.data.IRequestResponseListener;
-import com.irfankhoirul.apps.tatravel.core.utils.ConstantUtils;
+import com.irfankhoirul.apps.tatravel.components.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.data.pojo.Kota;
 import com.irfankhoirul.apps.tatravel.data.pojo.Provinsi;
 import com.irfankhoirul.apps.tatravel.data.pojo.User;
 import com.irfankhoirul.apps.tatravel.data.source.locale.session.SessionRepository;
 import com.irfankhoirul.apps.tatravel.data.source.remote.user.UserRepository;
+import com.irfankhoirul.mvp_core.data.DataResult;
+import com.irfankhoirul.mvp_core.data.IRequestResponseListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;

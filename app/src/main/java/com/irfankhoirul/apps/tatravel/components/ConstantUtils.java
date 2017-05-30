@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.core.utils;
+package com.irfankhoirul.apps.tatravel.components;
 
 /**
  * Berisi konstanta yang digunakan pada lebih dari 1 kelas

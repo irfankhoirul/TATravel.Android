@@ -1,8 +1,8 @@
 package com.irfankhoirul.apps.tatravel.module.schedule_detail;
 
-import com.irfankhoirul.apps.tatravel.core.base.IBasePresenter;
-import com.irfankhoirul.apps.tatravel.core.base.IBaseView;
 import com.irfankhoirul.apps.tatravel.data.pojo.JadwalPerjalanan;
+import com.irfankhoirul.mvp_core.base.IBasePresenter;
+import com.irfankhoirul.mvp_core.base.IBaseView;
 
 /**
  * Created by Irfan Khoirul on 12/25/2016.

@@ -24,16 +24,16 @@ import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.google.gson.Gson;
 import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.activity.MainActivity;
-import com.irfankhoirul.apps.tatravel.core.base.BaseFragment;
-import com.irfankhoirul.apps.tatravel.core.utils.ConstantUtils;
-import com.irfankhoirul.apps.tatravel.core.utils.DateUtils;
-import com.irfankhoirul.apps.tatravel.core.utils.DisplayMetricUtils;
+import com.irfankhoirul.apps.tatravel.components.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.data.pojo.Penumpang;
 import com.irfankhoirul.apps.tatravel.module.departure.DepartureActivity;
 import com.irfankhoirul.apps.tatravel.module.destination.DestinationActivity;
 import com.irfankhoirul.apps.tatravel.module.passenger.PassengerActivity;
 import com.irfankhoirul.apps.tatravel.module.reservation_detail.ReservationDetailActivity;
 import com.irfankhoirul.apps.tatravel.module.schedule.ScheduleActivity;
+import com.irfankhoirul.mvp_core.base.BaseFragment;
+import com.irfankhoirul.mvp_core.utils.DateUtils;
+import com.irfankhoirul.mvp_core.utils.DisplayMetricUtils;
 
 import org.parceler.Parcels;
 
@@ -48,6 +48,7 @@ import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import static com.irfankhoirul.mvp_core.utils.Constant.STATUS_ERROR;
 
 /**
  * @author Irfan Khoirul Muhlishin - irfankhoirul@gmail.com
@@ -427,13 +428,13 @@ public class SearchFragment extends BaseFragment<MainActivity, SearchContract.Pr
     @OnClick(R.id.btSearchSchedule)
     public void btSearchSchedule() {
         if (!mPresenter.isDepartureSet()) {
-            showStatus(ConstantUtils.STATUS_ERROR, "Anda belum memilih lokasi keberangkatan");
+            showStatus(STATUS_ERROR, "Anda belum memilih lokasi keberangkatan");
         } else if (!mPresenter.isDestinationSet()) {
-            showStatus(ConstantUtils.STATUS_ERROR, "Anda belum memilih lokasi tujuan");
+            showStatus(STATUS_ERROR, "Anda belum memilih lokasi tujuan");
         } else if (!mPresenter.isDateSet()) {
-            showStatus(ConstantUtils.STATUS_ERROR, "Anda belum memilih tanggal keberangkatan");
+            showStatus(STATUS_ERROR, "Anda belum memilih tanggal keberangkatan");
         } else if (!mPresenter.isPassengerSet()) {
-            showStatus(ConstantUtils.STATUS_ERROR, "Anda belum menambahkan penumpang");
+            showStatus(STATUS_ERROR, "Anda belum menambahkan penumpang");
         } else if (!mPresenter.isLoggedIn()) {
             redirectToLoginOrRegister();
         } else {

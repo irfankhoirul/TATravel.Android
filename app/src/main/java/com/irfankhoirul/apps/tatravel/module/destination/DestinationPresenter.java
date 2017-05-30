@@ -1,10 +1,10 @@
 package com.irfankhoirul.apps.tatravel.module.destination;
 
-import com.irfankhoirul.apps.tatravel.core.data.DataResult;
-import com.irfankhoirul.apps.tatravel.core.data.IRequestResponseListener;
-import com.irfankhoirul.apps.tatravel.core.utils.ConstantUtils;
+import com.irfankhoirul.apps.tatravel.components.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.data.pojo.Lokasi;
 import com.irfankhoirul.apps.tatravel.data.source.remote.schedule.ScheduleRepository;
+import com.irfankhoirul.mvp_core.data.DataResult;
+import com.irfankhoirul.mvp_core.data.IRequestResponseListener;
 
 import java.util.ArrayList;
 import java.util.List;

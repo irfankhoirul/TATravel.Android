@@ -1,9 +1,9 @@
 package com.irfankhoirul.apps.tatravel.module.seat;
 
-import com.irfankhoirul.apps.tatravel.core.base.IBasePresenter;
-import com.irfankhoirul.apps.tatravel.core.base.IBaseView;
 import com.irfankhoirul.apps.tatravel.data.pojo.KursiPerjalanan;
 import com.irfankhoirul.apps.tatravel.data.source.locale.cart.CartRepository;
+import com.irfankhoirul.mvp_core.base.IBasePresenter;
+import com.irfankhoirul.mvp_core.base.IBaseView;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package com.irfankhoirul.apps.tatravel.data.source.remote.reservation;
 
-import com.irfankhoirul.apps.tatravel.core.data.DataResult;
 import com.irfankhoirul.apps.tatravel.data.pojo.Pemesanan;
+import com.irfankhoirul.mvp_core.data.DataResult;
 
 import java.util.Map;
 

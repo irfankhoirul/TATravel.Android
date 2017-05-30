@@ -5,8 +5,8 @@ import android.view.View;
 
 import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.app.TAApplication;
-import com.irfankhoirul.apps.tatravel.core.base.BaseFragmentHolderActivity;
 import com.irfankhoirul.apps.tatravel.data.pojo.Penumpang;
+import com.irfankhoirul.mvp_core.base.BaseFragmentHolderActivity;
 
 import org.parceler.Parcels;
 
@@ -20,6 +20,7 @@ public class PassengerActivity extends BaseFragmentHolderActivity {
 
     @Inject
     PassengerPresenter mPresenter;
+
     private PassengerFragment passengerFragment;
 
     @Override

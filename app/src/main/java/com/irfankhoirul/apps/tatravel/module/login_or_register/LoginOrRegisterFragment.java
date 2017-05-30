@@ -11,10 +11,10 @@ import android.view.ViewGroup;
 
 import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.activity.MainActivity;
-import com.irfankhoirul.apps.tatravel.core.base.BaseFragment;
-import com.irfankhoirul.apps.tatravel.core.utils.ConstantUtils;
+import com.irfankhoirul.apps.tatravel.components.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.module.login.LoginActivity;
 import com.irfankhoirul.apps.tatravel.module.register.RegisterActivity;
+import com.irfankhoirul.mvp_core.base.BaseFragment;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;

@@ -1,7 +1,7 @@
 package com.irfankhoirul.apps.tatravel.module.destination;
 
 import com.irfankhoirul.apps.tatravel.app.TAApplication;
-import com.irfankhoirul.apps.tatravel.core.base.BaseFragmentHolderActivity;
+import com.irfankhoirul.mvp_core.base.BaseFragmentHolderActivity;
 
 import javax.inject.Inject;
 

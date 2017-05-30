@@ -2,6 +2,7 @@ package com.irfankhoirul.apps.tatravel.data.pojo;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.irfankhoirul.mvp_core.base.BaseModel;
 
 import org.parceler.Parcel;
 

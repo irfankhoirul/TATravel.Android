@@ -1,8 +1,8 @@
 package com.irfankhoirul.apps.tatravel.module.destination;
 
-import com.irfankhoirul.apps.tatravel.core.base.IBasePresenter;
-import com.irfankhoirul.apps.tatravel.core.base.IBaseView;
 import com.irfankhoirul.apps.tatravel.data.pojo.Lokasi;
+import com.irfankhoirul.mvp_core.base.IBasePresenter;
+import com.irfankhoirul.mvp_core.base.IBaseView;
 
 import java.util.List;
 import java.util.Map;

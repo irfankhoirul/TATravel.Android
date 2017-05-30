@@ -1,8 +1,8 @@
 package com.irfankhoirul.apps.tatravel.data.source.remote.schedule;
 
-import com.irfankhoirul.apps.tatravel.core.data.DataResult;
 import com.irfankhoirul.apps.tatravel.data.pojo.JadwalPerjalanan;
 import com.irfankhoirul.apps.tatravel.data.pojo.Lokasi;
+import com.irfankhoirul.mvp_core.data.DataResult;
 
 import java.util.Map;
 

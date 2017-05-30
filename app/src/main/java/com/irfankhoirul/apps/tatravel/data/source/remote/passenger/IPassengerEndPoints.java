@@ -1,7 +1,7 @@
 package com.irfankhoirul.apps.tatravel.data.source.remote.passenger;
 
-import com.irfankhoirul.apps.tatravel.core.data.DataResult;
 import com.irfankhoirul.apps.tatravel.data.pojo.Penumpang;
+import com.irfankhoirul.mvp_core.data.DataResult;
 
 import java.util.Map;
 

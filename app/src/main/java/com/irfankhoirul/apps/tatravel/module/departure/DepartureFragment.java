@@ -42,14 +42,14 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.activity.MainActivity;
-import com.irfankhoirul.apps.tatravel.core.base.BaseFragment;
-import com.irfankhoirul.apps.tatravel.core.utils.ConstantUtils;
+import com.irfankhoirul.apps.tatravel.components.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.data.pojo.Lokasi;
 import com.irfankhoirul.apps.tatravel.data.pojo.OperatorTravel;
 import com.irfankhoirul.apps.tatravel.module.travel_choice.DaggerTravelChoiceComponent;
 import com.irfankhoirul.apps.tatravel.module.travel_choice.TravelChoiceDialog;
 import com.irfankhoirul.apps.tatravel.module.travel_choice.TravelChoiceDialogPresenter;
 import com.irfankhoirul.apps.tatravel.module.travel_choice.TravelChoicePresenterModule;
+import com.irfankhoirul.mvp_core.base.BaseFragment;
 
 import org.parceler.Parcels;
 

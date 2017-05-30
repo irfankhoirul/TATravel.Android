@@ -12,9 +12,10 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.irfankhoirul.apps.tatravel.R;
-import com.irfankhoirul.apps.tatravel.core.base.BaseDialog;
 import com.irfankhoirul.apps.tatravel.data.pojo.Lokasi;
 import com.irfankhoirul.apps.tatravel.data.pojo.OperatorTravel;
+import com.irfankhoirul.apps.tatravel.module.departure.DepartureActivity;
+import com.irfankhoirul.mvp_core.base.BaseDialog;
 
 import org.parceler.Parcels;
 
@@ -30,12 +31,12 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * Created by Irfan Khoirul on 12/25/2016.
  */
 
-public class TravelChoiceDialog extends BaseDialog implements TravelChoiceDialogContract.View {
+public class TravelChoiceDialog extends BaseDialog<DepartureActivity, TravelChoiceDialogContract.Presenter>
+        implements TravelChoiceDialogContract.View {
 
     @BindView(R.id.rvTravelLocation)
     RecyclerView rvTravelLocation;
 
-    TravelChoiceDialogContract.Presenter mPresenter;
     private DialogListener listener;
 
     private TravelChoiceAdapter cityAdapter;

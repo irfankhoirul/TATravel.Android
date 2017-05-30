@@ -3,7 +3,6 @@ package com.irfankhoirul.apps.tatravel.app;
 import android.content.Context;
 
 import com.basgeekball.awesomevalidation.ValidationStyle;
-import com.irfankhoirul.apps.tatravel.core.utils.FormValidation;
 import com.irfankhoirul.apps.tatravel.data.source.locale.cart.Cart;
 import com.irfankhoirul.apps.tatravel.data.source.locale.cart.CartRepository;
 import com.irfankhoirul.apps.tatravel.data.source.locale.session.Session;
@@ -18,6 +17,7 @@ import com.irfankhoirul.apps.tatravel.data.source.remote.seat.SeatRepository;
 import com.irfankhoirul.apps.tatravel.data.source.remote.seat.SeatRepositoryImpl;
 import com.irfankhoirul.apps.tatravel.data.source.remote.user.UserRepository;
 import com.irfankhoirul.apps.tatravel.data.source.remote.user.UserRepositoryImpl;
+import com.irfankhoirul.mvp_core.utils.FormValidation;
 
 import javax.inject.Singleton;
 

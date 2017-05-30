@@ -16,15 +16,15 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.irfankhoirul.apps.tatravel.R;
-import com.irfankhoirul.apps.tatravel.core.base.BaseFragment;
-import com.irfankhoirul.apps.tatravel.core.data.DataPage;
-import com.irfankhoirul.apps.tatravel.core.utils.ConstantUtils;
-import com.irfankhoirul.apps.tatravel.core.utils.DisplayMetricUtils;
+import com.irfankhoirul.apps.tatravel.components.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.data.pojo.Penumpang;
 import com.irfankhoirul.apps.tatravel.module.passenger_creator.DaggerPassengerCreatorDialogComponent;
 import com.irfankhoirul.apps.tatravel.module.passenger_creator.PassengerCreatorDialog;
 import com.irfankhoirul.apps.tatravel.module.passenger_creator.PassengerCreatorDialogPresenter;
 import com.irfankhoirul.apps.tatravel.module.passenger_creator.PassengerCreatorPresenterModule;
+import com.irfankhoirul.mvp_core.base.BaseFragment;
+import com.irfankhoirul.mvp_core.data.DataPage;
+import com.irfankhoirul.mvp_core.utils.DisplayMetricUtils;
 
 import org.parceler.Parcels;
 

@@ -1,7 +1,7 @@
 package com.irfankhoirul.apps.tatravel.module.verification;
 
-import com.irfankhoirul.apps.tatravel.core.base.IBasePresenter;
-import com.irfankhoirul.apps.tatravel.core.base.IBaseView;
+import com.irfankhoirul.mvp_core.base.IBasePresenter;
+import com.irfankhoirul.mvp_core.base.IBaseView;
 
 import java.util.Map;
 

@@ -1,8 +1,8 @@
 package com.irfankhoirul.apps.tatravel.module.reservation_detail;
 
 import com.irfankhoirul.apps.tatravel.app.TAApplication;
-import com.irfankhoirul.apps.tatravel.core.base.BaseFragmentHolderActivity;
 import com.irfankhoirul.apps.tatravel.data.pojo.Pemesanan;
+import com.irfankhoirul.mvp_core.base.BaseFragmentHolderActivity;
 
 import org.parceler.Parcels;
 

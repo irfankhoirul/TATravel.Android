@@ -1,8 +1,8 @@
 package com.irfankhoirul.apps.tatravel.module.verification;
 
-import com.irfankhoirul.apps.tatravel.core.data.IRequestResponseListener;
 import com.irfankhoirul.apps.tatravel.data.source.locale.session.Session;
 import com.irfankhoirul.apps.tatravel.data.source.remote.user.UserRepositoryImpl;
+import com.irfankhoirul.mvp_core.data.IRequestResponseListener;
 
 import org.junit.Before;
 import org.junit.Test;

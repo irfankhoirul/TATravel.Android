@@ -12,9 +12,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.irfankhoirul.apps.tatravel.R;
-import com.irfankhoirul.apps.tatravel.core.base.BaseDialog;
-import com.irfankhoirul.apps.tatravel.core.utils.CurrencyUtils;
 import com.irfankhoirul.apps.tatravel.data.pojo.JadwalPerjalanan;
+import com.irfankhoirul.apps.tatravel.module.schedule.ScheduleActivity;
+import com.irfankhoirul.mvp_core.base.BaseDialog;
+import com.irfankhoirul.mvp_core.utils.CurrencyUtils;
 
 import org.parceler.Parcels;
 
@@ -28,7 +29,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * Created by Irfan Khoirul on 12/25/2016.
  */
 
-public class ScheduleDetailDialog extends BaseDialog implements ScheduleDetailDialogContract.View {
+public class ScheduleDetailDialog extends BaseDialog<ScheduleActivity, ScheduleDetailDialogContract.Presenter>
+        implements ScheduleDetailDialogContract.View {
 
     @BindView(R.id.tvDepartureLocation)
     TextView tvDepartureLocation;
@@ -51,7 +53,6 @@ public class ScheduleDetailDialog extends BaseDialog implements ScheduleDetailDi
     @BindView(R.id.btNext)
     Button btNext;
 
-    ScheduleDetailDialogContract.Presenter mPresenter;
     private DialogListener listener;
 
     public ScheduleDetailDialog() {

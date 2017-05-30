@@ -5,8 +5,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.irfankhoirul.apps.tatravel.app.TAApplication;
-import com.irfankhoirul.apps.tatravel.core.base.BaseFragmentHolderActivity;
 import com.irfankhoirul.apps.tatravel.services.receiver.SmsReceiver;
+import com.irfankhoirul.mvp_core.base.BaseFragmentHolderActivity;
 
 import javax.inject.Inject;
 

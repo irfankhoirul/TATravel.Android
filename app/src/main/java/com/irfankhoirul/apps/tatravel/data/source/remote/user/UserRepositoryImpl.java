@@ -1,11 +1,11 @@
 package com.irfankhoirul.apps.tatravel.data.source.remote.user;
 
-import com.irfankhoirul.apps.tatravel.core.base.BaseRemoteRepository;
-import com.irfankhoirul.apps.tatravel.core.data.DataResult;
-import com.irfankhoirul.apps.tatravel.core.data.IRequestResponseListener;
 import com.irfankhoirul.apps.tatravel.data.pojo.Kota;
 import com.irfankhoirul.apps.tatravel.data.pojo.Provinsi;
 import com.irfankhoirul.apps.tatravel.data.pojo.User;
+import com.irfankhoirul.mvp_core.base.BaseRemoteRepository;
+import com.irfankhoirul.mvp_core.data.DataResult;
+import com.irfankhoirul.mvp_core.data.IRequestResponseListener;
 
 import java.util.Map;
 

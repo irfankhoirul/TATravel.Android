@@ -1,11 +1,11 @@
 package com.irfankhoirul.apps.tatravel.module.passenger;
 
-import com.irfankhoirul.apps.tatravel.core.data.DataResult;
-import com.irfankhoirul.apps.tatravel.core.data.IRequestResponseListener;
-import com.irfankhoirul.apps.tatravel.core.utils.ConstantUtils;
+import com.irfankhoirul.apps.tatravel.components.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.data.pojo.Penumpang;
 import com.irfankhoirul.apps.tatravel.data.source.locale.session.SessionRepository;
 import com.irfankhoirul.apps.tatravel.data.source.remote.passenger.PassengerRepository;
+import com.irfankhoirul.mvp_core.data.DataResult;
+import com.irfankhoirul.mvp_core.data.IRequestResponseListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;

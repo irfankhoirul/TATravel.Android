@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.irfankhoirul.apps.tatravel.R;
-import com.irfankhoirul.apps.tatravel.core.utils.CurrencyUtils;
 import com.irfankhoirul.apps.tatravel.data.pojo.JadwalPerjalanan;
+import com.irfankhoirul.mvp_core.utils.CurrencyUtils;
 
 import java.util.List;
 

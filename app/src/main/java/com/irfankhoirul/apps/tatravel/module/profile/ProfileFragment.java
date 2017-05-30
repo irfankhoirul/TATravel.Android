@@ -13,10 +13,10 @@ import android.widget.EditText;
 
 import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.activity.MainActivity;
-import com.irfankhoirul.apps.tatravel.core.base.BaseFragment;
-import com.irfankhoirul.apps.tatravel.core.utils.ConstantUtils;
+import com.irfankhoirul.apps.tatravel.components.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.data.pojo.User;
 import com.irfankhoirul.apps.tatravel.module.profile_editor.EditProfileActivity;
+import com.irfankhoirul.mvp_core.base.BaseFragment;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -17,7 +17,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 
-import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.utility.RegexTemplate;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -36,8 +35,9 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.irfankhoirul.apps.tatravel.R;
-import com.irfankhoirul.apps.tatravel.core.base.BaseFragment;
-import com.irfankhoirul.apps.tatravel.core.utils.ConstantUtils;
+import com.irfankhoirul.apps.tatravel.components.ConstantUtils;
+import com.irfankhoirul.mvp_core.base.BaseFragment;
+import com.irfankhoirul.mvp_core.utils.FormValidation;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,7 +52,7 @@ import butterknife.OnClick;
 
 import static com.basgeekball.awesomevalidation.ValidationStyle.TEXT_INPUT_LAYOUT;
 import static com.google.common.base.Preconditions.checkNotNull;
-import static com.irfankhoirul.apps.tatravel.core.utils.ConstantUtils.REGISTER_GOOGLE_REQUEST;
+import static com.irfankhoirul.apps.tatravel.components.ConstantUtils.REGISTER_GOOGLE_REQUEST;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -225,7 +225,7 @@ public class LoginFragment extends BaseFragment<LoginActivity, LoginContract.Pre
 
 
     private boolean validateLoginForm() {
-        AwesomeValidation formValidation = new AwesomeValidation(TEXT_INPUT_LAYOUT);
+        FormValidation formValidation = new FormValidation(TEXT_INPUT_LAYOUT);
         if (rbLoginWithPhoneNumber.isChecked()) {
             formValidation.addValidation(activity, R.id.tilPhoneNumber, Patterns.PHONE,
                     R.string.validation_phone_valid);

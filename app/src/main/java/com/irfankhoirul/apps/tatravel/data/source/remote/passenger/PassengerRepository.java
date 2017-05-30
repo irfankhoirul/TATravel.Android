@@ -1,6 +1,6 @@
 package com.irfankhoirul.apps.tatravel.data.source.remote.passenger;
 
-import com.irfankhoirul.apps.tatravel.core.data.IRequestResponseListener;
+import com.irfankhoirul.mvp_core.data.IRequestResponseListener;
 
 import java.util.Map;
 

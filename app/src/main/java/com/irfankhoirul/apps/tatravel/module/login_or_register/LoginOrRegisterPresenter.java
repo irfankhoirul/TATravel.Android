@@ -1,6 +1,6 @@
 package com.irfankhoirul.apps.tatravel.module.login_or_register;
 
-import com.irfankhoirul.apps.tatravel.core.utils.ConstantUtils;
+import com.irfankhoirul.apps.tatravel.components.ConstantUtils;
 
 import javax.inject.Inject;
 
