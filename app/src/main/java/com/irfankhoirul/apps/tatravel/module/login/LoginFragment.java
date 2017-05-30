@@ -36,8 +36,8 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.components.ConstantUtils;
+import com.irfankhoirul.apps.tatravel.components.FormValidation;
 import com.irfankhoirul.mvp_core.base.BaseFragment;
-import com.irfankhoirul.mvp_core.utils.FormValidation;
 
 import org.json.JSONException;
 import org.json.JSONObject;

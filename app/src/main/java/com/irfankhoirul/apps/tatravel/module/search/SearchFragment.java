@@ -25,6 +25,8 @@ import com.google.gson.Gson;
 import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.activity.MainActivity;
 import com.irfankhoirul.apps.tatravel.components.ConstantUtils;
+import com.irfankhoirul.apps.tatravel.components.DateUtils;
+import com.irfankhoirul.apps.tatravel.components.DisplayMetricUtils;
 import com.irfankhoirul.apps.tatravel.data.pojo.Penumpang;
 import com.irfankhoirul.apps.tatravel.module.departure.DepartureActivity;
 import com.irfankhoirul.apps.tatravel.module.destination.DestinationActivity;
@@ -32,8 +34,6 @@ import com.irfankhoirul.apps.tatravel.module.passenger.PassengerActivity;
 import com.irfankhoirul.apps.tatravel.module.reservation_detail.ReservationDetailActivity;
 import com.irfankhoirul.apps.tatravel.module.schedule.ScheduleActivity;
 import com.irfankhoirul.mvp_core.base.BaseFragment;
-import com.irfankhoirul.mvp_core.utils.DateUtils;
-import com.irfankhoirul.mvp_core.utils.DisplayMetricUtils;
 
 import org.parceler.Parcels;
 
@@ -48,7 +48,7 @@ import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 
 import static com.google.common.base.Preconditions.checkNotNull;
-import static com.irfankhoirul.mvp_core.utils.Constant.STATUS_ERROR;
+import static com.irfankhoirul.apps.tatravel.components.ConstantUtils.STATUS_ERROR;
 
 /**
  * @author Irfan Khoirul Muhlishin - irfankhoirul@gmail.com
@@ -377,7 +377,7 @@ public class SearchFragment extends BaseFragment<MainActivity, SearchContract.Pr
             intent.putExtras(bundle);
             startActivityForResult(intent, ConstantUtils.ACTIVITY_REQUEST_CODE_DESTINATION);
         } else {
-            showStatus(ConstantUtils.STATUS_ERROR, "Anda belum memilih lokasi keberangkatan");
+            showStatus(STATUS_ERROR, "Anda belum memilih lokasi keberangkatan");
         }
     }
 
@@ -397,7 +397,7 @@ public class SearchFragment extends BaseFragment<MainActivity, SearchContract.Pr
             fromDatePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() + 86401000);
             fromDatePickerDialog.show();
         } else {
-            showStatus(ConstantUtils.STATUS_ERROR, "Anda belum memilih lokasi tujuan");
+            showStatus(STATUS_ERROR, "Anda belum memilih lokasi tujuan");
         }
     }
 
@@ -418,7 +418,7 @@ public class SearchFragment extends BaseFragment<MainActivity, SearchContract.Pr
                 intent.putExtra("selectedPassengers", Parcels.wrap(mPresenter.getSelectedPassengers()));
                 startActivityForResult(intent, ConstantUtils.ACTIVITY_REQUEST_CODE_PASSENGER);
             } else {
-                showStatus(ConstantUtils.STATUS_ERROR, "Anda belum memilih tanggal keberangkatan");
+                showStatus(STATUS_ERROR, "Anda belum memilih tanggal keberangkatan");
             }
         } else {
             redirectToLoginOrRegister();

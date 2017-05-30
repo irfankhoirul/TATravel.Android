@@ -21,7 +21,6 @@ public class ConstantUtils {
 
     public static final int PERMISSION_REQUEST_LOCATIONS = 100;
 
-
     public static final int ACTIVITY_REQUEST_CODE_DEPARTURE = 1000;
     public static final int ACTIVITY_REQUEST_CODE_DESTINATION = 1001;
     public static final int ACTIVITY_REQUEST_CODE_PASSENGER = 1002;
@@ -32,11 +31,6 @@ public class ConstantUtils {
     public static final int ACTIVITY_REQUEST_CODE_EDIT_PROFILE = 1006;
 
     public static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 50;
-
-    public static final int DIALOG_CITY_REQUEST_CODE = 2000;
-    public static final int DIALOG_CITY_RESULT_CODE = 2001;
-    public static final int DIALOG_LOCATION_REQUEST_CODE = 2002;
-    public static final int DIALOG_LOCATION_RESULT_CODE = 2003;
 
     public static final int REGISTER_GOOGLE_REQUEST = 3000;
 

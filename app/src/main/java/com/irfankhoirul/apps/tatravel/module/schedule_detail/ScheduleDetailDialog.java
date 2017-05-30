@@ -12,10 +12,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.irfankhoirul.apps.tatravel.R;
+import com.irfankhoirul.apps.tatravel.components.CurrencyUtils;
 import com.irfankhoirul.apps.tatravel.data.pojo.JadwalPerjalanan;
 import com.irfankhoirul.apps.tatravel.module.schedule.ScheduleActivity;
 import com.irfankhoirul.mvp_core.base.BaseDialog;
-import com.irfankhoirul.mvp_core.utils.CurrencyUtils;
 
 import org.parceler.Parcels;
 

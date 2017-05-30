@@ -12,10 +12,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.irfankhoirul.apps.tatravel.R;
+import com.irfankhoirul.apps.tatravel.components.CurrencyUtils;
 import com.irfankhoirul.apps.tatravel.data.pojo.Pembayaran;
 import com.irfankhoirul.apps.tatravel.data.pojo.Pemesanan;
 import com.irfankhoirul.mvp_core.base.BaseFragment;
-import com.irfankhoirul.mvp_core.utils.CurrencyUtils;
 
 import org.parceler.Parcels;
 
