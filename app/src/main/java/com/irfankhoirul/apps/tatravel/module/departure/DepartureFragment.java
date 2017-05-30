@@ -10,7 +10,6 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -19,7 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -82,14 +80,6 @@ public class DepartureFragment extends BaseFragment<MainActivity, DepartureContr
         TravelChoiceDialog.DialogListener,
         DepartureContract.View {
 
-    @BindView(R.id.tieCity)
-    TextInputEditText tieCity;
-    @BindView(R.id.tieLocation)
-    TextInputEditText tieLocation;
-    @BindView(R.id.switchSpecialLocation)
-    Switch switchSpecialLocation;
-    @BindView(R.id.tvSpecialLocationInformation)
-    TextView tvSpecialLocationInformation;
     @BindView(R.id.ivMarkerDeparture)
     ImageView ivMarkerDeparture;
     @BindView(R.id.mapDeparture)

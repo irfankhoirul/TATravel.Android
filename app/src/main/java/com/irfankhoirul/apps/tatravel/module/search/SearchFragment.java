@@ -322,7 +322,7 @@ public class SearchFragment extends BaseFragment<MainActivity, SearchContract.Pr
         llDepartureDate.setBackgroundColor(ContextCompat.getColor(activity, R.color.red_50));
         tvDeparture.setText("Pilih Lokasi Keberangkatan");
         tvDeparture.setTextColor(ContextCompat.getColor(activity, R.color.font_black_disabled));
-        mPresenter.clearDestination();
+        mPresenter.clearDeparture();
     }
 
     private void resetDestinationView() {

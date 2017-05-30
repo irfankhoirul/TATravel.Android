@@ -4,6 +4,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.PopupMenu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -43,26 +45,30 @@ public class MainActivity extends BaseActivity implements
         SearchFragment.FragmentListener,
         ProfileFragment.FragmentListener {
 
+    @BindView(R.id.tvToolbarTitle)
+    protected TextView tvToolbarTitle;
+    @BindView(R.id.btOptionMenu)
+    protected ImageButton btOptionMenu;
+    @BindView(R.id.flFragmentContainer)
+    FrameLayout flFragmentContainer;
+    @BindView(R.id.btBack)
+    ImageButton btBack;
     @BindView(R.id.rlActivityMain)
     RelativeLayout rlActivityMain;
-
     @BindView(R.id.ivIcon)
     ImageView ivIcon;
-
     @BindView(R.id.llSearch)
     LinearLayout llSearch;
     @BindView(R.id.ivSearch)
     ImageView ivSearch;
     @BindView(R.id.tvSearch)
     TextView tvSearch;
-
     @BindView(R.id.llOrder)
     LinearLayout llOrder;
     @BindView(R.id.ivOrder)
     ImageView ivOrder;
     @BindView(R.id.tvOrder)
     TextView tvOrder;
-
     @BindView(R.id.llProfile)
     LinearLayout llProfile;
     @BindView(R.id.ivProfile)
@@ -129,6 +135,11 @@ public class MainActivity extends BaseActivity implements
         ButterKnife.bind(this);
         btBack.setVisibility(View.GONE);
         ivIcon.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    protected TextView getTvToolbarTitle() {
+        return tvToolbarTitle;
     }
 
     @OnClick(R.id.llSearch)
@@ -256,5 +267,10 @@ public class MainActivity extends BaseActivity implements
     @Override
     public void redirectToLoginOrRegister() {
         llProfile();
+    }
+
+    @OnClick(R.id.btBack)
+    public void btBack() {
+        onBackPressed();
     }
 }

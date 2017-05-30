@@ -121,6 +121,19 @@ public class ReservationDetailFragment extends BaseFragment<ReservationDetailAct
             btPay.setClickable(false);
             btPay.setEnabled(false);
             btPay.setText("Waktu Pembayaran Habis");
+        } else {
+            String tmpPassengerNames = "";
+            String tmpSeatNumbers = "";
+            for (int i = 0; i < reservation.getPenumpangPerjalanan().size(); i++) {
+                tmpPassengerNames += reservation.getPenumpangPerjalanan().get(i).getPenumpang().getNama();
+                tmpSeatNumbers += reservation.getPenumpangPerjalanan().get(i).getKursiPerjalanan().getKursiMobil().getNomor();
+                if (i < reservation.getPenumpangPerjalanan().size() - 1) {
+                    tmpPassengerNames += ", ";
+                    tmpSeatNumbers += ", ";
+                }
+            }
+            tvPassengerNames.setText(tmpPassengerNames);
+            tvSeatNumbers.setText(tmpSeatNumbers);
         }
 
         tvDepartureLocation.setText(reservation.getJadwalPerjalanan().getLokasiPemberangkatan().getNama() + ", " +
@@ -139,18 +152,6 @@ public class ReservationDetailFragment extends BaseFragment<ReservationDetailAct
                 reservation.getJadwalPerjalanan().getTimezone());
         tvOperatorTravel.setText(reservation.getJadwalPerjalanan().getOperatorTravel().getNama());
         tvPassengerCount.setText(String.valueOf(reservation.getPenumpangPerjalanan().size()));
-        String tmpPassengerNames = "";
-        String tmpSeatNumbers = "";
-        for (int i = 0; i < reservation.getPenumpangPerjalanan().size(); i++) {
-            tmpPassengerNames += reservation.getPenumpangPerjalanan().get(i).getPenumpang().getNama();
-            tmpSeatNumbers += reservation.getPenumpangPerjalanan().get(i).getKursiPerjalanan().getKursiMobil().getNomor();
-            if (i < reservation.getPenumpangPerjalanan().size() - 1) {
-                tmpPassengerNames += ", ";
-                tmpSeatNumbers += ", ";
-            }
-        }
-        tvPassengerNames.setText(tmpPassengerNames);
-        tvSeatNumbers.setText(tmpSeatNumbers);
 
         int pickUpDistance = (int) Math.ceil(reservation.getJadwalPerjalanan().getJarakPenjemputan());
         int pickUpPrice = reservation.getJadwalPerjalanan().getBiayaLokasiKhusus() * pickUpDistance;

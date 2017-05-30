@@ -162,8 +162,7 @@ public class PassengerFragment extends BaseFragment<PassengerActivity, Passenger
     @OnClick(R.id.btSetPassenger)
     public void btSetPassenger() {
         Intent intent = new Intent();
-        Bundle bundle = new Bundle();
-        bundle.putParcelable("selectedPassengers", Parcels.wrap(mPresenter.getSelectedPassengers()));
+        intent.putExtra("selectedPassengers", Parcels.wrap(mPresenter.getSelectedPassengers()));
         activity.setResult(ConstantUtils.REQUEST_RESULT_SUCCESS, intent);
         activity.finish();
     }
