@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.core.components.receiver;
+package com.irfankhoirul.apps.tatravel.services.receiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

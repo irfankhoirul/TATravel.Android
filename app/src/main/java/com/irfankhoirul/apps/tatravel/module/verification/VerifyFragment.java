@@ -16,7 +16,7 @@ import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.utility.RegexTemplate;
 import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.core.base.BaseFragment;
-import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
+import com.irfankhoirul.apps.tatravel.core.utils.ConstantUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,6 +37,9 @@ public class VerifyFragment extends BaseFragment<VerifyActivity, VerifyContract.
     TextInputLayout tilVerificationCode;
     @BindView(R.id.etVerificationCode)
     EditText etVerificationCode;
+
+//    @Inject
+//    FormValidation formValidation;
 
     public VerifyFragment() {
         // Required empty public constructor
@@ -95,10 +98,10 @@ public class VerifyFragment extends BaseFragment<VerifyActivity, VerifyContract.
     }
 
     private boolean verifyVerificationForm() {
-        AwesomeValidation mAwesomeValidation = new AwesomeValidation(TEXT_INPUT_LAYOUT);
-        mAwesomeValidation.addValidation(activity, R.id.tilVerificationCode, RegexTemplate.NOT_EMPTY, R.string.validation_verification_code_not_empty);
+        AwesomeValidation formValidation = new AwesomeValidation(TEXT_INPUT_LAYOUT);
+        formValidation.addValidation(activity, R.id.tilVerificationCode, RegexTemplate.NOT_EMPTY, R.string.validation_verification_code_not_empty);
 
-        return mAwesomeValidation.validate();
+        return formValidation.validate();
     }
 
     @OnClick(R.id.btVerify)

@@ -18,7 +18,7 @@ import android.widget.Switch;
 
 import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.core.base.BaseFragment;
-import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
+import com.irfankhoirul.apps.tatravel.core.utils.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.data.pojo.User;
 
 import java.util.HashMap;
@@ -83,7 +83,7 @@ public class EditProfileFragment extends BaseFragment<EditProfileActivity, EditP
 
     @Override
     protected void setTitle() {
-        title = "Login";
+        title = "Ubah Profil";
     }
 
     @Override

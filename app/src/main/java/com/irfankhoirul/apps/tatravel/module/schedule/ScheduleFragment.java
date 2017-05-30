@@ -15,11 +15,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.irfankhoirul.apps.tatravel.R;
-import com.irfankhoirul.apps.tatravel.core.app.TAApplication;
+import com.irfankhoirul.apps.tatravel.app.TAApplication;
 import com.irfankhoirul.apps.tatravel.core.base.BaseFragment;
-import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
-import com.irfankhoirul.apps.tatravel.core.components.util.DisplayMetricUtils;
 import com.irfankhoirul.apps.tatravel.core.data.DataPage;
+import com.irfankhoirul.apps.tatravel.core.utils.ConstantUtils;
+import com.irfankhoirul.apps.tatravel.core.utils.DisplayMetricUtils;
 import com.irfankhoirul.apps.tatravel.data.pojo.JadwalPerjalanan;
 import com.irfankhoirul.apps.tatravel.module.schedule_detail.DaggerScheduleDetailComponent;
 import com.irfankhoirul.apps.tatravel.module.schedule_detail.ScheduleDetailDialog;

@@ -15,12 +15,10 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.irfankhoirul.apps.tatravel.data.source.remote.EndPoints.BASE_API_URL;
-
 /**
  * Interactor merupakan bagian dari data layer yang berfungsi untuk fetching data
  * (database, cache, web service, dsb).
- * BaseRemoteDataSource merupakan super class dari interactor yang digunakan untuk
+ * BaseRemoteRepository merupakan super class dari interactor yang digunakan untuk
  * fetching data dari web service menggunakan library Retrofit
  *
  * @author Irfan Khoirul Muhlishin - irfankhoirul@gmail.com
@@ -28,34 +26,41 @@ import static com.irfankhoirul.apps.tatravel.data.source.remote.EndPoints.BASE_A
  * @since 1.0
  */
 
-public abstract class BaseRemoteDataSource<T> {
+public abstract class BaseRemoteRepository<T> {
 
     protected Retrofit retrofit;
     protected T endPoint;
 
-    protected BaseRemoteDataSource() {
+    protected BaseRemoteRepository() {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-        OkHttpClient.Builder httpClient = new OkHttpClient.Builder()
-                .addInterceptor(logging)
-                .readTimeout(60, TimeUnit.SECONDS)
-                .connectTimeout(60, TimeUnit.SECONDS);
+        Retrofit.Builder retrofitBuilder = new Retrofit.Builder()
+                .baseUrl(setBaseUrl())
+                .addConverterFactory(GsonConverterFactory.create());
 
-        retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_API_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(httpClient.build())
-                .build();
+        if (enableLogging()) {
+            OkHttpClient.Builder httpClient = new OkHttpClient.Builder()
+                    .addInterceptor(logging)
+                    .readTimeout(60, TimeUnit.SECONDS)
+                    .connectTimeout(60, TimeUnit.SECONDS);
+
+            retrofitBuilder.client(httpClient.build());
+        }
+
+        retrofit = retrofitBuilder.build();
 
         setEndPoint();
     }
 
+    public abstract String setBaseUrl();
+
     public abstract void setEndPoint();
+
+    public abstract boolean enableLogging();
 
     @SuppressWarnings("unchecked")
     protected void execute(Call call, final IRequestResponseListener<T> listener) {
-        Log.v("RequestUrl", call.request().url().toString());
         call.enqueue(new Callback<DataResult<T>>() {
             @Override
             public void onResponse(Call<DataResult<T>> call, Response<DataResult<T>> response) {

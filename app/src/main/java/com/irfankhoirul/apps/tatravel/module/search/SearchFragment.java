@@ -23,11 +23,11 @@ import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.google.gson.Gson;
 import com.irfankhoirul.apps.tatravel.R;
-import com.irfankhoirul.apps.tatravel.core.activity.MainActivity;
+import com.irfankhoirul.apps.tatravel.activity.MainActivity;
 import com.irfankhoirul.apps.tatravel.core.base.BaseFragment;
-import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
-import com.irfankhoirul.apps.tatravel.core.components.util.DateUtils;
-import com.irfankhoirul.apps.tatravel.core.components.util.DisplayMetricUtils;
+import com.irfankhoirul.apps.tatravel.core.utils.ConstantUtils;
+import com.irfankhoirul.apps.tatravel.core.utils.DateUtils;
+import com.irfankhoirul.apps.tatravel.core.utils.DisplayMetricUtils;
 import com.irfankhoirul.apps.tatravel.data.pojo.Penumpang;
 import com.irfankhoirul.apps.tatravel.module.departure.DepartureActivity;
 import com.irfankhoirul.apps.tatravel.module.destination.DestinationActivity;
@@ -271,11 +271,11 @@ public class SearchFragment extends BaseFragment<MainActivity, SearchContract.Pr
             }
         } else if (requestCode == ConstantUtils.ACTIVITY_REQUEST_CODE_SCHEDULE) {
             if (resultCode == ConstantUtils.REQUEST_RESULT_SUCCESS) {
-//                resetDepartureView();
-//                resetDestinationView();
-//                resetDateView();
-//                resetPassengerView();
-//                mPresenter.start();
+                resetDepartureView();
+                resetDestinationView();
+                resetDateView();
+                resetPassengerView();
+                mPresenter.start();
                 Intent intent = new Intent(activity, ReservationDetailActivity.class);
                 startActivityForResult(intent, ConstantUtils.ACTIVITY_REQUEST_CODE_DETAIL_RESERVATION);
             }
@@ -343,6 +343,7 @@ public class SearchFragment extends BaseFragment<MainActivity, SearchContract.Pr
         tvPassenger.setText("Tambahkan Penumpang");
         tvPassenger.setTextColor(ContextCompat.getColor(activity, R.color.font_black_disabled));
         llPassenger.setBackgroundColor(ContextCompat.getColor(activity, R.color.red_50));
+        mPresenter.clearPassenger();
     }
 
     @Override
@@ -370,7 +371,9 @@ public class SearchFragment extends BaseFragment<MainActivity, SearchContract.Pr
     public void llDestination() {
         if (mPresenter.isDepartureSet()) {
             Intent intent = new Intent(activity, DestinationActivity.class);
-            intent.putExtra("id_operator_travel", mPresenter.getSelectedOperatorTravelId());
+            Bundle bundle = new Bundle();
+            bundle.putString("id_operator_travel", mPresenter.getSelectedOperatorTravelId());
+            intent.putExtras(bundle);
             startActivityForResult(intent, ConstantUtils.ACTIVITY_REQUEST_CODE_DESTINATION);
         } else {
             showStatus(ConstantUtils.STATUS_ERROR, "Anda belum memilih lokasi keberangkatan");

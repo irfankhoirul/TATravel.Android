@@ -1,6 +1,6 @@
 package com.irfankhoirul.apps.tatravel.module.passenger_creator;
 
-import com.irfankhoirul.apps.tatravel.core.components.FragmentScoped;
+import com.irfankhoirul.apps.tatravel.module.DaggerModuleScoped;
 import com.irfankhoirul.apps.tatravel.module.passenger.PassengerFragment;
 
 import dagger.Component;
@@ -8,7 +8,7 @@ import dagger.Component;
 /**
  * Created by Irfan Khoirul on 4/15/2017.
  */
-@FragmentScoped
+@DaggerModuleScoped
 @Component(modules = PassengerCreatorPresenterModule.class)
 public interface PassengerCreatorDialogComponent {
 

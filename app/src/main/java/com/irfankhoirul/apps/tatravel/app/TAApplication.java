@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.core.app;
+package com.irfankhoirul.apps.tatravel.app;
 
 import android.app.Application;
 
@@ -17,7 +17,6 @@ public class TAApplication extends Application {
         appComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(getApplicationContext()))
                 .build();
-//        appComponent.inject(this);
     }
 
     public AppComponent getAppComponent() {

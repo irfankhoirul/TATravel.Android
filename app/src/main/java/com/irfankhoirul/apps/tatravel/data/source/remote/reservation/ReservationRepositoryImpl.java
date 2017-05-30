@@ -1,6 +1,6 @@
 package com.irfankhoirul.apps.tatravel.data.source.remote.reservation;
 
-import com.irfankhoirul.apps.tatravel.core.base.BaseRemoteDataSource;
+import com.irfankhoirul.apps.tatravel.core.base.BaseRemoteRepository;
 import com.irfankhoirul.apps.tatravel.core.data.DataResult;
 import com.irfankhoirul.apps.tatravel.core.data.IRequestResponseListener;
 import com.irfankhoirul.apps.tatravel.data.pojo.Pemesanan;
@@ -9,15 +9,27 @@ import java.util.Map;
 
 import retrofit2.Call;
 
+import static com.irfankhoirul.apps.tatravel.data.source.remote.EndPoints.BASE_API_URL;
+
 /**
  * Created by Irfan Khoirul on 3/11/2017.
  */
 
-public class ReservationRepositoryImpl extends BaseRemoteDataSource implements ReservationRepository {
+public class ReservationRepositoryImpl extends BaseRemoteRepository implements ReservationRepository {
+
+    @Override
+    public String setBaseUrl() {
+        return BASE_API_URL;
+    }
 
     @Override
     public void setEndPoint() {
         endPoint = retrofit.create(IPemesananEndPoints.class);
+    }
+
+    @Override
+    public boolean enableLogging() {
+        return true;
     }
 
     @Override

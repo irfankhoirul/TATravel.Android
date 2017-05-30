@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.irfankhoirul.apps.tatravel.R;
-import com.irfankhoirul.apps.tatravel.core.components.util.DateUtils;
+import com.irfankhoirul.apps.tatravel.core.utils.DateUtils;
 import com.irfankhoirul.apps.tatravel.data.pojo.Pemesanan;
 import com.squareup.picasso.Picasso;
 

@@ -38,7 +38,7 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.core.base.BaseFragment;
-import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
+import com.irfankhoirul.apps.tatravel.core.utils.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.module.verification.VerifyActivity;
 
 import org.json.JSONException;
@@ -54,7 +54,7 @@ import butterknife.OnClick;
 
 import static com.basgeekball.awesomevalidation.ValidationStyle.TEXT_INPUT_LAYOUT;
 import static com.google.common.base.Preconditions.checkNotNull;
-import static com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils.REGISTER_GOOGLE_REQUEST;
+import static com.irfankhoirul.apps.tatravel.core.utils.ConstantUtils.REGISTER_GOOGLE_REQUEST;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -94,6 +94,9 @@ public class RegisterFragment extends BaseFragment<RegisterActivity, RegisterCon
 
     private CallbackManager callbackManager;
     private GoogleApiClient mGoogleApiClient;
+
+//    @Inject
+//    FormValidation formValidation;
 
     public RegisterFragment() {
         // Required empty public constructor
@@ -226,18 +229,18 @@ public class RegisterFragment extends BaseFragment<RegisterActivity, RegisterCon
     }
 
     private boolean validateRegisterForm() {
-        AwesomeValidation mAwesomeValidation = new AwesomeValidation(TEXT_INPUT_LAYOUT);
+        AwesomeValidation formValidation = new AwesomeValidation(TEXT_INPUT_LAYOUT);
         if (rbRegisterWithPhoneNumber.isChecked()) {
-            mAwesomeValidation.addValidation(activity, R.id.tilPhoneNumber, Patterns.PHONE, R.string.validation_phone_valid);
-            mAwesomeValidation.addValidation(activity, R.id.tilPhoneNumber, RegexTemplate.NOT_EMPTY, R.string.validation_phone_not_empty);
+            formValidation.addValidation(activity, R.id.tilPhoneNumber, Patterns.PHONE, R.string.validation_phone_valid);
+            formValidation.addValidation(activity, R.id.tilPhoneNumber, RegexTemplate.NOT_EMPTY, R.string.validation_phone_not_empty);
         } else if (rbRegisterWithEmailAddress.isChecked()) {
-            mAwesomeValidation.addValidation(activity, R.id.tilEmailAddress, Patterns.EMAIL_ADDRESS, R.string.validation_email_valid);
-            mAwesomeValidation.addValidation(activity, R.id.tilEmailAddress, RegexTemplate.NOT_EMPTY, R.string.validation_email_not_empty);
+            formValidation.addValidation(activity, R.id.tilEmailAddress, Patterns.EMAIL_ADDRESS, R.string.validation_email_valid);
+            formValidation.addValidation(activity, R.id.tilEmailAddress, RegexTemplate.NOT_EMPTY, R.string.validation_email_not_empty);
         }
-        mAwesomeValidation.addValidation(activity, R.id.tilName, RegexTemplate.NOT_EMPTY, R.string.validation_name_not_empty);
-        mAwesomeValidation.addValidation(activity, R.id.tilPassword, RegexTemplate.NOT_EMPTY, R.string.validation_password_not_empty);
+        formValidation.addValidation(activity, R.id.tilName, RegexTemplate.NOT_EMPTY, R.string.validation_name_not_empty);
+        formValidation.addValidation(activity, R.id.tilPassword, RegexTemplate.NOT_EMPTY, R.string.validation_password_not_empty);
 
-        return mAwesomeValidation.validate();
+        return formValidation.validate();
     }
 
     @OnCheckedChanged(R.id.rbRegisterWithPhoneNumber)
@@ -304,8 +307,9 @@ public class RegisterFragment extends BaseFragment<RegisterActivity, RegisterCon
     @Override
     public void redirectToVerification(String phone, String email) {
         Intent intent = new Intent(activity, VerifyActivity.class);
-        intent.putExtra("phone", phone);
-        intent.putExtra("email", email);
+        Bundle bundle = new Bundle();
+        bundle.putString("phone", phone);
+        bundle.putString("email", email);
         startActivityForResult(intent, ConstantUtils.INTENT_REQUEST_REGISTER_TO_VALIDATION);
     }
 

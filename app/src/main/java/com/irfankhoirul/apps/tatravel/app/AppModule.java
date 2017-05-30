@@ -1,9 +1,9 @@
-package com.irfankhoirul.apps.tatravel.core.app;
+package com.irfankhoirul.apps.tatravel.app;
 
 import android.content.Context;
 
 import com.basgeekball.awesomevalidation.ValidationStyle;
-import com.irfankhoirul.apps.tatravel.core.components.util.FormValidation;
+import com.irfankhoirul.apps.tatravel.core.utils.FormValidation;
 import com.irfankhoirul.apps.tatravel.data.source.locale.cart.Cart;
 import com.irfankhoirul.apps.tatravel.data.source.locale.cart.CartRepository;
 import com.irfankhoirul.apps.tatravel.data.source.locale.session.Session;

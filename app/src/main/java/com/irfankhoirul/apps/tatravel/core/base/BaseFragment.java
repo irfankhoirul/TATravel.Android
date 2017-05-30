@@ -8,15 +8,14 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.irfankhoirul.apps.tatravel.R;
-import com.irfankhoirul.apps.tatravel.core.components.view.SnakeBar;
-import com.irfankhoirul.apps.tatravel.core.components.view.Toaster;
+import com.irfankhoirul.apps.tatravel.core.custom_views.SnakeBar;
+import com.irfankhoirul.apps.tatravel.core.custom_views.Toaster;
 
 import butterknife.Unbinder;
 
@@ -54,7 +53,6 @@ public abstract class BaseFragment<T extends FragmentActivity, U extends IBasePr
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (mPresenter == null) {
-            Log.v("mPresenter", "Null");
             Intent intent = new Intent(activity, activity.getClass());
             if (getArguments() != null) {
                 intent.putExtras(getArguments());

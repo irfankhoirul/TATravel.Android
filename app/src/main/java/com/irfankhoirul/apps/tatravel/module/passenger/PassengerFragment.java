@@ -17,9 +17,9 @@ import android.widget.LinearLayout;
 
 import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.core.base.BaseFragment;
-import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
-import com.irfankhoirul.apps.tatravel.core.components.util.DisplayMetricUtils;
 import com.irfankhoirul.apps.tatravel.core.data.DataPage;
+import com.irfankhoirul.apps.tatravel.core.utils.ConstantUtils;
+import com.irfankhoirul.apps.tatravel.core.utils.DisplayMetricUtils;
 import com.irfankhoirul.apps.tatravel.data.pojo.Penumpang;
 import com.irfankhoirul.apps.tatravel.module.passenger_creator.DaggerPassengerCreatorDialogComponent;
 import com.irfankhoirul.apps.tatravel.module.passenger_creator.PassengerCreatorDialog;
@@ -162,7 +162,8 @@ public class PassengerFragment extends BaseFragment<PassengerActivity, Passenger
     @OnClick(R.id.btSetPassenger)
     public void btSetPassenger() {
         Intent intent = new Intent();
-        intent.putExtra("selectedPassengers", Parcels.wrap(mPresenter.getSelectedPassengers()));
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("selectedPassengers", Parcels.wrap(mPresenter.getSelectedPassengers()));
         activity.setResult(ConstantUtils.REQUEST_RESULT_SUCCESS, intent);
         activity.finish();
     }

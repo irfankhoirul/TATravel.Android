@@ -1,8 +1,8 @@
 package com.irfankhoirul.apps.tatravel.module.passenger;
 
-import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.core.data.DataResult;
 import com.irfankhoirul.apps.tatravel.core.data.IRequestResponseListener;
+import com.irfankhoirul.apps.tatravel.core.utils.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.data.pojo.Penumpang;
 import com.irfankhoirul.apps.tatravel.data.source.locale.session.SessionRepository;
 import com.irfankhoirul.apps.tatravel.data.source.remote.passenger.PassengerRepository;
@@ -40,6 +40,7 @@ public class PassengerPresenter implements PassengerContract.Presenter {
 
     @Override
     public void start() {
+        passengers.clear();
         Map<String, String> params = new HashMap<>();
         params.put("token", sessionRepository.getSessionData().getUserToken().getToken());
         listPassenger(params);

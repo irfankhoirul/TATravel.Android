@@ -37,7 +37,7 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.core.base.BaseFragment;
-import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
+import com.irfankhoirul.apps.tatravel.core.utils.ConstantUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,7 +52,7 @@ import butterknife.OnClick;
 
 import static com.basgeekball.awesomevalidation.ValidationStyle.TEXT_INPUT_LAYOUT;
 import static com.google.common.base.Preconditions.checkNotNull;
-import static com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils.REGISTER_GOOGLE_REQUEST;
+import static com.irfankhoirul.apps.tatravel.core.utils.ConstantUtils.REGISTER_GOOGLE_REQUEST;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -83,6 +83,9 @@ public class LoginFragment extends BaseFragment<LoginActivity, LoginContract.Pre
     Button btForgotPassword;
     @BindView(R.id.loginFacebook)
     LoginButton loginFacebook;
+
+//    @Inject
+//    FormValidation formValidation;
 
     private CallbackManager callbackManager;
     private GoogleApiClient mGoogleApiClient;
@@ -220,25 +223,26 @@ public class LoginFragment extends BaseFragment<LoginActivity, LoginContract.Pre
         activity.finish();
     }
 
+
     private boolean validateLoginForm() {
-        AwesomeValidation mAwesomeValidation = new AwesomeValidation(TEXT_INPUT_LAYOUT);
+        AwesomeValidation formValidation = new AwesomeValidation(TEXT_INPUT_LAYOUT);
         if (rbLoginWithPhoneNumber.isChecked()) {
-            mAwesomeValidation.addValidation(activity, R.id.tilPhoneNumber, Patterns.PHONE,
+            formValidation.addValidation(activity, R.id.tilPhoneNumber, Patterns.PHONE,
                     R.string.validation_phone_valid);
-            mAwesomeValidation.addValidation(activity, R.id.tilPhoneNumber, RegexTemplate.NOT_EMPTY,
+            formValidation.addValidation(activity, R.id.tilPhoneNumber, RegexTemplate.NOT_EMPTY,
                     R.string.validation_phone_not_empty);
         } else if (rbLoginWithEmailAddress.isChecked()) {
-            mAwesomeValidation.addValidation(activity, R.id.tilEmailAddress, Patterns.EMAIL_ADDRESS,
+            formValidation.addValidation(activity, R.id.tilEmailAddress, Patterns.EMAIL_ADDRESS,
                     R.string.validation_email_valid);
-            mAwesomeValidation.addValidation(activity, R.id.tilEmailAddress, RegexTemplate.NOT_EMPTY,
+            formValidation.addValidation(activity, R.id.tilEmailAddress, RegexTemplate.NOT_EMPTY,
                     R.string.validation_email_not_empty);
         }
-        mAwesomeValidation.addValidation(activity, R.id.tilName, RegexTemplate.NOT_EMPTY,
+        formValidation.addValidation(activity, R.id.tilName, RegexTemplate.NOT_EMPTY,
                 R.string.validation_name_not_empty);
-        mAwesomeValidation.addValidation(activity, R.id.tilPassword, RegexTemplate.NOT_EMPTY,
+        formValidation.addValidation(activity, R.id.tilPassword, RegexTemplate.NOT_EMPTY,
                 R.string.validation_password_not_empty);
 
-        return mAwesomeValidation.validate();
+        return formValidation.validate();
     }
 
     @OnCheckedChanged(R.id.rbLoginWithPhoneNumber)

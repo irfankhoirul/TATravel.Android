@@ -1,6 +1,6 @@
 package com.irfankhoirul.apps.tatravel.module.register;
 
-import com.irfankhoirul.apps.tatravel.core.app.TAApplication;
+import com.irfankhoirul.apps.tatravel.app.TAApplication;
 import com.irfankhoirul.apps.tatravel.core.base.BaseFragmentHolderActivity;
 
 import javax.inject.Inject;

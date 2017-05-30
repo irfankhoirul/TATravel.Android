@@ -41,6 +41,8 @@ public interface SearchContract {
 
         void setDeparture(Map<String, String> departureDate);
 
+        void clearDeparture();
+
         boolean isDestinationSet();
 
         void setDestination(Map<String, String> destinationData);

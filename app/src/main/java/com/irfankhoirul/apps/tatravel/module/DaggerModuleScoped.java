@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.core.components;
+package com.irfankhoirul.apps.tatravel.module;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
@@ -15,5 +15,5 @@ import javax.inject.Scope;
 @Documented
 @Scope
 @Retention(RetentionPolicy.RUNTIME)
-public @interface FragmentScoped {
+public @interface DaggerModuleScoped {
 }

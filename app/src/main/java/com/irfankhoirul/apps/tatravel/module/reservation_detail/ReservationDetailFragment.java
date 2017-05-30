@@ -3,6 +3,8 @@ package com.irfankhoirul.apps.tatravel.module.reservation_detail;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +13,7 @@ import android.widget.TextView;
 
 import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.core.base.BaseFragment;
-import com.irfankhoirul.apps.tatravel.core.components.util.CurrencyUtils;
+import com.irfankhoirul.apps.tatravel.core.utils.CurrencyUtils;
 import com.irfankhoirul.apps.tatravel.data.pojo.Pembayaran;
 import com.irfankhoirul.apps.tatravel.data.pojo.Pemesanan;
 
@@ -70,6 +72,8 @@ public class ReservationDetailFragment extends BaseFragment<ReservationDetailAct
     TextView tvBuyerPhoneNumber;
     @BindView(R.id.tvBuyerEmail)
     TextView tvBuyerEmail;
+    @BindView(R.id.cvPay)
+    CardView cvPay;
 
     public ReservationDetailFragment() {
         // Required empty public constructor
@@ -113,7 +117,10 @@ public class ReservationDetailFragment extends BaseFragment<ReservationDetailAct
     @Override
     public void showReservationDetail(Pemesanan reservation) {
         if (!reservation.getPembayaran().getStatus().equalsIgnoreCase(Pembayaran.PAYMENT_STATUS_UNPAID)) {
-            btPay.setVisibility(View.GONE);
+            cvPay.setBackgroundColor(ContextCompat.getColor(activity, R.color.grey_400));
+            btPay.setClickable(false);
+            btPay.setEnabled(false);
+            btPay.setText("Waktu Pembayaran Habis");
         }
 
         tvDepartureLocation.setText(reservation.getJadwalPerjalanan().getLokasiPemberangkatan().getNama() + ", " +

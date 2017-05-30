@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.core.activity;
+package com.irfankhoirul.apps.tatravel.activity;
 
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.PopupMenu;
@@ -10,7 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.irfankhoirul.apps.tatravel.R;
-import com.irfankhoirul.apps.tatravel.core.app.TAApplication;
+import com.irfankhoirul.apps.tatravel.app.TAApplication;
 import com.irfankhoirul.apps.tatravel.core.base.BaseActivity;
 import com.irfankhoirul.apps.tatravel.module.login_or_register.LoginOrRegisterFragment;
 import com.irfankhoirul.apps.tatravel.module.login_or_register.LoginOrRegisterPresenter;

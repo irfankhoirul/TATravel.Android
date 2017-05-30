@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.core.components.view;
+package com.irfankhoirul.apps.tatravel.core.custom_views;
 
 import android.content.Context;
 import android.support.design.widget.Snackbar;
@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.irfankhoirul.apps.tatravel.R;
-import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
+import com.irfankhoirul.apps.tatravel.core.utils.ConstantUtils;
 
 /**
  * Created by Irfan Khoirul on 12/25/2016.

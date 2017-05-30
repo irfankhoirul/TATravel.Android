@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.irfankhoirul.apps.tatravel.R;
-import com.irfankhoirul.apps.tatravel.core.app.TAApplication;
+import com.irfankhoirul.apps.tatravel.app.TAApplication;
 import com.irfankhoirul.apps.tatravel.core.base.BaseFragmentHolderActivity;
 import com.irfankhoirul.apps.tatravel.data.pojo.Penumpang;
 

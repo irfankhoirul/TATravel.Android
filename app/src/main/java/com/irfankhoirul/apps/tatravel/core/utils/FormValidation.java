@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.core.components.util;
+package com.irfankhoirul.apps.tatravel.core.utils;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;

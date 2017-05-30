@@ -14,9 +14,9 @@ import android.widget.LinearLayout;
 
 import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.core.base.BaseDialog;
-import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
-import com.irfankhoirul.apps.tatravel.core.components.util.DisplayMetricUtils;
 import com.irfankhoirul.apps.tatravel.core.data.DataPage;
+import com.irfankhoirul.apps.tatravel.core.utils.ConstantUtils;
+import com.irfankhoirul.apps.tatravel.core.utils.DisplayMetricUtils;
 import com.irfankhoirul.apps.tatravel.data.pojo.Kota;
 import com.wang.avi.AVLoadingIndicatorView;
 

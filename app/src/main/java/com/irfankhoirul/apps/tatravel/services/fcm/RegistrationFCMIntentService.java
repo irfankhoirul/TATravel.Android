@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.core.components.fcm;
+package com.irfankhoirul.apps.tatravel.services.fcm;
 
 import android.app.IntentService;
 import android.content.Intent;

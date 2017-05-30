@@ -1,6 +1,6 @@
-package com.irfankhoirul.apps.tatravel.core.app;
+package com.irfankhoirul.apps.tatravel.app;
 
-import com.irfankhoirul.apps.tatravel.core.components.util.FormValidation;
+import com.irfankhoirul.apps.tatravel.core.utils.FormValidation;
 import com.irfankhoirul.apps.tatravel.data.source.locale.cart.CartRepository;
 import com.irfankhoirul.apps.tatravel.data.source.locale.session.SessionRepository;
 import com.irfankhoirul.apps.tatravel.data.source.remote.passenger.PassengerRepository;
@@ -20,7 +20,6 @@ import dagger.Component;
 @Singleton
 @Component(modules = {AppModule.class})
 public interface AppComponent {
-//    void inject(TAApplication taApplication);
 
     SessionRepository session();
 

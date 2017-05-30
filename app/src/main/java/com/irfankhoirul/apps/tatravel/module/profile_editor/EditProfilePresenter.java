@@ -1,8 +1,8 @@
 package com.irfankhoirul.apps.tatravel.module.profile_editor;
 
-import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.core.data.DataResult;
 import com.irfankhoirul.apps.tatravel.core.data.IRequestResponseListener;
+import com.irfankhoirul.apps.tatravel.core.utils.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.data.pojo.Kota;
 import com.irfankhoirul.apps.tatravel.data.pojo.Provinsi;
 import com.irfankhoirul.apps.tatravel.data.pojo.User;

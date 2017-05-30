@@ -1,6 +1,6 @@
 package com.irfankhoirul.apps.tatravel.data.source.remote.user;
 
-import com.irfankhoirul.apps.tatravel.core.base.BaseRemoteDataSource;
+import com.irfankhoirul.apps.tatravel.core.base.BaseRemoteRepository;
 import com.irfankhoirul.apps.tatravel.core.data.DataResult;
 import com.irfankhoirul.apps.tatravel.core.data.IRequestResponseListener;
 import com.irfankhoirul.apps.tatravel.data.pojo.Kota;
@@ -11,15 +11,27 @@ import java.util.Map;
 
 import retrofit2.Call;
 
+import static com.irfankhoirul.apps.tatravel.data.source.remote.EndPoints.BASE_API_URL;
+
 /**
  * Created by Irfan Khoirul on 3/11/2017.
  */
 
-public class UserRepositoryImpl extends BaseRemoteDataSource implements UserRepository {
+public class UserRepositoryImpl extends BaseRemoteRepository implements UserRepository {
+
+    @Override
+    public String setBaseUrl() {
+        return BASE_API_URL;
+    }
 
     @Override
     public void setEndPoint() {
         endPoint = retrofit.create(IUserEndPoints.class);
+    }
+
+    @Override
+    public boolean enableLogging() {
+        return true;
     }
 
     @Override

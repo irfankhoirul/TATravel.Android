@@ -1,6 +1,6 @@
 package com.irfankhoirul.apps.tatravel.module.reservation_detail;
 
-import com.irfankhoirul.apps.tatravel.core.app.TAApplication;
+import com.irfankhoirul.apps.tatravel.app.TAApplication;
 import com.irfankhoirul.apps.tatravel.core.base.BaseFragmentHolderActivity;
 import com.irfankhoirul.apps.tatravel.data.pojo.Pemesanan;
 
@@ -28,7 +28,9 @@ public class ReservationDetailActivity extends BaseFragmentHolderActivity {
 
     @Override
     public void onBackPressed() {
-        mPresenter.clearCart();
         super.onBackPressed();
+        if (Parcels.unwrap(getIntent().getParcelableExtra("reservation")) != null) {
+            mPresenter.clearCart();
+        }
     }
 }

@@ -84,6 +84,11 @@ public class SearchPresenter implements SearchContract.Presenter {
     }
 
     @Override
+    public void clearDeparture() {
+        cartRepository.clearDeparture();
+    }
+
+    @Override
     public boolean isDestinationSet() {
         return cartRepository.getDestination() != null;
     }

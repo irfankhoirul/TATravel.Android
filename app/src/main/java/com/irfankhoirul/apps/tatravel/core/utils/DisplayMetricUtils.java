@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.core.components.util;
+package com.irfankhoirul.apps.tatravel.core.utils;
 
 import android.app.Activity;
 import android.content.res.Resources;

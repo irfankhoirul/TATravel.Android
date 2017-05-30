@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.core.activity;
+package com.irfankhoirul.apps.tatravel.activity;
 
 import android.content.Intent;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.core.components.view;
+package com.irfankhoirul.apps.tatravel.core.custom_views;
 
 import android.app.Activity;
 import android.view.Gravity;
@@ -10,8 +10,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.irfankhoirul.apps.tatravel.R;
-import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
-import com.irfankhoirul.apps.tatravel.core.components.util.DisplayMetricUtils;
+import com.irfankhoirul.apps.tatravel.core.utils.ConstantUtils;
+import com.irfankhoirul.apps.tatravel.core.utils.DisplayMetricUtils;
 
 /**
  * Created by Irfan Khoirul on 4/10/2017.

@@ -44,9 +44,9 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.irfankhoirul.apps.tatravel.R;
-import com.irfankhoirul.apps.tatravel.core.activity.MainActivity;
+import com.irfankhoirul.apps.tatravel.activity.MainActivity;
 import com.irfankhoirul.apps.tatravel.core.base.BaseFragment;
-import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
+import com.irfankhoirul.apps.tatravel.core.utils.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.data.pojo.Lokasi;
 
 import org.parceler.Parcels;
@@ -353,6 +353,7 @@ public class DestinationFragment extends BaseFragment<MainActivity, DestinationC
                     addresses = new Geocoder(activity, indonesia).getFromLocation(tmpLat, tmpLon, 1);
                 } catch (IOException e) {
                     e.printStackTrace();
+                    showToast(ConstantUtils.STATUS_ERROR, "Gagal mendapatkan lokasi");
                 }
 
                 setLoadingDialog(false, null);

@@ -14,7 +14,6 @@ import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,9 +43,9 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.irfankhoirul.apps.tatravel.R;
-import com.irfankhoirul.apps.tatravel.core.activity.MainActivity;
+import com.irfankhoirul.apps.tatravel.activity.MainActivity;
 import com.irfankhoirul.apps.tatravel.core.base.BaseFragment;
-import com.irfankhoirul.apps.tatravel.core.components.util.ConstantUtils;
+import com.irfankhoirul.apps.tatravel.core.utils.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.data.pojo.Lokasi;
 import com.irfankhoirul.apps.tatravel.data.pojo.OperatorTravel;
 import com.irfankhoirul.apps.tatravel.module.travel_choice.DaggerTravelChoiceComponent;
@@ -204,7 +203,6 @@ public class DepartureFragment extends BaseFragment<MainActivity, DepartureContr
         if (requestCode == ConstantUtils.PLACE_AUTOCOMPLETE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 Place place = PlaceAutocomplete.getPlace(activity, data);
-                Log.v("GooglePlace", "Do! " + place.getName().toString());
                 CameraPosition cameraPosition = new CameraPosition.Builder()
                         .target(place.getLatLng()).zoom(16).build();
                 tvAutocompletePlace.setText(place.getName());
@@ -212,9 +210,7 @@ public class DepartureFragment extends BaseFragment<MainActivity, DepartureContr
                         .newCameraPosition(cameraPosition));
             } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
                 Status status = PlaceAutocomplete.getStatus(activity, data);
-                Log.v("GooglePlace", "Do! " + status.getStatusMessage());
             } else if (resultCode == RESULT_CANCELED) {
-                Log.v("GooglePlace", "Do! " + "Canceled!");
             }
         }
     }
@@ -373,6 +369,7 @@ public class DepartureFragment extends BaseFragment<MainActivity, DepartureContr
                     addresses = new Geocoder(activity, indonesia).getFromLocation(tmpLat, tmpLon, 1);
                 } catch (IOException e) {
                     e.printStackTrace();
+                    showToast(ConstantUtils.STATUS_ERROR, "Gagal mendapatkan lokasi");
                 }
 
                 setLoadingDialog(false, null);

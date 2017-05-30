@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.core.base.BaseDialog;
-import com.irfankhoirul.apps.tatravel.core.components.util.CurrencyUtils;
+import com.irfankhoirul.apps.tatravel.core.utils.CurrencyUtils;
 import com.irfankhoirul.apps.tatravel.data.pojo.JadwalPerjalanan;
 
 import org.parceler.Parcels;
