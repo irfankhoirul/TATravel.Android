@@ -36,8 +36,8 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <activity android:name=".module.departure.DepartureActivity" />
-        <activity android:name=".module.destination.DestinationActivity" />
+        <activity android:name=".modules.departure.DepartureActivity" />
+        <activity android:name=".modules.destination.DestinationActivity" />
         <activity
             android:name=".activity.SplashActivity"
             android:theme="@style/SplashTheme">
@@ -47,8 +47,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".module.login.LoginActivity" />
-        <activity android:name=".module.register.RegisterActivity">
+        <activity android:name=".modules.login.LoginActivity" />
+        <activity android:name=".modules.register.RegisterActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -58,8 +58,8 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".module.verification.VerifyActivity" />
-        <activity android:name=".module.passenger.PassengerActivity" />
+        <activity android:name=".modules.verification.VerifyActivity" />
+        <activity android:name=".modules.passenger.PassengerActivity" />
 
         <receiver
             android:name=".services.receiver.SmsReceiver"
@@ -96,11 +96,11 @@
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorAccent" />
 
-        <activity android:name=".module.schedule.ScheduleActivity" />
-        <activity android:name=".module.seat.SeatActivity" />
-        <activity android:name=".module.reservation_creator.ReservationActivity" />
-        <activity android:name=".module.reservation_detail.ReservationDetailActivity" />
-        <activity android:name=".module.profile_editor.EditProfileActivity" />
+        <activity android:name=".modules.schedule.ScheduleActivity" />
+        <activity android:name=".modules.seat.SeatActivity" />
+        <activity android:name=".modules.reservation_creator.ReservationActivity" />
+        <activity android:name=".modules.reservation_detail.ReservationDetailActivity" />
+        <activity android:name=".modules.profile_editor.EditProfileActivity" />
     </application>
 
 </manifest>
