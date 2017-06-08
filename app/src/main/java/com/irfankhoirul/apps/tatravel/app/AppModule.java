@@ -4,10 +4,10 @@ import android.content.Context;
 
 import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.irfankhoirul.apps.tatravel.components.FormValidation;
-import com.irfankhoirul.apps.tatravel.data.source.locale.cart.Cart;
 import com.irfankhoirul.apps.tatravel.data.source.locale.cart.CartRepository;
-import com.irfankhoirul.apps.tatravel.data.source.locale.session.Session;
+import com.irfankhoirul.apps.tatravel.data.source.locale.cart.CartRepositoryImpl;
 import com.irfankhoirul.apps.tatravel.data.source.locale.session.SessionRepository;
+import com.irfankhoirul.apps.tatravel.data.source.locale.session.SessionRepositoryImpl;
 import com.irfankhoirul.apps.tatravel.data.source.remote.passenger.PassengerRepository;
 import com.irfankhoirul.apps.tatravel.data.source.remote.passenger.PassengerRepositoryImpl;
 import com.irfankhoirul.apps.tatravel.data.source.remote.reservation.ReservationRepository;
@@ -45,13 +45,13 @@ public final class AppModule {
     @Singleton
     @Provides
     SessionRepository provideSessionRepository(Context context) {
-        return new Session(context);
+        return new SessionRepositoryImpl(context);
     }
 
     @Singleton
     @Provides
     CartRepository provideCartRepository(Context context) {
-        return new Cart(context);
+        return new CartRepositoryImpl(context);
     }
 
     @Singleton

@@ -11,7 +11,7 @@ import java.util.Map;
  * Created by Irfan Khoirul on 4/2/2017.
  */
 
-public interface EditProfileContract {
+public interface ProfileEditorContract {
     interface View extends IBaseView<Presenter> {
         void showCurrentData(User user);
 

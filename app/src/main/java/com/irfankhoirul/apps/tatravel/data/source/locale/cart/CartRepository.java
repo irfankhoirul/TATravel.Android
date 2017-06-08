@@ -34,16 +34,6 @@ public interface CartRepository {
 
     void clearTanggalKeberangkatan();
 
-    boolean isPulangPergi();
-
-    void setPulangPergi(boolean isPulangPergi);
-
-    long getTanggalKepulangan();
-
-    void setTanggalKepulangan(long date);
-
-    void clearTanggalKepulangan();
-
     List<Penumpang> getPenumpang();
 
     void setPenumpang(List<Penumpang> penumpangList);
@@ -71,4 +61,6 @@ public interface CartRepository {
     Pemesanan getLastReservation();
 
     void setLastReservation(Pemesanan reservation);
+
+    void clearLastReservation();
 }

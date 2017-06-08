@@ -9,7 +9,7 @@ package com.irfankhoirul.apps.tatravel.data.source.remote;
  */
 
 public class EndPoints {
-    public static final String BASE_API_URL = "http://192.168.8.100/api/";
+    public static final String BASE_API_URL = "http://192.168.8.101/api/";
 
     // User End Point
     public static final String DO_REGISTER = "register";

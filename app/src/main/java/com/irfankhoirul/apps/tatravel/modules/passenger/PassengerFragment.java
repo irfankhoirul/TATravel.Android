@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -13,16 +14,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.basgeekball.awesomevalidation.utility.RegexTemplate;
 import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.components.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.components.DisplayMetricUtils;
+import com.irfankhoirul.apps.tatravel.components.FormValidation;
 import com.irfankhoirul.apps.tatravel.data.pojo.Penumpang;
-import com.irfankhoirul.apps.tatravel.modules.passenger_creator.DaggerPassengerCreatorDialogComponent;
-import com.irfankhoirul.apps.tatravel.modules.passenger_creator.PassengerCreatorDialog;
-import com.irfankhoirul.apps.tatravel.modules.passenger_creator.PassengerCreatorDialogPresenter;
-import com.irfankhoirul.apps.tatravel.modules.passenger_creator.PassengerCreatorPresenterModule;
 import com.irfankhoirul.mvp_core.base.BaseFragment;
 import com.irfankhoirul.mvp_core.data.DataPage;
 
@@ -32,12 +32,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.basgeekball.awesomevalidation.ValidationStyle.TEXT_INPUT_LAYOUT;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
@@ -45,7 +44,10 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 
 public class PassengerFragment extends BaseFragment<PassengerActivity, PassengerContract.Presenter>
-        implements PassengerContract.View, PassengerCreatorDialog.DialogListener {
+        implements PassengerContract.View {
+
+    private static final String ADD_PASSENGER = "Tambah Penumpang";
+    private static final String UPDATE_PASSENGER = "Ubah Penumpang";
 
     @BindView(R.id.rvPassenger)
     RecyclerView rvPassenger;
@@ -53,9 +55,6 @@ public class PassengerFragment extends BaseFragment<PassengerActivity, Passenger
     LinearLayout llEmptyMessage;
     @BindView(R.id.btSetPassenger)
     Button btSetPassenger;
-
-    @Inject
-    PassengerCreatorDialogPresenter passengerCreatorDialogPresenter;
 
     private PassengerAdapter passengerAdapter;
 
@@ -118,13 +117,7 @@ public class PassengerFragment extends BaseFragment<PassengerActivity, Passenger
                 builder.setNegativeButton("Ubah", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        PassengerCreatorDialog passengerCreatorDialog = PassengerCreatorDialog.newInstance(position, passenger);
-                        passengerCreatorDialog.setListener(PassengerFragment.this);
-                        passengerCreatorDialog.show(getFragmentManager(), "passengerCreatorDialog");
-
-                        DaggerPassengerCreatorDialogComponent.builder()
-                                .passengerCreatorPresenterModule(new PassengerCreatorPresenterModule(passengerCreatorDialog))
-                                .build().inject(PassengerFragment.this);
+                        showPassengerCreatorDialog(UPDATE_PASSENGER, passenger, position);
                     }
                 });
                 builder.create().show();
@@ -198,13 +191,7 @@ public class PassengerFragment extends BaseFragment<PassengerActivity, Passenger
 
     @Override
     public void onCreatePassengerClick() {
-        PassengerCreatorDialog passengerCreatorDialog = new PassengerCreatorDialog();
-        passengerCreatorDialog.setListener(this);
-        passengerCreatorDialog.show(getFragmentManager(), "passengerCreatorDialog");
-
-        DaggerPassengerCreatorDialogComponent.builder()
-                .passengerCreatorPresenterModule(new PassengerCreatorPresenterModule(passengerCreatorDialog))
-                .build().inject(this);
+        showPassengerCreatorDialog(ADD_PASSENGER, null, 0);
     }
 
     @Override
@@ -235,16 +222,46 @@ public class PassengerFragment extends BaseFragment<PassengerActivity, Passenger
     }
 
     @Override
-    public void onPassengerCreated(String passengerName) {
-        Map<String, String> params = new HashMap<>();
-        params.put("name", passengerName);
-        mPresenter.createPassenger(params);
+    public void showPassengerCreatorDialog(final String title, final Penumpang passenger, final int position) {
+        AlertDialog.Builder builder = createAlert(null, null);
+        LayoutInflater inflater = getLayoutInflater(null);
+        View dialogView = inflater.inflate(R.layout.dialog_passenger_creator, null);
+        builder.setView(dialogView);
+        final TextInputLayout tilPassengerName = (TextInputLayout) dialogView.findViewById(R.id.tilPassengerName);
+        final EditText etPassengerName = (EditText) dialogView.findViewById(R.id.etPassengerName);
+        if (passenger != null) {
+            etPassengerName.setText(passenger.getNama());
+        }
+        builder.setCancelable(true);
+        builder.setPositiveButton("Simpan", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (validatePassengerNameForm(tilPassengerName.getId())) {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("name", etPassengerName.getText().toString());
+                    if (title.equalsIgnoreCase(ADD_PASSENGER)) {
+                        mPresenter.createPassenger(params);
+                    } else if (title.equalsIgnoreCase(UPDATE_PASSENGER)) {
+                        mPresenter.updatePassenger(position, passenger, params);
+                    }
+                    dialog.dismiss();
+                }
+            }
+        });
+        builder.setNegativeButton("Batal", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.create().show();
     }
 
-    @Override
-    public void onPassengerUpdated(int position, Penumpang passenger) {
-        Map<String, String> params = new HashMap<>();
-        params.put("name", passenger.getNama());
-        mPresenter.updatePassenger(position, passenger, params);
+    private boolean validatePassengerNameForm(int textInputLayoutId) {
+        FormValidation formValidation = new FormValidation(TEXT_INPUT_LAYOUT);
+        formValidation.addValidation(activity, textInputLayoutId, RegexTemplate.NOT_EMPTY,
+                R.string.validation_passenger_name_not_empty);
+
+        return formValidation.validate();
     }
 }

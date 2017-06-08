@@ -21,7 +21,6 @@ public interface SearchContract {
      * @since 1.0
      */
     interface View extends IBaseView<Presenter> {
-        void showPromo();
 
         void setDepartureView(String departureLocation);
 
@@ -33,7 +32,6 @@ public interface SearchContract {
     }
 
     interface Presenter extends IBasePresenter {
-        void getPromo();
 
         boolean isLoggedIn();
 

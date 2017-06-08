@@ -73,7 +73,7 @@ public class TravelChoiceAdapter extends RecyclerView.Adapter<TravelChoiceAdapte
         void onItemClick(OperatorTravel lokasi);
     }
 
-    public class TravelChoiceViewHolder extends RecyclerView.ViewHolder {
+    public static class TravelChoiceViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.ivTravelLogo)
         ImageView ivTravelLogo;

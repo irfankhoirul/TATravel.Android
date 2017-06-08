@@ -20,17 +20,17 @@ import javax.inject.Inject;
  * Created by Irfan Khoirul on 4/2/2017.
  */
 
-public class EditProfilePresenter implements EditProfileContract.Presenter {
+public class ProfileEditorPresenter implements ProfileEditorContract.Presenter {
 
-    private final EditProfileContract.View view;
+    private final ProfileEditorContract.View view;
     private final UserRepository userRepository;
     private final SessionRepository sessionRepository;
     private List<Provinsi> provinceList = new ArrayList<>();
 
     @Inject
-    public EditProfilePresenter(SessionRepository sessionRepository,
-                                UserRepository userRepository,
-                                EditProfileContract.View view) {
+    public ProfileEditorPresenter(SessionRepository sessionRepository,
+                                  UserRepository userRepository,
+                                  ProfileEditorContract.View view) {
         this.view = view;
         this.userRepository = userRepository;
         this.sessionRepository = sessionRepository;

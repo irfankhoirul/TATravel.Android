@@ -12,10 +12,10 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.irfankhoirul.apps.tatravel.R;
-import com.irfankhoirul.apps.tatravel.activity.MainActivity;
 import com.irfankhoirul.apps.tatravel.components.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.data.pojo.User;
-import com.irfankhoirul.apps.tatravel.modules.profile_editor.EditProfileActivity;
+import com.irfankhoirul.apps.tatravel.modules.MainActivity;
+import com.irfankhoirul.apps.tatravel.modules.profile_editor.ProfileEditorActivity;
 import com.irfankhoirul.mvp_core.base.BaseFragment;
 
 import java.util.HashMap;
@@ -159,7 +159,7 @@ public class ProfileFragment extends BaseFragment<MainActivity, ProfileContract.
     }
 
     public void doUpdateProfile() {
-        Intent intent = new Intent(activity, EditProfileActivity.class);
+        Intent intent = new Intent(activity, ProfileEditorActivity.class);
         startActivityForResult(intent, ConstantUtils.ACTIVITY_REQUEST_CODE_EDIT_PROFILE);
     }
 

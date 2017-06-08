@@ -26,7 +26,7 @@ public class UserRepositoryImpl extends BaseRemoteRepository implements UserRepo
 
     @Override
     public void setEndPoint() {
-        endPoint = retrofit.create(IUserEndPoints.class);
+        endPoint = retrofit.create(UserEndPoints.class);
     }
 
     @Override
@@ -36,49 +36,49 @@ public class UserRepositoryImpl extends BaseRemoteRepository implements UserRepo
 
     @Override
     public void register(IRequestResponseListener listener, Map<String, String> param) {
-        Call<DataResult> call = ((IUserEndPoints) endPoint).register(param);
+        Call<DataResult> call = ((UserEndPoints) endPoint).register(param);
         execute(call, listener);
     }
 
     @Override
     public void verify(IRequestResponseListener<User> listener, Map<String, String> param) {
-        Call<DataResult<User>> call = ((IUserEndPoints) endPoint).verify(param);
+        Call<DataResult<User>> call = ((UserEndPoints) endPoint).verify(param);
         execute(call, listener);
     }
 
     @Override
     public void login(IRequestResponseListener<User> listener, Map<String, String> param) {
-        Call<DataResult<User>> call = ((IUserEndPoints) endPoint).login(param);
+        Call<DataResult<User>> call = ((UserEndPoints) endPoint).login(param);
         execute(call, listener);
     }
 
     @Override
     public void logout(IRequestResponseListener listener, Map<String, String> param) {
-        Call<DataResult> call = ((IUserEndPoints) endPoint).logout(param);
+        Call<DataResult> call = ((UserEndPoints) endPoint).logout(param);
         execute(call, listener);
     }
 
     @Override
     public void updateFcmToken(IRequestResponseListener listener, Map<String, String> param) {
-        Call<DataResult> call = ((IUserEndPoints) endPoint).updateFcmToken(param);
+        Call<DataResult> call = ((UserEndPoints) endPoint).updateFcmToken(param);
         execute(call, listener);
     }
 
     @Override
     public void getListCity(IRequestResponseListener listener, int provinceId, Map<String, String> param) {
-        Call<DataResult<Kota>> call = ((IUserEndPoints) endPoint).listKota(provinceId, param);
+        Call<DataResult<Kota>> call = ((UserEndPoints) endPoint).listKota(provinceId, param);
         execute(call, listener);
     }
 
     @Override
     public void getListProvince(IRequestResponseListener listener, Map<String, String> param) {
-        Call<DataResult<Provinsi>> call = ((IUserEndPoints) endPoint).listProvinsi(param);
+        Call<DataResult<Provinsi>> call = ((UserEndPoints) endPoint).listProvinsi(param);
         execute(call, listener);
     }
 
     @Override
     public void updateProfile(IRequestResponseListener listener, int userId, Map<String, String> param) {
-        Call<DataResult<User>> call = ((IUserEndPoints) endPoint).updateProfile(userId, param);
+        Call<DataResult<User>> call = ((UserEndPoints) endPoint).updateProfile(userId, param);
         execute(call, listener);
     }
 

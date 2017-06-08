@@ -76,18 +76,18 @@ public class PassengerPresenter implements PassengerContract.Presenter {
     public void updatePassenger(final int position, final Penumpang passenger, Map<String, String> param) {
         param.put("token", sessionRepository.getSessionData().getUserToken().getToken());
         view.setLoadingDialog(true, "Menyimpan data penumpang...");
-        passengerRepository.updatePassenger(new IRequestResponseListener() {
+        passengerRepository.updatePassenger(new IRequestResponseListener<Penumpang>() {
             @Override
-            public void onSuccess(DataResult result) {
+            public void onSuccess(DataResult<Penumpang> result) {
                 view.setLoadingDialog(false, null);
                 if (result.getCode() == ConstantUtils.REQUEST_RESULT_SUCCESS) {
                     Penumpang tmpPassenger = passengers.get(position);
                     for (int i = 0; i < selectedPassengers.size(); i++) {
                         if (selectedPassengers.get(i).getId() == tmpPassenger.getId()) {
-                            selectedPassengers.set(i, passenger);
+                            selectedPassengers.set(i, result.getData());
                         }
                     }
-                    passengers.set(position, passenger);
+                    passengers.set(position, result.getData());
                     view.updatePassengerItem(position);
                     view.showStatus(ConstantUtils.STATUS_SUCCESS, result.getMessage());
                 } else {

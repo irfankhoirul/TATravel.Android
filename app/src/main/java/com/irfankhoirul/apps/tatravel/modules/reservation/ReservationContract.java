@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.modules.reservation_creator;
+package com.irfankhoirul.apps.tatravel.modules.reservation;
 
 import com.irfankhoirul.mvp_core.base.IBasePresenter;
 import com.irfankhoirul.mvp_core.base.IBaseView;

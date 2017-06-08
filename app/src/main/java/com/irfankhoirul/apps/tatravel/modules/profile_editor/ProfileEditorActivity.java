@@ -5,18 +5,18 @@ import com.irfankhoirul.mvp_core.base.BaseFragmentHolderActivity;
 
 import javax.inject.Inject;
 
-public class EditProfileActivity extends BaseFragmentHolderActivity {
+public class ProfileEditorActivity extends BaseFragmentHolderActivity {
 
     @Inject
-    EditProfilePresenter mPresenter;
+    ProfileEditorPresenter mPresenter;
 
     @Override
     protected void initializeFragment() {
-        EditProfileFragment editProfileFragment = new EditProfileFragment();
-        setCurrentFragment(editProfileFragment, false);
+        ProfileEditorFragment profileEditorFragment = new ProfileEditorFragment();
+        setCurrentFragment(profileEditorFragment, false);
 
-        DaggerEditProfileComponent.builder()
-                .editProfilePresenterModule(new EditProfilePresenterModule(editProfileFragment))
+        DaggerProfileEditorComponent.builder()
+                .profileEditorPresenterModule(new ProfileEditorPresenterModule(profileEditorFragment))
                 .appComponent(((TAApplication) getApplication()).getAppComponent())
                 .build().inject(this);
 

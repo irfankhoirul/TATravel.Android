@@ -37,7 +37,7 @@ public interface IScheduleEndPoints {
      */
     @FormUrlEncoded
     @POST(LIST_SCHEDULE)
-    Call<DataResult<JadwalPerjalanan>> listJadwalPerjalanan(@Path("id") int id, @FieldMap Map<String, String> param);
+    Call<DataResult<JadwalPerjalanan>> listJadwalPerjalanan(@Path("id") int idOperatorTravel, @FieldMap Map<String, String> param);
 
     /**
      * Param

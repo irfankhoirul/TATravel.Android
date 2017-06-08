@@ -3,7 +3,6 @@ package com.irfankhoirul.apps.tatravel.modules.search;
 import com.irfankhoirul.apps.tatravel.data.pojo.Penumpang;
 import com.irfankhoirul.apps.tatravel.data.source.locale.cart.CartRepository;
 import com.irfankhoirul.apps.tatravel.data.source.locale.session.SessionRepository;
-import com.irfankhoirul.apps.tatravel.data.source.remote.schedule.ScheduleRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,17 +21,16 @@ import javax.inject.Inject;
 public class SearchPresenter implements SearchContract.Presenter {
 
     private final SearchContract.View view;
-    private final ScheduleRepository scheduleRepository;
     private final SessionRepository sessionRepository;
     private final CartRepository cartRepository;
     private List<Penumpang> selectedPassengers = new ArrayList<>();
 
     @Inject
-    public SearchPresenter(SessionRepository sessionRepository, CartRepository cartRepository,
-                           ScheduleRepository scheduleRepository, SearchContract.View view) {
+    public SearchPresenter(SessionRepository sessionRepository,
+                           CartRepository cartRepository,
+                           SearchContract.View view) {
         this.view = view;
         this.sessionRepository = sessionRepository;
-        this.scheduleRepository = scheduleRepository;
         this.cartRepository = cartRepository;
     }
 
@@ -58,14 +56,10 @@ public class SearchPresenter implements SearchContract.Presenter {
 
             if (cartRepository.getPenumpang() != null && cartRepository.getPenumpang().size() > 0) {
                 view.setPassengerView(cartRepository.getPenumpang());
+                selectedPassengers = cartRepository.getPenumpang();
             }
-        }
-    }
 
-    @Override
-    public void getPromo() {
-        //Todo : get promo data from server
-        view.showPromo();
+        }
     }
 
     @Override

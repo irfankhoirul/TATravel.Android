@@ -14,6 +14,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class PassengerActivity extends BaseFragmentHolderActivity {
@@ -26,6 +27,7 @@ public class PassengerActivity extends BaseFragmentHolderActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ButterKnife.bind(this);
         btOptionMenu.setVisibility(View.VISIBLE);
         btOptionMenu.setImageResource(R.drawable.ic_add_black_24dp);
     }
@@ -44,8 +46,9 @@ public class PassengerActivity extends BaseFragmentHolderActivity {
 
     @OnClick(R.id.btOptionMenu)
     public void btOptionMenu() {
-        // Open passenger dialog creator
-        passengerFragment.onCreatePassengerClick();
+        if (passengerFragment != null) {
+            passengerFragment.onCreatePassengerClick();
+        }
     }
 
 }

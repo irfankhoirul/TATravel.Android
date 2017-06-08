@@ -14,13 +14,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.daimajia.slider.library.SliderLayout
-                android:id="@+id/sliderPromotion"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginBottom="16dp"
-                android:visibility="gone" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

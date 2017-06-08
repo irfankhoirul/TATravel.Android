@@ -17,25 +17,24 @@ import java.util.Map;
  * Created by Irfan Khoirul on 5/7/2017.
  */
 
-public class Cart implements CartRepository {
+public class CartRepositoryImpl implements CartRepository {
 
-    private static String SHARED_PREFERENCE_NAME = "Cart";
-    private SharedPreferences sharedPref;
-    private Cart cart;
+    private static String SHARED_PREFERENCE_NAME = "CartRepositoryImpl";
+    private SharedPreferences sharedPreferences;
 
-    public Cart(Context mContext) {
-        sharedPref = mContext.getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
+    public CartRepositoryImpl(Context context) {
+        sharedPreferences = context.getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
     }
 
     @Override
     public void clearCart() {
-        sharedPref.edit().clear().apply();
+        sharedPreferences.edit().clear().apply();
     }
 
     @Override
     public Map<String, String> getDeparture() {
-        if (sharedPref.getString("departure", null) != null) {
-            return new Gson().fromJson(sharedPref.getString("departure", null), new TypeToken<Map<String, String>>() {
+        if (sharedPreferences.getString("departure", null) != null) {
+            return new Gson().fromJson(sharedPreferences.getString("departure", null), new TypeToken<Map<String, String>>() {
             }.getType());
         }
         return null;
@@ -51,22 +50,22 @@ public class Cart implements CartRepository {
      */
     @Override
     public void setDeparture(Map<String, String> departureData) {
-        SharedPreferences.Editor editor = sharedPref.edit();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("departure", new Gson().toJson(departureData));
         editor.apply();
     }
 
     @Override
     public void clearDeparture() {
-        SharedPreferences.Editor editor = sharedPref.edit();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.remove("departure");
         editor.apply();
     }
 
     @Override
     public Map<String, String> getDestination() {
-        if (sharedPref.getString("destination", null) != null) {
-            return new Gson().fromJson(sharedPref.getString("destination", null), new TypeToken<Map<String, String>>() {
+        if (sharedPreferences.getString("destination", null) != null) {
+            return new Gson().fromJson(sharedPreferences.getString("destination", null), new TypeToken<Map<String, String>>() {
             }.getType());
         }
         return null;
@@ -81,72 +80,41 @@ public class Cart implements CartRepository {
      */
     @Override
     public void setDestination(Map<String, String> destinationData) {
-        SharedPreferences.Editor editor = sharedPref.edit();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("destination", new Gson().toJson(destinationData));
         editor.apply();
     }
 
     @Override
     public void clearDestination() {
-        SharedPreferences.Editor editor = sharedPref.edit();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.remove("destination");
         editor.apply();
     }
 
     @Override
     public long getTanggalKeberangkatan() {
-        return sharedPref.getLong("tanggalKeberangkatan", 0);
+        return sharedPreferences.getLong("tanggalKeberangkatan", 0);
     }
 
     @Override
     public void setTanggalKeberangkatan(long date) {
-        SharedPreferences.Editor editor = sharedPref.edit();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putLong("tanggalKeberangkatan", date);
         editor.apply();
     }
 
     @Override
     public void clearTanggalKeberangkatan() {
-        SharedPreferences.Editor editor = sharedPref.edit();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.remove("tanggalKeberangkatan");
         editor.apply();
     }
 
     @Override
-    public boolean isPulangPergi() {
-        return sharedPref.getBoolean("pulangPergi", false);
-    }
-
-    @Override
-    public void setPulangPergi(boolean isPulangPergi) {
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putBoolean("pulangPergi", isPulangPergi);
-        editor.apply();
-    }
-
-    @Override
-    public long getTanggalKepulangan() {
-        return sharedPref.getLong("tanggalKepulangan", 0);
-    }
-
-    @Override
-    public void setTanggalKepulangan(long date) {
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putLong("tanggalKepulangan", date);
-        editor.apply();
-    }
-
-    @Override
-    public void clearTanggalKepulangan() {
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.remove("tanggalKepulangan");
-        editor.apply();
-    }
-
-    @Override
     public List<Penumpang> getPenumpang() {
-        if (sharedPref.getString("penumpang", null) != null) {
-            return new Gson().fromJson(sharedPref.getString("penumpang", null), new TypeToken<List<Penumpang>>() {
+        if (sharedPreferences.getString("penumpang", null) != null) {
+            return new Gson().fromJson(sharedPreferences.getString("penumpang", null), new TypeToken<List<Penumpang>>() {
             }.getType());
         }
         return null;
@@ -157,44 +125,44 @@ public class Cart implements CartRepository {
      */
     @Override
     public void setPenumpang(List<Penumpang> penumpangList) {
-        SharedPreferences.Editor editor = sharedPref.edit();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("penumpang", new Gson().toJson(penumpangList));
         editor.apply();
     }
 
     @Override
     public void clearPenumpang() {
-        SharedPreferences.Editor editor = sharedPref.edit();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.remove("penumpang");
         editor.apply();
     }
 
     @Override
     public JadwalPerjalanan getSchedule() {
-        if (sharedPref.getString("jadwalPerjalanan", null) != null) {
-            return new Gson().fromJson(sharedPref.getString("jadwalPerjalanan", null), JadwalPerjalanan.class);
+        if (sharedPreferences.getString("jadwalPerjalanan", null) != null) {
+            return new Gson().fromJson(sharedPreferences.getString("jadwalPerjalanan", null), JadwalPerjalanan.class);
         }
         return null;
     }
 
     @Override
     public void setSchedule(JadwalPerjalanan schedule) {
-        SharedPreferences.Editor editor = sharedPref.edit();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("jadwalPerjalanan", new Gson().toJson(schedule));
         editor.apply();
     }
 
     @Override
     public void clearSchedule() {
-        SharedPreferences.Editor editor = sharedPref.edit();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.remove("jadwalPerjalanan");
         editor.apply();
     }
 
     @Override
     public List<KursiPerjalanan> getSeat() {
-        if (sharedPref.getString("kursiPerjalanan", null) != null) {
-            return new Gson().fromJson(sharedPref.getString("kursiPerjalanan", null), new TypeToken<List<KursiPerjalanan>>() {
+        if (sharedPreferences.getString("kursiPerjalanan", null) != null) {
+            return new Gson().fromJson(sharedPreferences.getString("kursiPerjalanan", null), new TypeToken<List<KursiPerjalanan>>() {
             }.getType());
         }
         return null;
@@ -202,49 +170,56 @@ public class Cart implements CartRepository {
 
     @Override
     public void setSeat(List<KursiPerjalanan> seats) {
-        SharedPreferences.Editor editor = sharedPref.edit();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("kursiPerjalanan", new Gson().toJson(seats));
         editor.apply();
     }
 
     @Override
     public void clearSeat() {
-        SharedPreferences.Editor editor = sharedPref.edit();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.remove("kursiPerjalanan");
         editor.apply();
     }
 
     @Override
     public long getSeatSetTime() {
-        return sharedPref.getLong("seatSetTime", 0);
+        return sharedPreferences.getLong("seatSetTime", 0);
     }
 
     @Override
     public void setSeatSetTime(long seatSetTime) {
-        SharedPreferences.Editor editor = sharedPref.edit();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putLong("seatSetTime", seatSetTime);
         editor.apply();
     }
 
     @Override
     public void clearSeatSetTime() {
-        SharedPreferences.Editor editor = sharedPref.edit();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.remove("seatSetTime");
         editor.apply();
     }
 
     @Override
     public Pemesanan getLastReservation() {
-        if (sharedPref.getString("reservation", null) != null) {
-            return new Gson().fromJson(sharedPref.getString("reservation", null), Pemesanan.class);
+        if (sharedPreferences.getString("reservation", null) != null) {
+            return new Gson().fromJson(sharedPreferences.getString("reservation", null), Pemesanan.class);
         }
         return null;
     }
 
     @Override
     public void setLastReservation(Pemesanan reservation) {
-        SharedPreferences.Editor editor = sharedPref.edit();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("reservation", new Gson().toJson(reservation));
+        editor.apply();
+    }
+
+    @Override
+    public void clearLastReservation() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove("reservation");
         editor.apply();
     }
 

@@ -40,7 +40,7 @@ public class PassengerRepositoryImpl extends BaseRemoteRepository implements Pas
 
     @Override
     public void updatePassenger(IRequestResponseListener listener, int userId, int idPenumpang, Map<String, String> param) {
-        Call<DataResult> call = ((IPassengerEndPoints) endPoint).updatePenumpang(userId, idPenumpang, param);
+        Call<DataResult<Penumpang>> call = ((IPassengerEndPoints) endPoint).updatePenumpang(userId, idPenumpang, param);
         execute(call, listener);
     }
 

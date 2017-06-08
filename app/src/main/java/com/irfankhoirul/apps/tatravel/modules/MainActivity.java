@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.activity;
+package com.irfankhoirul.apps.tatravel.modules;
 
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.PopupMenu;
@@ -13,9 +13,9 @@ import android.widget.TextView;
 
 import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.app.TAApplication;
-import com.irfankhoirul.apps.tatravel.modules.login_or_register.LoginOrRegisterFragment;
-import com.irfankhoirul.apps.tatravel.modules.login_or_register.LoginOrRegisterPresenter;
-import com.irfankhoirul.apps.tatravel.modules.login_or_register.LoginOrRegisterPresenterModule;
+import com.irfankhoirul.apps.tatravel.modules.auth_choice.AuthChoiceFragment;
+import com.irfankhoirul.apps.tatravel.modules.auth_choice.AuthChoicePresenter;
+import com.irfankhoirul.apps.tatravel.modules.auth_choice.AuthChoicePresenterModule;
 import com.irfankhoirul.apps.tatravel.modules.profile.ProfileFragment;
 import com.irfankhoirul.apps.tatravel.modules.profile.ProfilePresenter;
 import com.irfankhoirul.apps.tatravel.modules.profile.ProfilePresenterModule;
@@ -40,7 +40,7 @@ import butterknife.OnClick;
  */
 
 public class MainActivity extends BaseActivity implements
-        LoginOrRegisterFragment.FragmentListener,
+        AuthChoiceFragment.FragmentListener,
         ReservationHistoryFragment.FragmentListener,
         SearchFragment.FragmentListener,
         ProfileFragment.FragmentListener {
@@ -75,7 +75,7 @@ public class MainActivity extends BaseActivity implements
     TextView tvProfile;
 
     @Inject
-    LoginOrRegisterPresenter loginOrRegisterPresenter;
+    AuthChoicePresenter authChoicePresenter;
 
     @Inject
     ProfilePresenter profilePresenter;
@@ -89,17 +89,17 @@ public class MainActivity extends BaseActivity implements
     int lastActiveFragment = 0;
     private SearchFragment searchFragment;
     private ReservationHistoryFragment reservationHistoryFragment;
-    private LoginOrRegisterFragment loginOrRegisterFragment;
+    private AuthChoiceFragment authChoiceFragment;
     private ProfileFragment profileFragment;
 
     @Override
     protected void initializeFragment() {
         if (lastActiveFragment == 1) {
-            llSearch();
+            llSearchOnClickListener();
         } else if (lastActiveFragment == 2) {
-            llOrder();
+            llOrderOnClickListener();
         } else if (lastActiveFragment == 3) {
-            llProfile();
+            llProfileOnClickListener();
         } else {
             searchFragment = new SearchFragment();
             currentFragment = searchFragment;
@@ -109,8 +109,8 @@ public class MainActivity extends BaseActivity implements
                 profileFragment = new ProfileFragment();
             }
 
-            if (loginOrRegisterFragment == null) {
-                loginOrRegisterFragment = new LoginOrRegisterFragment();
+            if (authChoiceFragment == null) {
+                authChoiceFragment = new AuthChoiceFragment();
             }
 
             if (reservationHistoryFragment == null) {
@@ -120,7 +120,7 @@ public class MainActivity extends BaseActivity implements
             DaggerSearchComponent.builder()
                     .profilePresenterModule(new ProfilePresenterModule(profileFragment))
                     .searchPresenterModule(new SearchPresenterModule(searchFragment))
-                    .loginOrRegisterPresenterModule(new LoginOrRegisterPresenterModule(loginOrRegisterFragment))
+                    .authChoicePresenterModule(new AuthChoicePresenterModule(authChoiceFragment))
                     .reservationHistoryPresenterModule(new ReservationHistoryPresenterModule(reservationHistoryFragment))
                     .appComponent(((TAApplication) getApplication()).getAppComponent())
                     .build().inject(this);
@@ -136,7 +136,7 @@ public class MainActivity extends BaseActivity implements
     }
 
     @OnClick(R.id.llSearch)
-    public void llSearch() {
+    public void llSearchOnClickListener() {
         btOptionMenu.setVisibility(View.GONE);
         lastActiveFragment = 1;
         if (!(currentFragment instanceof SearchFragment)) {
@@ -153,7 +153,7 @@ public class MainActivity extends BaseActivity implements
     }
 
     @OnClick(R.id.llOrder)
-    public void llOrder() {
+    public void llOrderOnClickListener() {
         btOptionMenu.setVisibility(View.GONE);
         lastActiveFragment = 2;
         if (!(currentFragment instanceof ReservationHistoryFragment)) {
@@ -170,7 +170,7 @@ public class MainActivity extends BaseActivity implements
     }
 
     @OnClick(R.id.llProfile)
-    public void llProfile() {
+    public void llProfileOnClickListener() {
         lastActiveFragment = 3;
         if (!(currentFragment instanceof ProfileFragment)) {
             if (profilePresenter.getSessionData() != null) {
@@ -209,11 +209,11 @@ public class MainActivity extends BaseActivity implements
 
             } else {
                 // Load LoginOrRegister
-                if (loginOrRegisterFragment != null) {
-                    setCurrentFragment(loginOrRegisterFragment, false);
+                if (authChoiceFragment != null) {
+                    setCurrentFragment(authChoiceFragment, false);
                 } else {
-                    this.loginOrRegisterFragment = new LoginOrRegisterFragment();
-                    setCurrentFragment(loginOrRegisterFragment, false);
+                    this.authChoiceFragment = new AuthChoiceFragment();
+                    setCurrentFragment(authChoiceFragment, false);
                 }
             }
 
@@ -221,6 +221,11 @@ public class MainActivity extends BaseActivity implements
             ivProfile.setColorFilter(ContextCompat.getColor(this, R.color.colorPrimary));
             tvProfile.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
         }
+    }
+
+    @OnClick(R.id.btBack)
+    public void btBackOnClickListener() {
+        onBackPressed();
     }
 
     public void resetIconColor() {
@@ -232,39 +237,34 @@ public class MainActivity extends BaseActivity implements
         tvProfile.setTextColor(ContextCompat.getColor(this, R.color.grey_500));
     }
 
-    @Override
-    public void onRegisterSuccess() {
-        llProfile();
-    }
-
-    @Override
-    public void onLoginSuccess() {
-        llProfile();
-    }
-
-    @Override
-    public void onLogoutSuccess() {
-        resetOptionMenu();
-        if (loginOrRegisterFragment != null) {
-            setCurrentFragment(loginOrRegisterFragment, false);
-        } else {
-            this.loginOrRegisterFragment = new LoginOrRegisterFragment();
-            setCurrentFragment(loginOrRegisterFragment, false);
-        }
-    }
-
     private void resetOptionMenu() {
         btOptionMenu.setVisibility(View.GONE);
     }
 
     @Override
-    public void redirectToLoginOrRegister() {
-        llProfile();
+    public void onRegisterSuccess() {
+        llProfileOnClickListener();
     }
 
-    @OnClick(R.id.btBack)
-    public void btBack() {
-        onBackPressed();
+    @Override
+    public void onLoginSuccess() {
+        llProfileOnClickListener();
+    }
+
+    @Override
+    public void onLogoutSuccess() {
+        resetOptionMenu();
+        if (authChoiceFragment != null) {
+            setCurrentFragment(authChoiceFragment, false);
+        } else {
+            this.authChoiceFragment = new AuthChoiceFragment();
+            setCurrentFragment(authChoiceFragment, false);
+        }
+    }
+
+    @Override
+    public void redirectToLoginOrRegister() {
+        llProfileOnClickListener();
     }
 
     @Override

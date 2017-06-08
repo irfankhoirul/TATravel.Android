@@ -14,12 +14,12 @@ import javax.inject.Inject;
  * Created by Irfan Khoirul on 12/25/2016.
  */
 
-public class TravelChoiceDialogPresenter implements TravelChoiceDialogContract.Presenter {
+public class TravelChoicePresenter implements TravelChoiceContract.Presenter {
 
-    private final TravelChoiceDialogContract.View view;
+    private final TravelChoiceContract.View view;
 
     @Inject
-    public TravelChoiceDialogPresenter(TravelChoiceDialogContract.View view) {
+    public TravelChoicePresenter(TravelChoiceContract.View view) {
         this.view = view;
     }
 

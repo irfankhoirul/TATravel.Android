@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.modules.login_or_register;
+package com.irfankhoirul.apps.tatravel.modules.auth_choice;
 
 import com.irfankhoirul.mvp_core.base.IBasePresenter;
 import com.irfankhoirul.mvp_core.base.IBaseView;
@@ -7,7 +7,7 @@ import com.irfankhoirul.mvp_core.base.IBaseView;
  * Created by Irfan Khoirul on 4/2/2017.
  */
 
-public interface LoginOrRegisterContract {
+public interface AuthChoiceContract {
     interface View extends IBaseView<Presenter> {
         void notifyListenerLoginSuccess();
 

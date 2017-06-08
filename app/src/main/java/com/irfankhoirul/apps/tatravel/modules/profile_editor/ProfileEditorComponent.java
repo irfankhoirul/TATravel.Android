@@ -9,9 +9,9 @@ import dagger.Component;
  * Created by Irfan Khoirul on 4/15/2017.
  */
 @DaggerModuleScoped
-@Component(dependencies = AppComponent.class, modules = EditProfilePresenterModule.class)
-public interface EditProfileComponent {
+@Component(dependencies = AppComponent.class, modules = ProfileEditorPresenterModule.class)
+public interface ProfileEditorComponent {
 
-    void inject(EditProfileActivity editProfileActivity);
+    void inject(ProfileEditorActivity profileEditorActivity);
 
 }

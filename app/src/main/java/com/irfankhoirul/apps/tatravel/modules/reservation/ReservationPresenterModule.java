@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.modules.reservation_creator;
+package com.irfankhoirul.apps.tatravel.modules.reservation;
 
 import dagger.Module;
 import dagger.Provides;

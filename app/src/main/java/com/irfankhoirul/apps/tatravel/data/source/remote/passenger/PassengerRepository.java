@@ -12,9 +12,9 @@ public interface PassengerRepository {
 
     void createPassenger(IRequestResponseListener listener, int userId, Map<String, String> param);
 
-    void updatePassenger(IRequestResponseListener listener, int userId, int idPenumpang, Map<String, String> param);
+    void updatePassenger(IRequestResponseListener listener, int userId, int passengerId, Map<String, String> param);
 
-    void deletePassenger(IRequestResponseListener listener, int userId, int idPenumpang, Map<String, String> param);
+    void deletePassenger(IRequestResponseListener listener, int userId, int passengerId, Map<String, String> param);
 
     void listPassenger(IRequestResponseListener listener, int userId, Map<String, String> param);
 

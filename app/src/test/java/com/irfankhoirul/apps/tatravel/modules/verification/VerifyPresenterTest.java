@@ -1,6 +1,6 @@
 package com.irfankhoirul.apps.tatravel.modules.verification;
 
-import com.irfankhoirul.apps.tatravel.data.source.locale.session.Session;
+import com.irfankhoirul.apps.tatravel.data.source.locale.session.SessionRepositoryImpl;
 import com.irfankhoirul.apps.tatravel.data.source.remote.user.UserRepositoryImpl;
 import com.irfankhoirul.mvp_core.data.IRequestResponseListener;
 
@@ -27,7 +27,7 @@ public class VerifyPresenterTest {
     private UserRepositoryImpl mUserRepositoryImpl;
 
     @Mock
-    private Session mSessionImpl;
+    private SessionRepositoryImpl mSessionRepositoryImplImpl;
 
     @Mock
     private VerifyContract.View mVerifyView;
@@ -44,7 +44,7 @@ public class VerifyPresenterTest {
         MockitoAnnotations.initMocks(this);
 
         // Get a reference to the class under test
-        mVerifyPresenter = new VerifyPresenter(mSessionImpl, mUserRepositoryImpl, mVerifyView);
+        mVerifyPresenter = new VerifyPresenter(mSessionRepositoryImplImpl, mUserRepositoryImpl, mVerifyView);
 
         // The presenter won't update the view unless it's active.
 //        when(mVerifyView.isActive()).thenReturn(true);
@@ -58,7 +58,7 @@ public class VerifyPresenterTest {
 
     @Test
     public void getSessionData_ReturnNotNull() {
-        assertNotNull(mSessionImpl);
+        assertNotNull(mSessionRepositoryImplImpl);
     }
 
     @Test

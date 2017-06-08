@@ -10,14 +10,14 @@ import dagger.Provides;
 @Module
 public class TravelChoicePresenterModule {
 
-    private final TravelChoiceDialogContract.View mView;
+    private final TravelChoiceContract.View mView;
 
-    public TravelChoicePresenterModule(TravelChoiceDialogContract.View view) {
+    public TravelChoicePresenterModule(TravelChoiceContract.View view) {
         mView = view;
     }
 
     @Provides
-    TravelChoiceDialogContract.View provideTravelChoiceDialogContractView() {
+    TravelChoiceContract.View provideTravelChoiceDialogContractView() {
         return mView;
     }
 }

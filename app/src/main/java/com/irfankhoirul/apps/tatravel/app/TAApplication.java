@@ -1,12 +1,12 @@
 package com.irfankhoirul.apps.tatravel.app;
 
-import android.app.Application;
+import android.support.multidex.MultiDexApplication;
 
 /**
  * Created by Irfan Khoirul on 4/16/2017.
  */
 
-public class TAApplication extends Application {
+public class TAApplication extends MultiDexApplication {
 
     private AppComponent appComponent;
 

@@ -35,8 +35,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * A simple {@link Fragment} subclass.
  */
 
-public class EditProfileFragment extends BaseFragment<EditProfileActivity, EditProfileContract.Presenter> implements
-        EditProfileContract.View {
+public class ProfileEditorFragment extends BaseFragment<ProfileEditorActivity, ProfileEditorContract.Presenter> implements
+        ProfileEditorContract.View {
 
     @BindView(R.id.etName)
     TextInputEditText etName;
@@ -77,7 +77,7 @@ public class EditProfileFragment extends BaseFragment<EditProfileActivity, EditP
     @BindView(R.id.llChangePassword)
     LinearLayout llChangePassword;
 
-    public EditProfileFragment() {
+    public ProfileEditorFragment() {
         // Required empty public constructor
     }
 
@@ -118,7 +118,7 @@ public class EditProfileFragment extends BaseFragment<EditProfileActivity, EditP
     }
 
     @Override
-    public void setPresenter(EditProfileContract.Presenter presenter) {
+    public void setPresenter(ProfileEditorContract.Presenter presenter) {
         mPresenter = checkNotNull(presenter);
     }
 

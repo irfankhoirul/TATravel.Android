@@ -11,7 +11,7 @@ import java.util.List;
  * Created by Irfan Khoirul on 12/25/2016.
  */
 
-public interface TravelChoiceDialogContract {
+public interface TravelChoiceContract {
     interface View extends IBaseView<Presenter> {
 
     }

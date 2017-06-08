@@ -40,7 +40,7 @@ public interface IPassengerEndPoints {
      */
     @FormUrlEncoded
     @POST(UPDATE_PENUMPANG)
-    Call<DataResult> updatePenumpang(@Path("userId") int userId, @Path("id") int idPenumpang, @FieldMap Map<String, String> param);
+    Call<DataResult<Penumpang>> updatePenumpang(@Path("userId") int userId, @Path("id") int idPenumpang, @FieldMap Map<String, String> param);
 
     /**
      * Param

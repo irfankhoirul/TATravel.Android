@@ -27,6 +27,8 @@ public interface PassengerContract {
         void showDataNotExist();
 
         void showDataExist();
+
+        void showPassengerCreatorDialog(String title, Penumpang passenger, int position);
     }
 
     interface Presenter extends IBasePresenter {

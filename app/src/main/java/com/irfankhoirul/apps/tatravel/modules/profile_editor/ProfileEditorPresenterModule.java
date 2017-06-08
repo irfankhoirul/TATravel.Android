@@ -8,16 +8,16 @@ import dagger.Provides;
  */
 
 @Module
-public class EditProfilePresenterModule {
+public class ProfileEditorPresenterModule {
 
-    private final EditProfileContract.View mView;
+    private final ProfileEditorContract.View mView;
 
-    public EditProfilePresenterModule(EditProfileContract.View view) {
+    public ProfileEditorPresenterModule(ProfileEditorContract.View view) {
         mView = view;
     }
 
     @Provides
-    EditProfileContract.View provideEditProfileContractView() {
+    ProfileEditorContract.View provideEditProfileContractView() {
         return mView;
     }
 }

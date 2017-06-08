@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.modules.login_or_register;
+package com.irfankhoirul.apps.tatravel.modules.auth_choice;
 
 import com.irfankhoirul.apps.tatravel.components.ConstantUtils;
 
@@ -8,12 +8,12 @@ import javax.inject.Inject;
  * Created by Irfan Khoirul on 3/11/2017.
  */
 
-public class LoginOrRegisterPresenter implements LoginOrRegisterContract.Presenter {
+public class AuthChoicePresenter implements AuthChoiceContract.Presenter {
 
-    private final LoginOrRegisterContract.View view;
+    private final AuthChoiceContract.View view;
 
     @Inject
-    LoginOrRegisterPresenter(LoginOrRegisterContract.View view) {
+    AuthChoicePresenter(AuthChoiceContract.View view) {
         this.view = view;
     }
 

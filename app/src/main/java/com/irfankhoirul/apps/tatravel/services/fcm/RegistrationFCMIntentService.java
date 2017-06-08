@@ -8,7 +8,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.irfankhoirul.apps.tatravel.data.source.locale.session.Session;
+import com.irfankhoirul.apps.tatravel.data.source.locale.session.SessionRepositoryImpl;
 import com.irfankhoirul.apps.tatravel.data.source.remote.user.UserRepositoryImpl;
 import com.irfankhoirul.mvp_core.data.DataResult;
 import com.irfankhoirul.mvp_core.data.IRequestResponseListener;
@@ -21,7 +21,7 @@ public class RegistrationFCMIntentService extends IntentService {
     public static final String SENT_TOKEN_TO_SERVER = "sentTokenToServer";
     public static final String REGISTRATION_COMPLETE = "registrationComplete";
     private static final String TAG = "RegIntentService";
-    private Session session;
+    private SessionRepositoryImpl sessionRepositoryImpl;
 
     public RegistrationFCMIntentService() {
         super(TAG);
@@ -30,7 +30,7 @@ public class RegistrationFCMIntentService extends IntentService {
     @Override
     public void onCreate() {
         super.onCreate();
-        session = new Session(this);
+        sessionRepositoryImpl = new SessionRepositoryImpl(this);
     }
 
     @Override
@@ -42,8 +42,8 @@ public class RegistrationFCMIntentService extends IntentService {
             String token = FirebaseInstanceId.getInstance().getToken();
             Log.v(TAG, "FCM token: " + token);
 
-            if (session.getSessionData() != null && session.getSessionData().getUserToken() != null
-                    && session.getSessionData().getUserToken().getToken() != null) {
+            if (sessionRepositoryImpl.getSessionData() != null && sessionRepositoryImpl.getSessionData().getUserToken() != null
+                    && sessionRepositoryImpl.getSessionData().getUserToken().getToken() != null) {
                 sendRegistrationToServer();
             }
 
@@ -68,7 +68,7 @@ public class RegistrationFCMIntentService extends IntentService {
 
     private void sendRegistrationToServer() {
         Map<String, String> params = new HashMap<>();
-        params.put("token", session.getSessionData().getUserToken().getToken());
+        params.put("token", sessionRepositoryImpl.getSessionData().getUserToken().getToken());
         params.put("FCMToken", FirebaseInstanceId.getInstance().getToken());
 //        params.put("secretCode", Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
         UserRepositoryImpl userRepositoryImpl = new UserRepositoryImpl();

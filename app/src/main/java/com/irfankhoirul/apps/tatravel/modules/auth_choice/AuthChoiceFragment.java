@@ -1,4 +1,4 @@
-package com.irfankhoirul.apps.tatravel.modules.login_or_register;
+package com.irfankhoirul.apps.tatravel.modules.auth_choice;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,8 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.irfankhoirul.apps.tatravel.R;
-import com.irfankhoirul.apps.tatravel.activity.MainActivity;
 import com.irfankhoirul.apps.tatravel.components.ConstantUtils;
+import com.irfankhoirul.apps.tatravel.modules.MainActivity;
 import com.irfankhoirul.apps.tatravel.modules.login.LoginActivity;
 import com.irfankhoirul.apps.tatravel.modules.register.RegisterActivity;
 import com.irfankhoirul.mvp_core.base.BaseFragment;
@@ -24,12 +24,12 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LoginOrRegisterFragment extends BaseFragment<MainActivity, LoginOrRegisterContract.Presenter>
-        implements LoginOrRegisterContract.View {
+public class AuthChoiceFragment extends BaseFragment<MainActivity, AuthChoiceContract.Presenter>
+        implements AuthChoiceContract.View {
 
     private FragmentListener listener;
 
-    public LoginOrRegisterFragment() {
+    public AuthChoiceFragment() {
         // Required empty public constructor
     }
 
@@ -84,7 +84,7 @@ public class LoginOrRegisterFragment extends BaseFragment<MainActivity, LoginOrR
     }
 
     @Override
-    public void setPresenter(LoginOrRegisterContract.Presenter presenter) {
+    public void setPresenter(AuthChoiceContract.Presenter presenter) {
         mPresenter = checkNotNull(presenter);
     }
 

@@ -28,7 +28,7 @@ import static com.irfankhoirul.apps.tatravel.data.source.remote.EndPoints.UPDATE
  * Created by Irfan Khoirul on 3/11/2017.
  */
 
-public interface IUserEndPoints {
+public interface UserEndPoints {
 
     /**
      * Param :

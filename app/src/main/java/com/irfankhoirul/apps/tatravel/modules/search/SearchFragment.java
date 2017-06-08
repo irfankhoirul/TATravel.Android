@@ -16,18 +16,12 @@ import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.daimajia.slider.library.Animations.DescriptionAnimation;
-import com.daimajia.slider.library.SliderLayout;
-import com.daimajia.slider.library.SliderTypes.BaseSliderView;
-import com.daimajia.slider.library.SliderTypes.TextSliderView;
-import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.google.gson.Gson;
 import com.irfankhoirul.apps.tatravel.R;
-import com.irfankhoirul.apps.tatravel.activity.MainActivity;
 import com.irfankhoirul.apps.tatravel.components.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.components.DateUtils;
-import com.irfankhoirul.apps.tatravel.components.DisplayMetricUtils;
 import com.irfankhoirul.apps.tatravel.data.pojo.Penumpang;
+import com.irfankhoirul.apps.tatravel.modules.MainActivity;
 import com.irfankhoirul.apps.tatravel.modules.departure.DepartureActivity;
 import com.irfankhoirul.apps.tatravel.modules.destination.DestinationActivity;
 import com.irfankhoirul.apps.tatravel.modules.passenger.PassengerActivity;
@@ -57,8 +51,6 @@ import static com.irfankhoirul.apps.tatravel.components.ConstantUtils.STATUS_ERR
  */
 public class SearchFragment extends BaseFragment<MainActivity, SearchContract.Presenter> implements SearchContract.View {
 
-    @BindView(R.id.sliderPromotion)
-    SliderLayout sliderPromotion;
     @BindView(R.id.llDeparture)
     LinearLayout llDeparture;
     @BindView(R.id.llDestination)
@@ -117,67 +109,6 @@ public class SearchFragment extends BaseFragment<MainActivity, SearchContract.Pr
     public void onDetach() {
         super.onDetach();
         listener = null;
-    }
-
-    @Override
-    public void onStop() {
-        sliderPromotion.stopAutoCycle();
-        super.onStop();
-    }
-
-    @Override
-    public void showPromo() {
-        int width = DisplayMetricUtils.getDeviceWidth(activity);
-        sliderPromotion.getLayoutParams().width = width;
-        sliderPromotion.getLayoutParams().height = (int) (5.0f / 13.0f * width);
-        sliderPromotion.requestLayout();
-
-        HashMap<String, String> url_maps = new HashMap<>();
-        url_maps.put("Hannibal", "http://static2.hypable.com/wp-content/uploads/2013/12/hannibal-season-2-release-date.jpg");
-        url_maps.put("Big Bang Theory", "http://tvfiles.alphacoders.com/100/hdclearart-10.png");
-        url_maps.put("House of Cards", "http://cdn3.nflximg.net/images/3093/2043093.jpg");
-        url_maps.put("Game of Thrones", "http://images.boomsbeat.com/data/images/full/19640/game-of-thrones-season-4-jpg.jpg");
-
-        for (String name : url_maps.keySet()) {
-            TextSliderView textSliderView = new TextSliderView(activity);
-            textSliderView
-                    .description(name)
-                    .image(url_maps.get(name))
-                    .setScaleType(BaseSliderView.ScaleType.Fit)
-                    .setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
-                        @Override
-                        public void onSliderClick(BaseSliderView slider) {
-
-                        }
-                    });
-
-            textSliderView.bundle(new Bundle());
-            textSliderView.getBundle()
-                    .putString("extra", name);
-
-            sliderPromotion.addSlider(textSliderView);
-        }
-        sliderPromotion.setPresetTransformer(SliderLayout.Transformer.Accordion);
-        sliderPromotion.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
-        sliderPromotion.setCustomAnimation(new DescriptionAnimation());
-        sliderPromotion.setDuration(4000);
-        sliderPromotion.addOnPageChangeListener(new ViewPagerEx.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-
     }
 
     public void redirectToLoginOrRegister() {

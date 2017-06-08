@@ -17,10 +17,10 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.irfankhoirul.apps.tatravel.R;
-import com.irfankhoirul.apps.tatravel.activity.MainActivity;
 import com.irfankhoirul.apps.tatravel.components.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.components.DisplayMetricUtils;
 import com.irfankhoirul.apps.tatravel.data.pojo.Pemesanan;
+import com.irfankhoirul.apps.tatravel.modules.MainActivity;
 import com.irfankhoirul.apps.tatravel.modules.reservation_detail.ReservationDetailActivity;
 import com.irfankhoirul.mvp_core.base.BaseFragment;
 import com.irfankhoirul.mvp_core.data.DataPage;

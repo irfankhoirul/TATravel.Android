@@ -25,5 +25,5 @@ public interface UserRepository {
 
     void getListProvince(IRequestResponseListener listener, Map<String, String> param);
 
-    void updateProfile(IRequestResponseListener listener, int provinceId, Map<String, String> param);
+    void updateProfile(IRequestResponseListener listener, int userId, Map<String, String> param);
 }

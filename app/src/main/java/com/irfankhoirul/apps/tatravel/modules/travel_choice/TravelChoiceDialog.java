@@ -31,8 +31,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * Created by Irfan Khoirul on 12/25/2016.
  */
 
-public class TravelChoiceDialog extends BaseDialog<DepartureActivity, TravelChoiceDialogContract.Presenter>
-        implements TravelChoiceDialogContract.View {
+public class TravelChoiceDialog extends BaseDialog<DepartureActivity, TravelChoiceContract.Presenter>
+        implements TravelChoiceContract.View {
 
     @BindView(R.id.rvTravelLocation)
     RecyclerView rvTravelLocation;
@@ -106,7 +106,7 @@ public class TravelChoiceDialog extends BaseDialog<DepartureActivity, TravelChoi
     }
 
     @Override
-    public void setPresenter(TravelChoiceDialogContract.Presenter presenter) {
+    public void setPresenter(TravelChoiceContract.Presenter presenter) {
         mPresenter = checkNotNull(presenter);
     }
 
