@@ -21,7 +21,7 @@ import com.irfankhoirul.apps.tatravel.components.DisplayMetricUtils;
 import com.irfankhoirul.apps.tatravel.data.pojo.JadwalPerjalanan;
 import com.irfankhoirul.apps.tatravel.modules.schedule_detail.DaggerScheduleDetailComponent;
 import com.irfankhoirul.apps.tatravel.modules.schedule_detail.ScheduleDetailDialog;
-import com.irfankhoirul.apps.tatravel.modules.schedule_detail.ScheduleDetailDialogPresenter;
+import com.irfankhoirul.apps.tatravel.modules.schedule_detail.ScheduleDetailPresenter;
 import com.irfankhoirul.apps.tatravel.modules.schedule_detail.ScheduleDetailPresenterModule;
 import com.irfankhoirul.apps.tatravel.modules.seat.SeatActivity;
 import com.irfankhoirul.mvp_core.base.BaseFragment;
@@ -52,7 +52,7 @@ public class ScheduleFragment extends BaseFragment<ScheduleActivity, ScheduleCon
     LinearLayout llEmptyMessage;
 
     @Inject
-    ScheduleDetailDialogPresenter scheduleDetailDialogPresenter;
+    ScheduleDetailPresenter scheduleDetailPresenter;
 
     private ScheduleAdapter scheduleAdapter;
 

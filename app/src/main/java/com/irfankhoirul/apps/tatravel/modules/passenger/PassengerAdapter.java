@@ -20,7 +20,7 @@ import butterknife.ButterKnife;
  * Created by Irfan Khoirul on 12/24/2016.
  */
 
-public class PassengerAdapter extends RecyclerView.Adapter<PassengerAdapter.ScheduleViewHolder> {
+public class PassengerAdapter extends RecyclerView.Adapter<PassengerAdapter.PassengerViewHolder> {
 
     private List<Penumpang> passengers;
     private OnSpecificItemClick mListener;
@@ -31,15 +31,15 @@ public class PassengerAdapter extends RecyclerView.Adapter<PassengerAdapter.Sche
     }
 
     @Override
-    public ScheduleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public PassengerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recycler_view_item_passenger, parent, false);
 
-        return new ScheduleViewHolder(itemView);
+        return new PassengerViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(final ScheduleViewHolder holder, int position) {
+    public void onBindViewHolder(final PassengerViewHolder holder, int position) {
         holder.tvPassengerName.setText(passengers.get(position).getNama());
         holder.cbPassengerSelected.setChecked(passengers.get(position).isSelected());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -76,7 +76,7 @@ public class PassengerAdapter extends RecyclerView.Adapter<PassengerAdapter.Sche
         void oItemLongClick(Penumpang passenger, int position);
     }
 
-    public class ScheduleViewHolder extends RecyclerView.ViewHolder {
+    public class PassengerViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.tvPassengerName)
         TextView tvPassengerName;
@@ -85,7 +85,7 @@ public class PassengerAdapter extends RecyclerView.Adapter<PassengerAdapter.Sche
         @BindView(R.id.llPassenger)
         LinearLayout llPassenger;
 
-        public ScheduleViewHolder(View view) {
+        public PassengerViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }

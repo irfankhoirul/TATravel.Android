@@ -8,7 +8,7 @@ import com.irfankhoirul.mvp_core.base.IBaseView;
  * Created by Irfan Khoirul on 12/25/2016.
  */
 
-public interface ScheduleDetailDialogContract {
+public interface ScheduleDetailContract {
     interface View extends IBaseView<Presenter> {
 
     }

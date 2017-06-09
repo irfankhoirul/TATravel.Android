@@ -10,14 +10,14 @@ import dagger.Provides;
 @Module
 public class ScheduleDetailPresenterModule {
 
-    private final ScheduleDetailDialogContract.View mView;
+    private final ScheduleDetailContract.View mView;
 
-    public ScheduleDetailPresenterModule(ScheduleDetailDialogContract.View view) {
+    public ScheduleDetailPresenterModule(ScheduleDetailContract.View view) {
         mView = view;
     }
 
     @Provides
-    ScheduleDetailDialogContract.View provideTravelChoiceDialogContractView() {
+    ScheduleDetailContract.View provideTravelChoiceDialogContractView() {
         return mView;
     }
 }

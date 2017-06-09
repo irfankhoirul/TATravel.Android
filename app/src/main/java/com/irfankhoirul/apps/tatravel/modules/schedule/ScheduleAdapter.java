@@ -83,7 +83,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
         void onItemClick(JadwalPerjalanan schedule);
     }
 
-    public class ScheduleViewHolder extends RecyclerView.ViewHolder {
+    public static class ScheduleViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.tvPrice)
         TextView tvPrice;

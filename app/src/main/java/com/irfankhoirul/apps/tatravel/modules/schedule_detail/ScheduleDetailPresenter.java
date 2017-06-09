@@ -9,14 +9,14 @@ import javax.inject.Inject;
  * Created by Irfan Khoirul on 12/25/2016.
  */
 
-public class ScheduleDetailDialogPresenter implements ScheduleDetailDialogContract.Presenter {
+public class ScheduleDetailPresenter implements ScheduleDetailContract.Presenter {
 
-    private final ScheduleDetailDialogContract.View view;
+    private final ScheduleDetailContract.View view;
     private final CartRepository cartRepository;
     private JadwalPerjalanan schedule;
 
     @Inject
-    public ScheduleDetailDialogPresenter(CartRepository cartRepository, ScheduleDetailDialogContract.View view) {
+    public ScheduleDetailPresenter(CartRepository cartRepository, ScheduleDetailContract.View view) {
         this.view = view;
         this.cartRepository = cartRepository;
     }

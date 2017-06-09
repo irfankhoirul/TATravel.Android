@@ -29,8 +29,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * Created by Irfan Khoirul on 12/25/2016.
  */
 
-public class ScheduleDetailDialog extends BaseDialog<ScheduleActivity, ScheduleDetailDialogContract.Presenter>
-        implements ScheduleDetailDialogContract.View {
+public class ScheduleDetailDialog extends BaseDialog<ScheduleActivity, ScheduleDetailContract.Presenter>
+        implements ScheduleDetailContract.View {
 
     @BindView(R.id.tvDepartureLocation)
     TextView tvDepartureLocation;
@@ -133,7 +133,7 @@ public class ScheduleDetailDialog extends BaseDialog<ScheduleActivity, ScheduleD
     }
 
     @Override
-    public void setPresenter(ScheduleDetailDialogContract.Presenter presenter) {
+    public void setPresenter(ScheduleDetailContract.Presenter presenter) {
         mPresenter = checkNotNull(presenter);
     }
 

@@ -28,7 +28,7 @@ import butterknife.ButterKnife;
  * Created by Irfan Khoirul on 12/24/2016.
  */
 
-public class ReservationHistoryAdapter extends RecyclerView.Adapter<ReservationHistoryAdapter.ScheduleViewHolder> {
+public class ReservationHistoryAdapter extends RecyclerView.Adapter<ReservationHistoryAdapter.ReservationHistoryViewHolder> {
 
     private List<Pemesanan> reservations;
     private OnSpecificItemClick mListener;
@@ -41,15 +41,15 @@ public class ReservationHistoryAdapter extends RecyclerView.Adapter<ReservationH
     }
 
     @Override
-    public ScheduleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ReservationHistoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recycler_view_item_reservation_history, parent, false);
 
-        return new ScheduleViewHolder(itemView);
+        return new ReservationHistoryViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(final ScheduleViewHolder holder, int position) {
+    public void onBindViewHolder(final ReservationHistoryViewHolder holder, int position) {
         final Pemesanan item = reservations.get(position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,7 +155,7 @@ public class ReservationHistoryAdapter extends RecyclerView.Adapter<ReservationH
         void onItemClick(Pemesanan reservation);
     }
 
-    public class ScheduleViewHolder extends RecyclerView.ViewHolder {
+    public static class ReservationHistoryViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.llReservationHistoryContainer)
         LinearLayout llReservationHistoryContainer;
@@ -176,7 +176,7 @@ public class ReservationHistoryAdapter extends RecyclerView.Adapter<ReservationH
         @BindView(R.id.tvOrderDate)
         TextView tvOrderDate;
 
-        public ScheduleViewHolder(View view) {
+        public ReservationHistoryViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
