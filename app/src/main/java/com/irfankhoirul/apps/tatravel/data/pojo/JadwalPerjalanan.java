@@ -1,10 +1,10 @@
 package com.irfankhoirul.apps.tatravel.data.pojo;
 
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.irfankhoirul.mvp_core.base.BaseModel;
-
-import org.parceler.Parcel;
+import com.irfankhoirul.mvp_core.base.BasePojo;
 
 /**
  * Merupakan model dari tabel JadwalPerjalanan
@@ -13,103 +13,112 @@ import org.parceler.Parcel;
  * @since 1.0
  */
 
-@Parcel
-public class JadwalPerjalanan extends BaseModel {
+public class JadwalPerjalanan extends BasePojo implements Parcelable {
+    public static final Creator<JadwalPerjalanan> CREATOR = new Creator<JadwalPerjalanan>() {
+        @Override
+        public JadwalPerjalanan createFromParcel(android.os.Parcel in) {
+            return new JadwalPerjalanan(in);
+        }
+
+        @Override
+        public JadwalPerjalanan[] newArray(int size) {
+            return new JadwalPerjalanan[size];
+        }
+    };
     @SerializedName("id_admin")
     @Expose
-    protected int idAdmin;
-
+    private int idAdmin;
     @SerializedName("id_operator_travel")
     @Expose
-    protected int idOperatorTravel;
-
+    private int idOperatorTravel;
     @SerializedName("id_lokasi_pemberangkatan")
     @Expose
-    protected int idLokasiPemberangkatan;
-
+    private int idLokasiPemberangkatan;
     @SerializedName("id_lokasi_tujuan")
     @Expose
-    protected int idLokasiTujuan;
-
+    private int idLokasiTujuan;
     @SerializedName("id_mobil")
     @Expose
-    protected int idMobil;
-
+    private int idMobil;
     @SerializedName("is_supir")
     @Expose
-    protected int idSupir;
-
+    private int idSupir;
     @SerializedName("waktu_keberangkatan")
     @Expose
-    protected String waktuKeberangkatan;
-
+    private String waktuKeberangkatan;
     @SerializedName("waktu_kedatangan")
     @Expose
-    protected String waktuKedatangan;
-
+    private String waktuKedatangan;
     @SerializedName("tanggal_keberangkatan")
     @Expose
-    protected String tanggalKeberangkatan;
-
+    private String tanggalKeberangkatan;
     @SerializedName("tanggal_kedatangan")
     @Expose
-    protected String tanggalKedatangan;
-
+    private String tanggalKedatangan;
     @SerializedName("timezone")
     @Expose
-    protected String timezone;
-
+    private String timezone;
     @SerializedName("status")
     @Expose
-    protected String status;
-
+    private String status;
     @SerializedName("harga")
     @Expose
-    protected int harga;
-
+    private int harga;
     @SerializedName("jumlah_kursi_tersedia")
     @Expose
-    protected int jumlahKursiTersedia;
-
+    private int jumlahKursiTersedia;
     @SerializedName("biaya_lokasi_khusus")
     @Expose
-    protected int biayaLokasiKhusus;
-
+    private int biayaLokasiKhusus;
     @SerializedName("admin")
     @Expose
-    protected Admin admin;
-
+    private Admin admin;
     @SerializedName("operator_travel")
     @Expose
-    protected OperatorTravel operatorTravel;
-
+    private OperatorTravel operatorTravel;
     @SerializedName("lokasi_pemberangkatan")
     @Expose
-    protected Lokasi lokasiPemberangkatan;
-
+    private Lokasi lokasiPemberangkatan;
     @SerializedName("lokasi_tujuan")
     @Expose
-    protected Lokasi lokasiTujuan;
-
+    private Lokasi lokasiTujuan;
     @SerializedName("mobil")
     @Expose
-    protected Mobil mobil;
-
+    private Mobil mobil;
     @SerializedName("supir")
     @Expose
-    protected Supir supir;
-
+    private Supir supir;
     @SerializedName("jarakPenjemputan")
     @Expose
-    protected double jarakPenjemputan;
-
+    private double jarakPenjemputan;
     @SerializedName("jarakPengantaran")
     @Expose
-    protected double jarakPengantaran;
-
+    private double jarakPengantaran;
     @SerializedName("quota")
     @Expose
-    protected int quota;
+    private int quota;
+
+    protected JadwalPerjalanan(android.os.Parcel in) {
+        idAdmin = in.readInt();
+        idOperatorTravel = in.readInt();
+        idLokasiPemberangkatan = in.readInt();
+        idLokasiTujuan = in.readInt();
+        idMobil = in.readInt();
+        idSupir = in.readInt();
+        waktuKeberangkatan = in.readString();
+        waktuKedatangan = in.readString();
+        tanggalKeberangkatan = in.readString();
+        tanggalKedatangan = in.readString();
+        timezone = in.readString();
+        status = in.readString();
+        harga = in.readInt();
+        jumlahKursiTersedia = in.readInt();
+        biayaLokasiKhusus = in.readInt();
+        admin = in.readParcelable(Admin.class.getClassLoader());
+        jarakPenjemputan = in.readDouble();
+        jarakPengantaran = in.readDouble();
+        quota = in.readInt();
+    }
 
     public int getIdAdmin() {
         return idAdmin;
@@ -329,5 +338,33 @@ public class JadwalPerjalanan extends BaseModel {
                 ", supir=" + supir +
                 '}';
 
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(android.os.Parcel dest, int flags) {
+        dest.writeInt(idAdmin);
+        dest.writeInt(idOperatorTravel);
+        dest.writeInt(idLokasiPemberangkatan);
+        dest.writeInt(idLokasiTujuan);
+        dest.writeInt(idMobil);
+        dest.writeInt(idSupir);
+        dest.writeString(waktuKeberangkatan);
+        dest.writeString(waktuKedatangan);
+        dest.writeString(tanggalKeberangkatan);
+        dest.writeString(tanggalKedatangan);
+        dest.writeString(timezone);
+        dest.writeString(status);
+        dest.writeInt(harga);
+        dest.writeInt(jumlahKursiTersedia);
+        dest.writeInt(biayaLokasiKhusus);
+        dest.writeParcelable(admin, flags);
+        dest.writeDouble(jarakPenjemputan);
+        dest.writeDouble(jarakPengantaran);
+        dest.writeInt(quota);
     }
 }

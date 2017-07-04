@@ -1,6 +1,5 @@
 package com.irfankhoirul.apps.tatravel.modules.departure;
 
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -44,16 +43,14 @@ import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.components.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.data.pojo.Lokasi;
 import com.irfankhoirul.apps.tatravel.data.pojo.OperatorTravel;
-import com.irfankhoirul.apps.tatravel.modules.MainActivity;
 import com.irfankhoirul.apps.tatravel.modules.travel_choice.DaggerTravelChoiceComponent;
 import com.irfankhoirul.apps.tatravel.modules.travel_choice.TravelChoiceDialog;
 import com.irfankhoirul.apps.tatravel.modules.travel_choice.TravelChoicePresenter;
 import com.irfankhoirul.apps.tatravel.modules.travel_choice.TravelChoicePresenterModule;
 import com.irfankhoirul.mvp_core.base.BaseFragment;
 
-import org.parceler.Parcels;
-
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -72,7 +69,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DepartureFragment extends BaseFragment<MainActivity, DepartureContract.Presenter> implements
+public class DepartureFragment extends BaseFragment<DepartureActivity, DepartureContract.Presenter> implements
         OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
@@ -150,11 +147,15 @@ public class DepartureFragment extends BaseFragment<MainActivity, DepartureContr
 
     @OnClick(R.id.fabCurrentLocation)
     public void fabCurrentLocation() {
-        CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(latLng).zoom(16).build();
+        if (latLng != null && departureMap != null) {
+            CameraPosition cameraPosition = new CameraPosition.Builder()
+                    .target(latLng).zoom(16).build();
 
-        departureMap.animateCamera(CameraUpdateFactory
-                .newCameraPosition(cameraPosition));
+            departureMap.animateCamera(CameraUpdateFactory
+                    .newCameraPosition(cameraPosition));
+        } else {
+            showToast(ConstantUtils.STATUS_INFO, "Sedang mencari lokasi Anda");
+        }
     }
 
     @OnClick(R.id.tvAutocompletePlace)
@@ -208,6 +209,13 @@ public class DepartureFragment extends BaseFragment<MainActivity, DepartureContr
     @Override
     public void onMapReady(GoogleMap googleMap) {
         departureMap = googleMap;
+
+        LatLng defaultLatLng = new LatLng(-2.670993, 120.772449);
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(defaultLatLng).zoom(4).build();
+        departureMap.animateCamera(CameraUpdateFactory
+                .newCameraPosition(cameraPosition));
+
         if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             String[] locationPermissions = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
             requestPermissions(locationPermissions, ConstantUtils.PERMISSION_REQUEST_LOCATIONS);
@@ -322,7 +330,7 @@ public class DepartureFragment extends BaseFragment<MainActivity, DepartureContr
     }
 
     @Override
-    public void updateMap(List<Lokasi> locations) {
+    public void updateMap(ArrayList<Lokasi> locations) {
         mPresenter.setLocationList(locations);
         departureMap.clear();
         if (locations.size() > 0) {
@@ -345,7 +353,9 @@ public class DepartureFragment extends BaseFragment<MainActivity, DepartureContr
     }
 
     @Override
-    public void onOperatorTravelChoose(final TravelChoiceDialog travelChoiceDialog, final OperatorTravel operatorTravel, final List<Integer> operatorTravelLocationIds) {
+    public void onOperatorTravelChoose(final TravelChoiceDialog travelChoiceDialog,
+                                       final OperatorTravel operatorTravel,
+                                       final ArrayList<Integer> operatorTravelLocationIds) {
         final double tmpLat = departureMap.getCameraPosition().target.latitude;
         final double tmpLon = departureMap.getCameraPosition().target.longitude;
         setLoadingDialog(true, "Tunggu sebentar...");
@@ -373,7 +383,7 @@ public class DepartureFragment extends BaseFragment<MainActivity, DepartureContr
                     intent.putExtra("sub_admin", address.getSubAdminArea());
                     intent.putExtra("admin", address.getAdminArea());
                     intent.putExtra("id_operator_travel", operatorTravel.getId());
-                    intent.putExtra("operatorTravelLocationIds", Parcels.wrap(operatorTravelLocationIds));
+                    intent.putIntegerArrayListExtra("operatorTravelLocationIds", operatorTravelLocationIds);
                     travelChoiceDialog.dismiss();
                     activity.setResult(ConstantUtils.REQUEST_RESULT_SUCCESS, intent);
                     activity.finish();

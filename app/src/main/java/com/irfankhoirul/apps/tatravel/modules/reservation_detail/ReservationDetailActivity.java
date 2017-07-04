@@ -4,8 +4,6 @@ import com.irfankhoirul.apps.tatravel.app.TAApplication;
 import com.irfankhoirul.apps.tatravel.data.pojo.Pemesanan;
 import com.irfankhoirul.mvp_core.base.BaseFragmentHolderActivity;
 
-import org.parceler.Parcels;
-
 import javax.inject.Inject;
 
 public class ReservationDetailActivity extends BaseFragmentHolderActivity {
@@ -17,7 +15,7 @@ public class ReservationDetailActivity extends BaseFragmentHolderActivity {
 
     @Override
     protected void initializeFragment() {
-        reservationDetailFragment = ReservationDetailFragment.newInstance((Pemesanan) Parcels.unwrap(getIntent().getParcelableExtra("reservation")));
+        reservationDetailFragment = ReservationDetailFragment.newInstance((Pemesanan) getIntent().getParcelableExtra("reservation"));
         setCurrentFragment(reservationDetailFragment, false);
 
         DaggerReservationDetailComponent.builder()
@@ -29,7 +27,7 @@ public class ReservationDetailActivity extends BaseFragmentHolderActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if (Parcels.unwrap(getIntent().getParcelableExtra("reservation")) != null) {
+        if (getIntent().getParcelableExtra("reservation") != null) {
             mPresenter.clearCart();
         }
     }

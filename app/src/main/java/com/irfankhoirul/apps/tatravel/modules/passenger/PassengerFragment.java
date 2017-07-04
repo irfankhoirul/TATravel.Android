@@ -26,8 +26,7 @@ import com.irfankhoirul.apps.tatravel.data.pojo.Penumpang;
 import com.irfankhoirul.mvp_core.base.BaseFragment;
 import com.irfankhoirul.mvp_core.data.DataPage;
 
-import org.parceler.Parcels;
-
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -62,10 +61,10 @@ public class PassengerFragment extends BaseFragment<PassengerActivity, Passenger
         // Required empty public constructor
     }
 
-    public static PassengerFragment newInstance(List<Penumpang> selectedPassengers) {
+    public static PassengerFragment newInstance(ArrayList<Penumpang> selectedPassengers) {
         PassengerFragment passengerFragment = new PassengerFragment();
         Bundle bundle = new Bundle();
-        bundle.putParcelable("selectedPassengers", Parcels.wrap(selectedPassengers));
+        bundle.putParcelableArrayList("selectedPassengers", selectedPassengers);
         passengerFragment.setArguments(bundle);
 
         return passengerFragment;
@@ -81,8 +80,8 @@ public class PassengerFragment extends BaseFragment<PassengerActivity, Passenger
         super.onCreateView(inflater, container, savedInstanceState);
         fragmentView = inflater.inflate(R.layout.fragment_passenger, container, false);
         unbinder = ButterKnife.bind(this, fragmentView);
-
-        mPresenter.setSelectedPassenger((List<Penumpang>) Parcels.unwrap(getArguments().getParcelable("selectedPassengers")));
+        ArrayList<Penumpang> selectedPassengers = getArguments().getParcelableArrayList("selectedPassengers");
+        mPresenter.setSelectedPassenger(selectedPassengers);
 
         passengerAdapter = new PassengerAdapter(mPresenter.getPassenger(), new PassengerAdapter.OnSpecificItemClick() {
             @Override
@@ -155,7 +154,7 @@ public class PassengerFragment extends BaseFragment<PassengerActivity, Passenger
     @OnClick(R.id.btSetPassenger)
     public void btSetPassenger() {
         Intent intent = new Intent();
-        intent.putExtra("selectedPassengers", Parcels.wrap(mPresenter.getSelectedPassengers()));
+        intent.putParcelableArrayListExtra("selectedPassengers", mPresenter.getSelectedPassengers());
         activity.setResult(ConstantUtils.REQUEST_RESULT_SUCCESS, intent);
         activity.finish();
     }

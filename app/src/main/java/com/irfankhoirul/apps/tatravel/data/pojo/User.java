@@ -1,10 +1,11 @@
 package com.irfankhoirul.apps.tatravel.data.pojo;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.irfankhoirul.mvp_core.base.BaseModel;
-
-import org.parceler.Parcel;
+import com.irfankhoirul.mvp_core.base.BasePojo;
 
 /**
  * Merupakan model dari tabel User
@@ -13,67 +14,80 @@ import org.parceler.Parcel;
  * @since   1.0
  */
 
-@Parcel
-public class User extends BaseModel {
+public class User extends BasePojo implements Parcelable {
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
     @SerializedName("nama")
     @Expose
-    protected String nama;
-
+    private String nama;
     @SerializedName("nomor_handphone")
     @Expose
-    protected String nomorHandphone;
-
+    private String nomorHandphone;
     @SerializedName("email")
     @Expose
-    protected String email;
-
-    @SerializedName("paddword")
+    private String email;
+    @SerializedName("password")
     @Expose
-    protected String password;
-
+    private String password;
     @SerializedName("salt")
     @Expose
-    protected String salt;
-
+    private String salt;
     @SerializedName("reset_token")
     @Expose
-    protected String resetToken;
-
+    private String resetToken;
     @SerializedName("registration_step")
     @Expose
-    protected String registrationStep;
-
+    private String registrationStep;
     @SerializedName("alamat")
     @Expose
-    protected String alamat;
-
+    private String alamat;
     @SerializedName("id_kota")
     @Expose
-    protected int idKota;
-
+    private int idKota;
     @SerializedName("id_provinsi")
     @Expose
-    protected int idProvinsi;
-
+    private int idProvinsi;
     @SerializedName("tipe")
     @Expose
-    protected String tipe;
-
+    private String tipe;
     @SerializedName("kota")
     @Expose
-    protected Kota kota;
-
+    private Kota kota;
     @SerializedName("provinsi")
     @Expose
-    protected Provinsi provinsi;
-
+    private Provinsi provinsi;
     @SerializedName("token")
     @Expose
-    protected UserToken userToken;
-
+    private UserToken userToken;
     @SerializedName("use_social_login")
     @Expose
-    protected boolean useSocialLogin;
+    private boolean useSocialLogin;
+
+    protected User(Parcel in) {
+        nama = in.readString();
+        nomorHandphone = in.readString();
+        email = in.readString();
+        password = in.readString();
+        salt = in.readString();
+        resetToken = in.readString();
+        registrationStep = in.readString();
+        alamat = in.readString();
+        idKota = in.readInt();
+        idProvinsi = in.readInt();
+        tipe = in.readString();
+        kota = in.readParcelable(Kota.class.getClassLoader());
+        provinsi = in.readParcelable(Provinsi.class.getClassLoader());
+        useSocialLogin = in.readByte() != 0;
+    }
 
     public String getNama() {
         return nama;
@@ -193,5 +207,28 @@ public class User extends BaseModel {
 
     public void setUseSocialLogin(boolean useSocialLogin) {
         this.useSocialLogin = useSocialLogin;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(nama);
+        dest.writeString(nomorHandphone);
+        dest.writeString(email);
+        dest.writeString(password);
+        dest.writeString(salt);
+        dest.writeString(resetToken);
+        dest.writeString(registrationStep);
+        dest.writeString(alamat);
+        dest.writeInt(idKota);
+        dest.writeInt(idProvinsi);
+        dest.writeString(tipe);
+        dest.writeParcelable(kota, flags);
+        dest.writeParcelable(provinsi, flags);
+        dest.writeByte((byte) (useSocialLogin ? 1 : 0));
     }
 }

@@ -5,7 +5,7 @@ import com.irfankhoirul.apps.tatravel.data.pojo.Pemesanan;
 import com.irfankhoirul.apps.tatravel.data.source.locale.session.SessionRepository;
 import com.irfankhoirul.apps.tatravel.data.source.remote.reservation.ReservationRepository;
 import com.irfankhoirul.mvp_core.data.DataResult;
-import com.irfankhoirul.mvp_core.data.IRequestResponseListener;
+import com.irfankhoirul.mvp_core.data.RequestResponseListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,7 +63,7 @@ public class ReservationHistoryPresenter implements ReservationHistoryContract.P
             }
 
             params.put("token", sessionRepository.getSessionData().getUserToken().getToken());
-            reservationRepository.reservationList(new IRequestResponseListener<Pemesanan>() {
+            reservationRepository.reservationList(new RequestResponseListener<Pemesanan>() {
                 @Override
                 public void onSuccess(DataResult<Pemesanan> result) {
                     view.setLoadingDialog(false, null);

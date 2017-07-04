@@ -1,10 +1,11 @@
 package com.irfankhoirul.apps.tatravel.data.pojo;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.irfankhoirul.mvp_core.base.BaseModel;
-
-import org.parceler.Parcel;
+import com.irfankhoirul.mvp_core.base.BasePojo;
 
 import java.util.List;
 
@@ -15,43 +16,55 @@ import java.util.List;
  * @since 1.0
  */
 
-@Parcel
-public class Pemesanan extends BaseModel {
+public class Pemesanan extends BasePojo implements Parcelable {
+    public static final Creator<Pemesanan> CREATOR = new Creator<Pemesanan>() {
+        @Override
+        public Pemesanan createFromParcel(Parcel in) {
+            return new Pemesanan(in);
+        }
+
+        @Override
+        public Pemesanan[] newArray(int size) {
+            return new Pemesanan[size];
+        }
+    };
     @SerializedName("id_user")
     @Expose
-    protected int idUser;
-
+    private int idUser;
     @SerializedName("id_jadwal_perjalanan")
     @Expose
-    protected int idJadwalPerjalanan;
-
+    private int idJadwalPerjalanan;
     @SerializedName("kode_pemesanan")
     @Expose
-    protected String kodePemesanan;
-
+    private String kodePemesanan;
     @SerializedName("user")
     @Expose
-    protected User user;
-
+    private User user;
     @SerializedName("jadwal_perjalanan")
     @Expose
-    protected JadwalPerjalanan jadwalPerjalanan;
-
+    private JadwalPerjalanan jadwalPerjalanan;
     @SerializedName("pembayaran")
     @Expose
-    protected Pembayaran pembayaran;
-
+    private Pembayaran pembayaran;
     @SerializedName("lokasi_penjemputan")
     @Expose
-    protected LokasiDetail lokasiPenjemputan;
-
+    private LokasiDetail lokasiPenjemputan;
     @SerializedName("lokasi_pengantaran")
     @Expose
-    protected LokasiDetail lokasiPengantaran;
-
+    private LokasiDetail lokasiPengantaran;
     @SerializedName("penumpang_perjalanan")
     @Expose
-    protected List<PenumpangPerjalanan> penumpangPerjalanan;
+    private List<PenumpangPerjalanan> penumpangPerjalanan;
+
+    protected Pemesanan(Parcel in) {
+        idUser = in.readInt();
+        idJadwalPerjalanan = in.readInt();
+        kodePemesanan = in.readString();
+        jadwalPerjalanan = in.readParcelable(JadwalPerjalanan.class.getClassLoader());
+        pembayaran = in.readParcelable(Pembayaran.class.getClassLoader());
+        lokasiPenjemputan = in.readParcelable(LokasiDetail.class.getClassLoader());
+        lokasiPengantaran = in.readParcelable(LokasiDetail.class.getClassLoader());
+    }
 
     public int getIdUser() {
         return idUser;
@@ -123,5 +136,21 @@ public class Pemesanan extends BaseModel {
 
     public void setPenumpangPerjalanan(List<PenumpangPerjalanan> penumpangPerjalanan) {
         this.penumpangPerjalanan = penumpangPerjalanan;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(idUser);
+        dest.writeInt(idJadwalPerjalanan);
+        dest.writeString(kodePemesanan);
+        dest.writeParcelable(jadwalPerjalanan, flags);
+        dest.writeParcelable(pembayaran, flags);
+        dest.writeParcelable(lokasiPenjemputan, flags);
+        dest.writeParcelable(lokasiPengantaran, flags);
     }
 }

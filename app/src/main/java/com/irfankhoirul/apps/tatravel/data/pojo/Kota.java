@@ -1,10 +1,11 @@
 package com.irfankhoirul.apps.tatravel.data.pojo;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.irfankhoirul.mvp_core.base.BaseModel;
-
-import org.parceler.Parcel;
+import com.irfankhoirul.mvp_core.base.BasePojo;
 
 /**
  * Merupakan model dari tabel Kota
@@ -13,31 +14,43 @@ import org.parceler.Parcel;
  * @since   1.0
  */
 
-@Parcel
-public class Kota extends BaseModel {
+public class Kota extends BasePojo implements Parcelable {
+    public static final Creator<Kota> CREATOR = new Creator<Kota>() {
+        @Override
+        public Kota createFromParcel(Parcel in) {
+            return new Kota(in);
+        }
+
+        @Override
+        public Kota[] newArray(int size) {
+            return new Kota[size];
+        }
+    };
     @SerializedName("id_super_admin")
     @Expose
-    protected int idSuperAdmin;
-
+    private int idSuperAdmin;
     @SerializedName("id_provinsi")
     @Expose
-    protected int idProvinsi;
-
+    private int idProvinsi;
     @SerializedName("nama")
     @Expose
-    protected String nama;
-
+    private String nama;
     @SerializedName("kode")
     @Expose
-    protected String kode;
-
+    private String kode;
     @SerializedName("super_admin")
     @Expose
-    protected SuperAdmin superAdmin;
-
+    private SuperAdmin superAdmin;
     @SerializedName("provinsi")
     @Expose
-    protected Provinsi provinsi;
+    private Provinsi provinsi;
+
+    protected Kota(Parcel in) {
+        idSuperAdmin = in.readInt();
+        idProvinsi = in.readInt();
+        nama = in.readString();
+        kode = in.readString();
+    }
 
     public int getIdSuperAdmin() {
         return idSuperAdmin;
@@ -97,5 +110,18 @@ public class Kota extends BaseModel {
                 ", superAdmin=" + superAdmin +
                 ", provinsi=" + provinsi +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(idSuperAdmin);
+        dest.writeInt(idProvinsi);
+        dest.writeString(nama);
+        dest.writeString(kode);
     }
 }

@@ -1,10 +1,11 @@
 package com.irfankhoirul.apps.tatravel.data.pojo;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.irfankhoirul.mvp_core.base.BaseModel;
-
-import org.parceler.Parcel;
+import com.irfankhoirul.mvp_core.base.BasePojo;
 
 /**
  * Merupakan model dari tabel UserDevice
@@ -13,31 +14,45 @@ import org.parceler.Parcel;
  * @since   1.0
  */
 
-@Parcel
-public class UserDevice extends BaseModel {
+public class UserDevice extends BasePojo implements Parcelable {
+    public static final Creator<UserDevice> CREATOR = new Creator<UserDevice>() {
+        @Override
+        public UserDevice createFromParcel(Parcel in) {
+            return new UserDevice(in);
+        }
+
+        @Override
+        public UserDevice[] newArray(int size) {
+            return new UserDevice[size];
+        }
+    };
     @SerializedName("id_user")
     @Expose
-    protected int idUser;
-
+    private int idUser;
     @SerializedName("produsen")
     @Expose
-    protected String produsen;
-
+    private String produsen;
     @SerializedName("model")
     @Expose
-    protected String model;
-
+    private String model;
     @SerializedName("secret_code")
     @Expose
-    protected String secretCode;
-
+    private String secretCode;
     @SerializedName("FCM_token")
     @Expose
-    protected String FCMToken;
-
+    private String FCMToken;
     @SerializedName("user")
     @Expose
-    protected User user;
+    private User user;
+
+    protected UserDevice(Parcel in) {
+        idUser = in.readInt();
+        produsen = in.readString();
+        model = in.readString();
+        secretCode = in.readString();
+        FCMToken = in.readString();
+        user = in.readParcelable(User.class.getClassLoader());
+    }
 
     public int getIdUser() {
         return idUser;
@@ -85,5 +100,20 @@ public class UserDevice extends BaseModel {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(idUser);
+        dest.writeString(produsen);
+        dest.writeString(model);
+        dest.writeString(secretCode);
+        dest.writeString(FCMToken);
+        dest.writeParcelable(user, flags);
     }
 }

@@ -1,10 +1,11 @@
 package com.irfankhoirul.apps.tatravel.data.pojo;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.irfankhoirul.mvp_core.base.BaseModel;
-
-import org.parceler.Parcel;
+import com.irfankhoirul.mvp_core.base.BasePojo;
 
 /**
  * Merupakan model dari tabel GeraiPembayaran
@@ -13,11 +14,25 @@ import org.parceler.Parcel;
  * @since   1.0
  */
 
-@Parcel
-public class GeraiPembayaran extends BaseModel {
+public class GeraiPembayaran extends BasePojo implements Parcelable {
+    public static final Creator<GeraiPembayaran> CREATOR = new Creator<GeraiPembayaran>() {
+        @Override
+        public GeraiPembayaran createFromParcel(Parcel in) {
+            return new GeraiPembayaran(in);
+        }
+
+        @Override
+        public GeraiPembayaran[] newArray(int size) {
+            return new GeraiPembayaran[size];
+        }
+    };
     @SerializedName("nama")
     @Expose
-    protected String nama;
+    private String nama;
+
+    protected GeraiPembayaran(Parcel in) {
+        nama = in.readString();
+    }
 
     public String getNama() {
         return nama;
@@ -25,5 +40,15 @@ public class GeraiPembayaran extends BaseModel {
 
     public void setNama(String nama) {
         this.nama = nama;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(nama);
     }
 }

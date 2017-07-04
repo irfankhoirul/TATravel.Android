@@ -1,10 +1,11 @@
 package com.irfankhoirul.apps.tatravel.data.pojo;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.irfankhoirul.mvp_core.base.BaseModel;
-
-import org.parceler.Parcel;
+import com.irfankhoirul.mvp_core.base.BasePojo;
 
 /**
  * Merupakan model dari tabel LokasiDetail
@@ -13,36 +14,48 @@ import org.parceler.Parcel;
  * @since   1.0
  */
 
-@Parcel
-public class LokasiDetail extends BaseModel {
+public class LokasiDetail extends BasePojo implements Parcelable {
 
+    public static final Creator<LokasiDetail> CREATOR = new Creator<LokasiDetail>() {
+        @Override
+        public LokasiDetail createFromParcel(Parcel in) {
+            return new LokasiDetail(in);
+        }
+
+        @Override
+        public LokasiDetail[] newArray(int size) {
+            return new LokasiDetail[size];
+        }
+    };
     @SerializedName("id_penumpang_perjalanan")
     @Expose
-    protected int idPenumpangPerjalanan;
-
+    private int idPenumpangPerjalanan;
     @SerializedName("tipe")
     @Expose
-    protected String tipe;
-
+    private String tipe;
     @SerializedName("latitude")
     @Expose
-    protected String latitude;
-
+    private String latitude;
     @SerializedName("longitude")
     @Expose
-    protected String longitude;
-
+    private String longitude;
     @SerializedName("pemesanan")
     @Expose
-    protected Pemesanan pemesanan;
-
+    private Pemesanan pemesanan;
     @SerializedName("penumpangPerjalanan")
     @Expose
-    protected PenumpangPerjalanan penumpangPerjalanan;
-
+    private PenumpangPerjalanan penumpangPerjalanan;
     @SerializedName("alamat")
     @Expose
-    protected String alamat;
+    private String alamat;
+
+    protected LokasiDetail(Parcel in) {
+        idPenumpangPerjalanan = in.readInt();
+        tipe = in.readString();
+        latitude = in.readString();
+        longitude = in.readString();
+        alamat = in.readString();
+    }
 
     public int getIdPenumpangPerjalanan() {
         return idPenumpangPerjalanan;
@@ -98,5 +111,19 @@ public class LokasiDetail extends BaseModel {
 
     public void setAlamat(String alamat) {
         this.alamat = alamat;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(idPenumpangPerjalanan);
+        dest.writeString(tipe);
+        dest.writeString(latitude);
+        dest.writeString(longitude);
+        dest.writeString(alamat);
     }
 }

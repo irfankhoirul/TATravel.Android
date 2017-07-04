@@ -1,8 +1,8 @@
 package com.irfankhoirul.apps.tatravel.modules.profile;
 
 import com.irfankhoirul.apps.tatravel.data.pojo.User;
-import com.irfankhoirul.mvp_core.base.IBasePresenter;
-import com.irfankhoirul.mvp_core.base.IBaseView;
+import com.irfankhoirul.mvp_core.base.BasePresenter;
+import com.irfankhoirul.mvp_core.base.BaseView;
 
 import java.util.Map;
 
@@ -11,13 +11,13 @@ import java.util.Map;
  */
 
 public interface ProfileContract {
-    interface View extends IBaseView<Presenter> {
+    interface View extends BaseView<Presenter> {
         void showProfile();
 
         void redirectToLoginOrRegister();
     }
 
-    interface Presenter extends IBasePresenter {
+    interface Presenter extends BasePresenter {
         User getSessionData();
 
         void destroySession();

@@ -2,7 +2,7 @@ package com.irfankhoirul.apps.tatravel.modules.verification;
 
 import com.irfankhoirul.apps.tatravel.data.source.locale.session.SessionRepositoryImpl;
 import com.irfankhoirul.apps.tatravel.data.source.remote.user.UserRepositoryImpl;
-import com.irfankhoirul.mvp_core.data.IRequestResponseListener;
+import com.irfankhoirul.mvp_core.data.RequestResponseListener;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -33,7 +33,7 @@ public class VerifyPresenterTest {
     private VerifyContract.View mVerifyView;
 
     @Captor
-    private ArgumentCaptor<IRequestResponseListener> mRequestListenerCaptor;
+    private ArgumentCaptor<RequestResponseListener> mRequestListenerCaptor;
 
     private VerifyPresenter mVerifyPresenter;
 

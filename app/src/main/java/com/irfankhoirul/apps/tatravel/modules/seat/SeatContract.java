@@ -2,8 +2,8 @@ package com.irfankhoirul.apps.tatravel.modules.seat;
 
 import com.irfankhoirul.apps.tatravel.data.pojo.KursiPerjalanan;
 import com.irfankhoirul.apps.tatravel.data.source.locale.cart.CartRepository;
-import com.irfankhoirul.mvp_core.base.IBasePresenter;
-import com.irfankhoirul.mvp_core.base.IBaseView;
+import com.irfankhoirul.mvp_core.base.BasePresenter;
+import com.irfankhoirul.mvp_core.base.BaseView;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import java.util.List;
  */
 
 public interface SeatContract {
-    interface View extends IBaseView<Presenter> {
+    interface View extends BaseView<Presenter> {
         void showSeats(List<KursiPerjalanan> seats);
 
         void redirectToReservationDetail();
@@ -30,7 +30,7 @@ public interface SeatContract {
         void setup19Seats();
     }
 
-    interface Presenter extends IBasePresenter {
+    interface Presenter extends BasePresenter {
         void getCarSeats(int scheduleId);
 
         void bookSeat();

@@ -1,9 +1,10 @@
 package com.irfankhoirul.apps.tatravel.modules.search;
 
 import com.irfankhoirul.apps.tatravel.data.pojo.Penumpang;
-import com.irfankhoirul.mvp_core.base.IBasePresenter;
-import com.irfankhoirul.mvp_core.base.IBaseView;
+import com.irfankhoirul.mvp_core.base.BasePresenter;
+import com.irfankhoirul.mvp_core.base.BaseView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +21,7 @@ public interface SearchContract {
      * @version 1.0 (13 November 2016)
      * @since 1.0
      */
-    interface View extends IBaseView<Presenter> {
+    interface View extends BaseView<Presenter> {
 
         void setDepartureView(String departureLocation);
 
@@ -31,7 +32,7 @@ public interface SearchContract {
         void setDateView(long date);
     }
 
-    interface Presenter extends IBasePresenter {
+    interface Presenter extends BasePresenter {
 
         boolean isLoggedIn();
 
@@ -59,9 +60,9 @@ public interface SearchContract {
 
         String getSelectedOperatorTravelId();
 
-        List<Penumpang> getSelectedPassengers();
+        ArrayList<Penumpang> getSelectedPassengers();
 
-        void setSelectedPassengers(List<Penumpang> selectedPassengers);
+        void setSelectedPassengers(ArrayList<Penumpang> selectedPassengers);
 
     }
 

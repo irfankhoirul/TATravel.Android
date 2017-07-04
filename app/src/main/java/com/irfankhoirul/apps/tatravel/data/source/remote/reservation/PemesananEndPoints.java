@@ -19,7 +19,7 @@ import static com.irfankhoirul.apps.tatravel.data.source.remote.EndPoints.LIST_R
  * Created by Irfan Khoirul on 3/11/2017.
  */
 
-public interface IPemesananEndPoints {
+public interface PemesananEndPoints {
 
     /**
      * Param

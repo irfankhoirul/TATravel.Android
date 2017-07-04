@@ -29,8 +29,7 @@ import com.irfankhoirul.apps.tatravel.modules.reservation_detail.ReservationDeta
 import com.irfankhoirul.apps.tatravel.modules.schedule.ScheduleActivity;
 import com.irfankhoirul.mvp_core.base.BaseFragment;
 
-import org.parceler.Parcels;
-
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -149,7 +148,7 @@ public class SearchFragment extends BaseFragment<MainActivity, SearchContract.Pr
             departureData.put("latitude", String.valueOf(data.getDoubleExtra("latitude", 0)));
             departureData.put("longitude", String.valueOf(data.getDoubleExtra("longitude", 0)));
             departureData.put("operatorTravelId", String.valueOf(data.getIntExtra("id_operator_travel", -1)));
-            departureData.put("operatorTravelLocationIds", new Gson().toJson(Parcels.unwrap(data.getParcelableExtra("operatorTravelLocationIds"))));
+            departureData.put("operatorTravelLocationIds", new Gson().toJson(data.getIntegerArrayListExtra("operatorTravelLocationIds")));
 
             mPresenter.setDeparture(departureData);
 
@@ -183,7 +182,7 @@ public class SearchFragment extends BaseFragment<MainActivity, SearchContract.Pr
             destinationData.put("address", destinationLocation);
             destinationData.put("latitude", String.valueOf(data.getDoubleExtra("latitude", 0)));
             destinationData.put("longitude", String.valueOf(data.getDoubleExtra("longitude", 0)));
-            destinationData.put("operatorTravelLocationIds", new Gson().toJson(Parcels.unwrap(data.getParcelableExtra("operatorTravelLocationIds"))));
+            destinationData.put("operatorTravelLocationIds", new Gson().toJson(data.getIntegerArrayListExtra("operatorTravelLocationIds")));
 
             mPresenter.setDestination(destinationData);
 
@@ -191,8 +190,9 @@ public class SearchFragment extends BaseFragment<MainActivity, SearchContract.Pr
             resetDateView();
         } else if (requestCode == ConstantUtils.ACTIVITY_REQUEST_CODE_PASSENGER && resultCode == ConstantUtils.REQUEST_RESULT_SUCCESS) {
             mPresenter.clearPassenger();
-            if (data.getParcelableExtra("selectedPassengers") != null) {
-                mPresenter.setSelectedPassengers((List<Penumpang>) Parcels.unwrap(data.getParcelableExtra("selectedPassengers")));
+            if (data.getParcelableArrayListExtra("selectedPassengers") != null) {
+                ArrayList<Penumpang> selectedPassengers = data.getParcelableArrayListExtra("selectedPassengers");
+                mPresenter.setSelectedPassengers(selectedPassengers);
                 if (mPresenter.getSelectedPassengers().size() > 0) {
                     setPassengerView(mPresenter.getSelectedPassengers());
                 } else {
@@ -346,7 +346,7 @@ public class SearchFragment extends BaseFragment<MainActivity, SearchContract.Pr
         if (mPresenter.isLoggedIn()) {
             if (mPresenter.isDateSet()) {
                 Intent intent = new Intent(activity, PassengerActivity.class);
-                intent.putExtra("selectedPassengers", Parcels.wrap(mPresenter.getSelectedPassengers()));
+                intent.putParcelableArrayListExtra("selectedPassengers", mPresenter.getSelectedPassengers());
                 startActivityForResult(intent, ConstantUtils.ACTIVITY_REQUEST_CODE_PASSENGER);
             } else {
                 showStatus(STATUS_ERROR, "Anda belum memilih tanggal keberangkatan");

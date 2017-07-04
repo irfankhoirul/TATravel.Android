@@ -4,10 +4,9 @@ import com.irfankhoirul.apps.tatravel.components.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.data.pojo.Lokasi;
 import com.irfankhoirul.apps.tatravel.data.source.remote.schedule.ScheduleRepository;
 import com.irfankhoirul.mvp_core.data.DataResult;
-import com.irfankhoirul.mvp_core.data.IRequestResponseListener;
+import com.irfankhoirul.mvp_core.data.RequestResponseListener;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -20,7 +19,7 @@ public class DestinationPresenter implements DestinationContract.Presenter {
 
     private final DestinationContract.View view;
     private final ScheduleRepository scheduleRepository;
-    private List<Integer> operatorTravelLocationIds = new ArrayList<>();
+    private ArrayList<Integer> operatorTravelLocationIds = new ArrayList<>();
     private boolean gotLocation = false;
 
     @Inject
@@ -46,7 +45,7 @@ public class DestinationPresenter implements DestinationContract.Presenter {
     @Override
     public void checkLocationAvailability(Map<String, String> params) {
         view.setLoadingDialog(true, "Mencari Operator Travel...");
-        scheduleRepository.getDestinationAvailability(new IRequestResponseListener<Lokasi>() {
+        scheduleRepository.getDestinationAvailability(new RequestResponseListener<Lokasi>() {
             @Override
             public void onSuccess(DataResult<Lokasi> result) {
                 view.setLoadingDialog(false, null);
@@ -69,7 +68,7 @@ public class DestinationPresenter implements DestinationContract.Presenter {
     }
 
     @Override
-    public List<Integer> getTravelLocationIds() {
+    public ArrayList<Integer> getTravelLocationIds() {
         return operatorTravelLocationIds;
     }
 

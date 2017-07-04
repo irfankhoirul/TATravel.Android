@@ -17,8 +17,6 @@ import com.irfankhoirul.apps.tatravel.data.pojo.Pembayaran;
 import com.irfankhoirul.apps.tatravel.data.pojo.Pemesanan;
 import com.irfankhoirul.mvp_core.base.BaseFragment;
 
-import org.parceler.Parcels;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -82,7 +80,7 @@ public class ReservationDetailFragment extends BaseFragment<ReservationDetailAct
     public static ReservationDetailFragment newInstance(Pemesanan reservation) {
         ReservationDetailFragment reservationDetailFragment = new ReservationDetailFragment();
         Bundle bundle = new Bundle();
-        bundle.putParcelable("reservation", Parcels.wrap(reservation));
+        bundle.putParcelable("reservation", reservation);
         reservationDetailFragment.setArguments(bundle);
 
         return reservationDetailFragment;
@@ -100,7 +98,7 @@ public class ReservationDetailFragment extends BaseFragment<ReservationDetailAct
         unbinder = ButterKnife.bind(this, fragmentView);
 
         if (getArguments().getParcelable("reservation") != null) {
-            showReservationDetail((Pemesanan) Parcels.unwrap(getArguments().getParcelable("reservation")));
+            showReservationDetail((Pemesanan) getArguments().getParcelable("reservation"));
         } else {
             mPresenter.getLastReservationDetail();
         }

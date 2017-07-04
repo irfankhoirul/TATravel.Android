@@ -1,10 +1,11 @@
 package com.irfankhoirul.apps.tatravel.data.pojo;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.irfankhoirul.mvp_core.base.BaseModel;
-
-import org.parceler.Parcel;
+import com.irfankhoirul.mvp_core.base.BasePojo;
 
 /**
  * Merupakan model dari tabel UserFacebook
@@ -13,27 +14,41 @@ import org.parceler.Parcel;
  * @since 1.0
  */
 
-@Parcel
-public class UserFacebook extends BaseModel {
+public class UserFacebook extends BasePojo implements Parcelable {
+    public static final Creator<UserFacebook> CREATOR = new Creator<UserFacebook>() {
+        @Override
+        public UserFacebook createFromParcel(Parcel in) {
+            return new UserFacebook(in);
+        }
+
+        @Override
+        public UserFacebook[] newArray(int size) {
+            return new UserFacebook[size];
+        }
+    };
     @SerializedName("token")
     @Expose
-    protected String token;
-
+    private String token;
     @SerializedName("token_status")
     @Expose
-    protected String tokenStatus;
-
+    private String tokenStatus;
     @SerializedName("facebook_id")
     @Expose
-    protected String facebookId;
-
+    private String facebookId;
     @SerializedName("id_user")
     @Expose
-    protected int idUser;
-
+    private int idUser;
     @SerializedName("user")
     @Expose
-    protected User user;
+    private User user;
+
+    protected UserFacebook(Parcel in) {
+        token = in.readString();
+        tokenStatus = in.readString();
+        facebookId = in.readString();
+        idUser = in.readInt();
+        user = in.readParcelable(User.class.getClassLoader());
+    }
 
     public String getToken() {
         return token;
@@ -73,5 +88,19 @@ public class UserFacebook extends BaseModel {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(token);
+        dest.writeString(tokenStatus);
+        dest.writeString(facebookId);
+        dest.writeInt(idUser);
+        dest.writeParcelable(user, flags);
     }
 }

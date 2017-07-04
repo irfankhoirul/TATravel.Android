@@ -1,6 +1,6 @@
 package com.irfankhoirul.apps.tatravel.data.source.remote.passenger;
 
-import com.irfankhoirul.mvp_core.data.IRequestResponseListener;
+import com.irfankhoirul.mvp_core.data.RequestResponseListener;
 
 import java.util.Map;
 
@@ -10,12 +10,12 @@ import java.util.Map;
 
 public interface PassengerRepository {
 
-    void createPassenger(IRequestResponseListener listener, int userId, Map<String, String> param);
+    void createPassenger(RequestResponseListener listener, int userId, Map<String, String> param);
 
-    void updatePassenger(IRequestResponseListener listener, int userId, int passengerId, Map<String, String> param);
+    void updatePassenger(RequestResponseListener listener, int userId, int passengerId, Map<String, String> param);
 
-    void deletePassenger(IRequestResponseListener listener, int userId, int passengerId, Map<String, String> param);
+    void deletePassenger(RequestResponseListener listener, int userId, int passengerId, Map<String, String> param);
 
-    void listPassenger(IRequestResponseListener listener, int userId, Map<String, String> param);
+    void listPassenger(RequestResponseListener listener, int userId, Map<String, String> param);
 
 }

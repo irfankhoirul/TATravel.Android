@@ -5,7 +5,7 @@ import com.irfankhoirul.apps.tatravel.data.pojo.User;
 import com.irfankhoirul.apps.tatravel.data.source.locale.session.SessionRepository;
 import com.irfankhoirul.apps.tatravel.data.source.remote.user.UserRepository;
 import com.irfankhoirul.mvp_core.data.DataResult;
-import com.irfankhoirul.mvp_core.data.IRequestResponseListener;
+import com.irfankhoirul.mvp_core.data.RequestResponseListener;
 
 import java.util.Map;
 
@@ -51,7 +51,7 @@ public class ProfilePresenter implements ProfileContract.Presenter {
     @Override
     public void logout(Map<String, String> param) {
         view.setLoadingDialog(true, "Logout");
-        userRepository.logout(new IRequestResponseListener() {
+        userRepository.logout(new RequestResponseListener() {
             @Override
             public void onSuccess(DataResult result) {
                 view.setLoadingDialog(false, null);

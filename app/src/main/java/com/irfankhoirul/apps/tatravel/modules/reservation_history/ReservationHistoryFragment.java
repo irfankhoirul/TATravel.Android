@@ -25,8 +25,6 @@ import com.irfankhoirul.apps.tatravel.modules.reservation_detail.ReservationDeta
 import com.irfankhoirul.mvp_core.base.BaseFragment;
 import com.irfankhoirul.mvp_core.data.DataPage;
 
-import org.parceler.Parcels;
-
 import java.util.List;
 import java.util.Map;
 
@@ -72,7 +70,7 @@ public class ReservationHistoryFragment extends BaseFragment<MainActivity, Reser
             public void onItemClick(Pemesanan reservation) {
                 // Show detail
                 Intent intent = new Intent(activity, ReservationDetailActivity.class);
-                intent.putExtra("reservation", Parcels.wrap(reservation));
+                intent.putExtra("reservation", reservation);
                 startActivityForResult(intent, ConstantUtils.ACTIVITY_REQUEST_CODE_DETAIL_RESERVATION);
             }
         });

@@ -1,10 +1,11 @@
 package com.irfankhoirul.apps.tatravel.data.pojo;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.irfankhoirul.mvp_core.base.BaseModel;
-
-import org.parceler.Parcel;
+import com.irfankhoirul.mvp_core.base.BasePojo;
 
 /**
  * Merupakan model dari tabel KursiPerjalanan
@@ -13,22 +14,36 @@ import org.parceler.Parcel;
  * @since   1.0
  */
 
-@Parcel
-public class KursiPerjalanan extends BaseModel {
+public class KursiPerjalanan extends BasePojo implements Parcelable {
+    public static final Creator<KursiPerjalanan> CREATOR = new Creator<KursiPerjalanan>() {
+        @Override
+        public KursiPerjalanan createFromParcel(Parcel in) {
+            return new KursiPerjalanan(in);
+        }
+
+        @Override
+        public KursiPerjalanan[] newArray(int size) {
+            return new KursiPerjalanan[size];
+        }
+    };
     @SerializedName("id_kursi_mobil")
     @Expose
-    protected int idKursiMobil;
-
+    private int idKursiMobil;
     @SerializedName("status")
     @Expose
-    protected String status;
-
+    private String status;
     @SerializedName("kursi_mobil")
     @Expose
-    protected KursiMobil kursiMobil;
-
+    private KursiMobil kursiMobil;
     // Tambahan
-    protected boolean selected;
+    private boolean selected;
+
+    protected KursiPerjalanan(Parcel in) {
+        idKursiMobil = in.readInt();
+        status = in.readString();
+        kursiMobil = in.readParcelable(KursiMobil.class.getClassLoader());
+        selected = in.readByte() != 0;
+    }
 
     public int getIdKursiMobil() {
         return idKursiMobil;
@@ -60,5 +75,18 @@ public class KursiPerjalanan extends BaseModel {
 
     public void setSelected(boolean selected) {
         this.selected = selected;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(idKursiMobil);
+        dest.writeString(status);
+        dest.writeParcelable(kursiMobil, flags);
+        dest.writeByte((byte) (selected ? 1 : 0));
     }
 }

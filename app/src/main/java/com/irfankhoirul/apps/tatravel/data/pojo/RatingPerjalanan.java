@@ -1,10 +1,11 @@
 package com.irfankhoirul.apps.tatravel.data.pojo;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.irfankhoirul.mvp_core.base.BaseModel;
-
-import org.parceler.Parcel;
+import com.irfankhoirul.mvp_core.base.BasePojo;
 
 /**
  * Merupakan model dari tabel RatingPerjalanan
@@ -13,27 +14,40 @@ import org.parceler.Parcel;
  * @since   1.0
  */
 
-@Parcel
-public class RatingPerjalanan extends BaseModel {
+public class RatingPerjalanan extends BasePojo implements Parcelable {
+    public static final Creator<RatingPerjalanan> CREATOR = new Creator<RatingPerjalanan>() {
+        @Override
+        public RatingPerjalanan createFromParcel(Parcel in) {
+            return new RatingPerjalanan(in);
+        }
+
+        @Override
+        public RatingPerjalanan[] newArray(int size) {
+            return new RatingPerjalanan[size];
+        }
+    };
     @SerializedName("id_jadwal_perjalanan")
     @Expose
-    protected int idJadwalPerjalanan;
-
+    private int idJadwalPerjalanan;
     @SerializedName("id_user")
     @Expose
-    protected int idUser;
-
+    private int idUser;
     @SerializedName("rating")
     @Expose
-    protected int rating;
-
+    private int rating;
     @SerializedName("jadwal_perjalanan")
     @Expose
-    protected JadwalPerjalanan jadwalPerjalanan;
-
+    private JadwalPerjalanan jadwalPerjalanan;
     @SerializedName("user")
     @Expose
-    protected User user;
+    private User user;
+
+    protected RatingPerjalanan(Parcel in) {
+        idJadwalPerjalanan = in.readInt();
+        idUser = in.readInt();
+        rating = in.readInt();
+        jadwalPerjalanan = in.readParcelable(JadwalPerjalanan.class.getClassLoader());
+    }
 
     public int getIdJadwalPerjalanan() {
         return idJadwalPerjalanan;
@@ -73,5 +87,18 @@ public class RatingPerjalanan extends BaseModel {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(idJadwalPerjalanan);
+        dest.writeInt(idUser);
+        dest.writeInt(rating);
+        dest.writeParcelable(jadwalPerjalanan, flags);
     }
 }

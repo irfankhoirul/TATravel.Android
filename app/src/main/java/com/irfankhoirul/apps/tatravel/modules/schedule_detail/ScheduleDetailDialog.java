@@ -17,8 +17,6 @@ import com.irfankhoirul.apps.tatravel.data.pojo.JadwalPerjalanan;
 import com.irfankhoirul.apps.tatravel.modules.schedule.ScheduleActivity;
 import com.irfankhoirul.mvp_core.base.BaseDialog;
 
-import org.parceler.Parcels;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -62,7 +60,7 @@ public class ScheduleDetailDialog extends BaseDialog<ScheduleActivity, ScheduleD
     public static ScheduleDetailDialog newInstance(JadwalPerjalanan schedule) {
         ScheduleDetailDialog scheduleDetailDialog = new ScheduleDetailDialog();
         Bundle bundle = new Bundle();
-        bundle.putParcelable("schedule", Parcels.wrap(schedule));
+        bundle.putParcelable("schedule", schedule);
         scheduleDetailDialog.setArguments(bundle);
 
         return scheduleDetailDialog;
@@ -77,7 +75,7 @@ public class ScheduleDetailDialog extends BaseDialog<ScheduleActivity, ScheduleD
         fragmentView = inflater.inflate(R.layout.dialog_schedule_detail, container);
         unbinder = ButterKnife.bind(this, fragmentView);
 
-        mPresenter.setSchedule((JadwalPerjalanan) Parcels.unwrap(getArguments().getParcelable("schedule")));
+        mPresenter.setSchedule((JadwalPerjalanan) getArguments().getParcelable("schedule"));
         showScheduleDetail(mPresenter.getSchedule());
 
         return fragmentView;

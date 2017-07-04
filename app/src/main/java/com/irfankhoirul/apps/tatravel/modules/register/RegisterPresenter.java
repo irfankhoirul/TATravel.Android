@@ -7,7 +7,7 @@ import com.irfankhoirul.apps.tatravel.data.pojo.User;
 import com.irfankhoirul.apps.tatravel.data.source.locale.session.SessionRepository;
 import com.irfankhoirul.apps.tatravel.data.source.remote.user.UserRepository;
 import com.irfankhoirul.mvp_core.data.DataResult;
-import com.irfankhoirul.mvp_core.data.IRequestResponseListener;
+import com.irfankhoirul.mvp_core.data.RequestResponseListener;
 
 import java.nio.charset.Charset;
 import java.util.HashMap;
@@ -47,7 +47,7 @@ public class RegisterPresenter implements RegisterContract.Presenter {
     @Override
     public void register(final Map<String, String> param) {
         view.setLoadingDialog(true, "Sedang melakukan registrasi");
-        userRepository.register(new IRequestResponseListener() {
+        userRepository.register(new RequestResponseListener() {
             @Override
             public void onSuccess(DataResult result) {
                 view.setLoadingDialog(false, null);
@@ -101,7 +101,7 @@ public class RegisterPresenter implements RegisterContract.Presenter {
     }
 
     private void loginSocialMedia(Map<String, String> param) {
-        userRepository.login(new IRequestResponseListener<User>() {
+        userRepository.login(new RequestResponseListener<User>() {
             @Override
             public void onSuccess(DataResult<User> result) {
                 if (result.getCode() == ConstantUtils.REQUEST_RESULT_SUCCESS) {
@@ -127,7 +127,7 @@ public class RegisterPresenter implements RegisterContract.Presenter {
     }
 
     private void updateFcmToken(Map<String, String> param) {
-        userRepository.updateFcmToken(new IRequestResponseListener<User>() {
+        userRepository.updateFcmToken(new RequestResponseListener<User>() {
             @Override
             public void onSuccess(DataResult<User> result) {
                 view.setLoadingDialog(false, null);

@@ -17,8 +17,6 @@ import com.irfankhoirul.apps.tatravel.data.pojo.OperatorTravel;
 import com.irfankhoirul.apps.tatravel.modules.departure.DepartureActivity;
 import com.irfankhoirul.mvp_core.base.BaseDialog;
 
-import org.parceler.Parcels;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,10 +44,10 @@ public class TravelChoiceDialog extends BaseDialog<DepartureActivity, TravelChoi
         // Empty constructor required for DialogFragment
     }
 
-    public static TravelChoiceDialog newInstance(List<Lokasi> lokasiList) {
+    public static TravelChoiceDialog newInstance(ArrayList<Lokasi> lokasiList) {
         TravelChoiceDialog travelChoiceDialog = new TravelChoiceDialog();
         Bundle bundle = new Bundle();
-        bundle.putParcelable("lokasiList", Parcels.wrap(lokasiList));
+        bundle.putParcelableArrayList("lokasiList", lokasiList);
         travelChoiceDialog.setArguments(bundle);
 
         return travelChoiceDialog;
@@ -66,13 +64,13 @@ public class TravelChoiceDialog extends BaseDialog<DepartureActivity, TravelChoi
 
         mPresenter.start();
 
-        final List<Lokasi> operatorTravelLocations = Parcels.unwrap(getArguments().getParcelable("lokasiList"));
+        final List<Lokasi> operatorTravelLocations = getArguments().getParcelableArrayList("lokasiList");
 
         cityAdapter = new TravelChoiceAdapter(mPresenter.prepareData(operatorTravelLocations),
                 new TravelChoiceAdapter.OnSpecificItemClick() {
                     @Override
                     public void onItemClick(OperatorTravel operatorTravel) {
-                        List<Integer> operatorTravelLocationIds = new ArrayList<>();
+                        ArrayList<Integer> operatorTravelLocationIds = new ArrayList<>();
                         for (int i = 0; i < operatorTravelLocations.size(); i++) {
                             if (operatorTravelLocations.get(i).getOperatorTravel().getId() == operatorTravel.getId()) {
                                 operatorTravelLocationIds.add(operatorTravelLocations.get(i).getId());
@@ -121,6 +119,8 @@ public class TravelChoiceDialog extends BaseDialog<DepartureActivity, TravelChoi
     }
 
     public interface DialogListener {
-        void onOperatorTravelChoose(TravelChoiceDialog travelChoiceDialog, OperatorTravel operatorTravel, List<Integer> operatorTravelLocationIds);
+        void onOperatorTravelChoose(TravelChoiceDialog travelChoiceDialog,
+                                    OperatorTravel operatorTravel,
+                                    ArrayList<Integer> operatorTravelLocationIds);
     }
 }

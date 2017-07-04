@@ -7,7 +7,7 @@ import com.irfankhoirul.apps.tatravel.data.pojo.User;
 import com.irfankhoirul.apps.tatravel.data.source.locale.session.SessionRepository;
 import com.irfankhoirul.apps.tatravel.data.source.remote.user.UserRepository;
 import com.irfankhoirul.mvp_core.data.DataResult;
-import com.irfankhoirul.mvp_core.data.IRequestResponseListener;
+import com.irfankhoirul.mvp_core.data.RequestResponseListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,7 +52,7 @@ public class ProfileEditorPresenter implements ProfileEditorContract.Presenter {
     private void getProvinceList() {
         Map<String, String> param = new HashMap<>();
         param.put("token", sessionRepository.getSessionData().getUserToken().getToken());
-        userRepository.getListProvince(new IRequestResponseListener<Provinsi>() {
+        userRepository.getListProvince(new RequestResponseListener<Provinsi>() {
             @Override
             public void onSuccess(DataResult<Provinsi> result) {
                 if (result.getCode() == ConstantUtils.REQUEST_RESULT_SUCCESS) {
@@ -78,7 +78,7 @@ public class ProfileEditorPresenter implements ProfileEditorContract.Presenter {
         if (provinceId != 0) {
             Map<String, String> param = new HashMap<>();
             param.put("token", sessionRepository.getSessionData().getUserToken().getToken());
-            userRepository.getListCity(new IRequestResponseListener<Kota>() {
+            userRepository.getListCity(new RequestResponseListener<Kota>() {
                 @Override
                 public void onSuccess(DataResult<Kota> result) {
                     if (view.isActive()) {
@@ -119,7 +119,7 @@ public class ProfileEditorPresenter implements ProfileEditorContract.Presenter {
     public void updateUser(Map<String, String> params) {
         view.setLoadingDialog(true, "Memperbarui profile...");
         params.put("token", sessionRepository.getSessionData().getUserToken().getToken());
-        userRepository.updateProfile(new IRequestResponseListener<User>() {
+        userRepository.updateProfile(new RequestResponseListener<User>() {
             @Override
             public void onSuccess(DataResult<User> result) {
                 view.setLoadingDialog(false, null);

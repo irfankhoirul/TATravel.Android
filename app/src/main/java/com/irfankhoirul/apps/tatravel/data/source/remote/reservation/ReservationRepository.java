@@ -1,6 +1,6 @@
 package com.irfankhoirul.apps.tatravel.data.source.remote.reservation;
 
-import com.irfankhoirul.mvp_core.data.IRequestResponseListener;
+import com.irfankhoirul.mvp_core.data.RequestResponseListener;
 
 import java.util.Map;
 
@@ -10,9 +10,9 @@ import java.util.Map;
 
 public interface ReservationRepository {
 
-    void makeReservation(IRequestResponseListener listener, Map<String, String> param);
+    void makeReservation(RequestResponseListener listener, Map<String, String> param);
 
-    void reservationDetail(IRequestResponseListener listener, int reservationId, Map<String, String> param);
+    void reservationDetail(RequestResponseListener listener, int reservationId, Map<String, String> param);
 
-    void reservationList(IRequestResponseListener listener, Map<String, String> param);
+    void reservationList(RequestResponseListener listener, Map<String, String> param);
 }

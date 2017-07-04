@@ -1,10 +1,11 @@
 package com.irfankhoirul.apps.tatravel.data.pojo;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.irfankhoirul.mvp_core.base.BaseModel;
-
-import org.parceler.Parcel;
+import com.irfankhoirul.mvp_core.base.BasePojo;
 
 /**
  * Merupakan model dari tabel Lokasi
@@ -13,51 +14,64 @@ import org.parceler.Parcel;
  * @since   1.0
  */
 
-@Parcel
-public class Lokasi extends BaseModel {
+public class Lokasi extends BasePojo implements Parcelable {
+    public static final Creator<Lokasi> CREATOR = new Creator<Lokasi>() {
+        @Override
+        public Lokasi createFromParcel(Parcel in) {
+            return new Lokasi(in);
+        }
+
+        @Override
+        public Lokasi[] newArray(int size) {
+            return new Lokasi[size];
+        }
+    };
     @SerializedName("nama")
     @Expose
-    protected String nama;
-
+    private String nama;
     @SerializedName("id_admin")
     @Expose
-    protected int idAdmin;
-
+    private int idAdmin;
     @SerializedName("id_operator_travel")
     @Expose
-    protected int idOperatorTravel;
-
+    private int idOperatorTravel;
     @SerializedName("id_kota")
     @Expose
-    protected int idKota;
-
+    private int idKota;
     @SerializedName("alamat")
     @Expose
-    protected String alamat;
-
+    private String alamat;
     @SerializedName("admin")
     @Expose
-    protected Admin admin;
-
+    private Admin admin;
     @SerializedName("operator_travel")
     @Expose
-    protected OperatorTravel operatorTravel;
-
+    private OperatorTravel operatorTravel;
     @SerializedName("kota")
     @Expose
-    protected Kota kota;
-
+    private Kota kota;
     @SerializedName("latitude")
     @Expose
-    protected String latitude;
-
+    private String latitude;
     @SerializedName("longitude")
     @Expose
-    protected String longitude;
-
+    private String longitude;
     @SerializedName("distance")
     @Expose
-    protected String distance;
+    private String distance;
+
+    protected Lokasi(Parcel in) {
+        nama = in.readString();
+        idAdmin = in.readInt();
+        idOperatorTravel = in.readInt();
+        idKota = in.readInt();
+        alamat = in.readString();
+        admin = in.readParcelable(Admin.class.getClassLoader());
+        kota = in.readParcelable(Kota.class.getClassLoader());
+        latitude = in.readString();
+        longitude = in.readString();
+        distance = in.readString();
+    }
 
     public String getNama() {
         return nama;
@@ -158,5 +172,24 @@ public class Lokasi extends BaseModel {
                 ", operatorTravel=" + operatorTravel +
                 ", kota=" + kota +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(nama);
+        dest.writeInt(idAdmin);
+        dest.writeInt(idOperatorTravel);
+        dest.writeInt(idKota);
+        dest.writeString(alamat);
+        dest.writeParcelable(admin, flags);
+        dest.writeParcelable(kota, flags);
+        dest.writeString(latitude);
+        dest.writeString(longitude);
+        dest.writeString(distance);
     }
 }

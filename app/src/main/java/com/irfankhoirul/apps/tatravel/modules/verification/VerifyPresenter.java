@@ -6,7 +6,7 @@ import com.irfankhoirul.apps.tatravel.data.pojo.User;
 import com.irfankhoirul.apps.tatravel.data.source.locale.session.SessionRepository;
 import com.irfankhoirul.apps.tatravel.data.source.remote.user.UserRepository;
 import com.irfankhoirul.mvp_core.data.DataResult;
-import com.irfankhoirul.mvp_core.data.IRequestResponseListener;
+import com.irfankhoirul.mvp_core.data.RequestResponseListener;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -47,7 +47,7 @@ public class VerifyPresenter implements VerifyContract.Presenter {
     @Override
     public void verifyUser(Map<String, String> param) {
         view.setLoadingDialog(true, "Sedang melakukan verifikasi");
-        userRepository.verify(new IRequestResponseListener<User>() {
+        userRepository.verify(new RequestResponseListener<User>() {
             @Override
             public void onSuccess(DataResult<User> result) {
                 if (result.getCode() == ConstantUtils.REQUEST_RESULT_SUCCESS) {
@@ -72,7 +72,7 @@ public class VerifyPresenter implements VerifyContract.Presenter {
     }
 
     private void updateFcmToken(Map<String, String> param) {
-        userRepository.updateFcmToken(new IRequestResponseListener<User>() {
+        userRepository.updateFcmToken(new RequestResponseListener<User>() {
             @Override
             public void onSuccess(DataResult<User> result) {
                 view.setLoadingDialog(false, null);

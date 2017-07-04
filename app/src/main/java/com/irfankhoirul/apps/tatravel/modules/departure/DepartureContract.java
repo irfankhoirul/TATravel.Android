@@ -2,9 +2,10 @@ package com.irfankhoirul.apps.tatravel.modules.departure;
 
 import com.irfankhoirul.apps.tatravel.data.pojo.Lokasi;
 import com.irfankhoirul.apps.tatravel.data.pojo.OperatorTravel;
-import com.irfankhoirul.mvp_core.base.IBasePresenter;
-import com.irfankhoirul.mvp_core.base.IBaseView;
+import com.irfankhoirul.mvp_core.base.BasePresenter;
+import com.irfankhoirul.mvp_core.base.BaseView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -14,11 +15,11 @@ import java.util.Map;
 
 public interface DepartureContract {
 
-    interface View extends IBaseView<Presenter> {
-        void updateMap(List<Lokasi> locations);
+    interface View extends BaseView<Presenter> {
+        void updateMap(ArrayList<Lokasi> locations);
     }
 
-    interface Presenter extends IBasePresenter {
+    interface Presenter extends BasePresenter {
         void checkLocationAvailability(Map<String, String> params);
 
         List<OperatorTravel> prepareOperatorTraveldata(List<Lokasi> lokasiList);
@@ -27,9 +28,9 @@ public interface DepartureContract {
 
         void setGotLocation(boolean gotLocation);
 
-        List<Lokasi> getLocationList();
+        ArrayList<Lokasi> getLocationList();
 
-        void setLocationList(List<Lokasi> locationList);
+        void setLocationList(ArrayList<Lokasi> locationList);
     }
 
 }

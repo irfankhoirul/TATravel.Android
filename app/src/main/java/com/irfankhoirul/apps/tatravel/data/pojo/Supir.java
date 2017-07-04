@@ -1,10 +1,11 @@
 package com.irfankhoirul.apps.tatravel.data.pojo;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.irfankhoirul.mvp_core.base.BaseModel;
-
-import org.parceler.Parcel;
+import com.irfankhoirul.mvp_core.base.BasePojo;
 
 /**
  * Merupakan model dari tabel Supir
@@ -13,35 +14,48 @@ import org.parceler.Parcel;
  * @since   1.0
  */
 
-@Parcel
-public class Supir extends BaseModel {
+public class Supir extends BasePojo implements Parcelable {
+    public static final Creator<Supir> CREATOR = new Creator<Supir>() {
+        @Override
+        public Supir createFromParcel(Parcel in) {
+            return new Supir(in);
+        }
+
+        @Override
+        public Supir[] newArray(int size) {
+            return new Supir[size];
+        }
+    };
     @SerializedName("id_admin")
     @Expose
-    protected int idAdmin;
-
+    private int idAdmin;
     @SerializedName("id_operator_travel")
     @Expose
-    protected int idOperatorTravel;
-
+    private int idOperatorTravel;
     @SerializedName("kode_registrasi")
     @Expose
-    protected String kodeRegistrasi;
-
+    private String kodeRegistrasi;
     @SerializedName("id_user")
     @Expose
-    protected int idUser;
-
+    private int idUser;
     @SerializedName("admin")
     @Expose
-    protected Admin admin;
-
+    private Admin admin;
     @SerializedName("operator_travel")
     @Expose
-    protected OperatorTravel operatorTravel;
-
+    private OperatorTravel operatorTravel;
     @SerializedName("user")
     @Expose
-    protected User user;
+    private User user;
+
+    protected Supir(Parcel in) {
+        idAdmin = in.readInt();
+        idOperatorTravel = in.readInt();
+        kodeRegistrasi = in.readString();
+        idUser = in.readInt();
+        admin = in.readParcelable(Admin.class.getClassLoader());
+        operatorTravel = in.readParcelable(OperatorTravel.class.getClassLoader());
+    }
 
     public int getIdAdmin() {
         return idAdmin;
@@ -97,5 +111,20 @@ public class Supir extends BaseModel {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(idAdmin);
+        dest.writeInt(idOperatorTravel);
+        dest.writeString(kodeRegistrasi);
+        dest.writeInt(idUser);
+        dest.writeParcelable(admin, flags);
+        dest.writeParcelable(operatorTravel, flags);
     }
 }

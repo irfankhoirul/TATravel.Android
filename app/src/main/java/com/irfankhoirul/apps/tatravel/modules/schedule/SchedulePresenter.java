@@ -9,7 +9,7 @@ import com.irfankhoirul.apps.tatravel.data.source.locale.cart.CartRepository;
 import com.irfankhoirul.apps.tatravel.data.source.locale.session.SessionRepository;
 import com.irfankhoirul.apps.tatravel.data.source.remote.schedule.ScheduleRepository;
 import com.irfankhoirul.mvp_core.data.DataResult;
-import com.irfankhoirul.mvp_core.data.IRequestResponseListener;
+import com.irfankhoirul.mvp_core.data.RequestResponseListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -89,7 +89,7 @@ public class SchedulePresenter implements ScheduleContract.Presenter {
             String value = entry.getValue();
             Log.v(key, value);
         }
-        scheduleRepository.searchSchedule(new IRequestResponseListener<JadwalPerjalanan>() {
+        scheduleRepository.searchSchedule(new RequestResponseListener<JadwalPerjalanan>() {
             @Override
             public void onSuccess(DataResult<JadwalPerjalanan> result) {
                 view.setLoadingDialog(false, null);

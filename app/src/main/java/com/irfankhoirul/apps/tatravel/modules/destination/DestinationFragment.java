@@ -46,10 +46,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.irfankhoirul.apps.tatravel.R;
 import com.irfankhoirul.apps.tatravel.components.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.data.pojo.Lokasi;
-import com.irfankhoirul.apps.tatravel.modules.MainActivity;
 import com.irfankhoirul.mvp_core.base.BaseFragment;
-
-import org.parceler.Parcels;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -68,7 +65,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DestinationFragment extends BaseFragment<MainActivity, DestinationContract.Presenter> implements
+public class DestinationFragment extends BaseFragment<DestinationActivity, DestinationContract.Presenter> implements
         OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
@@ -160,6 +157,12 @@ public class DestinationFragment extends BaseFragment<MainActivity, DestinationC
     @Override
     public void onMapReady(GoogleMap googleMap) {
         destinationMap = googleMap;
+
+        LatLng defaultLatLng = new LatLng(-2.670993, 120.772449);
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(defaultLatLng).zoom(4).build();
+        destinationMap.animateCamera(CameraUpdateFactory
+                .newCameraPosition(cameraPosition));
 
         if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             String[] locationPermissions = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
@@ -366,7 +369,7 @@ public class DestinationFragment extends BaseFragment<MainActivity, DestinationC
                     intent.putExtra("locality", address.getLocality());
                     intent.putExtra("sub_admin", address.getSubAdminArea());
                     intent.putExtra("admin", address.getAdminArea());
-                    intent.putExtra("operatorTravelLocationIds", Parcels.wrap(mPresenter.getTravelLocationIds()));
+                    intent.putIntegerArrayListExtra("operatorTravelLocationIds", mPresenter.getTravelLocationIds());
                     activity.setResult(ConstantUtils.REQUEST_RESULT_SUCCESS, intent);
                     activity.finish();
                 } else {

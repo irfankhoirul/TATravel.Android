@@ -1,10 +1,11 @@
 package com.irfankhoirul.apps.tatravel.data.pojo;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.irfankhoirul.mvp_core.base.BaseModel;
-
-import org.parceler.Parcel;
+import com.irfankhoirul.mvp_core.base.BasePojo;
 
 /**
  * Merupakan model dari tabel Admin
@@ -13,33 +14,45 @@ import org.parceler.Parcel;
  * @since 1.0
  */
 
-@Parcel
-public class Admin extends BaseModel {
+public class Admin extends BasePojo implements Parcelable {
+    public static final Creator<Admin> CREATOR = new Creator<Admin>() {
+        @Override
+        public Admin createFromParcel(Parcel in) {
+            return new Admin(in);
+        }
+
+        @Override
+        public Admin[] newArray(int size) {
+            return new Admin[size];
+        }
+    };
     @SerializedName("id_super_admin")
     @Expose
-    protected int idSuperAdmin;
-
+    private int idSuperAdmin;
     @SerializedName("id_operator_travel")
     @Expose
-    protected int idOperatorTravel;
-
+    private int idOperatorTravel;
     @SerializedName("id_user")
     @Expose
-    protected int idUser;
-
+    private int idUser;
     @SerializedName("status")
     @Expose
-    protected String status;
-
+    private String status;
     @SerializedName("super_admin")
     @Expose
-    protected SuperAdmin superAdmin;
-
+    private SuperAdmin superAdmin;
     @SerializedName("user")
     @Expose
-    protected User user;
+    private User user;
 
     public Admin() {
+    }
+
+    protected Admin(Parcel in) {
+        idSuperAdmin = in.readInt();
+        idOperatorTravel = in.readInt();
+        idUser = in.readInt();
+        status = in.readString();
     }
 
     public int getIdSuperAdmin() {
@@ -104,5 +117,18 @@ public class Admin extends BaseModel {
                 ", superAdmin=" + superAdmin +
                 ", user=" + user +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(idSuperAdmin);
+        dest.writeInt(idOperatorTravel);
+        dest.writeInt(idUser);
+        dest.writeString(status);
     }
 }

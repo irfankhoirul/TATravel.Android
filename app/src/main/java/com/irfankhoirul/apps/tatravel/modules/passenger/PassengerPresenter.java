@@ -1,11 +1,13 @@
 package com.irfankhoirul.apps.tatravel.modules.passenger;
 
+import android.util.Log;
+
 import com.irfankhoirul.apps.tatravel.components.ConstantUtils;
 import com.irfankhoirul.apps.tatravel.data.pojo.Penumpang;
 import com.irfankhoirul.apps.tatravel.data.source.locale.session.SessionRepository;
 import com.irfankhoirul.apps.tatravel.data.source.remote.passenger.PassengerRepository;
 import com.irfankhoirul.mvp_core.data.DataResult;
-import com.irfankhoirul.mvp_core.data.IRequestResponseListener;
+import com.irfankhoirul.mvp_core.data.RequestResponseListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,8 +25,8 @@ public class PassengerPresenter implements PassengerContract.Presenter {
     private final PassengerContract.View view;
     private final PassengerRepository passengerRepository;
     private final SessionRepository sessionRepository;
-    private List<Penumpang> selectedPassengers = new ArrayList<>();
-    private List<Penumpang> passengers = new ArrayList<>();
+    private ArrayList<Penumpang> selectedPassengers = new ArrayList<>();
+    private ArrayList<Penumpang> passengers = new ArrayList<>();
 
     @Inject
     public PassengerPresenter(SessionRepository sessionRepository, PassengerRepository passengerRepository, PassengerContract.View view) {
@@ -50,7 +52,7 @@ public class PassengerPresenter implements PassengerContract.Presenter {
     public void createPassenger(final Map<String, String> param) {
         param.put("token", sessionRepository.getSessionData().getUserToken().getToken());
         view.setLoadingDialog(true, "Menyimpan data penumpang...");
-        passengerRepository.createPassenger(new IRequestResponseListener<Penumpang>() {
+        passengerRepository.createPassenger(new RequestResponseListener<Penumpang>() {
             @Override
             public void onSuccess(DataResult<Penumpang> result) {
                 view.setLoadingDialog(false, null);
@@ -76,7 +78,7 @@ public class PassengerPresenter implements PassengerContract.Presenter {
     public void updatePassenger(final int position, final Penumpang passenger, Map<String, String> param) {
         param.put("token", sessionRepository.getSessionData().getUserToken().getToken());
         view.setLoadingDialog(true, "Menyimpan data penumpang...");
-        passengerRepository.updatePassenger(new IRequestResponseListener<Penumpang>() {
+        passengerRepository.updatePassenger(new RequestResponseListener<Penumpang>() {
             @Override
             public void onSuccess(DataResult<Penumpang> result) {
                 view.setLoadingDialog(false, null);
@@ -108,7 +110,7 @@ public class PassengerPresenter implements PassengerContract.Presenter {
         Map<String, String> param = new HashMap<>();
         param.put("token", sessionRepository.getSessionData().getUserToken().getToken());
         view.setLoadingDialog(true, "Menyimpan data penumpang...");
-        passengerRepository.deletePassenger(new IRequestResponseListener() {
+        passengerRepository.deletePassenger(new RequestResponseListener() {
             @Override
             public void onSuccess(DataResult result) {
                 view.setLoadingDialog(false, null);
@@ -150,7 +152,7 @@ public class PassengerPresenter implements PassengerContract.Presenter {
         if (Integer.parseInt(params.get("page")) == 1) {
             view.setLoadingDialog(true, "Memuat data...");
         }
-        passengerRepository.listPassenger(new IRequestResponseListener<Penumpang>() {
+        passengerRepository.listPassenger(new RequestResponseListener<Penumpang>() {
             @Override
             public void onSuccess(DataResult<Penumpang> result) {
                 view.setLoadingDialog(false, null);
@@ -159,7 +161,7 @@ public class PassengerPresenter implements PassengerContract.Presenter {
                         view.showDataExist();
                         for (int i = 0; i < result.getDatas().size(); i++) {
                             for (int j = 0; j < selectedPassengers.size(); j++) {
-                                if (result.getDatas().get(i).getId() == selectedPassengers.get(j).getId()) {
+                                if (result.getDatas().get(i).getNama().equals(selectedPassengers.get(j).getNama())) {
                                     result.getDatas().get(i).setSelected(true);
                                 }
                             }
@@ -183,12 +185,15 @@ public class PassengerPresenter implements PassengerContract.Presenter {
     }
 
     @Override
-    public void setSelectedPassenger(List<Penumpang> passengers) {
+    public void setSelectedPassenger(ArrayList<Penumpang> passengers) {
         selectedPassengers = passengers;
+        for (int i = 0; i < selectedPassengers.size(); i++) {
+            Log.d("Selected" + i, selectedPassengers.get(i).toString());
+        }
     }
 
     @Override
-    public List<Penumpang> getSelectedPassengers() {
+    public ArrayList<Penumpang> getSelectedPassengers() {
         return selectedPassengers;
     }
 
@@ -199,7 +204,7 @@ public class PassengerPresenter implements PassengerContract.Presenter {
                 selectedPassengers.add(passenger);
             } else {
                 for (int i = 0; i < selectedPassengers.size(); i++) {
-                    if (selectedPassengers.get(i).getId() == passenger.getId()) {
+                    if (selectedPassengers.get(i).getNama().equals(passenger.getNama())) {
                         selectedPassengers.remove(i);
                     }
                 }

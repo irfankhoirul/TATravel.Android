@@ -1,6 +1,6 @@
 package com.irfankhoirul.apps.tatravel.data.source.remote.schedule;
 
-import com.irfankhoirul.mvp_core.data.IRequestResponseListener;
+import com.irfankhoirul.mvp_core.data.RequestResponseListener;
 
 import java.util.Map;
 
@@ -10,10 +10,10 @@ import java.util.Map;
 
 public interface ScheduleRepository {
 
-    void getDepartureAvailability(IRequestResponseListener listener, Map<String, String> param);
+    void getDepartureAvailability(RequestResponseListener listener, Map<String, String> param);
 
-    void getDestinationAvailability(IRequestResponseListener listener, Map<String, String> param);
+    void getDestinationAvailability(RequestResponseListener listener, Map<String, String> param);
 
-    void searchSchedule(IRequestResponseListener listener, int operatorTravelId, Map<String, String> param);
+    void searchSchedule(RequestResponseListener listener, int operatorTravelId, Map<String, String> param);
 
 }

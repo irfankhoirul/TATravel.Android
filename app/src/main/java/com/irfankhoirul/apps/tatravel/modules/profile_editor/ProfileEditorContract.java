@@ -1,8 +1,8 @@
 package com.irfankhoirul.apps.tatravel.modules.profile_editor;
 
 import com.irfankhoirul.apps.tatravel.data.pojo.User;
-import com.irfankhoirul.mvp_core.base.IBasePresenter;
-import com.irfankhoirul.mvp_core.base.IBaseView;
+import com.irfankhoirul.mvp_core.base.BasePresenter;
+import com.irfankhoirul.mvp_core.base.BaseView;
 
 import java.util.List;
 import java.util.Map;
@@ -12,7 +12,7 @@ import java.util.Map;
  */
 
 public interface ProfileEditorContract {
-    interface View extends IBaseView<Presenter> {
+    interface View extends BaseView<Presenter> {
         void showCurrentData(User user);
 
         void updateProvinceList(List<String> provinceNameList);
@@ -24,7 +24,7 @@ public interface ProfileEditorContract {
         void finishActivity();
     }
 
-    interface Presenter extends IBasePresenter {
+    interface Presenter extends BasePresenter {
         void getCityList(String provinceName);
 
         void updateUser(Map<String, String> params);

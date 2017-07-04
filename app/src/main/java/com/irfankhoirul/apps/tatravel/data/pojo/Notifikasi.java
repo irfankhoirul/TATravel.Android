@@ -1,10 +1,10 @@
 package com.irfankhoirul.apps.tatravel.data.pojo;
 
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.irfankhoirul.mvp_core.base.BaseModel;
-
-import org.parceler.Parcel;
+import com.irfankhoirul.mvp_core.base.BasePojo;
 
 /**
  * Merupakan model dari tabel Notifikasi
@@ -13,27 +13,40 @@ import org.parceler.Parcel;
  * @since   1.0
  */
 
-@Parcel
-public class Notifikasi extends BaseModel {
+public class Notifikasi extends BasePojo implements Parcelable {
+    public static final Creator<Notifikasi> CREATOR = new Creator<Notifikasi>() {
+        @Override
+        public Notifikasi createFromParcel(android.os.Parcel in) {
+            return new Notifikasi(in);
+        }
+
+        @Override
+        public Notifikasi[] newArray(int size) {
+            return new Notifikasi[size];
+        }
+    };
     @SerializedName("id_user_device")
     @Expose
-    protected int idUserDevice;
-
+    private int idUserDevice;
     @SerializedName("pesan")
     @Expose
-    protected String pesan;
-
+    private String pesan;
     @SerializedName("status")
     @Expose
-    protected String status;
-
+    private String status;
     @SerializedName("tipe")
     @Expose
-    protected String tipe;
-
+    private String tipe;
     @SerializedName("user_device")
     @Expose
-    protected UserDevice userDevice;
+    private UserDevice userDevice;
+
+    protected Notifikasi(android.os.Parcel in) {
+        idUserDevice = in.readInt();
+        pesan = in.readString();
+        status = in.readString();
+        tipe = in.readString();
+    }
 
     public int getIdUserDevice() {
         return idUserDevice;
@@ -75,4 +88,16 @@ public class Notifikasi extends BaseModel {
         this.userDevice = userDevice;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(android.os.Parcel dest, int flags) {
+        dest.writeInt(idUserDevice);
+        dest.writeString(pesan);
+        dest.writeString(status);
+        dest.writeString(tipe);
+    }
 }

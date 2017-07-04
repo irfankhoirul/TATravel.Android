@@ -1,7 +1,7 @@
 package com.irfankhoirul.apps.tatravel.data.source.remote.user;
 
 import com.irfankhoirul.apps.tatravel.data.pojo.User;
-import com.irfankhoirul.mvp_core.data.IRequestResponseListener;
+import com.irfankhoirul.mvp_core.data.RequestResponseListener;
 
 import java.util.Map;
 
@@ -11,19 +11,19 @@ import java.util.Map;
 
 public interface UserRepository {
 
-    void register(IRequestResponseListener listener, Map<String, String> param);
+    void register(RequestResponseListener listener, Map<String, String> param);
 
-    void verify(IRequestResponseListener<User> listener, Map<String, String> param);
+    void verify(RequestResponseListener<User> listener, Map<String, String> param);
 
-    void login(IRequestResponseListener<User> listener, Map<String, String> param);
+    void login(RequestResponseListener<User> listener, Map<String, String> param);
 
-    void logout(IRequestResponseListener listener, Map<String, String> param);
+    void logout(RequestResponseListener listener, Map<String, String> param);
 
-    void updateFcmToken(IRequestResponseListener listener, Map<String, String> param);
+    void updateFcmToken(RequestResponseListener listener, Map<String, String> param);
 
-    void getListCity(IRequestResponseListener listener, int provinceId, Map<String, String> param);
+    void getListCity(RequestResponseListener listener, int provinceId, Map<String, String> param);
 
-    void getListProvince(IRequestResponseListener listener, Map<String, String> param);
+    void getListProvince(RequestResponseListener listener, Map<String, String> param);
 
-    void updateProfile(IRequestResponseListener listener, int userId, Map<String, String> param);
+    void updateProfile(RequestResponseListener listener, int userId, Map<String, String> param);
 }

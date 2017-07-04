@@ -4,7 +4,7 @@ import com.irfankhoirul.apps.tatravel.data.pojo.JadwalPerjalanan;
 import com.irfankhoirul.apps.tatravel.data.pojo.Lokasi;
 import com.irfankhoirul.mvp_core.base.BaseRemoteRepository;
 import com.irfankhoirul.mvp_core.data.DataResult;
-import com.irfankhoirul.mvp_core.data.IRequestResponseListener;
+import com.irfankhoirul.mvp_core.data.RequestResponseListener;
 
 import java.util.Map;
 
@@ -16,7 +16,7 @@ import static com.irfankhoirul.apps.tatravel.data.source.remote.EndPoints.BASE_A
  * Created by Irfan Khoirul on 3/11/2017.
  */
 
-public class ScheduleRepositoryImpl extends BaseRemoteRepository implements ScheduleRepository {
+public class ScheduleRepositoryImpl extends BaseRemoteRepository<IScheduleEndPoints> implements ScheduleRepository {
 
     @Override
     public String setBaseUrl() {
@@ -34,19 +34,19 @@ public class ScheduleRepositoryImpl extends BaseRemoteRepository implements Sche
     }
 
     @Override
-    public void getDepartureAvailability(IRequestResponseListener listener, Map<String, String> param) {
+    public void getDepartureAvailability(RequestResponseListener listener, Map<String, String> param) {
         Call<DataResult<Lokasi>> call = ((IScheduleEndPoints) endPoint).getDepartureAvailability(param);
         execute(call, listener);
     }
 
     @Override
-    public void getDestinationAvailability(IRequestResponseListener listener, Map<String, String> param) {
+    public void getDestinationAvailability(RequestResponseListener listener, Map<String, String> param) {
         Call<DataResult<Lokasi>> call = ((IScheduleEndPoints) endPoint).getDestinationAvailability(param);
         execute(call, listener);
     }
 
     @Override
-    public void searchSchedule(IRequestResponseListener listener, int operatorTravelId, Map<String, String> param) {
+    public void searchSchedule(RequestResponseListener listener, int operatorTravelId, Map<String, String> param) {
         Call<DataResult<JadwalPerjalanan>> call = ((IScheduleEndPoints) endPoint).listJadwalPerjalanan(operatorTravelId, param);
         execute(call, listener);
     }

@@ -1,10 +1,10 @@
 package com.irfankhoirul.apps.tatravel.data.pojo;
 
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.irfankhoirul.mvp_core.base.BaseModel;
-
-import org.parceler.Parcel;
+import com.irfankhoirul.mvp_core.base.BasePojo;
 
 import java.util.Map;
 
@@ -15,67 +15,78 @@ import java.util.Map;
  * @since   1.0
  */
 
-@Parcel
-public class OperatorTravel extends BaseModel {
+public class OperatorTravel extends BasePojo implements Parcelable {
+    public static final Creator<OperatorTravel> CREATOR = new Creator<OperatorTravel>() {
+        @Override
+        public OperatorTravel createFromParcel(android.os.Parcel in) {
+            return new OperatorTravel(in);
+        }
+
+        @Override
+        public OperatorTravel[] newArray(int size) {
+            return new OperatorTravel[size];
+        }
+    };
     @SerializedName("id_super_admin")
     @Expose
-    protected int idSuperAdmin;
-
+    private int idSuperAdmin;
     @SerializedName("nama")
     @Expose
-    protected String nama;
-
+    private String nama;
     @SerializedName("id_kota")
     @Expose
-    protected int idKota;
-
+    private int idKota;
     @SerializedName("alamat")
     @Expose
-    protected String alamat;
-
+    private String alamat;
     @SerializedName("telepon")
     @Expose
-    protected String telepon;
-
+    private String telepon;
     @SerializedName("penanggung_jawab")
     @Expose
-    protected String penanggungJawab;
-
+    private String penanggungJawab;
     @SerializedName("telepon_penanggung_jawab")
     @Expose
-    protected String teleponPenanggungJawab;
-
+    private String teleponPenanggungJawab;
     @SerializedName("status")
     @Expose
-    protected String status;
-
+    private String status;
     @SerializedName("super_admin")
     @Expose
-    protected SuperAdmin superAdmin;
-
+    private SuperAdmin superAdmin;
     @SerializedName("kota")
     @Expose
-    protected Kota kota;
-
+    private Kota kota;
     @SerializedName("logo")
     @Expose
-    protected String logo;
-
+    private String logo;
     @SerializedName("izinkan_lokasi_khusus")
     @Expose
-    protected boolean izinkanLokasiKhusus;
-
+    private boolean izinkanLokasiKhusus;
     @SerializedName("jarak_penjemputan_maksimum")
     @Expose
-    protected int jarakPenjemputanMaksimum;
-
+    private int jarakPenjemputanMaksimum;
     @SerializedName("biaya_lokasi_khusus")
     @Expose
-    protected int biayaLokasiKhusus;
-
+    private int biayaLokasiKhusus;
     // Tambahan
-    protected Map<String, String> keterangan;
+    private Map<String, String> keterangan;
 
+    protected OperatorTravel(android.os.Parcel in) {
+        idSuperAdmin = in.readInt();
+        nama = in.readString();
+        idKota = in.readInt();
+        alamat = in.readString();
+        telepon = in.readString();
+        penanggungJawab = in.readString();
+        teleponPenanggungJawab = in.readString();
+        status = in.readString();
+        kota = in.readParcelable(Kota.class.getClassLoader());
+        logo = in.readString();
+        izinkanLokasiKhusus = in.readByte() != 0;
+        jarakPenjemputanMaksimum = in.readInt();
+        biayaLokasiKhusus = in.readInt();
+    }
 
     public int getIdSuperAdmin() {
         return idSuperAdmin;
@@ -195,5 +206,27 @@ public class OperatorTravel extends BaseModel {
 
     public void setKeterangan(Map<String, String> keterangan) {
         this.keterangan = keterangan;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(android.os.Parcel dest, int flags) {
+        dest.writeInt(idSuperAdmin);
+        dest.writeString(nama);
+        dest.writeInt(idKota);
+        dest.writeString(alamat);
+        dest.writeString(telepon);
+        dest.writeString(penanggungJawab);
+        dest.writeString(teleponPenanggungJawab);
+        dest.writeString(status);
+        dest.writeParcelable(kota, flags);
+        dest.writeString(logo);
+        dest.writeByte((byte) (izinkanLokasiKhusus ? 1 : 0));
+        dest.writeInt(jarakPenjemputanMaksimum);
+        dest.writeInt(biayaLokasiKhusus);
     }
 }

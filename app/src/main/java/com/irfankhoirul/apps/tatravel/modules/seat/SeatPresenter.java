@@ -9,7 +9,7 @@ import com.irfankhoirul.apps.tatravel.data.source.locale.cart.CartRepository;
 import com.irfankhoirul.apps.tatravel.data.source.locale.session.SessionRepository;
 import com.irfankhoirul.apps.tatravel.data.source.remote.seat.SeatRepository;
 import com.irfankhoirul.mvp_core.data.DataResult;
-import com.irfankhoirul.mvp_core.data.IRequestResponseListener;
+import com.irfankhoirul.mvp_core.data.RequestResponseListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -60,7 +60,7 @@ public class SeatPresenter implements SeatContract.Presenter {
             String value = entry.getValue();
             Log.v(key, value);
         }
-        seatRepository.scheduleSeat(new IRequestResponseListener<KursiPerjalanan>() {
+        seatRepository.scheduleSeat(new RequestResponseListener<KursiPerjalanan>() {
             @Override
             public void onSuccess(DataResult<KursiPerjalanan> result) {
                 view.setLoadingDialog(false, null);
@@ -98,7 +98,7 @@ public class SeatPresenter implements SeatContract.Presenter {
             String value = entry.getValue();
             Log.v(key, value);
         }
-        seatRepository.bookSeat(new IRequestResponseListener() {
+        seatRepository.bookSeat(new RequestResponseListener() {
             @Override
             public void onSuccess(DataResult result) {
                 view.setLoadingDialog(false, null);

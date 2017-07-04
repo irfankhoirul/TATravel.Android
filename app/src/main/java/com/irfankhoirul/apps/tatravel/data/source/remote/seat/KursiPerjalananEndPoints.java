@@ -18,7 +18,7 @@ import static com.irfankhoirul.apps.tatravel.data.source.remote.EndPoints.LIST_S
  * Created by Irfan Khoirul on 3/11/2017.
  */
 
-public interface IKursiPerjalananEndPoints {
+public interface KursiPerjalananEndPoints {
 
     /**
      * Param

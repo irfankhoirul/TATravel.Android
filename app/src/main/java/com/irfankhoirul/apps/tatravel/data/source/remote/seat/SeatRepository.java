@@ -1,6 +1,6 @@
 package com.irfankhoirul.apps.tatravel.data.source.remote.seat;
 
-import com.irfankhoirul.mvp_core.data.IRequestResponseListener;
+import com.irfankhoirul.mvp_core.data.RequestResponseListener;
 
 import java.util.Map;
 
@@ -10,7 +10,7 @@ import java.util.Map;
 
 public interface SeatRepository {
 
-    void scheduleSeat(IRequestResponseListener listener, int scheduleId, Map<String, String> param);
+    void scheduleSeat(RequestResponseListener listener, int scheduleId, Map<String, String> param);
 
-    void bookSeat(IRequestResponseListener listener, Map<String, String> param);
+    void bookSeat(RequestResponseListener listener, Map<String, String> param);
 }

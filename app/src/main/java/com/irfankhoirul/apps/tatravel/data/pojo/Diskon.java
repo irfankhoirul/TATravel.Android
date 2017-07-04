@@ -1,10 +1,11 @@
 package com.irfankhoirul.apps.tatravel.data.pojo;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.irfankhoirul.mvp_core.base.BaseModel;
-
-import org.parceler.Parcel;
+import com.irfankhoirul.mvp_core.base.BasePojo;
 
 /**
  * Merupakan model dari tabel Diskon
@@ -13,19 +14,32 @@ import org.parceler.Parcel;
  * @since   1.0
  */
 
-@Parcel
-public class Diskon extends BaseModel {
+public class Diskon extends BasePojo implements Parcelable {
+    public static final Creator<Diskon> CREATOR = new Creator<Diskon>() {
+        @Override
+        public Diskon createFromParcel(Parcel in) {
+            return new Diskon(in);
+        }
+
+        @Override
+        public Diskon[] newArray(int size) {
+            return new Diskon[size];
+        }
+    };
     @SerializedName("id_jadwal_perjalanan")
     @Expose
-    protected int idJadwalPerjalanan;
-
+    private int idJadwalPerjalanan;
     @SerializedName("nilai")
     @Expose
-    protected int nilai;
-
+    private int nilai;
     @SerializedName("jadwal_perjalanan")
     @Expose
-    protected JadwalPerjalanan jadwalPerjalanan;
+    private JadwalPerjalanan jadwalPerjalanan;
+
+    protected Diskon(Parcel in) {
+        idJadwalPerjalanan = in.readInt();
+        nilai = in.readInt();
+    }
 
     public int getIdJadwalPerjalanan() {
         return idJadwalPerjalanan;
@@ -49,5 +63,16 @@ public class Diskon extends BaseModel {
 
     public void setJadwalPerjalanan(JadwalPerjalanan jadwalPerjalanan) {
         this.jadwalPerjalanan = jadwalPerjalanan;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(idJadwalPerjalanan);
+        dest.writeInt(nilai);
     }
 }

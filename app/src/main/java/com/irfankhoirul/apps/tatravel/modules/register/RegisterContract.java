@@ -1,7 +1,7 @@
 package com.irfankhoirul.apps.tatravel.modules.register;
 
-import com.irfankhoirul.mvp_core.base.IBasePresenter;
-import com.irfankhoirul.mvp_core.base.IBaseView;
+import com.irfankhoirul.mvp_core.base.BasePresenter;
+import com.irfankhoirul.mvp_core.base.BaseView;
 
 import java.util.Map;
 
@@ -10,13 +10,13 @@ import java.util.Map;
  */
 
 public interface RegisterContract {
-    interface View extends IBaseView<Presenter> {
+    interface View extends BaseView<Presenter> {
         void redirectToVerification(String phone, String email);
 
         void redirectToProfile();
     }
 
-    interface Presenter extends IBasePresenter {
+    interface Presenter extends BasePresenter {
         void register(Map<String, String> param);
 
         void handleSocialRegister(String email, String name, String firebaseInstanceId);

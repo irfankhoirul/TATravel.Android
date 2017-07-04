@@ -5,6 +5,7 @@ import com.irfankhoirul.apps.tatravel.data.pojo.KursiPerjalanan;
 import com.irfankhoirul.apps.tatravel.data.pojo.Pemesanan;
 import com.irfankhoirul.apps.tatravel.data.pojo.Penumpang;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -34,9 +35,9 @@ public interface CartRepository {
 
     void clearTanggalKeberangkatan();
 
-    List<Penumpang> getPenumpang();
+    ArrayList<Penumpang> getPenumpang();
 
-    void setPenumpang(List<Penumpang> penumpangList);
+    void setPenumpang(ArrayList<Penumpang> penumpangList);
 
     void clearPenumpang();
 

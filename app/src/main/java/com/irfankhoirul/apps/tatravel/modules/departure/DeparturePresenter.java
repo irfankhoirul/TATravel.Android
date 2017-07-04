@@ -5,7 +5,7 @@ import com.irfankhoirul.apps.tatravel.data.pojo.Lokasi;
 import com.irfankhoirul.apps.tatravel.data.pojo.OperatorTravel;
 import com.irfankhoirul.apps.tatravel.data.source.remote.schedule.ScheduleRepository;
 import com.irfankhoirul.mvp_core.data.DataResult;
-import com.irfankhoirul.mvp_core.data.IRequestResponseListener;
+import com.irfankhoirul.mvp_core.data.RequestResponseListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,7 +23,7 @@ public class DeparturePresenter implements DepartureContract.Presenter {
     private final DepartureContract.View view;
     private final ScheduleRepository scheduleRepository;
     private boolean gotLocation = false;
-    private List<Lokasi> lokasiList = new ArrayList<>();
+    private ArrayList<Lokasi> lokasiList = new ArrayList<>();
 
     @Inject
     public DeparturePresenter(ScheduleRepository scheduleRepository, DepartureContract.View view) {
@@ -48,12 +48,12 @@ public class DeparturePresenter implements DepartureContract.Presenter {
     @Override
     public void checkLocationAvailability(Map<String, String> params) {
         view.setLoadingDialog(true, "Mencari Operator Travel...");
-        scheduleRepository.getDepartureAvailability(new IRequestResponseListener<Lokasi>() {
+        scheduleRepository.getDepartureAvailability(new RequestResponseListener<Lokasi>() {
             @Override
             public void onSuccess(DataResult<Lokasi> result) {
                 view.setLoadingDialog(false, null);
                 if (result.getCode() == ConstantUtils.REQUEST_RESULT_SUCCESS) {
-                    view.updateMap(result.getDatas());
+                    view.updateMap((ArrayList<Lokasi>) result.getDatas());
                 } else {
                     view.showStatus(ConstantUtils.STATUS_ERROR, result.getMessage());
                 }
@@ -131,12 +131,12 @@ public class DeparturePresenter implements DepartureContract.Presenter {
     }
 
     @Override
-    public List<Lokasi> getLocationList() {
+    public ArrayList<Lokasi> getLocationList() {
         return lokasiList;
     }
 
     @Override
-    public void setLocationList(List<Lokasi> locationList) {
+    public void setLocationList(ArrayList<Lokasi> locationList) {
         lokasiList = locationList;
     }
 

@@ -10,7 +10,7 @@ import com.irfankhoirul.apps.tatravel.data.source.locale.cart.CartRepository;
 import com.irfankhoirul.apps.tatravel.data.source.locale.session.SessionRepository;
 import com.irfankhoirul.apps.tatravel.data.source.remote.reservation.ReservationRepository;
 import com.irfankhoirul.mvp_core.data.DataResult;
-import com.irfankhoirul.mvp_core.data.IRequestResponseListener;
+import com.irfankhoirul.mvp_core.data.RequestResponseListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -126,7 +126,7 @@ public class ReservationPresenter implements ReservationContract.Presenter {
             String value = entry.getValue();
             Log.v(key, value);
         }
-        reservationRepository.makeReservation(new IRequestResponseListener<Pemesanan>() {
+        reservationRepository.makeReservation(new RequestResponseListener<Pemesanan>() {
             @Override
             public void onSuccess(DataResult<Pemesanan> result) {
                 view.setLoadingDialog(false, null);

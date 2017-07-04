@@ -1,10 +1,11 @@
 package com.irfankhoirul.apps.tatravel.data.pojo;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.irfankhoirul.mvp_core.base.BaseModel;
-
-import org.parceler.Parcel;
+import com.irfankhoirul.mvp_core.base.BasePojo;
 
 /**
  * Merupakan model dari tabel LogPerjalanan
@@ -13,23 +14,37 @@ import org.parceler.Parcel;
  * @since   1.0
  */
 
-@Parcel
-public class LogPerjalanan extends BaseModel {
+public class LogPerjalanan extends BasePojo implements Parcelable {
+    public static final Creator<LogPerjalanan> CREATOR = new Creator<LogPerjalanan>() {
+        @Override
+        public LogPerjalanan createFromParcel(Parcel in) {
+            return new LogPerjalanan(in);
+        }
+
+        @Override
+        public LogPerjalanan[] newArray(int size) {
+            return new LogPerjalanan[size];
+        }
+    };
     @SerializedName("id_jadwal_perjalanan")
     @Expose
-    protected int idJadwalPerjalanan;
-
+    private int idJadwalPerjalanan;
     @SerializedName("latitude")
     @Expose
-    protected String latitude;
-
+    private String latitude;
     @SerializedName("longitude")
     @Expose
-    protected String longitude;
-
+    private String longitude;
     @SerializedName("jadwal_perjalanan")
     @Expose
-    protected JadwalPerjalanan jadwalPerjalanan;
+    private JadwalPerjalanan jadwalPerjalanan;
+
+    protected LogPerjalanan(Parcel in) {
+        idJadwalPerjalanan = in.readInt();
+        latitude = in.readString();
+        longitude = in.readString();
+        jadwalPerjalanan = in.readParcelable(JadwalPerjalanan.class.getClassLoader());
+    }
 
     public int getIdJadwalPerjalanan() {
         return idJadwalPerjalanan;
@@ -61,5 +76,18 @@ public class LogPerjalanan extends BaseModel {
 
     public void setJadwalPerjalanan(JadwalPerjalanan jadwalPerjalanan) {
         this.jadwalPerjalanan = jadwalPerjalanan;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(idJadwalPerjalanan);
+        dest.writeString(latitude);
+        dest.writeString(longitude);
+        dest.writeParcelable(jadwalPerjalanan, flags);
     }
 }

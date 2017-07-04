@@ -1,10 +1,11 @@
 package com.irfankhoirul.apps.tatravel.data.pojo;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.irfankhoirul.mvp_core.base.BaseModel;
-
-import org.parceler.Parcel;
+import com.irfankhoirul.mvp_core.base.BasePojo;
 
 /**
  * Merupakan model dari tabel UserToken
@@ -13,39 +14,53 @@ import org.parceler.Parcel;
  * @since   1.0
  */
 
-@Parcel
-public class UserToken extends BaseModel {
+public class UserToken extends BasePojo implements Parcelable {
+    public static final Creator<UserToken> CREATOR = new Creator<UserToken>() {
+        @Override
+        public UserToken createFromParcel(Parcel in) {
+            return new UserToken(in);
+        }
+
+        @Override
+        public UserToken[] newArray(int size) {
+            return new UserToken[size];
+        }
+    };
     @SerializedName("expired_at")
     @Expose
-    protected long expiredAt;
-
+    private long expiredAt;
     @SerializedName("id_user")
     @Expose
-    protected int idUser;
-
+    private int idUser;
     @SerializedName("id_user_device")
     @Expose
-    protected int idUserDevice;
-
+    private int idUserDevice;
     @SerializedName("status")
     @Expose
-    protected String status;
-
+    private String status;
     @SerializedName("token")
     @Expose
-    protected String token;
-
+    private String token;
     @SerializedName("total_request")
     @Expose
-    protected int totalRequest;
-
+    private int totalRequest;
     @SerializedName("user")
     @Expose
-    protected User user;
-
+    private User user;
     @SerializedName("user_device")
     @Expose
-    protected UserDevice userDevice;
+    private UserDevice userDevice;
+
+    protected UserToken(Parcel in) {
+        expiredAt = in.readLong();
+        idUser = in.readInt();
+        idUserDevice = in.readInt();
+        status = in.readString();
+        token = in.readString();
+        totalRequest = in.readInt();
+        user = in.readParcelable(User.class.getClassLoader());
+        userDevice = in.readParcelable(UserDevice.class.getClassLoader());
+    }
 
     public long getExpiredAt() {
         return expiredAt;
@@ -109,5 +124,22 @@ public class UserToken extends BaseModel {
 
     public void setUserDevice(UserDevice userDevice) {
         this.userDevice = userDevice;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(expiredAt);
+        dest.writeInt(idUser);
+        dest.writeInt(idUserDevice);
+        dest.writeString(status);
+        dest.writeString(token);
+        dest.writeInt(totalRequest);
+        dest.writeParcelable(user, flags);
+        dest.writeParcelable(userDevice, flags);
     }
 }
