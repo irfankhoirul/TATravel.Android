@@ -104,12 +104,38 @@ public class LoginFragment extends BaseFragment<LoginActivity, LoginContract.Pre
         super.onCreateView(inflater, container, savedInstanceState);
         fragmentView = inflater.inflate(R.layout.fragment_login, container, false);
         unbinder = ButterKnife.bind(this, fragmentView);
-
+//        bindView(fragmentView);
         setupFacebook();
         setupGoogle();
 
         return fragmentView;
     }
+
+//    RadioButton rbLoginWithPhoneNumber;
+//    TextInputLayout tilPhoneNumber;
+//    EditText etPhoneNumber;
+//    RadioButton rbLoginWithEmailAddress;
+//    TextInputLayout tilEmailAddress;
+//    EditText etEmailAddress;
+//    TextInputLayout tilPassword;
+//    EditText etPassword;
+//    Button btLogin;
+//    Button btForgotPassword;
+//    LoginButton loginFacebook;
+//
+//    private void bindView(View view){
+//        rbLoginWithPhoneNumber = (RadioButton) view.findViewById(R.id.rbLoginWithPhoneNumber);
+//        tilPhoneNumber = (TextInputLayout) view.findViewById(R.id.tilPhoneNumber);
+//        etPhoneNumber = (EditText) view.findViewById(R.id.etPhoneNumber);
+//        rbLoginWithEmailAddress = (RadioButton) view.findViewById(R.id.rbLoginWithEmailAddress);
+//        tilEmailAddress = (TextInputLayout) view.findViewById(R.id.tilEmailAddress);
+//        etEmailAddress = (EditText) view.findViewById(R.id.etEmailAddress);
+//        tilPassword = (TextInputLayout) view.findViewById(R.id.tilPassword);
+//        etPassword = (EditText) view.findViewById(R.id.etPassword);
+//        btLogin = (Button) view.findViewById(R.id.btLogin);
+//        btForgotPassword = (Button) view.findViewById(R.id.btForgotPassword);
+//        loginFacebook = (LoginButton) view.findViewById(R.id.loginFacebook);
+//    }
 
     @Override
     public void onResume() {
