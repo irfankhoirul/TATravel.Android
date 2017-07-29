@@ -43,6 +43,9 @@ public class RatingPerjalanan extends BasePojo implements Parcelable {
     private User user;
 
     protected RatingPerjalanan(Parcel in) {
+        id = in.readInt();
+        createdAt = in.readString();
+        updatedAt = in.readString();
         idJadwalPerjalanan = in.readInt();
         idUser = in.readInt();
         rating = in.readInt();
@@ -96,6 +99,9 @@ public class RatingPerjalanan extends BasePojo implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(createdAt);
+        dest.writeString(updatedAt);
         dest.writeInt(idJadwalPerjalanan);
         dest.writeInt(idUser);
         dest.writeInt(rating);

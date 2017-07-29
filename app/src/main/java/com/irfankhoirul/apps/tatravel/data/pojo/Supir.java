@@ -49,6 +49,9 @@ public class Supir extends BasePojo implements Parcelable {
     private User user;
 
     protected Supir(Parcel in) {
+        id = in.readInt();
+        createdAt = in.readString();
+        updatedAt = in.readString();
         idAdmin = in.readInt();
         idOperatorTravel = in.readInt();
         kodeRegistrasi = in.readString();
@@ -120,6 +123,9 @@ public class Supir extends BasePojo implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(createdAt);
+        dest.writeString(updatedAt);
         dest.writeInt(idAdmin);
         dest.writeInt(idOperatorTravel);
         dest.writeString(kodeRegistrasi);

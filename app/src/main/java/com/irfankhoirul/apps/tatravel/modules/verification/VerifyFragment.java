@@ -6,11 +6,13 @@ import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.utility.RegexTemplate;
@@ -37,6 +39,8 @@ public class VerifyFragment extends BaseFragment<VerifyActivity, VerifyContract.
     TextInputLayout tilVerificationCode;
     @BindView(R.id.etVerificationCode)
     EditText etVerificationCode;
+    @BindView(R.id.tvVerificationMessage)
+    TextView tvVerificationMessage;
 
 //    @Inject
 //    FormValidation formValidation;
@@ -60,6 +64,25 @@ public class VerifyFragment extends BaseFragment<VerifyActivity, VerifyContract.
         super.onCreateView(inflater, container, savedInstanceState);
         fragmentView = inflater.inflate(R.layout.fragment_verification, container, false);
         unbinder = ButterKnife.bind(this, fragmentView);
+
+        String phone = getArguments().getString("phone");
+        String email = getArguments().getString("email");
+        if (phone != null) {
+            Log.v("Phone", phone);
+        } else {
+            Log.v("Phone", "Null!!");
+        }
+        if (email != null) {
+            Log.v("Email", email);
+        } else {
+            Log.v("Email", "Null!!");
+        }
+
+        if (getArguments().getString("phone") != null) {
+            tvVerificationMessage.setText(R.string.label_verify_phone_number);
+        } else if (getArguments().getString("email") != null) {
+            tvVerificationMessage.setText(R.string.label_verify_email_address);
+        }
 
         return fragmentView;
     }
@@ -115,8 +138,12 @@ public class VerifyFragment extends BaseFragment<VerifyActivity, VerifyContract.
         if (verifyVerificationForm()) {
             Map<String, String> params = new HashMap<>();
             params.put("registrationCode", etVerificationCode.getText().toString());
-            params.put("phone", getArguments().getString("phone"));
-            params.put("email", getArguments().getString("email"));
+            if (getArguments().getString("phone") != null) {
+                params.put("phone", getArguments().getString("phone"));
+            }
+            if (getArguments().getString("email") != null) {
+                params.put("email", getArguments().getString("email"));
+            }
             params.put("deviceSecretId", Settings.Secure.getString(getActivity().getContentResolver(), Settings.Secure.ANDROID_ID));
 
             mPresenter.verifyUser(params);

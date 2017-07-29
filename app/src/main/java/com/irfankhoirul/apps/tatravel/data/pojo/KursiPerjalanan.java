@@ -39,6 +39,9 @@ public class KursiPerjalanan extends BasePojo implements Parcelable {
     private boolean selected;
 
     protected KursiPerjalanan(Parcel in) {
+        id = in.readInt();
+        createdAt = in.readString();
+        updatedAt = in.readString();
         idKursiMobil = in.readInt();
         status = in.readString();
         kursiMobil = in.readParcelable(KursiMobil.class.getClassLoader());
@@ -84,9 +87,22 @@ public class KursiPerjalanan extends BasePojo implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(createdAt);
+        dest.writeString(updatedAt);
         dest.writeInt(idKursiMobil);
         dest.writeString(status);
         dest.writeParcelable(kursiMobil, flags);
         dest.writeByte((byte) (selected ? 1 : 0));
+    }
+
+    @Override
+    public String toString() {
+        return "KursiPerjalanan{" +
+                "idKursiMobil=" + idKursiMobil +
+                ", status='" + status + '\'' +
+                ", kursiMobil=" + kursiMobil.toString() +
+                ", selected=" + selected +
+                '}';
     }
 }

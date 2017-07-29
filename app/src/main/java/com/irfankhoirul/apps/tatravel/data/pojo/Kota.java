@@ -46,6 +46,9 @@ public class Kota extends BasePojo implements Parcelable {
     private Provinsi provinsi;
 
     protected Kota(Parcel in) {
+        id = in.readInt();
+        createdAt = in.readString();
+        updatedAt = in.readString();
         idSuperAdmin = in.readInt();
         idProvinsi = in.readInt();
         nama = in.readString();
@@ -101,27 +104,30 @@ public class Kota extends BasePojo implements Parcelable {
     }
 
     @Override
-    public String toString() {
-        return "Kota{" +
-                "idSuperAdmin=" + idSuperAdmin +
-                ", idProvinsi=" + idProvinsi +
-                ", nama='" + nama + '\'' +
-                ", kode='" + kode + '\'' +
-                ", superAdmin=" + superAdmin +
-                ", provinsi=" + provinsi +
-                '}';
-    }
-
-    @Override
     public int describeContents() {
         return 0;
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(createdAt);
+        dest.writeString(updatedAt);
         dest.writeInt(idSuperAdmin);
         dest.writeInt(idProvinsi);
         dest.writeString(nama);
         dest.writeString(kode);
+    }
+
+    @Override
+    public String toString() {
+        return "Kota{" +
+                "idSuperAdmin=" + idSuperAdmin +
+                ", idProvinsi=" + idProvinsi +
+                ", nama='" + nama + '\'' +
+                ", kode='" + kode + '\'' +
+                ", superAdmin=" + superAdmin.toString() +
+                ", provinsi=" + provinsi.toString() +
+                '}';
     }
 }

@@ -52,6 +52,9 @@ public class UserToken extends BasePojo implements Parcelable {
     private UserDevice userDevice;
 
     protected UserToken(Parcel in) {
+        id = in.readInt();
+        createdAt = in.readString();
+        updatedAt = in.readString();
         expiredAt = in.readLong();
         idUser = in.readInt();
         idUserDevice = in.readInt();
@@ -133,6 +136,9 @@ public class UserToken extends BasePojo implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(createdAt);
+        dest.writeString(updatedAt);
         dest.writeLong(expiredAt);
         dest.writeInt(idUser);
         dest.writeInt(idUserDevice);

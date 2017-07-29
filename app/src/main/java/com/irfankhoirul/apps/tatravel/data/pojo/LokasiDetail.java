@@ -50,6 +50,9 @@ public class LokasiDetail extends BasePojo implements Parcelable {
     private String alamat;
 
     protected LokasiDetail(Parcel in) {
+        id = in.readInt();
+        createdAt = in.readString();
+        updatedAt = in.readString();
         idPenumpangPerjalanan = in.readInt();
         tipe = in.readString();
         latitude = in.readString();
@@ -120,10 +123,26 @@ public class LokasiDetail extends BasePojo implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(createdAt);
+        dest.writeString(updatedAt);
         dest.writeInt(idPenumpangPerjalanan);
         dest.writeString(tipe);
         dest.writeString(latitude);
         dest.writeString(longitude);
         dest.writeString(alamat);
+    }
+
+    @Override
+    public String toString() {
+        return "LokasiDetail{" +
+                "idPenumpangPerjalanan=" + idPenumpangPerjalanan +
+                ", tipe='" + tipe + '\'' +
+                ", latitude='" + latitude + '\'' +
+                ", longitude='" + longitude + '\'' +
+                ", pemesanan=" + pemesanan.toString() +
+                ", penumpangPerjalanan=" + penumpangPerjalanan.toString() +
+                ", alamat='" + alamat + '\'' +
+                '}';
     }
 }

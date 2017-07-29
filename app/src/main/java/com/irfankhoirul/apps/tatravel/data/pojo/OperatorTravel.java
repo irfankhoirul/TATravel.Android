@@ -73,6 +73,9 @@ public class OperatorTravel extends BasePojo implements Parcelable {
     private Map<String, String> keterangan;
 
     protected OperatorTravel(android.os.Parcel in) {
+        id = in.readInt();
+        createdAt = in.readString();
+        updatedAt = in.readString();
         idSuperAdmin = in.readInt();
         nama = in.readString();
         idKota = in.readInt();
@@ -215,6 +218,9 @@ public class OperatorTravel extends BasePojo implements Parcelable {
 
     @Override
     public void writeToParcel(android.os.Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(createdAt);
+        dest.writeString(updatedAt);
         dest.writeInt(idSuperAdmin);
         dest.writeString(nama);
         dest.writeInt(idKota);
@@ -228,5 +234,26 @@ public class OperatorTravel extends BasePojo implements Parcelable {
         dest.writeByte((byte) (izinkanLokasiKhusus ? 1 : 0));
         dest.writeInt(jarakPenjemputanMaksimum);
         dest.writeInt(biayaLokasiKhusus);
+    }
+
+    @Override
+    public String toString() {
+        return "OperatorTravel{" +
+                "idSuperAdmin=" + idSuperAdmin +
+                ", nama='" + nama + '\'' +
+                ", idKota=" + idKota +
+                ", alamat='" + alamat + '\'' +
+                ", telepon='" + telepon + '\'' +
+                ", penanggungJawab='" + penanggungJawab + '\'' +
+                ", teleponPenanggungJawab='" + teleponPenanggungJawab + '\'' +
+                ", status='" + status + '\'' +
+                ", superAdmin=" + superAdmin.toString() +
+                ", kota=" + kota.toString() +
+                ", logo='" + logo + '\'' +
+                ", izinkanLokasiKhusus=" + izinkanLokasiKhusus +
+                ", jarakPenjemputanMaksimum=" + jarakPenjemputanMaksimum +
+                ", biayaLokasiKhusus=" + biayaLokasiKhusus +
+                ", keterangan=" + keterangan +
+                '}';
     }
 }

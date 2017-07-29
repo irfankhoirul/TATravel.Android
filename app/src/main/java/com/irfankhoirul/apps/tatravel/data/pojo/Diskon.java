@@ -37,6 +37,9 @@ public class Diskon extends BasePojo implements Parcelable {
     private JadwalPerjalanan jadwalPerjalanan;
 
     protected Diskon(Parcel in) {
+        id = in.readInt();
+        createdAt = in.readString();
+        updatedAt = in.readString();
         idJadwalPerjalanan = in.readInt();
         nilai = in.readInt();
     }
@@ -72,7 +75,19 @@ public class Diskon extends BasePojo implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(createdAt);
+        dest.writeString(updatedAt);
         dest.writeInt(idJadwalPerjalanan);
         dest.writeInt(nilai);
+    }
+
+    @Override
+    public String toString() {
+        return "Diskon{" +
+                "idJadwalPerjalanan=" + idJadwalPerjalanan +
+                ", nilai=" + nilai +
+                ", jadwalPerjalanan=" + jadwalPerjalanan +
+                '}';
     }
 }

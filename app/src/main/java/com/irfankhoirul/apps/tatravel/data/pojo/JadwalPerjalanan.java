@@ -99,6 +99,9 @@ public class JadwalPerjalanan extends BasePojo implements Parcelable {
     private int quota;
 
     protected JadwalPerjalanan(android.os.Parcel in) {
+        id = in.readInt();
+        createdAt = in.readString();
+        updatedAt = in.readString();
         idAdmin = in.readInt();
         idOperatorTravel = in.readInt();
         idLokasiPemberangkatan = in.readInt();
@@ -313,40 +316,15 @@ public class JadwalPerjalanan extends BasePojo implements Parcelable {
     }
 
     @Override
-    public String toString() {
-        return "JadwalPerjalanan{" +
-                "id=" + getId() +
-                ", createdAt=" + getCreatedAt() +
-                ", updatedAt=" + getUpdatedAt() +
-                ", idAdmin=" + idAdmin +
-                ", idOperatorTravel=" + idOperatorTravel +
-                ", idLokasiPemberangkatan=" + idLokasiPemberangkatan +
-                ", idLokasiTujuan=" + idLokasiTujuan +
-                ", idMobil=" + idMobil +
-                ", idSupir=" + idSupir +
-                ", waktuKeberangkatan=" + waktuKeberangkatan +
-                ", waktuKedatangan=" + waktuKedatangan +
-                ", status='" + status + '\'' +
-                ", harga=" + harga +
-                ", jumlahKursiTersedia=" + jumlahKursiTersedia +
-                ", biayaLokasiKhusus=" + biayaLokasiKhusus +
-                ", admin=" + admin.toString() +
-                ", operatorTravel=" + operatorTravel +
-                ", lokasiPemberangkatan=" + lokasiPemberangkatan +
-                ", lokasiTujuan=" + lokasiTujuan +
-                ", mobil=" + mobil +
-                ", supir=" + supir +
-                '}';
-
-    }
-
-    @Override
     public int describeContents() {
         return 0;
     }
 
     @Override
     public void writeToParcel(android.os.Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(createdAt);
+        dest.writeString(updatedAt);
         dest.writeInt(idAdmin);
         dest.writeInt(idOperatorTravel);
         dest.writeInt(idLokasiPemberangkatan);
@@ -367,4 +345,33 @@ public class JadwalPerjalanan extends BasePojo implements Parcelable {
         dest.writeDouble(jarakPengantaran);
         dest.writeInt(quota);
     }
+
+    @Override
+    public String toString() {
+        return "JadwalPerjalanan{" +
+                "id=" + id +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", idAdmin=" + idAdmin +
+                ", idOperatorTravel=" + idOperatorTravel +
+                ", idLokasiPemberangkatan=" + idLokasiPemberangkatan +
+                ", idLokasiTujuan=" + idLokasiTujuan +
+                ", idMobil=" + idMobil +
+                ", idSupir=" + idSupir +
+                ", waktuKeberangkatan=" + waktuKeberangkatan +
+                ", waktuKedatangan=" + waktuKedatangan +
+                ", status='" + status + '\'' +
+                ", harga=" + harga +
+                ", jumlahKursiTersedia=" + jumlahKursiTersedia +
+                ", biayaLokasiKhusus=" + biayaLokasiKhusus +
+                ", admin=" + admin.toString() +
+                ", operatorTravel=" + operatorTravel.toString() +
+                ", lokasiPemberangkatan=" + lokasiPemberangkatan.toString() +
+                ", lokasiTujuan=" + lokasiTujuan.toString() +
+                ", mobil=" + mobil.toString() +
+                ", supir=" + supir.toString() +
+                '}';
+
+    }
+
 }

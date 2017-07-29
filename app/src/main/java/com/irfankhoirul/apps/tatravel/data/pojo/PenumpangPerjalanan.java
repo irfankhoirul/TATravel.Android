@@ -43,6 +43,9 @@ public class PenumpangPerjalanan extends BasePojo implements Parcelable {
     private KursiPerjalanan kursiPerjalanan;
 
     protected PenumpangPerjalanan(Parcel in) {
+        id = in.readInt();
+        createdAt = in.readString();
+        updatedAt = in.readString();
         idPenumpang = in.readInt();
         idPemesan = in.readInt();
         penumpang = in.readParcelable(Penumpang.class.getClassLoader());
@@ -97,6 +100,9 @@ public class PenumpangPerjalanan extends BasePojo implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(createdAt);
+        dest.writeString(updatedAt);
         dest.writeInt(idPenumpang);
         dest.writeInt(idPemesan);
         dest.writeParcelable(penumpang, flags);

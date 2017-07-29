@@ -122,12 +122,14 @@ public class ReservationDetailFragment extends BaseFragment<ReservationDetailAct
         } else {
             String tmpPassengerNames = "";
             String tmpSeatNumbers = "";
-            for (int i = 0; i < reservation.getPenumpangPerjalanan().size(); i++) {
-                tmpPassengerNames += reservation.getPenumpangPerjalanan().get(i).getPenumpang().getNama();
-                tmpSeatNumbers += reservation.getPenumpangPerjalanan().get(i).getKursiPerjalanan().getKursiMobil().getNomor();
-                if (i < reservation.getPenumpangPerjalanan().size() - 1) {
-                    tmpPassengerNames += ", ";
-                    tmpSeatNumbers += ", ";
+            if (reservation.getPenumpangPerjalanan() != null) {
+                for (int i = 0; i < reservation.getPenumpangPerjalanan().size(); i++) {
+                    tmpPassengerNames += reservation.getPenumpangPerjalanan().get(i).getPenumpang().getNama();
+                    tmpSeatNumbers += reservation.getPenumpangPerjalanan().get(i).getKursiPerjalanan().getKursiMobil().getNomor();
+                    if (i < reservation.getPenumpangPerjalanan().size() - 1) {
+                        tmpPassengerNames += ", ";
+                        tmpSeatNumbers += ", ";
+                    }
                 }
             }
             tvPassengerNames.setText(tmpPassengerNames);

@@ -43,6 +43,9 @@ public class UserGoogle extends BasePojo implements Parcelable {
     private User user;
 
     protected UserGoogle(Parcel in) {
+        id = in.readInt();
+        createdAt = in.readString();
+        updatedAt = in.readString();
         token = in.readString();
         tokenStatus = in.readString();
         googleId = in.readString();
@@ -97,6 +100,9 @@ public class UserGoogle extends BasePojo implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(createdAt);
+        dest.writeString(updatedAt);
         dest.writeString(token);
         dest.writeString(tokenStatus);
         dest.writeString(googleId);

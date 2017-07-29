@@ -36,49 +36,49 @@ public class UserRepositoryImpl extends BaseRemoteRepository<UserEndPoints> impl
 
     @Override
     public void register(RequestResponseListener listener, Map<String, String> param) {
-        Call<DataResult> call = ((UserEndPoints) endPoint).register(param);
+        Call<DataResult> call = endPoint.register(param);
         execute(call, listener);
     }
 
     @Override
     public void verify(RequestResponseListener<User> listener, Map<String, String> param) {
-        Call<DataResult<User>> call = ((UserEndPoints) endPoint).verify(param);
+        Call<DataResult<User>> call = endPoint.verify(param);
         execute(call, listener);
     }
 
     @Override
     public void login(RequestResponseListener<User> listener, Map<String, String> param) {
-        Call<DataResult<User>> call = ((UserEndPoints) endPoint).login(param);
+        Call<DataResult<User>> call = endPoint.login(param);
         execute(call, listener);
     }
 
     @Override
     public void logout(RequestResponseListener listener, Map<String, String> param) {
-        Call<DataResult> call = ((UserEndPoints) endPoint).logout(param);
+        Call<DataResult> call = endPoint.logout(param);
         execute(call, listener);
     }
 
     @Override
     public void updateFcmToken(RequestResponseListener listener, Map<String, String> param) {
-        Call<DataResult> call = ((UserEndPoints) endPoint).updateFcmToken(param);
+        Call<DataResult> call = endPoint.updateFcmToken(param);
         execute(call, listener);
     }
 
     @Override
     public void getListCity(RequestResponseListener listener, int provinceId, Map<String, String> param) {
-        Call<DataResult<Kota>> call = ((UserEndPoints) endPoint).listKota(provinceId, param);
+        Call<DataResult<Kota>> call = endPoint.listKota(provinceId, param);
         execute(call, listener);
     }
 
     @Override
     public void getListProvince(RequestResponseListener listener, Map<String, String> param) {
-        Call<DataResult<Provinsi>> call = ((UserEndPoints) endPoint).listProvinsi(param);
+        Call<DataResult<Provinsi>> call = endPoint.listProvinsi(param);
         execute(call, listener);
     }
 
     @Override
     public void updateProfile(RequestResponseListener listener, int userId, Map<String, String> param) {
-        Call<DataResult<User>> call = ((UserEndPoints) endPoint).updateProfile(userId, param);
+        Call<DataResult<User>> call = endPoint.updateProfile(userId, param);
         execute(call, listener);
     }
 

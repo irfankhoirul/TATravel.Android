@@ -40,6 +40,9 @@ public class LogPerjalanan extends BasePojo implements Parcelable {
     private JadwalPerjalanan jadwalPerjalanan;
 
     protected LogPerjalanan(Parcel in) {
+        id = in.readInt();
+        createdAt = in.readString();
+        updatedAt = in.readString();
         idJadwalPerjalanan = in.readInt();
         latitude = in.readString();
         longitude = in.readString();
@@ -85,9 +88,22 @@ public class LogPerjalanan extends BasePojo implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(createdAt);
+        dest.writeString(updatedAt);
         dest.writeInt(idJadwalPerjalanan);
         dest.writeString(latitude);
         dest.writeString(longitude);
         dest.writeParcelable(jadwalPerjalanan, flags);
+    }
+
+    @Override
+    public String toString() {
+        return "LogPerjalanan{" +
+                "idJadwalPerjalanan=" + idJadwalPerjalanan +
+                ", latitude='" + latitude + '\'' +
+                ", longitude='" + longitude + '\'' +
+                ", jadwalPerjalanan=" + jadwalPerjalanan.toString() +
+                '}';
     }
 }

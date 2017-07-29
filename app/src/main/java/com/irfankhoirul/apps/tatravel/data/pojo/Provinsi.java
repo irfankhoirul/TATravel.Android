@@ -37,6 +37,9 @@ public class Provinsi extends BasePojo implements Parcelable {
     private SuperAdmin superAdmin;
 
     protected Provinsi(Parcel in) {
+        id = in.readInt();
+        createdAt = in.readString();
+        updatedAt = in.readString();
         idSuperAdmin = in.readInt();
         nama = in.readString();
     }
@@ -81,6 +84,9 @@ public class Provinsi extends BasePojo implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(createdAt);
+        dest.writeString(updatedAt);
         dest.writeInt(idSuperAdmin);
         dest.writeString(nama);
     }

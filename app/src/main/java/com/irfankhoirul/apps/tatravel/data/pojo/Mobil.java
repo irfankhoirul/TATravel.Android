@@ -52,6 +52,9 @@ public class Mobil extends BasePojo implements Parcelable {
     private Admin admin;
 
     protected Mobil(Parcel in) {
+        id = in.readInt();
+        createdAt = in.readString();
+        updatedAt = in.readString();
         idAdmin = in.readInt();
         idOperatorTravel = in.readInt();
         produsen = in.readString();
@@ -133,6 +136,9 @@ public class Mobil extends BasePojo implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(createdAt);
+        dest.writeString(updatedAt);
         dest.writeInt(idAdmin);
         dest.writeInt(idOperatorTravel);
         dest.writeString(produsen);
@@ -141,5 +147,19 @@ public class Mobil extends BasePojo implements Parcelable {
         dest.writeString(platNomor);
         dest.writeString(status);
         dest.writeParcelable(admin, flags);
+    }
+
+    @Override
+    public String toString() {
+        return "Mobil{" +
+                "idAdmin=" + idAdmin +
+                ", idOperatorTravel=" + idOperatorTravel +
+                ", produsen='" + produsen + '\'' +
+                ", tipe='" + tipe + '\'' +
+                ", tahun='" + tahun + '\'' +
+                ", platNomor='" + platNomor + '\'' +
+                ", status='" + status + '\'' +
+                ", admin=" + admin.toString() +
+                '}';
     }
 }

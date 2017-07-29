@@ -310,6 +310,7 @@ public class RegisterFragment extends BaseFragment<RegisterActivity, RegisterCon
         Bundle bundle = new Bundle();
         bundle.putString("phone", phone);
         bundle.putString("email", email);
+        intent.putExtras(bundle);
         startActivityForResult(intent, ConstantUtils.INTENT_REQUEST_REGISTER_TO_VALIDATION);
     }
 

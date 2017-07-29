@@ -46,9 +46,11 @@ public class Pemesanan extends BasePojo implements Parcelable {
     @SerializedName("pembayaran")
     @Expose
     private Pembayaran pembayaran;
+
     @SerializedName("lokasi_penjemputan")
     @Expose
     private LokasiDetail lokasiPenjemputan;
+
     @SerializedName("lokasi_pengantaran")
     @Expose
     private LokasiDetail lokasiPengantaran;
@@ -57,6 +59,9 @@ public class Pemesanan extends BasePojo implements Parcelable {
     private List<PenumpangPerjalanan> penumpangPerjalanan;
 
     protected Pemesanan(Parcel in) {
+        id = in.readInt();
+        createdAt = in.readString();
+        updatedAt = in.readString();
         idUser = in.readInt();
         idJadwalPerjalanan = in.readInt();
         kodePemesanan = in.readString();
@@ -145,6 +150,9 @@ public class Pemesanan extends BasePojo implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(createdAt);
+        dest.writeString(updatedAt);
         dest.writeInt(idUser);
         dest.writeInt(idJadwalPerjalanan);
         dest.writeString(kodePemesanan);
@@ -152,5 +160,23 @@ public class Pemesanan extends BasePojo implements Parcelable {
         dest.writeParcelable(pembayaran, flags);
         dest.writeParcelable(lokasiPenjemputan, flags);
         dest.writeParcelable(lokasiPengantaran, flags);
+    }
+
+    @Override
+    public String toString() {
+        return "Pemesanan{" +
+                "id=" + id +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", idUser=" + idUser +
+                ", idJadwalPerjalanan=" + idJadwalPerjalanan +
+                ", kodePemesanan='" + kodePemesanan + '\'' +
+                ", user=" + user.toString() +
+                ", jadwalPerjalanan=" + jadwalPerjalanan.toString() +
+                ", pembayaran=" + pembayaran.toString() +
+                ", lokasiPenjemputan=" + lokasiPenjemputan.toString() +
+                ", lokasiPengantaran=" + lokasiPengantaran.toString() +
+                ", penumpangPerjalanan=" + penumpangPerjalanan +
+                '}';
     }
 }

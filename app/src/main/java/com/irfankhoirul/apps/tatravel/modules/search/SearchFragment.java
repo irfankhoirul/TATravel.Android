@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -136,10 +137,16 @@ public class SearchFragment extends BaseFragment<MainActivity, SearchContract.Pr
                     departureLocation += data.getStringExtra("thoroughfare");
                 }
                 if (data.getStringExtra("locality") != null) {
-                    departureLocation += ", " + data.getStringExtra("locality");
+                    if (data.getStringExtra("thoroughfare") != null) {
+                        departureLocation += ", ";
+                    }
+                    departureLocation += data.getStringExtra("locality");
                 }
                 if (data.getStringExtra("sub_admin") != null) {
-                    departureLocation += ", " + data.getStringExtra("sub_admin");
+                    if (data.getStringExtra("locality") != null) {
+                        departureLocation += ", ";
+                    }
+                    departureLocation += data.getStringExtra("sub_admin");
                 }
             }
 
@@ -192,6 +199,15 @@ public class SearchFragment extends BaseFragment<MainActivity, SearchContract.Pr
             mPresenter.clearPassenger();
             if (data.getParcelableArrayListExtra("selectedPassengers") != null) {
                 ArrayList<Penumpang> selectedPassengers = data.getParcelableArrayListExtra("selectedPassengers");
+                if (selectedPassengers != null) {
+                    Log.v("SelectedPassenger", "OnActResult");
+                    for (int i = 0; i < selectedPassengers.size(); i++) {
+                        Log.v("Passenger", selectedPassengers.get(i).toString());
+                    }
+                } else {
+                    Log.v("SelectedPassenger", "OnActResult NUll");
+                }
+
                 mPresenter.setSelectedPassengers(selectedPassengers);
                 if (mPresenter.getSelectedPassengers().size() > 0) {
                     setPassengerView(mPresenter.getSelectedPassengers());

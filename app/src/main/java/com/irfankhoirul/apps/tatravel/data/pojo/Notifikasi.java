@@ -42,6 +42,9 @@ public class Notifikasi extends BasePojo implements Parcelable {
     private UserDevice userDevice;
 
     protected Notifikasi(android.os.Parcel in) {
+        id = in.readInt();
+        createdAt = in.readString();
+        updatedAt = in.readString();
         idUserDevice = in.readInt();
         pesan = in.readString();
         status = in.readString();
@@ -95,9 +98,23 @@ public class Notifikasi extends BasePojo implements Parcelable {
 
     @Override
     public void writeToParcel(android.os.Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(createdAt);
+        dest.writeString(updatedAt);
         dest.writeInt(idUserDevice);
         dest.writeString(pesan);
         dest.writeString(status);
         dest.writeString(tipe);
+    }
+
+    @Override
+    public String toString() {
+        return "Notifikasi{" +
+                "idUserDevice=" + idUserDevice +
+                ", pesan='" + pesan + '\'' +
+                ", status='" + status + '\'' +
+                ", tipe='" + tipe + '\'' +
+                ", userDevice=" + userDevice.toString() +
+                '}';
     }
 }

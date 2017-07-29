@@ -10,6 +10,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -153,6 +154,15 @@ public class PassengerFragment extends BaseFragment<PassengerActivity, Passenger
 
     @OnClick(R.id.btSetPassenger)
     public void btSetPassenger() {
+        if (mPresenter.getSelectedPassengers() != null) {
+            Log.v("SelectedPassenger", "OnSetPassenger");
+            for (int i = 0; i < mPresenter.getSelectedPassengers().size(); i++) {
+                Log.v("Passenger", mPresenter.getSelectedPassengers().get(i).toString());
+            }
+        } else {
+            Log.v("SelectedPassenger", "OnSetPassenger NUll");
+        }
+
         Intent intent = new Intent();
         intent.putParcelableArrayListExtra("selectedPassengers", mPresenter.getSelectedPassengers());
         activity.setResult(ConstantUtils.REQUEST_RESULT_SUCCESS, intent);

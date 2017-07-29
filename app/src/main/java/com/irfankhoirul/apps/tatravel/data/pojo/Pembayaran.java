@@ -43,6 +43,9 @@ public class Pembayaran extends BasePojo implements Parcelable {
     private Pembayaran pembayaran;
 
     protected Pembayaran(Parcel in) {
+        id = in.readInt();
+        createdAt = in.readString();
+        updatedAt = in.readString();
         idPembayaran = in.readInt();
         kodePemesanan = in.readString();
         status = in.readString();
@@ -88,9 +91,22 @@ public class Pembayaran extends BasePojo implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(createdAt);
+        dest.writeString(updatedAt);
         dest.writeInt(idPembayaran);
         dest.writeString(kodePemesanan);
         dest.writeString(status);
         dest.writeParcelable(pembayaran, flags);
+    }
+
+    @Override
+    public String toString() {
+        return "Pembayaran{" +
+                "idPembayaran=" + idPembayaran +
+                ", kodePemesanan='" + kodePemesanan + '\'' +
+                ", status='" + status + '\'' +
+                ", pembayaran=" + pembayaran.toString() +
+                '}';
     }
 }

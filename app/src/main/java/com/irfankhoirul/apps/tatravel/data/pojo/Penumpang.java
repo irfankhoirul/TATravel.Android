@@ -39,6 +39,9 @@ public class Penumpang extends BasePojo implements Parcelable {
     private boolean selected;
 
     protected Penumpang(Parcel in) {
+        id = in.readInt();
+        createdAt = in.readString();
+        updatedAt = in.readString();
         idUser = in.readInt();
         nama = in.readString();
         selected = in.readByte() != 0;
@@ -83,6 +86,9 @@ public class Penumpang extends BasePojo implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(createdAt);
+        dest.writeString(updatedAt);
         dest.writeInt(idUser);
         dest.writeString(nama);
         dest.writeByte((byte) (selected ? 1 : 0));

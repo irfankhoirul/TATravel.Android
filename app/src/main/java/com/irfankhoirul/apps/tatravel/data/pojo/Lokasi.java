@@ -61,6 +61,9 @@ public class Lokasi extends BasePojo implements Parcelable {
     private String distance;
 
     protected Lokasi(Parcel in) {
+        id = in.readInt();
+        createdAt = in.readString();
+        updatedAt = in.readString();
         nama = in.readString();
         idAdmin = in.readInt();
         idOperatorTravel = in.readInt();
@@ -162,25 +165,15 @@ public class Lokasi extends BasePojo implements Parcelable {
     }
 
     @Override
-    public String toString() {
-        return "Lokasi{" +
-                "idAdmin=" + idAdmin +
-                ", idOperatorTravel=" + idOperatorTravel +
-                ", idKota=" + idKota +
-                ", alamat='" + alamat + '\'' +
-                ", admin=" + admin +
-                ", operatorTravel=" + operatorTravel +
-                ", kota=" + kota +
-                '}';
-    }
-
-    @Override
     public int describeContents() {
         return 0;
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(createdAt);
+        dest.writeString(updatedAt);
         dest.writeString(nama);
         dest.writeInt(idAdmin);
         dest.writeInt(idOperatorTravel);
@@ -191,5 +184,22 @@ public class Lokasi extends BasePojo implements Parcelable {
         dest.writeString(latitude);
         dest.writeString(longitude);
         dest.writeString(distance);
+    }
+
+    @Override
+    public String toString() {
+        return "Lokasi{" +
+                "nama='" + nama + '\'' +
+                ", idAdmin=" + idAdmin +
+                ", idOperatorTravel=" + idOperatorTravel +
+                ", idKota=" + idKota +
+                ", alamat='" + alamat + '\'' +
+                ", admin=" + admin.toString() +
+                ", operatorTravel=" + operatorTravel.toString() +
+                ", kota=" + kota.toString() +
+                ", latitude='" + latitude + '\'' +
+                ", longitude='" + longitude + '\'' +
+                ", distance='" + distance + '\'' +
+                '}';
     }
 }

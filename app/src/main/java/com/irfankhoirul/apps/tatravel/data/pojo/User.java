@@ -73,6 +73,9 @@ public class User extends BasePojo implements Parcelable {
     private boolean useSocialLogin;
 
     protected User(Parcel in) {
+        id = in.readInt();
+        createdAt = in.readString();
+        updatedAt = in.readString();
         nama = in.readString();
         nomorHandphone = in.readString();
         email = in.readString();
@@ -216,6 +219,9 @@ public class User extends BasePojo implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(createdAt);
+        dest.writeString(updatedAt);
         dest.writeString(nama);
         dest.writeString(nomorHandphone);
         dest.writeString(email);

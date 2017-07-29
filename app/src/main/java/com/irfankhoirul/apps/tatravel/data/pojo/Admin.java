@@ -49,6 +49,9 @@ public class Admin extends BasePojo implements Parcelable {
     }
 
     protected Admin(Parcel in) {
+        id = in.readInt();
+        createdAt = in.readString();
+        updatedAt = in.readString();
         idSuperAdmin = in.readInt();
         idOperatorTravel = in.readInt();
         idUser = in.readInt();
@@ -104,31 +107,30 @@ public class Admin extends BasePojo implements Parcelable {
     }
 
     @Override
-    public String toString() {
-        return "Admin{" +
-                "id=" + getId() +
-                ", createdAt='" + getCreatedAt() + '\'' +
-                ", updatedAt=" + getUpdatedAt() +
-
-                ", idSuperAdmin=" + idSuperAdmin +
-                ", idUser=" + idUser +
-                ", idOperatorTravel=" + idOperatorTravel +
-                ", status='" + status + '\'' +
-                ", superAdmin=" + superAdmin +
-                ", user=" + user +
-                '}';
-    }
-
-    @Override
     public int describeContents() {
         return 0;
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(createdAt);
+        dest.writeString(updatedAt);
         dest.writeInt(idSuperAdmin);
         dest.writeInt(idOperatorTravel);
         dest.writeInt(idUser);
         dest.writeString(status);
+    }
+
+    @Override
+    public String toString() {
+        return "Admin{" +
+                "idSuperAdmin=" + idSuperAdmin +
+                ", idOperatorTravel=" + idOperatorTravel +
+                ", idUser=" + idUser +
+                ", status='" + status + '\'' +
+                ", superAdmin=" + superAdmin.toString() +
+                ", user=" + user.toString() +
+                '}';
     }
 }

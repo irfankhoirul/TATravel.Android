@@ -46,6 +46,9 @@ public class UserDevice extends BasePojo implements Parcelable {
     private User user;
 
     protected UserDevice(Parcel in) {
+        id = in.readInt();
+        createdAt = in.readString();
+        updatedAt = in.readString();
         idUser = in.readInt();
         produsen = in.readString();
         model = in.readString();
@@ -109,6 +112,9 @@ public class UserDevice extends BasePojo implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(createdAt);
+        dest.writeString(updatedAt);
         dest.writeInt(idUser);
         dest.writeString(produsen);
         dest.writeString(model);

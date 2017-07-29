@@ -5,6 +5,7 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="label_verify_phone_number">Silakan masukkan kode verifikasi yang kami kirimkan ke nomor handphone anda.</string>
+    <string name="label_verify_email_address">Silakan masukkan kode verifikasi yang kami kirimkan ke alamat email anda.</string>
     <string name="label_hint_verification_code">Kode Verifikasi</string>
     <string name="label_button_verify">Verifikasi</string>
     <string name="label_hint_phone_number_or_email">Nomor Handphone / Email</string>
